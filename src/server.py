@@ -5,14 +5,14 @@ import os
 from concurrent import futures
 
 import grpc
-from luci.luciapp.services.product.identity.onboard_account_pb2_grpc import add_OnboardAccountServiceServicer_to_server
-from luci.luciapp.services.product.identity.onboard_organization_space_pb2_grpc import \
-    add_OnboardOrganizationSpaceServiceServicer_to_server
 
-import db_session
-from application_context import ApplicationContext
 # HOST = os.environ['EA_SERVICE_IDENTITY_GRPC_EXTERNEL_HOST']
 # PORT = os.environ['EA_SERVICE_IDENTITY_GRPC_EXTERNEL_PORT']
+import db_session
+from application_context import ApplicationContext
+from ethos.elint.services.product.identity.onboard_account_pb2_grpc import add_OnboardAccountServiceServicer_to_server
+from ethos.elint.services.product.identity.onboard_organization_space_pb2_grpc import \
+    add_OnboardOrganizationSpaceServiceServicer_to_server
 from loader import Loader
 
 max_workers = int(os.environ['EA_SERVICE_IDENTITY_GRPC_MAX_WORKERS'])

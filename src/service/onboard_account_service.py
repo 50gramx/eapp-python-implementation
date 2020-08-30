@@ -4,13 +4,13 @@ import uuid
 
 import grpc
 from google.protobuf.timestamp_pb2 import Timestamp
-from luci.luciapp.entities.account_pb2 import ClaimAccountResponse
-from luci.luciapp.services.product.identity.onboard_account_pb2_grpc import OnboardAccountServiceServicer
 from sqlalchemy import exists
 from sqlalchemy.exc import SQLAlchemyError
 
-from cs145442.support.library.application.registry import Registry
 from db_session import DbSession
+from ethos.elint.entities.account_pb2 import ClaimAccountResponse
+from ethos.elint.services.product.identity.onboard_account_pb2_grpc import OnboardAccountServiceServicer
+from ethos.support.library.application.registry import Registry
 from helper_functions import validate_email_dns, get_random_string, mail
 from models.account_model import Account
 
