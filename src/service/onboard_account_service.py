@@ -8,7 +8,7 @@ from sqlalchemy import exists
 from sqlalchemy.exc import SQLAlchemyError
 
 from db_session import DbSession
-from ethos.elint.entities.account_pb2 import ClaimAccountResponse
+from ethos.elint.services.product.identity.onboard_account_pb2 import ClaimAccountResponse
 from ethos.elint.services.product.identity.onboard_account_pb2_grpc import OnboardAccountServiceServicer
 from helpers.helper_functions import validate_email_dns, get_random_string, mail
 from helpers.registry import Registry
@@ -30,6 +30,7 @@ class OnboardAccountService(OnboardAccountServiceServicer):
 
     def claim_account(self, request, context):
         # Getting the request params
+        print('Req rec')
         try:
             account_email_id = request.account_email_id
             requested_at = request.requested_at
@@ -38,6 +39,7 @@ class OnboardAccountService(OnboardAccountServiceServicer):
             requested_at = None
             logger.error("request, exception: {}".format(str(err)))
         # Some helper flags
+        print(account_email_id)
         account_claimable = None
         account_validated = None
         account_exists = None

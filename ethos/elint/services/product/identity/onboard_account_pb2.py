@@ -11,6 +11,7 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 from ethos.elint.entities import account_pb2 as ethos_dot_elint_dot_entities_dot_account__pb2
 try:
   google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_account__pb2.google_dot_protobuf_dot_timestamp__pb2
@@ -20,37 +21,148 @@ except AttributeError:
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='ethos/elint/services/product/identity/onboard_account.proto',
-  package='elint.services.product.identity',
+  package='elint.services.product',
   syntax='proto3',
-  serialized_options=None,
+  serialized_options=b'\n com.ethos.elint.services.productP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n;ethos/elint/services/product/identity/onboard_account.proto\x12\x1f\x65lint.services.product.identity\x1a\"ethos/elint/entities/account.proto2o\n\x15OnboardAccountService\x12V\n\rclaim_account\x12!.elint.entity.ClaimAccountRequest\x1a\".elint.entity.ClaimAccountResponseb\x06proto3'
+  serialized_pb=b'\n;ethos/elint/services/product/identity/onboard_account.proto\x12\x16\x65lint.services.product\x1a\x1cgoogle/api/annotations.proto\x1a\"ethos/elint/entities/account.proto\"a\n\x13\x43laimAccountRequest\x12\x18\n\x10\x61\x63\x63ount_email_id\x18\x01 \x01(\t\x12\x30\n\x0crequested_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x91\x01\n\x14\x43laimAccountResponse\x12\x18\n\x10\x61\x63\x63ount_email_id\x18\x01 \x01(\t\x12\x19\n\x11\x61\x63\x63ount_claimable\x18\x02 \x01(\x08\x12\x12\n\ncode_token\x18\x03 \x01(\t\x12\x30\n\x0c\x63ode_sent_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp2\x84\x01\n\x15OnboardAccountService\x12k\n\x0c\x43laimAccount\x12+.elint.services.product.ClaimAccountRequest\x1a,.elint.services.product.ClaimAccountResponse\"\x00\x42$\n com.ethos.elint.services.productP\x01\x62\x06proto3'
   ,
-  dependencies=[ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,])
+  dependencies=[google_dot_api_dot_annotations__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,])
 
 
 
+
+_CLAIMACCOUNTREQUEST = _descriptor.Descriptor(
+  name='ClaimAccountRequest',
+  full_name='elint.services.product.ClaimAccountRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='account_email_id', full_name='elint.services.product.ClaimAccountRequest.account_email_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='requested_at', full_name='elint.services.product.ClaimAccountRequest.requested_at', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=153,
+  serialized_end=250,
+)
+
+
+_CLAIMACCOUNTRESPONSE = _descriptor.Descriptor(
+  name='ClaimAccountResponse',
+  full_name='elint.services.product.ClaimAccountResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='account_email_id', full_name='elint.services.product.ClaimAccountResponse.account_email_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='account_claimable', full_name='elint.services.product.ClaimAccountResponse.account_claimable', index=1,
+      number=2, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='code_token', full_name='elint.services.product.ClaimAccountResponse.code_token', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='code_sent_at', full_name='elint.services.product.ClaimAccountResponse.code_sent_at', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=253,
+  serialized_end=398,
+)
+
+_CLAIMACCOUNTREQUEST.fields_by_name['requested_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_CLAIMACCOUNTRESPONSE.fields_by_name['code_sent_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+DESCRIPTOR.message_types_by_name['ClaimAccountRequest'] = _CLAIMACCOUNTREQUEST
+DESCRIPTOR.message_types_by_name['ClaimAccountResponse'] = _CLAIMACCOUNTRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
+ClaimAccountRequest = _reflection.GeneratedProtocolMessageType('ClaimAccountRequest', (_message.Message,), {
+  'DESCRIPTOR' : _CLAIMACCOUNTREQUEST,
+  '__module__' : 'ethos.elint.services.product.identity.onboard_account_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.ClaimAccountRequest)
+  })
+_sym_db.RegisterMessage(ClaimAccountRequest)
 
+ClaimAccountResponse = _reflection.GeneratedProtocolMessageType('ClaimAccountResponse', (_message.Message,), {
+  'DESCRIPTOR' : _CLAIMACCOUNTRESPONSE,
+  '__module__' : 'ethos.elint.services.product.identity.onboard_account_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.ClaimAccountResponse)
+  })
+_sym_db.RegisterMessage(ClaimAccountResponse)
+
+
+DESCRIPTOR._options = None
 
 _ONBOARDACCOUNTSERVICE = _descriptor.ServiceDescriptor(
   name='OnboardAccountService',
-  full_name='elint.services.product.identity.OnboardAccountService',
+  full_name='elint.services.product.OnboardAccountService',
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=132,
-  serialized_end=243,
+  serialized_start=401,
+  serialized_end=533,
   methods=[
   _descriptor.MethodDescriptor(
-    name='claim_account',
-    full_name='elint.services.product.identity.OnboardAccountService.claim_account',
+    name='ClaimAccount',
+    full_name='elint.services.product.OnboardAccountService.ClaimAccount',
     index=0,
     containing_service=None,
-    input_type=ethos_dot_elint_dot_entities_dot_account__pb2._CLAIMACCOUNTREQUEST,
-    output_type=ethos_dot_elint_dot_entities_dot_account__pb2._CLAIMACCOUNTRESPONSE,
+    input_type=_CLAIMACCOUNTREQUEST,
+    output_type=_CLAIMACCOUNTRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

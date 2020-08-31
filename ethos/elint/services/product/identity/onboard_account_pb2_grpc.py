@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from ethos.elint.entities import account_pb2 as ethos_dot_elint_dot_entities_dot_account__pb2
+from ethos.elint.services.product.identity import onboard_account_pb2 as ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2
 
 
 class OnboardAccountServiceStub(object):
@@ -14,17 +14,17 @@ class OnboardAccountServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.claim_account = channel.unary_unary(
-                '/elint.services.product.identity.OnboardAccountService/claim_account',
-                request_serializer=ethos_dot_elint_dot_entities_dot_account__pb2.ClaimAccountRequest.SerializeToString,
-                response_deserializer=ethos_dot_elint_dot_entities_dot_account__pb2.ClaimAccountResponse.FromString,
+        self.ClaimAccount = channel.unary_unary(
+                '/elint.services.product.OnboardAccountService/ClaimAccount',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.ClaimAccountRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.ClaimAccountResponse.FromString,
                 )
 
 
 class OnboardAccountServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def claim_account(self, request, context):
+    def ClaimAccount(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -33,14 +33,14 @@ class OnboardAccountServiceServicer(object):
 
 def add_OnboardAccountServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'claim_account': grpc.unary_unary_rpc_method_handler(
-                    servicer.claim_account,
-                    request_deserializer=ethos_dot_elint_dot_entities_dot_account__pb2.ClaimAccountRequest.FromString,
-                    response_serializer=ethos_dot_elint_dot_entities_dot_account__pb2.ClaimAccountResponse.SerializeToString,
+            'ClaimAccount': grpc.unary_unary_rpc_method_handler(
+                    servicer.ClaimAccount,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.ClaimAccountRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.ClaimAccountResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'elint.services.product.identity.OnboardAccountService', rpc_method_handlers)
+            'elint.services.product.OnboardAccountService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -49,7 +49,7 @@ class OnboardAccountService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def claim_account(request,
+    def ClaimAccount(request,
             target,
             options=(),
             channel_credentials=None,
@@ -59,8 +59,8 @@ class OnboardAccountService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.OnboardAccountService/claim_account',
-            ethos_dot_elint_dot_entities_dot_account__pb2.ClaimAccountRequest.SerializeToString,
-            ethos_dot_elint_dot_entities_dot_account__pb2.ClaimAccountResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.OnboardAccountService/ClaimAccount',
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.ClaimAccountRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.ClaimAccountResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
