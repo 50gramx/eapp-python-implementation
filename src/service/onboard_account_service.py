@@ -22,7 +22,11 @@ claim_account_verification_mail_body = "Short lived verification code: {0}"
 timestamp = Timestamp()
 
 
+
 class OnboardAccountService(OnboardAccountServiceServicer):
+    """
+    OnboardAccountService
+    """
 
     def claim_account(self, request, context):
         # Getting the request params
