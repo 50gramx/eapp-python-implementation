@@ -1,1 +1,1 @@
-web: python3 /opt/ethos/apps/service/eapp-identity/src/server.py
+web: python3 src/server.py
