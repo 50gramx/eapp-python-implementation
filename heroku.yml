@@ -4,4 +4,4 @@ build:
   config:
     PORT: 50501
 run:
-  web: python3 src/server.py
+  web: python3 eapp-identity/src/server.py

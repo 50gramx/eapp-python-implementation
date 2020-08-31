@@ -1,7 +1,7 @@
 FROM python:3.8.5-buster
 RUN python3 -m pip install --upgrade pip
 
-RUN pip3 install -r requirements.txt
+RUN pip3 install -r eapp-identity/requirements.txt
 
 ENV EA_ID_DB_HOST ec2-34-197-188-147.compute-1.amazonaws.com
 ENV EA_ID_DB_NAME d1a8eqenv1ah5d
