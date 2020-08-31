@@ -13,7 +13,10 @@ from ethos.elint.services.product.identity.onboard_organization_space_pb2_grpc i
     add_OnboardOrganizationSpaceServiceServicer_to_server
 from loader import Loader
 
-PORT = os.environ['EA_SERVICE_IDENTITY_GRPC_EXTERNEL_PORT']
+PORT = os.environ.get('PORT', None)
+if PORT is None:
+    logging.error("PORT NOT FOUND!")
+
 max_workers = int(os.environ['EA_SERVICE_IDENTITY_GRPC_MAX_WORKERS'])
 
 _LOGGER = logging.getLogger(__name__)
