@@ -1,7 +1,0 @@
-build:
-  docker:
-    web: Dockerfile
-  config:
-    PORT: 50501
-run:
-  web: python3 eapp-identity/src/server.py
