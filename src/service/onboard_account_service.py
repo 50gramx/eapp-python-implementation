@@ -10,8 +10,8 @@ from sqlalchemy.exc import SQLAlchemyError
 from db_session import DbSession
 from ethos.elint.entities.account_pb2 import ClaimAccountResponse
 from ethos.elint.services.product.identity.onboard_account_pb2_grpc import OnboardAccountServiceServicer
-from ethos.support.library.application.registry import Registry
-from helper_functions import validate_email_dns, get_random_string, mail
+from helpers.helper_functions import validate_email_dns, get_random_string, mail
+from helpers.registry import Registry
 from models.account_model import Account
 
 logger = logging.getLogger(__name__)

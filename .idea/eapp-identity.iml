@@ -6,8 +6,5 @@
     </content>
     <orderEntry type="jdk" jdkName="Python 3.8 (eapp-identity)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="lapp-wiki" />
-    <orderEntry type="module" module-name="lapp-python-domain" />
-    <orderEntry type="module" module-name="sup-library-python" />
   </component>
 </module>

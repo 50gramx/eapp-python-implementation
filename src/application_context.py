@@ -1,4 +1,4 @@
-from ethos.support.library.application.registry import Registry
+from helpers.registry import Registry
 
 
 class ApplicationContext(object):

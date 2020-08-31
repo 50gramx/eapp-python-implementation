@@ -6,8 +6,6 @@ from concurrent import futures
 
 import grpc
 
-# HOST = os.environ['EA_SERVICE_IDENTITY_GRPC_EXTERNEL_HOST']
-# PORT = os.environ['EA_SERVICE_IDENTITY_GRPC_EXTERNEL_PORT']
 import db_session
 from application_context import ApplicationContext
 from ethos.elint.services.product.identity.onboard_account_pb2_grpc import add_OnboardAccountServiceServicer_to_server
@@ -15,13 +13,11 @@ from ethos.elint.services.product.identity.onboard_organization_space_pb2_grpc i
     add_OnboardOrganizationSpaceServiceServicer_to_server
 from loader import Loader
 
+PORT = os.environ['EA_SERVICE_IDENTITY_GRPC_EXTERNEL_PORT']
 max_workers = int(os.environ['EA_SERVICE_IDENTITY_GRPC_MAX_WORKERS'])
 
 _LOGGER = logging.getLogger(__name__)
 _LOGGER.setLevel(logging.INFO)
-
-_LISTEN_ADDRESS_TEMPLATE = 'localhost:%d'
-_SIGNATURE_HEADER_KEY = 'x-signature'
 
 
 @contextlib.contextmanager
@@ -40,11 +36,11 @@ def run_server(port):
     )
 
     # TODO: Pass down the credentials to secure port
-    port = server.add_insecure_port(_LISTEN_ADDRESS_TEMPLATE % port)
+    server_port = server.add_insecure_port(f"[::]:{PORT}")
 
     server.start()
     try:
-        yield server, port
+        yield server, server_port
     finally:
         server.stop()
 
