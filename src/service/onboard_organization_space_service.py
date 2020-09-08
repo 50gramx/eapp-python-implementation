@@ -5,8 +5,8 @@ from sqlalchemy import exists
 from sqlalchemy.exc import SQLAlchemyError
 
 from db_session import DbSession
-from ethos.elint.entities.organization_space_pb2 import ClaimOrganizationSpaceResponse
-from ethos.elint.services.product.identity.onboard_organization_space_pb2_grpc import \
+from proto import ClaimOrganizationSpaceResponse
+from proto import \
     OnboardOrganizationSpaceServiceServicer
 from models.organization_space_model import OrgSpace
 

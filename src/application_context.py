@@ -1,4 +1,4 @@
-from helpers.registry import Registry
+from support.registry import Registry
 
 
 class ApplicationContext(object):

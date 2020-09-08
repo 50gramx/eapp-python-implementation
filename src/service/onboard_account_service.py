@@ -8,11 +8,12 @@ from sqlalchemy import exists
 from sqlalchemy.exc import SQLAlchemyError
 
 from db_session import DbSession
-from ethos.elint.services.product.identity.onboard_account_pb2 import ClaimAccountResponse
-from ethos.elint.services.product.identity.onboard_account_pb2_grpc import OnboardAccountServiceServicer
-from helpers.helper_functions import validate_email_dns, get_random_string, mail
-from helpers.registry import Registry
 from models.account_model import Account
+from proto.ethos.elint.services.product.identity.onboard_account_pb2 import ClaimAccountResponse, \
+    ReRequestCodeClaimingAccountResponse
+from proto.ethos.elint.services.product.identity.onboard_account_pb2_grpc import OnboardAccountServiceServicer
+from support.helper_functions import validate_email_dns, get_random_string, mail
+from support.registry import Registry
 
 logger = logging.getLogger(__name__)
 identity_service_mail_id = os.environ['IDENTITY_MAIL_ID']
@@ -22,13 +23,12 @@ claim_account_verification_mail_body = "Short lived verification code: {0}"
 timestamp = Timestamp()
 
 
-
 class OnboardAccountService(OnboardAccountServiceServicer):
     """
     OnboardAccountService
     """
 
-    def claim_account(self, request, context):
+    def ClaimAccount(self, request, context):
         # Getting the request params
         print('Req rec')
         try:
@@ -93,3 +93,35 @@ class OnboardAccountService(OnboardAccountServiceServicer):
                 account_claimable=account_claimable,
                 account_email_id=account_email_id
             )
+
+    def ReRequestCodeClaimingAccount(self, request, context):
+        # Get the data parameters from the request
+        try:
+            account_email_id = request.account_email_id
+            generated_verification_code_token = request.generated_verification_code_token
+            onboard_session_token = request.onboard_session_token
+            requested_at = request.requested_at
+        except Exception as err:
+            account_email_id = None
+            generated_verification_code_token = None
+            onboard_session_token = None
+            requested_at = None
+            logger.error("request, exception: {}".format(str(err)))
+        # Remove the old verification token from the registry
+        Registry.delete_data(generated_verification_code_token)
+        # Generate a new verification_code, code_token, generated_at
+        verification_code, code_generated_at = get_random_string(6)
+        code_token = str(uuid.uuid4())
+        Registry.register_data(code_token, [verification_code, code_generated_at])
+        mail_successful = mail(
+            from_email=identity_service_mail_id,
+            to_email=account_email_id,
+            subject=claim_account_verification_mail_subject,
+            html_content=claim_account_verification_mail_body.format(verification_code)
+        )
+        return ReRequestCodeClaimingAccountResponse(
+            account_email_id=account_email_id,
+            verification_code_token=code_token,
+            onboard_session_token=onboard_session_token,
+            code_sent_at=code_generated_at
+        )
