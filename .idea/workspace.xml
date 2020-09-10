@@ -1,25 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="34942910-25ec-4982-94a1-b355c8cfa8e7" name="Default Changelist" comment="">
+    <list default="true" id="34942910-25ec-4982-94a1-b355c8cfa8e7" name="Default Changelist" comment="fixed build_python_services improper env call">
+      <change afterPath="$PROJECT_DIR$/eapp_identity_program.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/account_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/account_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/knowledge_domain_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/knowledge_domain_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/organization_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/organization_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/organization_space_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/organization_space_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/identity/onboard_account_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/identity/onboard_account_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/identity/onboard_organization_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/identity/onboard_organization_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/identity/onboard_organization_space_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/identity/onboard_organization_space_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge_domain/data_service_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge_domain/data_service_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/services/build_python_services.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/services/build_python_services.sh" afterDir="false" />
     </list>
     <list id="7da50ba8-f629-4fad-95fa-6b7fd26b3082" name="Revert &quot;vanilla: only frontend alive&quot;" comment="undo #2" />
     <list id="d8805b4c-5768-4885-82a5-b8b005d6475e" name="vanilla: only frontend alive" comment="undo #1" />
@@ -62,7 +46,7 @@
         <entry key="$PROJECT_DIR$/../../web/eapp-product-site" value="feature/NE-49-apis-user-sign-up" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../wiki/eapp-wiki" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="SYNC" />
     <option name="UPDATE_TYPE" value="MERGE" />
   </component>
@@ -129,7 +113,7 @@
       <workItem from="1598910914732" duration="534000" />
       <workItem from="1598911621717" duration="716000" />
       <workItem from="1598912369687" duration="37402000" />
-      <workItem from="1599417618951" duration="42873000" />
+      <workItem from="1599417618951" duration="43775000" />
     </task>
     <task id="LOCAL-00001" summary="added Dockerfile and heroku.yml config files">
       <created>1598846200158</created>
@@ -257,7 +241,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599724704759</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="fixed build_python_services improper env call">
+      <created>1599725037932</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1599725037932</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -310,6 +301,7 @@
     <MESSAGE value="changed proto location, fixed timestamp and default value issue, updates with v1.0.2 proto schema, updated registry location, updated email validation params, added temp cloudbuild configs." />
     <MESSAGE value="initiated Dockerbuild commands and configs" />
     <MESSAGE value=".idea files updated, will add to gitignore later" />
-    <option name="LAST_COMMIT_MESSAGE" value=".idea files updated, will add to gitignore later" />
+    <MESSAGE value="fixed build_python_services improper env call" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed build_python_services improper env call" />
   </component>
 </project>
