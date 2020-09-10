@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from proto.ethos.elint.services.product.knowledge_domain import \
+from ethos.elint.services.product.knowledge_domain import \
     data_service_pb2 as ethos_dot_elint_dot_services_dot_product_dot_knowledge__domain_dot_data__service__pb2
 
 

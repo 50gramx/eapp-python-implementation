@@ -10,8 +10,8 @@ from google.protobuf import symbol_database as _symbol_database
 
 _sym_db = _symbol_database.Default()
 
-from proto.google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
-from proto.ethos.elint.entities import account_pb2 as ethos_dot_elint_dot_entities_dot_account__pb2
+from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
+from ethos.elint.entities import account_pb2 as ethos_dot_elint_dot_entities_dot_account__pb2
 
 try:
   google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_account__pb2.google_dot_protobuf_dot_timestamp__pb2

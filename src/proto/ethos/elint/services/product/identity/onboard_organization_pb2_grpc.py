@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from proto.ethos.elint.entities import organization_pb2 as ethos_dot_elint_dot_entities_dot_organization__pb2
+from ethos.elint.entities import organization_pb2 as ethos_dot_elint_dot_entities_dot_organization__pb2
 
 
 class OnboardOrganizationServiceStub(object):

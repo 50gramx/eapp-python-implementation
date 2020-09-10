@@ -54,6 +54,7 @@ class OnboardOrganizationSpaceService(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -62,4 +63,4 @@ class OnboardOrganizationSpaceService(object):
             ethos_dot_elint_dot_entities_dot_organization__space__pb2.ClaimOrganizationSpaceRequest.SerializeToString,
             ethos_dot_elint_dot_entities_dot_organization__space__pb2.ClaimOrganizationSpaceResponse.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

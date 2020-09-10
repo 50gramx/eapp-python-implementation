@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "healthcare-analytics-197813",
+  "private_key_id": "dbdf0cdf6e92425b19557f6aaf142bd7defdc097",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCGWeHX46e+DVF3\nbfENU17Hzl7gAoYDqxtHVjWJKL28z/9LDLqFa4OuwM6nb22buLvr4n/whcQLlDMC\ntgizE7j7dO12HbywcLDsXgdeIN4iubx/RlaKtwZG6N97gzOsThelRzovalFrrNx8\nfVNz4RT0ERlam7f9q4WVvrlMeli2wHtbDpvev+k/EC/LGSF4S99qzvIIv7Wrj+Li\nqZRiyzHb6NwbGEvoB1gBq3stEHlIljaIUFZ59DZds4giV8Q4d3bqjJPtkajHEzg8\ngFXYX8OoGEmocTuwUBfuFfQQ4eZWJnqOcrtkna1vWWcBRhPWkDWQhKDRd6sT0Dlp\neW5L75SbAgMBAAECggEAO/Tau9zF3CPXamPvAlJlZuerIW8e3X47wz8uzxIWcq+k\nL5rzll0fvBohX0lz8d2kR6WiEPWxQrWVei1AfqJbmCRbYK3uqhLwcduYkCI83+Rh\nwa7jKi55p6V/LoCjy85h8QlzZvuccGAJWakYWAtnrXAAD5aUqqkkCWq/COlEs/FW\n09Dh6f8x9YrICuLmUfO+GF2TUMXQP5Xtp2aIPt54eV3EpZVtX3Wxl1IJgAkiAMHA\n+HjAX0kOJPUTAy2qowW0jOBhOLxuSXX/lafyIAXNari/D1iVfpJyQutdYqDIkjiD\n4j6372bVkKlc7R+dBBUTaQaOd2QenDkQ+GYGdfHGiQKBgQC6YyrZfYIgZ70hBPDF\noXTiq4m+WIDAMBz0cjOr9JI+2SABMveW1R/kezN2eZrOqYpfoZMBzAsZ7mCl+luq\nyX0/yp2YVh0utFQoV6Eq05xvxbGZCgCdKK9m80tLpxXFc7wcPQRvhHAiNKaiBvtz\ntLprLlZj0hLeCyf4iMyAHKg9nwKBgQC4h27onTmVXeeVNMC0GOy2P8+/azolAfkI\n2CW7tTHNxKUJnl2D2QdJHd+RfjEfAucqqDpTUoH2KGDltSyMjCF593FOTEu0e7FW\nQQKjIwOdZ8CPKfvhpY4KQeVTYKqevok7EB6CyorcObxx9ayG6JklLYgKQ/f5c9UM\nvZEvPMzPhQKBgHxKmw1zw63GX/m/6Ktx0pdBWtaDAECpFPXxngGCU2/zrIMAMNj1\ngJIFkjjkONatemfxQC4HmjONoges3yoRuSMsA1HNwyIdAK3yWbhMatqiU59Ba01i\nDy2w+joVzs/gMMYH7ohLIde9ko0j6NSs5U+KE/P257wIZnw3BWA9O/fzAoGAIx6b\njCgIQpZJsgsFNgGcY59Hcb39pfd3JyjEHbKBlRD8/BSo5aQTj+Xgm/cxcB6EUokL\n+Lm2RFww/Ob7YJB2+piOdwFsUyBLgwgCcXwDfxy0+EpcRvjUTL134ON/9ZB728LY\nm7nircFLTUEdodt48it1Pcbr1g0mmjMmA6CFtmUCgYEAjHIzZxhRNVUXgbGoQA80\n8fY5zTopAyFNt+15v2mRqWbs4hPVqn4/fF4yLiGsWrLsXkeYBomKMaR5CXSLNPEp\nXLZ39fq9VbfryYiO/li878ExyBzUlzCdW6RBMA7awBw/GTAcg00oTDVc8tyC7OrN\niK54GOcNRT6ZvZr83tpSEcE=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-ytbek@healthcare-analytics-197813.iam.gserviceaccount.com",
+  "client_id": "109231512597701591678",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-ytbek%40healthcare-analytics-197813.iam.gserviceaccount.com"
+}

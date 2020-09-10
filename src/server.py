@@ -9,9 +9,9 @@ import grpc
 import db_session
 from application_context import ApplicationContext
 from loader import Loader
-from proto.ethos.elint.services.product.identity.onboard_account_pb2_grpc import \
+from ethos.elint.services.product.identity.onboard_account_pb2_grpc import \
     add_OnboardAccountServiceServicer_to_server
-from proto.ethos.elint.services.product.identity.onboard_organization_space_pb2_grpc import \
+from ethos.elint.services.product.identity.onboard_organization_space_pb2_grpc import \
     add_OnboardOrganizationSpaceServiceServicer_to_server
 
 PORT = os.environ.get('PORT', None)

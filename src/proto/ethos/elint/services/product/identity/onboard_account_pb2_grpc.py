@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from proto.ethos.elint.services.product.identity import \
+from ethos.elint.services.product.identity import \
     onboard_account_pb2 as ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2
 
 

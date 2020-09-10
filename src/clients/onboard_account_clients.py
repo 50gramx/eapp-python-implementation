@@ -1,12 +1,12 @@
 import grpc
 from google.protobuf.json_format import MessageToJson
 
-from proto.ethos.elint.entities.organization_space_pb2 import ClaimOrganizationSpaceRequest
+from ethos.elint.entities.organization_space_pb2 import ClaimOrganizationSpaceRequest
 
-from proto.ethos.elint.services.product.identity.onboard_account_pb2 import ClaimAccountRequest
-from proto.ethos.elint.services.product.identity.onboard_account_pb2_grpc import OnboardAccountServiceStub
+from ethos.elint.services.product.identity.onboard_account_pb2 import ClaimAccountRequest
+from ethos.elint.services.product.identity.onboard_account_pb2_grpc import OnboardAccountServiceStub
 
-from proto.ethos.elint.services.product.identity.onboard_organization_space_pb2_grpc import \
+from ethos.elint.services.product.identity.onboard_organization_space_pb2_grpc import \
     OnboardOrganizationSpaceServiceStub
 
 host = "ec2-13-232-208-213.ap-south-1.compute.amazonaws.com"

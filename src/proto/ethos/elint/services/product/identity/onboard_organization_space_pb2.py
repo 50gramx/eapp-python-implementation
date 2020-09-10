@@ -8,8 +8,7 @@ from google.protobuf import symbol_database as _symbol_database
 
 _sym_db = _symbol_database.Default()
 
-from proto.ethos.elint.entities import \
-    organization_space_pb2 as ethos_dot_elint_dot_entities_dot_organization__space__pb2
+from ethos.elint.entities import organization_space_pb2 as ethos_dot_elint_dot_entities_dot_organization__space__pb2
 
 try:
   google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_organization__space__pb2.google_dot_protobuf_dot_timestamp__pb2

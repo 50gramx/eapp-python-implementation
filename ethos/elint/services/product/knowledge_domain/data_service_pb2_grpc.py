@@ -54,6 +54,7 @@ class FileUploadService(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -62,4 +63,4 @@ class FileUploadService(object):
             ethos_dot_elint_dot_services_dot_product_dot_knowledge__domain_dot_data__service__pb2.FileUploadRequest.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_knowledge__domain_dot_data__service__pb2.FileUploadResponse.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

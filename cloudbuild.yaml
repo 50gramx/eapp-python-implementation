@@ -1,0 +1,8 @@
+# cloudbuild.yaml
+steps:
+  # build & push the container image
+- name: "gcr.io/kaniko-project/executor:latest"
+  args: ["--cache=true", "--cache-ttl=48h", "--destination=gcr.io/healthcare-analytics-197813/eapp-identity:v1"]
+  # Deploy container image to Cloud Run
+- name: "gcr.io/cloud-builders/gcloud"
+  args: ['beta', 'run', 'deploy', 'eapp-identity', '--image', 'gcr.io/healthcare-analytics-197813/eapp-identity:v1', '--region', 'us-central1', '--allow-unauthenticated', '--platform', 'managed']

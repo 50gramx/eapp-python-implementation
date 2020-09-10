@@ -102,6 +102,7 @@ class OnboardAccountService(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -110,7 +111,7 @@ class OnboardAccountService(object):
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.ClaimAccountRequest.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.ClaimAccountResponse.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def ReRequestCodeClaimingAccount(request,
@@ -118,6 +119,7 @@ class OnboardAccountService(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -126,7 +128,7 @@ class OnboardAccountService(object):
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.ReRequestCodeClaimingAccountRequest.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.ReRequestCodeClaimingAccountResponse.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def VerifyClaimedAccount(request,
@@ -134,6 +136,7 @@ class OnboardAccountService(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -142,7 +145,7 @@ class OnboardAccountService(object):
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.VerifyClaimAccountRequest.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.VerifyClaimAccountResponse.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def AuthenticateClaimedAccount(request,
@@ -150,6 +153,7 @@ class OnboardAccountService(object):
             options=(),
             channel_credentials=None,
             call_credentials=None,
+            insecure=False,
             compression=None,
             wait_for_ready=None,
             timeout=None,
@@ -158,4 +162,4 @@ class OnboardAccountService(object):
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.AuthenticateClaimedAccountRequest.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.AuthenticateClaimedAccountResponse.FromString,
             options, channel_credentials,
-            call_credentials, compression, wait_for_ready, timeout, metadata)
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
