@@ -34,6 +34,11 @@ class OnboardAccountServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.AuthenticateClaimedAccountRequest.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.AuthenticateClaimedAccountResponse.FromString,
                 )
+        self.AuthenticateWithMobileNumber = channel.unary_unary(
+                '/elint.services.product.OnboardAccountService/AuthenticateWithMobileNumber',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.AuthenticateWithMobileNumberRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.AuthenticateWithMobileNumberResponse.FromString,
+                )
 
 
 class OnboardAccountServiceServicer(object):
@@ -63,6 +68,12 @@ class OnboardAccountServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def AuthenticateWithMobileNumber(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_OnboardAccountServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -85,6 +96,11 @@ def add_OnboardAccountServiceServicer_to_server(servicer, server):
                     servicer.AuthenticateClaimedAccount,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.AuthenticateClaimedAccountRequest.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.AuthenticateClaimedAccountResponse.SerializeToString,
+            ),
+            'AuthenticateWithMobileNumber': grpc.unary_unary_rpc_method_handler(
+                    servicer.AuthenticateWithMobileNumber,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.AuthenticateWithMobileNumberRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.AuthenticateWithMobileNumberResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -161,5 +177,22 @@ class OnboardAccountService(object):
         return grpc.experimental.unary_unary(request, target, '/elint.services.product.OnboardAccountService/AuthenticateClaimedAccount',
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.AuthenticateClaimedAccountRequest.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.AuthenticateClaimedAccountResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def AuthenticateWithMobileNumber(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.OnboardAccountService/AuthenticateWithMobileNumber',
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.AuthenticateWithMobileNumberRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_onboard__account__pb2.AuthenticateWithMobileNumberResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from ethos.elint.services.product.knowledge_domain import data_service_pb2 as ethos_dot_elint_dot_services_dot_product_dot_knowledge__domain_dot_data__service__pb2
+from ethos.elint.services.product.knowledge import data_service_pb2 as ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_data__service__pb2
 
 
 class FileUploadServiceStub(object):
@@ -16,8 +16,8 @@ class FileUploadServiceStub(object):
         """
         self.FileUpload = channel.stream_unary(
                 '/elint.services.product.knowledge.FileUploadService/FileUpload',
-                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge__domain_dot_data__service__pb2.FileUploadRequest.SerializeToString,
-                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge__domain_dot_data__service__pb2.FileUploadResponse.FromString,
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_data__service__pb2.FileUploadRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_data__service__pb2.FileUploadResponse.FromString,
                 )
 
 
@@ -35,8 +35,8 @@ def add_FileUploadServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'FileUpload': grpc.stream_unary_rpc_method_handler(
                     servicer.FileUpload,
-                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge__domain_dot_data__service__pb2.FileUploadRequest.FromString,
-                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge__domain_dot_data__service__pb2.FileUploadResponse.SerializeToString,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_data__service__pb2.FileUploadRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_data__service__pb2.FileUploadResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -60,7 +60,7 @@ class FileUploadService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.stream_unary(request_iterator, target, '/elint.services.product.knowledge.FileUploadService/FileUpload',
-            ethos_dot_elint_dot_services_dot_product_dot_knowledge__domain_dot_data__service__pb2.FileUploadRequest.SerializeToString,
-            ethos_dot_elint_dot_services_dot_product_dot_knowledge__domain_dot_data__service__pb2.FileUploadResponse.FromString,
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_data__service__pb2.FileUploadRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_data__service__pb2.FileUploadResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

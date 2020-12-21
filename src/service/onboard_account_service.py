@@ -10,7 +10,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from db_session import DbSession
 from ethos.elint.services.product.identity.onboard_account_pb2 import ClaimAccountResponse, \
-    ReRequestCodeClaimingAccountResponse
+    ReRequestCodeClaimingAccountResponse, AuthenticateWithMobileNumberResponse
 from ethos.elint.services.product.identity.onboard_account_pb2_grpc import OnboardAccountServiceServicer
 from models.account_model import Account
 from support.application.registry import Registry
@@ -148,3 +148,9 @@ class OnboardAccountService(OnboardAccountServiceServicer):
             code_sent_at=code_generated_at
         )
 
+    def AuthenticateWithMobileNumber(self, request, context):
+        authenticate_with_mobile_number_response = AuthenticateWithMobileNumberResponse(
+            verification_code_token="123213213213123",
+            code_sent_at=format_time2timestamp(0)
+        )
+        return authenticate_with_mobile_number_response

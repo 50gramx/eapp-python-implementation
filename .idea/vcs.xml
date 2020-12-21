@@ -4,7 +4,7 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../eapp-python-domain" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../eapp-service-core" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../../web/eapp-identity-site" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../../web/eapp-product-site" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../eapp-swift-domain" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../../wiki/eapp-wiki" vcs="Git" />
   </component>
 </project>
