@@ -1,8 +1,8 @@
 import os
 import random
 import string
-
 import time
+
 from google.protobuf.timestamp_pb2 import Timestamp
 from sendgrid import SendGridAPIClient, Mail
 from validate_email import validate_email
@@ -42,6 +42,15 @@ def get_random_string(length) -> (str, float):
     :return:  random string, generated_at time
     """
     return ''.join(random.choice(string.ascii_letters) for i in range(length)), time.time()
+
+
+def get_random_digits(length) -> (str, float):
+    """
+        generates and retruns random digits of defined length
+        :param length: length of the random digits
+        :return:  random string, generated_at time
+        """
+    return ''.join(random.choice(string.digits) for i in range(length)), time.time()
 
 
 def format_time2timestamp(time: float) -> Timestamp:
