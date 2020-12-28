@@ -1,56 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="34942910-25ec-4982-94a1-b355c8cfa8e7" name="Default Changelist" comment="">
+    <list default="true" id="34942910-25ec-4982-94a1-b355c8cfa8e7" name="Default Changelist" comment="updated protos and added temporary onboarding services">
       <change afterPath="$PROJECT_DIR$/../eapp-product/ethos/elint/services/product/knowledge/data_service_pb2.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../eapp-product/ethos/elint/services/product/knowledge/data_service_pb2_grpc.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../eapp-service-core/src/main/proto/ethos/elint/services/product/assistance/generic_assistance_service.proto" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/keys/eapp-id-t2-micro.pem" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/account_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/account_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/knowledge_domain_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/knowledge_domain_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/organization_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/organization_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/organization_space_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/organization_space_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/identity/onboard_account_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/identity/onboard_account_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/identity/onboard_organization_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/identity/onboard_organization_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/identity/onboard_organization_space_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/identity/onboard_organization_space_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/data_service_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/data_service_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/google/api/annotations_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/google/api/annotations_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/google/api/http_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/google/api/http_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/google/api/httpbody_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/google/api/httpbody_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/ethos/elint/entities/account_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/ethos/elint/entities/account_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/ethos/elint/entities/knowledge_domain_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/ethos/elint/entities/knowledge_domain_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/ethos/elint/entities/organization_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/ethos/elint/entities/organization_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/ethos/elint/entities/organization_space_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/ethos/elint/entities/organization_space_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/ethos/elint/services/product/identity/onboard_account_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/ethos/elint/services/product/identity/onboard_account_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/ethos/elint/services/product/identity/onboard_organization_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/ethos/elint/services/product/identity/onboard_organization_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/ethos/elint/services/product/identity/onboard_organization_space_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/ethos/elint/services/product/identity/onboard_organization_space_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/ethos/elint/services/product/knowledge_domain/data_service_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/ethos/elint/services/product/knowledge_domain/data_service_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/google/api/annotations_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/google/api/annotations_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/google/api/http_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/google/api/http_pb2_grpc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/google/api/httpbody_pb2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/google/api/httpbody_pb2_grpc.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/service/onboard_account_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/onboard_account_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/onboard_organization_space_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/onboard_organization_space_service.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../eapp-product/ethos/elint/entities/account_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/../eapp-product/ethos/elint/entities/account_pb2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../eapp-product/ethos/elint/entities/knowledge_domain_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/../eapp-product/ethos/elint/entities/knowledge_domain_pb2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../eapp-product/ethos/elint/entities/organization_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/../eapp-product/ethos/elint/entities/organization_pb2.py" afterDir="false" />
@@ -69,8 +27,7 @@
       <change beforePath="$PROJECT_DIR$/../eapp-service-core/src/main/proto/ethos/elint/services/product/identity/onboard_account.proto" beforeDir="false" afterPath="$PROJECT_DIR$/../eapp-service-core/src/main/proto/ethos/elint/services/product/identity/onboard_account.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../eapp-swift-domain/src/ethos/elint/services/product/identity/onboard_account.grpc.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../eapp-swift-domain/src/ethos/elint/services/product/identity/onboard_account.grpc.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../eapp-swift-domain/src/ethos/elint/services/product/identity/onboard_account.pb.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../eapp-swift-domain/src/ethos/elint/services/product/identity/onboard_account.pb.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/services/build_swift_services.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/services/build_swift_services.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/service_configurations/api_descriptor.pb" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/service_configurations/api_descriptor.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/environment/microservices/eapp-identity.env" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/environment/microservices/eapp-identity.env" afterDir="false" />
     </list>
     <list id="7da50ba8-f629-4fad-95fa-6b7fd26b3082" name="Revert &quot;vanilla: only frontend alive&quot;" comment="undo #2" />
     <list id="d8805b4c-5768-4885-82a5-b8b005d6475e" name="vanilla: only frontend alive" comment="undo #1" />
@@ -139,7 +96,7 @@
     <property name="node.js.selected.package.standard" value="" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
@@ -175,7 +132,7 @@
       <workItem from="1599417618951" duration="43775000" />
       <workItem from="1608457060066" duration="1911000" />
       <workItem from="1608470356267" duration="13525000" />
-      <workItem from="1608636317749" duration="19065000" />
+      <workItem from="1608636317749" duration="22327000" />
     </task>
     <task id="LOCAL-00001" summary="added Dockerfile and heroku.yml config files">
       <created>1598846200158</created>
@@ -359,7 +316,21 @@
       <option name="project" value="LOCAL" />
       <updated>1608563283751</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="updated swift_build_services.sh">
+      <created>1609160143194</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1609160143194</updated>
+    </task>
+    <task id="LOCAL-00028" summary="updated protos and added temporary onboarding services">
+      <created>1609160277852</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1609160277852</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -398,8 +369,6 @@
       <path value="$PROJECT_DIR$/../../web/eapp-identity-site" />
       <path value="$PROJECT_DIR$/../../web/eapp-product-site" />
     </ignored-roots>
-    <MESSAGE value="updated Dockerfile requirements path" />
-    <MESSAGE value="added Dockerfile and heroku.yml config files" />
     <MESSAGE value="docs updated" />
     <MESSAGE value="updated server port information" />
     <MESSAGE value="updated protos" />
@@ -423,6 +392,8 @@
     <MESSAGE value="added auth_with_mobile_number_service to onboard_account" />
     <MESSAGE value="updated account_model.py, updated onboard_account_service.py, updated build_swift_services.sh" />
     <MESSAGE value="added grpc compiled files" />
-    <option name="LAST_COMMIT_MESSAGE" value="added grpc compiled files" />
+    <MESSAGE value="updated swift_build_services.sh" />
+    <MESSAGE value="updated protos and added temporary onboarding services" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated protos and added temporary onboarding services" />
   </component>
 </project>

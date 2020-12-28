@@ -2,21 +2,15 @@ import logging
 import os
 import uuid
 
-import grpc
-from google.protobuf.json_format import MessageToDict
 from google.protobuf.timestamp_pb2 import Timestamp
-from sqlalchemy import exists
-from sqlalchemy.exc import SQLAlchemyError
 
-from db_session import DbSession
 from ethos.elint.services.product.identity import onboard_account_pb2
 from ethos.elint.services.product.identity.onboard_account_pb2 import ClaimAccountResponse, \
     ReRequestCodeClaimingAccountResponse, VerifyClaimingAccountResponse, AuthenticateClaimedAccountResponse, \
     AccessEthosAssistanceResponse
 from ethos.elint.services.product.identity.onboard_account_pb2_grpc import OnboardAccountServiceServicer
-from models.account_model import Account
 from support.application.registry import Registry
-from support.helper_functions import validate_email_dns, get_random_string, mail, format_time2timestamp
+from support.helper_functions import get_random_string, mail, format_time2timestamp
 
 logger = logging.getLogger(__name__)
 identity_service_mail_id = os.environ['IDENTITY_MAIL_ID']
@@ -119,11 +113,11 @@ class OnboardAccountService(OnboardAccountServiceServicer):
         #
         # TODO: Temporary Response
         claim_account_response = ClaimAccountResponse(
-            account_details = request.account_details,
-            account_claim_status = onboard_account_pb2.AccountClaimStatus.ClAIMABLE,
-            verification_code_token = str(uuid.uuid4()),
-            onboard_session_token = str(uuid.uuid4()),
-            code_sent_at = format_time2timestamp(0)
+            account_details=request.account_details,
+            account_claim_status=onboard_account_pb2.AccountClaimStatus.ClAIMABLE,
+            verification_code_token=str(uuid.uuid4()),
+            onboard_session_token=str(uuid.uuid4()),
+            code_sent_at=format_time2timestamp(0)
         )
         return claim_account_response
 
@@ -162,31 +156,30 @@ class OnboardAccountService(OnboardAccountServiceServicer):
 
     def VerifyClaimingAccount(self, request, context):
         verify_claiming_account_response = VerifyClaimingAccountResponse(
-            account_details = request.account_details,
-            account_verified = True,
-            verification_message = "Successfully Verified",
-            onboard_session_token = request.onboard_session_token,
-            onboard_organization_name = "SELF",
-            verified_at = format_time2timestamp(0)
+            account_details=request.account_details,
+            account_verified=True,
+            verification_message="Successfully Verified",
+            onboard_session_token=request.onboard_session_token,
+            onboard_organization_name="SELF",
+            verified_at=format_time2timestamp(0)
         )
         return verify_claiming_account_response
 
-
     def AuthenticateClaimedAccount(self, request, context):
         authenticate_claimed_account_response = AuthenticateClaimedAccountResponse(
-            account_details = request.account_details,
-            account_authenticated = True,
-            onboard_session_token = request.onboard_session_token,
-            authenticated_at = format_time2timestamp(0)
+            account_details=request.account_details,
+            account_authenticated=True,
+            onboard_session_token=request.onboard_session_token,
+            authenticated_at=format_time2timestamp(0)
         )
         return authenticate_claimed_account_response
 
     def AccessEthosAssistance(self, request, context):
         access_ethos_assistance_response = AccessEthosAssistanceResponse(
-            account_details = request.account_details,
-            onboard_session_token = request.onboard_session_token,
-            access_provided = True,
-            ethos_access_session_token = str(uuid.uuid4()),
-            access_provided_at = format_time2timestamp(0)
+            account_details=request.account_details,
+            onboard_session_token=request.onboard_session_token,
+            access_provided=True,
+            ethos_access_session_token=str(uuid.uuid4()),
+            access_provided_at=format_time2timestamp(0)
         )
         return access_ethos_assistance_response
