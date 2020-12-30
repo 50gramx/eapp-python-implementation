@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\"ethos/elint/entities/account.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\"\xca\x01\n\x07\x41\x63\x63ount\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12\x18\n\x10\x61\x63\x63ount_email_id\x18\x02 \x01(\t\x12\x12\n\nfirst_name\x18\x03 \x01(\t\x12\x11\n\tlast_name\x18\x04 \x01(\t\x12\x17\n\x0forganization_id\x18\x05 \x01(\t\x12\x0e\n\x06\x61\x63tive\x18\x06 \x01(\x08\x12\x11\n\tadmin_acc\x18\x07 \x01(\x08\x12.\n\ncreated_at\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"u\n\x1e\x41\x63\x63ountVerificationCodeDetails\x12&\n\x1e\x61\x63\x63ount_verification_code_sent\x18\x01 \x01(\x08\x12+\n\x07sent_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.TimestampP\x00\x62\x06proto3'
+  serialized_pb=b'\n\"ethos/elint/entities/account.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\"\xca\x01\n\x07\x41\x63\x63ount\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12\x18\n\x10\x61\x63\x63ount_email_id\x18\x02 \x01(\t\x12\x12\n\nfirst_name\x18\x03 \x01(\t\x12\x11\n\tlast_name\x18\x04 \x01(\t\x12\x17\n\x0forganization_id\x18\x05 \x01(\t\x12\x0e\n\x06\x61\x63tive\x18\x06 \x01(\x08\x12\x11\n\tadmin_acc\x18\x07 \x01(\x08\x12.\n\ncreated_at\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.TimestampP\x00\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,],
   public_dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
@@ -109,49 +109,8 @@ _ACCOUNT = _descriptor.Descriptor(
   serialized_end=288,
 )
 
-
-_ACCOUNTVERIFICATIONCODEDETAILS = _descriptor.Descriptor(
-  name='AccountVerificationCodeDetails',
-  full_name='elint.entity.AccountVerificationCodeDetails',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='account_verification_code_sent', full_name='elint.entity.AccountVerificationCodeDetails.account_verification_code_sent', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='sent_at', full_name='elint.entity.AccountVerificationCodeDetails.sent_at', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=290,
-  serialized_end=407,
-)
-
 _ACCOUNT.fields_by_name['created_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
-_ACCOUNTVERIFICATIONCODEDETAILS.fields_by_name['sent_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 DESCRIPTOR.message_types_by_name['Account'] = _ACCOUNT
-DESCRIPTOR.message_types_by_name['AccountVerificationCodeDetails'] = _ACCOUNTVERIFICATIONCODEDETAILS
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Account = _reflection.GeneratedProtocolMessageType('Account', (_message.Message,), {
@@ -160,13 +119,6 @@ Account = _reflection.GeneratedProtocolMessageType('Account', (_message.Message,
   # @@protoc_insertion_point(class_scope:elint.entity.Account)
   })
 _sym_db.RegisterMessage(Account)
-
-AccountVerificationCodeDetails = _reflection.GeneratedProtocolMessageType('AccountVerificationCodeDetails', (_message.Message,), {
-  'DESCRIPTOR' : _ACCOUNTVERIFICATIONCODEDETAILS,
-  '__module__' : 'ethos.elint.entities.account_pb2'
-  # @@protoc_insertion_point(class_scope:elint.entity.AccountVerificationCodeDetails)
-  })
-_sym_db.RegisterMessage(AccountVerificationCodeDetails)
 
 
 # @@protoc_insertion_point(module_scope)

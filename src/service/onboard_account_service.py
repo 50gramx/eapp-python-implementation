@@ -1,16 +1,15 @@
 import logging
 import os
-import uuid
+
 
 from google.protobuf.timestamp_pb2 import Timestamp
 
-from ethos.elint.services.product.identity import onboard_account_pb2
-from ethos.elint.services.product.identity.onboard_account_pb2 import ClaimAccountResponse, \
-    ReRequestCodeClaimingAccountResponse, VerifyClaimingAccountResponse, AuthenticateClaimedAccountResponse, \
-    AccessEthosAssistanceResponse
-from ethos.elint.services.product.identity.onboard_account_pb2_grpc import OnboardAccountServiceServicer
-from support.application.registry import Registry
-from support.helper_functions import get_random_string, mail, format_time2timestamp
+from ethos.elint.entities.generic_pb2 import TemporaryTokenDetails, PersistentSessionTokenDetails
+from ethos.elint.services.product.identity.account.onboard_account_pb2 import OnboardAccountResponse, \
+    AccountOnboardStatus, VerifyOnboardingAccountResponse, AuthenticateOnboardedAccountResponse, \
+    AccessAccountEthosIdentityTokenResponse
+from ethos.elint.services.product.identity.account.onboard_account_pb2_grpc import OnboardAccountServiceServicer
+from support.helper_functions import format_time2timestamp
 
 logger = logging.getLogger(__name__)
 identity_service_mail_id = os.environ['IDENTITY_MAIL_ID']
@@ -25,7 +24,7 @@ class OnboardAccountService(OnboardAccountServiceServicer):
     OnboardAccountService
     """
 
-    def ClaimAccount(self, request, context):
+    def OnboardAccount(self, request, context):
         # # Getting the request params
         # try:
         #     account_email_id = request.account_email_id
@@ -112,74 +111,72 @@ class OnboardAccountService(OnboardAccountServiceServicer):
         #     return claim_account_response
         #
         # TODO: Temporary Response
-        claim_account_response = ClaimAccountResponse(
+        onboard_account_response = OnboardAccountResponse(
             account_details=request.account_details,
-            account_claim_status=onboard_account_pb2.AccountClaimStatus.ClAIMABLE,
-            verification_code_token=str(uuid.uuid4()),
-            onboard_session_token=str(uuid.uuid4()),
+            account_onboard_status=AccountOnboardStatus(),
+            verification_code_token_details=TemporaryTokenDetails(),
+            onboard_session_token_details=PersistentSessionTokenDetails(),
             code_sent_at=format_time2timestamp(0)
         )
-        return claim_account_response
+        return onboard_account_response
 
-    def ReRequestCodeClaimingAccount(self, request, context):
-        # Get the data parameters from the request
-        try:
-            account_email_id = request.account_email_id
-            generated_verification_code_token = request.generated_verification_code_token
-            onboard_session_token = request.onboard_session_token
-            requested_at = request.requested_at
-        except Exception as err:
-            account_email_id = None
-            generated_verification_code_token = None
-            onboard_session_token = None
-            requested_at = None
-            logger.error("request, exception: {}".format(str(err)))
-        # Remove the old verification token from the registry
-        Registry.delete_data(generated_verification_code_token)
-        # Generate a new verification_code, code_token, generated_at
-        verification_code, code_generated_at = get_random_string(6)
-        code_token = str(uuid.uuid4())
-        code_generated_at = format_time2timestamp(code_generated_at)
-        Registry.register_data(code_token, [verification_code, code_generated_at])
-        mail_successful = mail(
-            from_email=identity_service_mail_id,
-            to_email=account_email_id,
-            subject=claim_account_verification_mail_subject,
-            html_content=claim_account_verification_mail_body.format(verification_code)
-        )
-        return ReRequestCodeClaimingAccountResponse(
-            account_email_id=account_email_id,
-            verification_code_token=code_token,
-            onboard_session_token=onboard_session_token,
-            code_sent_at=code_generated_at
-        )
+    # def ReRequestCodeClaimingAccount(self, request, context):
+    #     # Get the data parameters from the request
+    #     try:
+    #         account_email_id = request.account_email_id
+    #         generated_verification_code_token = request.generated_verification_code_token
+    #         onboard_session_token = request.onboard_session_token
+    #         requested_at = request.requested_at
+    #     except Exception as err:
+    #         account_email_id = None
+    #         generated_verification_code_token = None
+    #         onboard_session_token = None
+    #         requested_at = None
+    #         logger.error("request, exception: {}".format(str(err)))
+    #     # Remove the old verification token from the registry
+    #     Registry.delete_data(generated_verification_code_token)
+    #     # Generate a new verification_code, code_token, generated_at
+    #     verification_code, code_generated_at = get_random_string(6)
+    #     code_token = str(uuid.uuid4())
+    #     code_generated_at = format_time2timestamp(code_generated_at)
+    #     Registry.register_data(code_token, [verification_code, code_generated_at])
+    #     mail_successful = mail(
+    #         from_email=identity_service_mail_id,
+    #         to_email=account_email_id,
+    #         subject=claim_account_verification_mail_subject,
+    #         html_content=claim_account_verification_mail_body.format(verification_code)
+    #     )
+    #     return ReRequestCodeClaimingAccountResponse(
+    #         account_email_id=account_email_id,
+    #         verification_code_token=code_token,
+    #         onboard_session_token=onboard_session_token,
+    #         code_sent_at=code_generated_at
+    #     )
 
-    def VerifyClaimingAccount(self, request, context):
-        verify_claiming_account_response = VerifyClaimingAccountResponse(
+    def VerifyOnboardingAccount(self, request, context):
+        verify_onboarding_account_response = VerifyOnboardingAccountResponse(
             account_details=request.account_details,
             account_verified=True,
             verification_message="Successfully Verified",
-            onboard_session_token=request.onboard_session_token,
+            onboard_session_token_details=PersistentSessionTokenDetails(),
             onboard_organization_name="SELF",
             verified_at=format_time2timestamp(0)
         )
-        return verify_claiming_account_response
+        return verify_onboarding_account_response
 
-    def AuthenticateClaimedAccount(self, request, context):
-        authenticate_claimed_account_response = AuthenticateClaimedAccountResponse(
+    def AuthenticateOnboardedAccount(self, request, context):
+        authenticate_onboarded_account_response = AuthenticateOnboardedAccountResponse(
             account_details=request.account_details,
             account_authenticated=True,
-            onboard_session_token=request.onboard_session_token,
+            onboard_session_token_details=PersistentSessionTokenDetails(),
             authenticated_at=format_time2timestamp(0)
         )
-        return authenticate_claimed_account_response
+        return authenticate_onboarded_account_response
 
-    def AccessEthosAssistance(self, request, context):
-        access_ethos_assistance_response = AccessEthosAssistanceResponse(
+    def AccessAccountEthosIdentityToken(self, request, context):
+        access_account_ethos_identity_token_response = AccessAccountEthosIdentityTokenResponse(
             account_details=request.account_details,
-            onboard_session_token=request.onboard_session_token,
-            access_provided=True,
-            ethos_access_session_token=str(uuid.uuid4()),
-            access_provided_at=format_time2timestamp(0)
+            onboard_session_token_details=PersistentSessionTokenDetails(),
+            identity_access_session_token_details=PersistentSessionTokenDetails()
         )
-        return access_ethos_assistance_response
+        return access_account_ethos_identity_token_response
