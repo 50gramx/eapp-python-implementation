@@ -113,7 +113,7 @@ class OnboardAccountService(OnboardAccountServiceServicer):
         # TODO: Temporary Response
         onboard_account_response = OnboardAccountResponse(
             account_details=request.account_details,
-            account_onboard_status=AccountOnboardStatus(),
+            account_onboard_status=AccountOnboardStatus.ONBOARDABLE,
             verification_code_token_details=TemporaryTokenDetails(),
             onboard_session_token_details=PersistentSessionTokenDetails(),
             code_sent_at=format_time2timestamp(0)

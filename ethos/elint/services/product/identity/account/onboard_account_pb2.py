@@ -25,7 +25,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n com.ethos.elint.services.productP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nCethos/elint/services/product/identity/account/onboard_account.proto\x12\x1f\x65lint.services.product.identity\x1a\"ethos/elint/entities/generic.proto\"\xac\x01\n\x0e\x41\x63\x63ountDetails\x12\x14\n\x0c\x61\x63\x63ount_name\x18\x01 \x01(\t\x12\x18\n\x10\x61\x63\x63ount_email_id\x18\x02 \x01(\t\x12\x1d\n\x15\x61\x63\x63ount_mobile_number\x18\x03 \x01(\t\x12K\n\x11\x61\x63\x63ount_auth_mode\x18\x04 \x01(\x0e\x32\x30.elint.services.product.identity.AccountAuthMode\"\x93\x01\n\x15OnboardAccountRequest\x12H\n\x0f\x61\x63\x63ount_details\x18\x01 \x01(\x0b\x32/.elint.services.product.identity.AccountDetails\x12\x30\n\x0crequested_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x8b\x03\n\x16OnboardAccountResponse\x12H\n\x0f\x61\x63\x63ount_details\x18\x01 \x01(\x0b\x32/.elint.services.product.identity.AccountDetails\x12S\n\x14\x61\x63\x63ount_claim_status\x18\x02 \x01(\x0e\x32\x35.elint.services.product.identity.AccountOnboardStatus\x12L\n\x1fverification_code_token_details\x18\x03 \x01(\x0b\x32#.elint.entity.TemporaryTokenDetails\x12R\n\x1donboard_session_token_details\x18\x04 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\x12\x30\n\x0c\x63ode_sent_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xc5\x02\n%ReRequestCodeOnboardingAccountRequest\x12H\n\x0f\x61\x63\x63ount_details\x18\x01 \x01(\x0b\x32/.elint.services.product.identity.AccountDetails\x12L\n\x1fverification_code_token_details\x18\x02 \x01(\x0b\x32#.elint.entity.TemporaryTokenDetails\x12R\n\x1donboard_session_token_details\x18\x03 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\x12\x30\n\x0crequested_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xc6\x02\n&ReRequestCodeOnboardingAccountResponse\x12H\n\x0f\x61\x63\x63ount_details\x18\x01 \x01(\x0b\x32/.elint.services.product.identity.AccountDetails\x12L\n\x1fverification_code_token_details\x18\x02 \x01(\x0b\x32#.elint.entity.TemporaryTokenDetails\x12R\n\x1donboard_session_token_details\x18\x03 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\x12\x30\n\x0c\x63ode_sent_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xd9\x02\n\x1eVerifyOnboardingAccountRequest\x12H\n\x0f\x61\x63\x63ount_details\x18\x01 \x01(\x0b\x32/.elint.services.product.identity.AccountDetails\x12L\n\x1fverification_code_token_details\x18\x02 \x01(\x0b\x32#.elint.entity.TemporaryTokenDetails\x12\x19\n\x11verification_code\x18\x03 \x01(\t\x12R\n\x1donboard_session_token_details\x18\x04 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\x12\x30\n\x0crequested_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xcb\x02\n\x1fVerifyOnboardingAccountResponse\x12H\n\x0f\x61\x63\x63ount_details\x18\x01 \x01(\x0b\x32/.elint.services.product.identity.AccountDetails\x12\x18\n\x10\x61\x63\x63ount_verified\x18\x02 \x01(\x08\x12\x1c\n\x14verification_message\x18\x03 \x01(\t\x12R\n\x1donboard_session_token_details\x18\x04 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\x12!\n\x19onboard_organization_name\x18\x05 \x01(\t\x12/\n\x0bverified_at\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x96\x02\n#AuthenticateOnboardedAccountRequest\x12H\n\x0f\x61\x63\x63ount_details\x18\x01 \x01(\x0b\x32/.elint.services.product.identity.AccountDetails\x12\x1f\n\x17\x61\x63\x63ount_convenience_pin\x18\x02 \x01(\t\x12R\n\x1donboard_session_token_details\x18\x03 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\x12\x30\n\x0crequested_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x99\x02\n$AuthenticateOnboardedAccountResponse\x12H\n\x0f\x61\x63\x63ount_details\x18\x01 \x01(\x0b\x32/.elint.services.product.identity.AccountDetails\x12\x1d\n\x15\x61\x63\x63ount_authenticated\x18\x02 \x01(\x08\x12R\n\x1donboard_session_token_details\x18\x03 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\x12\x34\n\x10\x61uthenticated_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x99\x02\n&AccessAccountEthosIdentityTokenRequest\x12H\n\x0f\x61\x63\x63ount_details\x18\x01 \x01(\x0b\x32/.elint.services.product.identity.AccountDetails\x12\x1f\n\x17\x61\x63\x63ount_convenience_pin\x18\x02 \x01(\t\x12R\n\x1donboard_session_token_details\x18\x03 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\x12\x30\n\x0crequested_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xa3\x02\n\'AccessAccountEthosIdentityTokenResponse\x12H\n\x0f\x61\x63\x63ount_details\x18\x01 \x01(\x0b\x32/.elint.services.product.identity.AccountDetails\x12R\n\x1donboard_session_token_details\x18\x02 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\x12Z\n%identity_access_session_token_details\x18\x04 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails*2\n\x0f\x41\x63\x63ountAuthMode\x12\x0c\n\x08\x45MAIL_ID\x10\x00\x12\x11\n\rMOBILE_NUMBER\x10\x01*K\n\x14\x41\x63\x63ountOnboardStatus\x12\x0f\n\x0bONBOARDABLE\x10\x00\x12\r\n\tONBOARDED\x10\x01\x12\x13\n\x0fNOT_ONBOARDABLE\x10\x02\x32\xdd\x06\n\x15OnboardAccountService\x12\x83\x01\n\x0eOnboardAccount\x12\x36.elint.services.product.identity.OnboardAccountRequest\x1a\x37.elint.services.product.identity.OnboardAccountResponse\"\x00\x12\xb3\x01\n\x1eReRequestCodeOnboardingAccount\x12\x46.elint.services.product.identity.ReRequestCodeOnboardingAccountRequest\x1aG.elint.services.product.identity.ReRequestCodeOnboardingAccountResponse\"\x00\x12\x9e\x01\n\x17VerifyOnboardingAccount\x12?.elint.services.product.identity.VerifyOnboardingAccountRequest\x1a@.elint.services.product.identity.VerifyOnboardingAccountResponse\"\x00\x12\xad\x01\n\x1c\x41uthenticateOnboardedAccount\x12\x44.elint.services.product.identity.AuthenticateOnboardedAccountRequest\x1a\x45.elint.services.product.identity.AuthenticateOnboardedAccountResponse\"\x00\x12\xb6\x01\n\x1f\x41\x63\x63\x65ssAccountEthosIdentityToken\x12G.elint.services.product.identity.AccessAccountEthosIdentityTokenRequest\x1aH.elint.services.product.identity.AccessAccountEthosIdentityTokenResponse\"\x00\x42$\n com.ethos.elint.services.productP\x01\x62\x06proto3'
+  serialized_pb=b'\nCethos/elint/services/product/identity/account/onboard_account.proto\x12\x1f\x65lint.services.product.identity\x1a\"ethos/elint/entities/generic.proto\"\xac\x01\n\x0e\x41\x63\x63ountDetails\x12\x14\n\x0c\x61\x63\x63ount_name\x18\x01 \x01(\t\x12\x18\n\x10\x61\x63\x63ount_email_id\x18\x02 \x01(\t\x12\x1d\n\x15\x61\x63\x63ount_mobile_number\x18\x03 \x01(\t\x12K\n\x11\x61\x63\x63ount_auth_mode\x18\x04 \x01(\x0e\x32\x30.elint.services.product.identity.AccountAuthMode\"\x93\x01\n\x15OnboardAccountRequest\x12H\n\x0f\x61\x63\x63ount_details\x18\x01 \x01(\x0b\x32/.elint.services.product.identity.AccountDetails\x12\x30\n\x0crequested_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x8d\x03\n\x16OnboardAccountResponse\x12H\n\x0f\x61\x63\x63ount_details\x18\x01 \x01(\x0b\x32/.elint.services.product.identity.AccountDetails\x12U\n\x16\x61\x63\x63ount_onboard_status\x18\x02 \x01(\x0e\x32\x35.elint.services.product.identity.AccountOnboardStatus\x12L\n\x1fverification_code_token_details\x18\x03 \x01(\x0b\x32#.elint.entity.TemporaryTokenDetails\x12R\n\x1donboard_session_token_details\x18\x04 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\x12\x30\n\x0c\x63ode_sent_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xc5\x02\n%ReRequestCodeOnboardingAccountRequest\x12H\n\x0f\x61\x63\x63ount_details\x18\x01 \x01(\x0b\x32/.elint.services.product.identity.AccountDetails\x12L\n\x1fverification_code_token_details\x18\x02 \x01(\x0b\x32#.elint.entity.TemporaryTokenDetails\x12R\n\x1donboard_session_token_details\x18\x03 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\x12\x30\n\x0crequested_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xc6\x02\n&ReRequestCodeOnboardingAccountResponse\x12H\n\x0f\x61\x63\x63ount_details\x18\x01 \x01(\x0b\x32/.elint.services.product.identity.AccountDetails\x12L\n\x1fverification_code_token_details\x18\x02 \x01(\x0b\x32#.elint.entity.TemporaryTokenDetails\x12R\n\x1donboard_session_token_details\x18\x03 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\x12\x30\n\x0c\x63ode_sent_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xd9\x02\n\x1eVerifyOnboardingAccountRequest\x12H\n\x0f\x61\x63\x63ount_details\x18\x01 \x01(\x0b\x32/.elint.services.product.identity.AccountDetails\x12L\n\x1fverification_code_token_details\x18\x02 \x01(\x0b\x32#.elint.entity.TemporaryTokenDetails\x12\x19\n\x11verification_code\x18\x03 \x01(\t\x12R\n\x1donboard_session_token_details\x18\x04 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\x12\x30\n\x0crequested_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xcb\x02\n\x1fVerifyOnboardingAccountResponse\x12H\n\x0f\x61\x63\x63ount_details\x18\x01 \x01(\x0b\x32/.elint.services.product.identity.AccountDetails\x12\x18\n\x10\x61\x63\x63ount_verified\x18\x02 \x01(\x08\x12\x1c\n\x14verification_message\x18\x03 \x01(\t\x12R\n\x1donboard_session_token_details\x18\x04 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\x12!\n\x19onboard_organization_name\x18\x05 \x01(\t\x12/\n\x0bverified_at\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x96\x02\n#AuthenticateOnboardedAccountRequest\x12H\n\x0f\x61\x63\x63ount_details\x18\x01 \x01(\x0b\x32/.elint.services.product.identity.AccountDetails\x12\x1f\n\x17\x61\x63\x63ount_convenience_pin\x18\x02 \x01(\t\x12R\n\x1donboard_session_token_details\x18\x03 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\x12\x30\n\x0crequested_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x99\x02\n$AuthenticateOnboardedAccountResponse\x12H\n\x0f\x61\x63\x63ount_details\x18\x01 \x01(\x0b\x32/.elint.services.product.identity.AccountDetails\x12\x1d\n\x15\x61\x63\x63ount_authenticated\x18\x02 \x01(\x08\x12R\n\x1donboard_session_token_details\x18\x03 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\x12\x34\n\x10\x61uthenticated_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x99\x02\n&AccessAccountEthosIdentityTokenRequest\x12H\n\x0f\x61\x63\x63ount_details\x18\x01 \x01(\x0b\x32/.elint.services.product.identity.AccountDetails\x12\x1f\n\x17\x61\x63\x63ount_convenience_pin\x18\x02 \x01(\t\x12R\n\x1donboard_session_token_details\x18\x03 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\x12\x30\n\x0crequested_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xa3\x02\n\'AccessAccountEthosIdentityTokenResponse\x12H\n\x0f\x61\x63\x63ount_details\x18\x01 \x01(\x0b\x32/.elint.services.product.identity.AccountDetails\x12R\n\x1donboard_session_token_details\x18\x02 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\x12Z\n%identity_access_session_token_details\x18\x04 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails*2\n\x0f\x41\x63\x63ountAuthMode\x12\x0c\n\x08\x45MAIL_ID\x10\x00\x12\x11\n\rMOBILE_NUMBER\x10\x01*K\n\x14\x41\x63\x63ountOnboardStatus\x12\x0f\n\x0bONBOARDABLE\x10\x00\x12\r\n\tONBOARDED\x10\x01\x12\x13\n\x0fNOT_ONBOARDABLE\x10\x02\x32\xdd\x06\n\x15OnboardAccountService\x12\x83\x01\n\x0eOnboardAccount\x12\x36.elint.services.product.identity.OnboardAccountRequest\x1a\x37.elint.services.product.identity.OnboardAccountResponse\"\x00\x12\xb3\x01\n\x1eReRequestCodeOnboardingAccount\x12\x46.elint.services.product.identity.ReRequestCodeOnboardingAccountRequest\x1aG.elint.services.product.identity.ReRequestCodeOnboardingAccountResponse\"\x00\x12\x9e\x01\n\x17VerifyOnboardingAccount\x12?.elint.services.product.identity.VerifyOnboardingAccountRequest\x1a@.elint.services.product.identity.VerifyOnboardingAccountResponse\"\x00\x12\xad\x01\n\x1c\x41uthenticateOnboardedAccount\x12\x44.elint.services.product.identity.AuthenticateOnboardedAccountRequest\x1a\x45.elint.services.product.identity.AuthenticateOnboardedAccountResponse\"\x00\x12\xb6\x01\n\x1f\x41\x63\x63\x65ssAccountEthosIdentityToken\x12G.elint.services.product.identity.AccessAccountEthosIdentityTokenRequest\x1aH.elint.services.product.identity.AccessAccountEthosIdentityTokenResponse\"\x00\x42$\n com.ethos.elint.services.productP\x01\x62\x06proto3'
   ,
   dependencies=[ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,])
 
@@ -49,8 +49,8 @@ _ACCOUNTAUTHMODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=3345,
-  serialized_end=3395,
+  serialized_start=3347,
+  serialized_end=3397,
 )
 _sym_db.RegisterEnumDescriptor(_ACCOUNTAUTHMODE)
 
@@ -80,8 +80,8 @@ _ACCOUNTONBOARDSTATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=3397,
-  serialized_end=3472,
+  serialized_start=3399,
+  serialized_end=3474,
 )
 _sym_db.RegisterEnumDescriptor(_ACCOUNTONBOARDSTATUS)
 
@@ -202,7 +202,7 @@ _ONBOARDACCOUNTRESPONSE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='account_claim_status', full_name='elint.services.product.identity.OnboardAccountResponse.account_claim_status', index=1,
+      name='account_onboard_status', full_name='elint.services.product.identity.OnboardAccountResponse.account_onboard_status', index=1,
       number=2, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -242,7 +242,7 @@ _ONBOARDACCOUNTRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=466,
-  serialized_end=861,
+  serialized_end=863,
 )
 
 
@@ -294,8 +294,8 @@ _REREQUESTCODEONBOARDINGACCOUNTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=864,
-  serialized_end=1189,
+  serialized_start=866,
+  serialized_end=1191,
 )
 
 
@@ -347,8 +347,8 @@ _REREQUESTCODEONBOARDINGACCOUNTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1192,
-  serialized_end=1518,
+  serialized_start=1194,
+  serialized_end=1520,
 )
 
 
@@ -407,8 +407,8 @@ _VERIFYONBOARDINGACCOUNTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1521,
-  serialized_end=1866,
+  serialized_start=1523,
+  serialized_end=1868,
 )
 
 
@@ -474,8 +474,8 @@ _VERIFYONBOARDINGACCOUNTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1869,
-  serialized_end=2200,
+  serialized_start=1871,
+  serialized_end=2202,
 )
 
 
@@ -527,8 +527,8 @@ _AUTHENTICATEONBOARDEDACCOUNTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2203,
-  serialized_end=2481,
+  serialized_start=2205,
+  serialized_end=2483,
 )
 
 
@@ -580,8 +580,8 @@ _AUTHENTICATEONBOARDEDACCOUNTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2484,
-  serialized_end=2765,
+  serialized_start=2486,
+  serialized_end=2767,
 )
 
 
@@ -633,8 +633,8 @@ _ACCESSACCOUNTETHOSIDENTITYTOKENREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2768,
-  serialized_end=3049,
+  serialized_start=2770,
+  serialized_end=3051,
 )
 
 
@@ -679,15 +679,15 @@ _ACCESSACCOUNTETHOSIDENTITYTOKENRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3052,
-  serialized_end=3343,
+  serialized_start=3054,
+  serialized_end=3345,
 )
 
 _ACCOUNTDETAILS.fields_by_name['account_auth_mode'].enum_type = _ACCOUNTAUTHMODE
 _ONBOARDACCOUNTREQUEST.fields_by_name['account_details'].message_type = _ACCOUNTDETAILS
 _ONBOARDACCOUNTREQUEST.fields_by_name['requested_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _ONBOARDACCOUNTRESPONSE.fields_by_name['account_details'].message_type = _ACCOUNTDETAILS
-_ONBOARDACCOUNTRESPONSE.fields_by_name['account_claim_status'].enum_type = _ACCOUNTONBOARDSTATUS
+_ONBOARDACCOUNTRESPONSE.fields_by_name['account_onboard_status'].enum_type = _ACCOUNTONBOARDSTATUS
 _ONBOARDACCOUNTRESPONSE.fields_by_name['verification_code_token_details'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._TEMPORARYTOKENDETAILS
 _ONBOARDACCOUNTRESPONSE.fields_by_name['onboard_session_token_details'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._PERSISTENTSESSIONTOKENDETAILS
 _ONBOARDACCOUNTRESPONSE.fields_by_name['code_sent_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -820,8 +820,8 @@ _ONBOARDACCOUNTSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=3475,
-  serialized_end=4336,
+  serialized_start=3477,
+  serialized_end=4338,
   methods=[
   _descriptor.MethodDescriptor(
     name='OnboardAccount',
