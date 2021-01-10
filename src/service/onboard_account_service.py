@@ -4,11 +4,13 @@ import os
 
 from google.protobuf.timestamp_pb2 import Timestamp
 
+from db_session import DbSession
 from ethos.elint.entities.generic_pb2 import TemporaryTokenDetails, PersistentSessionTokenDetails
 from ethos.elint.services.product.identity.account.onboard_account_pb2 import OnboardAccountResponse, \
     AccountOnboardStatus, VerifyOnboardingAccountResponse, AuthenticateOnboardedAccountResponse, \
     AccessAccountEthosIdentityTokenResponse
 from ethos.elint.services.product.identity.account.onboard_account_pb2_grpc import OnboardAccountServiceServicer
+from models import Account
 from support.helper_functions import format_time2timestamp
 
 logger = logging.getLogger(__name__)
@@ -25,6 +27,8 @@ class OnboardAccountService(OnboardAccountServiceServicer):
     """
 
     def OnboardAccount(self, request, context):
+        Account
+        # DbSession.session_scope()
         # # Getting the request params
         # try:
         #     account_email_id = request.account_email_id

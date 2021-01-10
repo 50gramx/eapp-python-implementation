@@ -34,11 +34,6 @@ class OnboardAccountServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_onboard__account__pb2.AuthenticateOnboardedAccountRequest.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_onboard__account__pb2.AuthenticateOnboardedAccountResponse.FromString,
                 )
-        self.AccessAccountEthosIdentityToken = channel.unary_unary(
-                '/elint.services.product.identity.OnboardAccountService/AccessAccountEthosIdentityToken',
-                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_onboard__account__pb2.AccessAccountEthosIdentityTokenRequest.SerializeToString,
-                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_onboard__account__pb2.AccessAccountEthosIdentityTokenResponse.FromString,
-                )
 
 
 class OnboardAccountServiceServicer(object):
@@ -68,12 +63,6 @@ class OnboardAccountServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def AccessAccountEthosIdentityToken(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
 
 def add_OnboardAccountServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -96,11 +85,6 @@ def add_OnboardAccountServiceServicer_to_server(servicer, server):
                     servicer.AuthenticateOnboardedAccount,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_onboard__account__pb2.AuthenticateOnboardedAccountRequest.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_onboard__account__pb2.AuthenticateOnboardedAccountResponse.SerializeToString,
-            ),
-            'AccessAccountEthosIdentityToken': grpc.unary_unary_rpc_method_handler(
-                    servicer.AccessAccountEthosIdentityToken,
-                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_onboard__account__pb2.AccessAccountEthosIdentityTokenRequest.FromString,
-                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_onboard__account__pb2.AccessAccountEthosIdentityTokenResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -177,22 +161,5 @@ class OnboardAccountService(object):
         return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.OnboardAccountService/AuthenticateOnboardedAccount',
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_onboard__account__pb2.AuthenticateOnboardedAccountRequest.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_onboard__account__pb2.AuthenticateOnboardedAccountResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def AccessAccountEthosIdentityToken(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.OnboardAccountService/AccessAccountEthosIdentityToken',
-            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_onboard__account__pb2.AccessAccountEthosIdentityTokenRequest.SerializeToString,
-            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_onboard__account__pb2.AccessAccountEthosIdentityTokenResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

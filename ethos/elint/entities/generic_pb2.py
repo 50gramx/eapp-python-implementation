@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\"ethos/elint/entities/generic.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\"\xca\x01\n\x1dPersistentSessionTokenDetails\x12\x15\n\rsession_token\x18\x01 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x30\n\x0clast_used_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x97\x01\n\x1cTemporarySessionTokenDetails\x12\x15\n\rsession_token\x18\x01 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xbb\x01\n\x16PersistentTokenDetails\x12\r\n\x05token\x18\x01 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x30\n\x0clast_used_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x88\x01\n\x15TemporaryTokenDetails\x12\r\n\x05token\x18\x01 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.TimestampP\x00\x62\x06proto3'
+  serialized_pb=b'\n\"ethos/elint/entities/generic.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\"\xe1\x01\n\x1dPersistentSessionTokenDetails\x12\x15\n\rsession_token\x18\x01 \x01(\t\x12\x15\n\rsession_scope\x18\x02 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x30\n\x0clast_used_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xae\x01\n\x1cTemporarySessionTokenDetails\x12\x15\n\rsession_token\x18\x01 \x01(\t\x12\x15\n\rsession_scope\x18\x02 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xbb\x01\n\x16PersistentTokenDetails\x12\r\n\x05token\x18\x01 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x30\n\x0clast_used_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x88\x01\n\x15TemporaryTokenDetails\x12\r\n\x05token\x18\x01 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.TimestampP\x00\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,],
   public_dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
@@ -45,22 +45,29 @@ _PERSISTENTSESSIONTOKENDETAILS = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='generated_at', full_name='elint.entity.PersistentSessionTokenDetails.generated_at', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      name='session_scope', full_name='elint.entity.PersistentSessionTokenDetails.session_scope', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='last_used_at', full_name='elint.entity.PersistentSessionTokenDetails.last_used_at', index=2,
+      name='generated_at', full_name='elint.entity.PersistentSessionTokenDetails.generated_at', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='valid_till', full_name='elint.entity.PersistentSessionTokenDetails.valid_till', index=3,
+      name='last_used_at', full_name='elint.entity.PersistentSessionTokenDetails.last_used_at', index=3,
       number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='valid_till', full_name='elint.entity.PersistentSessionTokenDetails.valid_till', index=4,
+      number=5, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -78,7 +85,7 @@ _PERSISTENTSESSIONTOKENDETAILS = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=86,
-  serialized_end=288,
+  serialized_end=311,
 )
 
 
@@ -98,15 +105,22 @@ _TEMPORARYSESSIONTOKENDETAILS = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='generated_at', full_name='elint.entity.TemporarySessionTokenDetails.generated_at', index=1,
-      number=2, type=11, cpp_type=10, label=1,
+      name='session_scope', full_name='elint.entity.TemporarySessionTokenDetails.session_scope', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='generated_at', full_name='elint.entity.TemporarySessionTokenDetails.generated_at', index=2,
+      number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='valid_till', full_name='elint.entity.TemporarySessionTokenDetails.valid_till', index=2,
-      number=3, type=11, cpp_type=10, label=1,
+      name='valid_till', full_name='elint.entity.TemporarySessionTokenDetails.valid_till', index=3,
+      number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -123,8 +137,8 @@ _TEMPORARYSESSIONTOKENDETAILS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=291,
-  serialized_end=442,
+  serialized_start=314,
+  serialized_end=488,
 )
 
 
@@ -176,8 +190,8 @@ _PERSISTENTTOKENDETAILS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=445,
-  serialized_end=632,
+  serialized_start=491,
+  serialized_end=678,
 )
 
 
@@ -222,8 +236,8 @@ _TEMPORARYTOKENDETAILS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=635,
-  serialized_end=771,
+  serialized_start=681,
+  serialized_end=817,
 )
 
 _PERSISTENTSESSIONTOKENDETAILS.fields_by_name['generated_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
