@@ -29,7 +29,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nBethos/elint/services/product/identity/account/access_account.proto\x12\'elint.services.product.identity.account\x1a\"ethos/elint/entities/account.proto\x1a\"ethos/elint/entities/generic.proto\"i\n\x16ValidateAccountRequest\x12\x1d\n\x15\x61\x63\x63ount_mobile_number\x18\x01 \x01(\t\x12\x30\n\x0crequested_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xf2\x02\n\x17ValidateAccountResponse\x12\x66\n\x1b\x61\x63\x63ount_access_auth_details\x18\x01 \x01(\x0b\x32\x41.elint.services.product.identity.account.AccountAccessAuthDetails\x12\x16\n\x0e\x61\x63\x63ount_exists\x18\x02 \x01(\x08\x12L\n\x1fverification_code_token_details\x18\x03 \x01(\x0b\x32#.elint.entity.TemporaryTokenDetails\x12\x30\n\x0c\x63ode_sent_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12)\n!validate_account_with_mobile_done\x18\x05 \x01(\x08\x12,\n$validate_account_with_mobile_message\x18\x06 \x01(\t\"\xae\x02\n\x14VerifyAccountRequest\x12\x66\n\x1b\x61\x63\x63ount_access_auth_details\x18\x01 \x01(\x0b\x32\x41.elint.services.product.identity.account.AccountAccessAuthDetails\x12\x13\n\x0bresend_code\x18\x02 \x01(\x08\x12L\n\x1fverification_code_token_details\x18\x03 \x01(\x0b\x32#.elint.entity.TemporaryTokenDetails\x12\x19\n\x11verification_code\x18\x04 \x01(\t\x12\x30\n\x0crequested_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xda\x01\n\x15VerifyAccountResponse\x12v\n#account_service_access_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\"\n\x1astep_two_verification_done\x18\x02 \x01(\x08\x12%\n\x1dstep_two_verification_message\x18\x03 \x01(\t\"\x99\x01\n\x18\x41\x63\x63ountAccessAuthDetails\x12\x1d\n\x15\x61\x63\x63ount_mobile_number\x18\x01 \x01(\t\x12^\n)account_access_auth_session_token_details\x18\x02 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\"\xd7\x01\n AccountServicesAccessAuthDetails\x12&\n\x07\x61\x63\x63ount\x18\x01 \x01(\x0b\x32\x15.elint.entity.Account\x12Y\n$account_access_session_token_details\x18\x02 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\x12\x30\n\x0crequested_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp2\xc2\x02\n\x14\x41\x63\x63\x65ssAccountService\x12\x96\x01\n\x0fValidateAccount\x12?.elint.services.product.identity.account.ValidateAccountRequest\x1a@.elint.services.product.identity.account.ValidateAccountResponse\"\x00\x12\x90\x01\n\rVerifyAccount\x12=.elint.services.product.identity.account.VerifyAccountRequest\x1a>.elint.services.product.identity.account.VerifyAccountResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\nBethos/elint/services/product/identity/account/access_account.proto\x12\'elint.services.product.identity.account\x1a\"ethos/elint/entities/account.proto\x1a\"ethos/elint/entities/generic.proto\"i\n\x16ValidateAccountRequest\x12\x1d\n\x15\x61\x63\x63ount_mobile_number\x18\x01 \x01(\t\x12\x30\n\x0crequested_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xda\x02\n\x17ValidateAccountResponse\x12\x66\n\x1b\x61\x63\x63ount_access_auth_details\x18\x01 \x01(\x0b\x32\x41.elint.services.product.identity.account.AccountAccessAuthDetails\x12\x16\n\x0e\x61\x63\x63ount_exists\x18\x02 \x01(\x08\x12L\n\x1fverification_code_token_details\x18\x03 \x01(\x0b\x32#.elint.entity.TemporaryTokenDetails\x12\x30\n\x0c\x63ode_sent_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x1d\n\x15validate_account_done\x18\x05 \x01(\x08\x12 \n\x18validate_account_message\x18\x06 \x01(\t\"\xf2\x02\n\x14VerifyAccountRequest\x12\x66\n\x1b\x61\x63\x63ount_access_auth_details\x18\x01 \x01(\x0b\x32\x41.elint.services.product.identity.account.AccountAccessAuthDetails\x12\x13\n\x0bresend_code\x18\x02 \x01(\x08\x12L\n\x1fverification_code_token_details\x18\x03 \x01(\x0b\x32#.elint.entity.TemporaryTokenDetails\x12\x19\n\x11verification_code\x18\x04 \x01(\t\x12\x42\n\x16\x61\x63\x63ount_device_details\x18\x05 \x01(\x0b\x32\".elint.entity.AccountDeviceDetails\x12\x30\n\x0crequested_at\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xc8\x01\n\x15VerifyAccountResponse\x12v\n#account_service_access_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x19\n\x11verification_done\x18\x02 \x01(\x08\x12\x1c\n\x14verification_message\x18\x03 \x01(\t\"\x84\x01\n\x1fValidateAccountServicesResponse\x12.\n&account_service_access_validation_done\x18\x01 \x01(\x08\x12\x31\n)account_service_access_validation_message\x18\x02 \x01(\t\"\x95\x01\n\x1bReAccountAccessTokenRequest\x12v\n#account_service_access_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\"\xc9\x01\n\x1cReAccountAccessTokenResponse\x12v\n#account_service_access_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\x99\x01\n\x18\x41\x63\x63ountAccessAuthDetails\x12\x1d\n\x15\x61\x63\x63ount_mobile_number\x18\x01 \x01(\t\x12^\n)account_access_auth_session_token_details\x18\x02 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\"\xe0\x01\n AccountServicesAccessAuthDetails\x12&\n\x07\x61\x63\x63ount\x18\x01 \x01(\x0b\x32\x15.elint.entity.Account\x12\x62\n-account_services_access_session_token_details\x18\x02 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\x12\x30\n\x0crequested_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp2\x9d\x05\n\x14\x41\x63\x63\x65ssAccountService\x12\x96\x01\n\x0fValidateAccount\x12?.elint.services.product.identity.account.ValidateAccountRequest\x1a@.elint.services.product.identity.account.ValidateAccountResponse\"\x00\x12\x90\x01\n\rVerifyAccount\x12=.elint.services.product.identity.account.VerifyAccountRequest\x1a>.elint.services.product.identity.account.VerifyAccountResponse\"\x00\x12\xb0\x01\n\x17ValidateAccountServices\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1aH.elint.services.product.identity.account.ValidateAccountServicesResponse\"\x00\x12\xa5\x01\n\x14ReAccountAccessToken\x12\x44.elint.services.product.identity.account.ReAccountAccessTokenRequest\x1a\x45.elint.services.product.identity.account.ReAccountAccessTokenResponse\"\x00\x62\x06proto3'
   ,
   dependencies=[ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,])
 
@@ -112,14 +112,14 @@ _VALIDATEACCOUNTRESPONSE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='validate_account_with_mobile_done', full_name='elint.services.product.identity.account.ValidateAccountResponse.validate_account_with_mobile_done', index=4,
+      name='validate_account_done', full_name='elint.services.product.identity.account.ValidateAccountResponse.validate_account_done', index=4,
       number=5, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='validate_account_with_mobile_message', full_name='elint.services.product.identity.account.ValidateAccountResponse.validate_account_with_mobile_message', index=5,
+      name='validate_account_message', full_name='elint.services.product.identity.account.ValidateAccountResponse.validate_account_message', index=5,
       number=6, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -138,7 +138,7 @@ _VALIDATEACCOUNTRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=291,
-  serialized_end=661,
+  serialized_end=637,
 )
 
 
@@ -179,8 +179,15 @@ _VERIFYACCOUNTREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='requested_at', full_name='elint.services.product.identity.account.VerifyAccountRequest.requested_at', index=4,
+      name='account_device_details', full_name='elint.services.product.identity.account.VerifyAccountRequest.account_device_details', index=4,
       number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='requested_at', full_name='elint.services.product.identity.account.VerifyAccountRequest.requested_at', index=5,
+      number=6, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -197,8 +204,8 @@ _VERIFYACCOUNTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=664,
-  serialized_end=966,
+  serialized_start=640,
+  serialized_end=1010,
 )
 
 
@@ -218,14 +225,14 @@ _VERIFYACCOUNTRESPONSE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='step_two_verification_done', full_name='elint.services.product.identity.account.VerifyAccountResponse.step_two_verification_done', index=1,
+      name='verification_done', full_name='elint.services.product.identity.account.VerifyAccountResponse.verification_done', index=1,
       number=2, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='step_two_verification_message', full_name='elint.services.product.identity.account.VerifyAccountResponse.step_two_verification_message', index=2,
+      name='verification_message', full_name='elint.services.product.identity.account.VerifyAccountResponse.verification_message', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -243,8 +250,118 @@ _VERIFYACCOUNTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=969,
-  serialized_end=1187,
+  serialized_start=1013,
+  serialized_end=1213,
+)
+
+
+_VALIDATEACCOUNTSERVICESRESPONSE = _descriptor.Descriptor(
+  name='ValidateAccountServicesResponse',
+  full_name='elint.services.product.identity.account.ValidateAccountServicesResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='account_service_access_validation_done', full_name='elint.services.product.identity.account.ValidateAccountServicesResponse.account_service_access_validation_done', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='account_service_access_validation_message', full_name='elint.services.product.identity.account.ValidateAccountServicesResponse.account_service_access_validation_message', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1216,
+  serialized_end=1348,
+)
+
+
+_REACCOUNTACCESSTOKENREQUEST = _descriptor.Descriptor(
+  name='ReAccountAccessTokenRequest',
+  full_name='elint.services.product.identity.account.ReAccountAccessTokenRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='account_service_access_auth_details', full_name='elint.services.product.identity.account.ReAccountAccessTokenRequest.account_service_access_auth_details', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1351,
+  serialized_end=1500,
+)
+
+
+_REACCOUNTACCESSTOKENRESPONSE = _descriptor.Descriptor(
+  name='ReAccountAccessTokenResponse',
+  full_name='elint.services.product.identity.account.ReAccountAccessTokenResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='account_service_access_auth_details', full_name='elint.services.product.identity.account.ReAccountAccessTokenResponse.account_service_access_auth_details', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='response_meta', full_name='elint.services.product.identity.account.ReAccountAccessTokenResponse.response_meta', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1503,
+  serialized_end=1704,
 )
 
 
@@ -282,8 +399,8 @@ _ACCOUNTACCESSAUTHDETAILS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1190,
-  serialized_end=1343,
+  serialized_start=1707,
+  serialized_end=1860,
 )
 
 
@@ -303,7 +420,7 @@ _ACCOUNTSERVICESACCESSAUTHDETAILS = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='account_access_session_token_details', full_name='elint.services.product.identity.account.AccountServicesAccessAuthDetails.account_access_session_token_details', index=1,
+      name='account_services_access_session_token_details', full_name='elint.services.product.identity.account.AccountServicesAccessAuthDetails.account_services_access_session_token_details', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -328,8 +445,8 @@ _ACCOUNTSERVICESACCESSAUTHDETAILS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1346,
-  serialized_end=1561,
+  serialized_start=1863,
+  serialized_end=2087,
 )
 
 _VALIDATEACCOUNTREQUEST.fields_by_name['requested_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -338,16 +455,23 @@ _VALIDATEACCOUNTRESPONSE.fields_by_name['verification_code_token_details'].messa
 _VALIDATEACCOUNTRESPONSE.fields_by_name['code_sent_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _VERIFYACCOUNTREQUEST.fields_by_name['account_access_auth_details'].message_type = _ACCOUNTACCESSAUTHDETAILS
 _VERIFYACCOUNTREQUEST.fields_by_name['verification_code_token_details'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._TEMPORARYTOKENDETAILS
+_VERIFYACCOUNTREQUEST.fields_by_name['account_device_details'].message_type = ethos_dot_elint_dot_entities_dot_account__pb2._ACCOUNTDEVICEDETAILS
 _VERIFYACCOUNTREQUEST.fields_by_name['requested_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _VERIFYACCOUNTRESPONSE.fields_by_name['account_service_access_auth_details'].message_type = _ACCOUNTSERVICESACCESSAUTHDETAILS
+_REACCOUNTACCESSTOKENREQUEST.fields_by_name['account_service_access_auth_details'].message_type = _ACCOUNTSERVICESACCESSAUTHDETAILS
+_REACCOUNTACCESSTOKENRESPONSE.fields_by_name['account_service_access_auth_details'].message_type = _ACCOUNTSERVICESACCESSAUTHDETAILS
+_REACCOUNTACCESSTOKENRESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
 _ACCOUNTACCESSAUTHDETAILS.fields_by_name['account_access_auth_session_token_details'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._PERSISTENTSESSIONTOKENDETAILS
 _ACCOUNTSERVICESACCESSAUTHDETAILS.fields_by_name['account'].message_type = ethos_dot_elint_dot_entities_dot_account__pb2._ACCOUNT
-_ACCOUNTSERVICESACCESSAUTHDETAILS.fields_by_name['account_access_session_token_details'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._PERSISTENTSESSIONTOKENDETAILS
+_ACCOUNTSERVICESACCESSAUTHDETAILS.fields_by_name['account_services_access_session_token_details'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._PERSISTENTSESSIONTOKENDETAILS
 _ACCOUNTSERVICESACCESSAUTHDETAILS.fields_by_name['requested_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 DESCRIPTOR.message_types_by_name['ValidateAccountRequest'] = _VALIDATEACCOUNTREQUEST
 DESCRIPTOR.message_types_by_name['ValidateAccountResponse'] = _VALIDATEACCOUNTRESPONSE
 DESCRIPTOR.message_types_by_name['VerifyAccountRequest'] = _VERIFYACCOUNTREQUEST
 DESCRIPTOR.message_types_by_name['VerifyAccountResponse'] = _VERIFYACCOUNTRESPONSE
+DESCRIPTOR.message_types_by_name['ValidateAccountServicesResponse'] = _VALIDATEACCOUNTSERVICESRESPONSE
+DESCRIPTOR.message_types_by_name['ReAccountAccessTokenRequest'] = _REACCOUNTACCESSTOKENREQUEST
+DESCRIPTOR.message_types_by_name['ReAccountAccessTokenResponse'] = _REACCOUNTACCESSTOKENRESPONSE
 DESCRIPTOR.message_types_by_name['AccountAccessAuthDetails'] = _ACCOUNTACCESSAUTHDETAILS
 DESCRIPTOR.message_types_by_name['AccountServicesAccessAuthDetails'] = _ACCOUNTSERVICESACCESSAUTHDETAILS
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -380,6 +504,27 @@ VerifyAccountResponse = _reflection.GeneratedProtocolMessageType('VerifyAccountR
   })
 _sym_db.RegisterMessage(VerifyAccountResponse)
 
+ValidateAccountServicesResponse = _reflection.GeneratedProtocolMessageType('ValidateAccountServicesResponse', (_message.Message,), {
+  'DESCRIPTOR' : _VALIDATEACCOUNTSERVICESRESPONSE,
+  '__module__' : 'ethos.elint.services.product.identity.account.access_account_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.identity.account.ValidateAccountServicesResponse)
+  })
+_sym_db.RegisterMessage(ValidateAccountServicesResponse)
+
+ReAccountAccessTokenRequest = _reflection.GeneratedProtocolMessageType('ReAccountAccessTokenRequest', (_message.Message,), {
+  'DESCRIPTOR' : _REACCOUNTACCESSTOKENREQUEST,
+  '__module__' : 'ethos.elint.services.product.identity.account.access_account_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.identity.account.ReAccountAccessTokenRequest)
+  })
+_sym_db.RegisterMessage(ReAccountAccessTokenRequest)
+
+ReAccountAccessTokenResponse = _reflection.GeneratedProtocolMessageType('ReAccountAccessTokenResponse', (_message.Message,), {
+  'DESCRIPTOR' : _REACCOUNTACCESSTOKENRESPONSE,
+  '__module__' : 'ethos.elint.services.product.identity.account.access_account_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.identity.account.ReAccountAccessTokenResponse)
+  })
+_sym_db.RegisterMessage(ReAccountAccessTokenResponse)
+
 AccountAccessAuthDetails = _reflection.GeneratedProtocolMessageType('AccountAccessAuthDetails', (_message.Message,), {
   'DESCRIPTOR' : _ACCOUNTACCESSAUTHDETAILS,
   '__module__' : 'ethos.elint.services.product.identity.account.access_account_pb2'
@@ -403,8 +548,8 @@ _ACCESSACCOUNTSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1564,
-  serialized_end=1886,
+  serialized_start=2090,
+  serialized_end=2759,
   methods=[
   _descriptor.MethodDescriptor(
     name='ValidateAccount',
@@ -423,6 +568,26 @@ _ACCESSACCOUNTSERVICE = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_VERIFYACCOUNTREQUEST,
     output_type=_VERIFYACCOUNTRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='ValidateAccountServices',
+    full_name='elint.services.product.identity.account.AccessAccountService.ValidateAccountServices',
+    index=2,
+    containing_service=None,
+    input_type=_ACCOUNTSERVICESACCESSAUTHDETAILS,
+    output_type=_VALIDATEACCOUNTSERVICESRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='ReAccountAccessToken',
+    full_name='elint.services.product.identity.account.AccessAccountService.ReAccountAccessToken',
+    index=3,
+    containing_service=None,
+    input_type=_REACCOUNTACCESSTOKENREQUEST,
+    output_type=_REACCOUNTACCESSTOKENRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

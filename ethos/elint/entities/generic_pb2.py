@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\"ethos/elint/entities/generic.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\"\xe1\x01\n\x1dPersistentSessionTokenDetails\x12\x15\n\rsession_token\x18\x01 \x01(\t\x12\x15\n\rsession_scope\x18\x02 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x30\n\x0clast_used_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xae\x01\n\x1cTemporarySessionTokenDetails\x12\x15\n\rsession_token\x18\x01 \x01(\t\x12\x15\n\rsession_scope\x18\x02 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xbb\x01\n\x16PersistentTokenDetails\x12\r\n\x05token\x18\x01 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x30\n\x0clast_used_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x88\x01\n\x15TemporaryTokenDetails\x12\r\n\x05token\x18\x01 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.TimestampP\x00\x62\x06proto3'
+  serialized_pb=b'\n\"ethos/elint/entities/generic.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\"\xe1\x01\n\x1dPersistentSessionTokenDetails\x12\x15\n\rsession_token\x18\x01 \x01(\t\x12\x15\n\rsession_scope\x18\x02 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x30\n\x0clast_used_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xae\x01\n\x1cTemporarySessionTokenDetails\x12\x15\n\rsession_token\x18\x01 \x01(\t\x12\x15\n\rsession_scope\x18\x02 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xbb\x01\n\x16PersistentTokenDetails\x12\r\n\x05token\x18\x01 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x30\n\x0clast_used_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x88\x01\n\x15TemporaryTokenDetails\x12\r\n\x05token\x18\x01 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"7\n\x0cResponseMeta\x12\x11\n\tmeta_done\x18\x01 \x01(\x08\x12\x14\n\x0cmeta_message\x18\x02 \x01(\tP\x00\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,],
   public_dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
@@ -240,6 +240,45 @@ _TEMPORARYTOKENDETAILS = _descriptor.Descriptor(
   serialized_end=817,
 )
 
+
+_RESPONSEMETA = _descriptor.Descriptor(
+  name='ResponseMeta',
+  full_name='elint.entity.ResponseMeta',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='meta_done', full_name='elint.entity.ResponseMeta.meta_done', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='meta_message', full_name='elint.entity.ResponseMeta.meta_message', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=819,
+  serialized_end=874,
+)
+
 _PERSISTENTSESSIONTOKENDETAILS.fields_by_name['generated_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _PERSISTENTSESSIONTOKENDETAILS.fields_by_name['last_used_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _PERSISTENTSESSIONTOKENDETAILS.fields_by_name['valid_till'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -254,6 +293,7 @@ DESCRIPTOR.message_types_by_name['PersistentSessionTokenDetails'] = _PERSISTENTS
 DESCRIPTOR.message_types_by_name['TemporarySessionTokenDetails'] = _TEMPORARYSESSIONTOKENDETAILS
 DESCRIPTOR.message_types_by_name['PersistentTokenDetails'] = _PERSISTENTTOKENDETAILS
 DESCRIPTOR.message_types_by_name['TemporaryTokenDetails'] = _TEMPORARYTOKENDETAILS
+DESCRIPTOR.message_types_by_name['ResponseMeta'] = _RESPONSEMETA
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 PersistentSessionTokenDetails = _reflection.GeneratedProtocolMessageType('PersistentSessionTokenDetails', (_message.Message,), {
@@ -283,6 +323,13 @@ TemporaryTokenDetails = _reflection.GeneratedProtocolMessageType('TemporaryToken
   # @@protoc_insertion_point(class_scope:elint.entity.TemporaryTokenDetails)
   })
 _sym_db.RegisterMessage(TemporaryTokenDetails)
+
+ResponseMeta = _reflection.GeneratedProtocolMessageType('ResponseMeta', (_message.Message,), {
+  'DESCRIPTOR' : _RESPONSEMETA,
+  '__module__' : 'ethos.elint.entities.generic_pb2'
+  # @@protoc_insertion_point(class_scope:elint.entity.ResponseMeta)
+  })
+_sym_db.RegisterMessage(ResponseMeta)
 
 
 # @@protoc_insertion_point(module_scope)

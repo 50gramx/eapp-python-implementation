@@ -2,7 +2,9 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from ethos.elint.entities import space_knowledge_domain_pb2 as ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2
+from ethos.elint.entities import generic_pb2 as ethos_dot_elint_dot_entities_dot_generic__pb2
+from ethos.elint.services.product.knowledge.space_knowledge import access_space_knowledge_pb2 as ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_access__space__knowledge__pb2
+from ethos.elint.services.product.knowledge.space_knowledge_domain import access_space_knowledge_domain_pb2 as ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2
 from ethos.elint.services.product.knowledge.space_knowledge_domain import create_space_knowledge_domain_pb2 as ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_create__space__knowledge__domain__pb2
 
 
@@ -15,15 +17,37 @@ class CreateSpaceKnowledgeDomainServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.CreateAccountWhiteSpaceKnowledgeDomain = channel.unary_unary(
+                '/elint.services.product.knowledge.domain.CreateSpaceKnowledgeDomainService/CreateAccountWhiteSpaceKnowledgeDomain',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_access__space__knowledge__pb2.SpaceKnowledgeServicesAccessAuthDetails.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_create__space__knowledge__domain__pb2.CreateAccountWhiteSpaceKnowledgeDomainResponse.FromString,
+                )
+        self.CreateSpaceKnowledgeDomainTfIdf = channel.unary_unary(
+                '/elint.services.product.knowledge.domain.CreateSpaceKnowledgeDomainService/CreateSpaceKnowledgeDomainTfIdf',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainServicesAccessAuthDetails.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
+                )
         self.CreateSpaceKnowledgeDomain = channel.unary_unary(
                 '/elint.services.product.knowledge.domain.CreateSpaceKnowledgeDomainService/CreateSpaceKnowledgeDomain',
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_create__space__knowledge__domain__pb2.CreateSpaceKnowledgeDomainRequest.SerializeToString,
-                response_deserializer=ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2.SpaceKnowledgeDomain.FromString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_create__space__knowledge__domain__pb2.CreateSpaceKnowledgeDomainResponse.FromString,
                 )
 
 
 class CreateSpaceKnowledgeDomainServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
+
+    def CreateAccountWhiteSpaceKnowledgeDomain(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CreateSpaceKnowledgeDomainTfIdf(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def CreateSpaceKnowledgeDomain(self, request, context):
         """Missing associated documentation comment in .proto file."""
@@ -34,10 +58,20 @@ class CreateSpaceKnowledgeDomainServiceServicer(object):
 
 def add_CreateSpaceKnowledgeDomainServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'CreateAccountWhiteSpaceKnowledgeDomain': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateAccountWhiteSpaceKnowledgeDomain,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_access__space__knowledge__pb2.SpaceKnowledgeServicesAccessAuthDetails.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_create__space__knowledge__domain__pb2.CreateAccountWhiteSpaceKnowledgeDomainResponse.SerializeToString,
+            ),
+            'CreateSpaceKnowledgeDomainTfIdf': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateSpaceKnowledgeDomainTfIdf,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainServicesAccessAuthDetails.FromString,
+                    response_serializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.SerializeToString,
+            ),
             'CreateSpaceKnowledgeDomain': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateSpaceKnowledgeDomain,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_create__space__knowledge__domain__pb2.CreateSpaceKnowledgeDomainRequest.FromString,
-                    response_serializer=ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2.SpaceKnowledgeDomain.SerializeToString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_create__space__knowledge__domain__pb2.CreateSpaceKnowledgeDomainResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -48,6 +82,40 @@ def add_CreateSpaceKnowledgeDomainServiceServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class CreateSpaceKnowledgeDomainService(object):
     """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def CreateAccountWhiteSpaceKnowledgeDomain(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.domain.CreateSpaceKnowledgeDomainService/CreateAccountWhiteSpaceKnowledgeDomain',
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_access__space__knowledge__pb2.SpaceKnowledgeServicesAccessAuthDetails.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_create__space__knowledge__domain__pb2.CreateAccountWhiteSpaceKnowledgeDomainResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def CreateSpaceKnowledgeDomainTfIdf(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.domain.CreateSpaceKnowledgeDomainService/CreateSpaceKnowledgeDomainTfIdf',
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainServicesAccessAuthDetails.SerializeToString,
+            ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def CreateSpaceKnowledgeDomain(request,
@@ -62,6 +130,6 @@ class CreateSpaceKnowledgeDomainService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.domain.CreateSpaceKnowledgeDomainService/CreateSpaceKnowledgeDomain',
             ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_create__space__knowledge__domain__pb2.CreateSpaceKnowledgeDomainRequest.SerializeToString,
-            ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2.SpaceKnowledgeDomain.FromString,
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_create__space__knowledge__domain__pb2.CreateSpaceKnowledgeDomainResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

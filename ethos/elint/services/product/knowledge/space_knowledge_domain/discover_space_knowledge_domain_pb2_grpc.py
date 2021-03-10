@@ -2,11 +2,14 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
+from ethos.elint.entities import space_knowledge_domain_pb2 as ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2
+from ethos.elint.services.product.knowledge.space_knowledge_domain import access_space_knowledge_domain_pb2 as ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2
 from ethos.elint.services.product.knowledge.space_knowledge_domain import discover_space_knowledge_domain_pb2 as ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2
 
 
 class DiscoverSpaceKnowledgeDomainServiceStub(object):
-    """Missing associated documentation comment in .proto file."""
+    """Service Definitions
+    """
 
     def __init__(self, channel):
         """Constructor.
@@ -14,17 +17,63 @@ class DiscoverSpaceKnowledgeDomainServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GetKnowledgeDomainFiles = channel.unary_unary(
-                '/elint.services.product.knowledge.domain.DiscoverSpaceKnowledgeDomainService/GetKnowledgeDomainFiles',
-                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.GetKnowledgeDomainFilesRequest.SerializeToString,
-                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.GetKnowledgeDomainFilesResponse.FromString,
+        self.GetAllDomainFiles = channel.unary_unary(
+                '/elint.services.product.knowledge.domain.DiscoverSpaceKnowledgeDomainService/GetAllDomainFiles',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainServicesAccessAuthDetails.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.GetAllDomainFilesResponse.FromString,
+                )
+        self.GetUpdatedDomain = channel.unary_unary(
+                '/elint.services.product.knowledge.domain.DiscoverSpaceKnowledgeDomainService/GetUpdatedDomain',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainServicesAccessAuthDetails.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2.SpaceKnowledgeDomain.FromString,
+                )
+        self.GetBestAnswers = channel.unary_unary(
+                '/elint.services.product.knowledge.domain.DiscoverSpaceKnowledgeDomainService/GetBestAnswers',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.GetBestAnswersRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.GetBestAnswersResponse.FromString,
+                )
+        self.RetrieveMessageContextPages = channel.unary_unary(
+                '/elint.services.product.knowledge.domain.DiscoverSpaceKnowledgeDomainService/RetrieveMessageContextPages',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.RetrieveMessageContextPagesRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.RetrieveMessageContextPagesResponse.FromString,
+                )
+        self.IsMessageContextInDomain = channel.unary_unary(
+                '/elint.services.product.knowledge.domain.DiscoverSpaceKnowledgeDomainService/IsMessageContextInDomain',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.IsMessageContextInDomainRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.IsMessageContextInDomainResponse.FromString,
                 )
 
 
 class DiscoverSpaceKnowledgeDomainServiceServicer(object):
-    """Missing associated documentation comment in .proto file."""
+    """Service Definitions
+    """
 
-    def GetKnowledgeDomainFiles(self, request, context):
+    def GetAllDomainFiles(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetUpdatedDomain(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetBestAnswers(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def RetrieveMessageContextPages(self, request, context):
+        """rpc IsDomianInferredByAccount () returns () {};
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def IsMessageContextInDomain(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -33,10 +82,30 @@ class DiscoverSpaceKnowledgeDomainServiceServicer(object):
 
 def add_DiscoverSpaceKnowledgeDomainServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetKnowledgeDomainFiles': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetKnowledgeDomainFiles,
-                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.GetKnowledgeDomainFilesRequest.FromString,
-                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.GetKnowledgeDomainFilesResponse.SerializeToString,
+            'GetAllDomainFiles': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetAllDomainFiles,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainServicesAccessAuthDetails.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.GetAllDomainFilesResponse.SerializeToString,
+            ),
+            'GetUpdatedDomain': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetUpdatedDomain,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainServicesAccessAuthDetails.FromString,
+                    response_serializer=ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2.SpaceKnowledgeDomain.SerializeToString,
+            ),
+            'GetBestAnswers': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetBestAnswers,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.GetBestAnswersRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.GetBestAnswersResponse.SerializeToString,
+            ),
+            'RetrieveMessageContextPages': grpc.unary_unary_rpc_method_handler(
+                    servicer.RetrieveMessageContextPages,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.RetrieveMessageContextPagesRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.RetrieveMessageContextPagesResponse.SerializeToString,
+            ),
+            'IsMessageContextInDomain': grpc.unary_unary_rpc_method_handler(
+                    servicer.IsMessageContextInDomain,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.IsMessageContextInDomainRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.IsMessageContextInDomainResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -46,10 +115,11 @@ def add_DiscoverSpaceKnowledgeDomainServiceServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class DiscoverSpaceKnowledgeDomainService(object):
-    """Missing associated documentation comment in .proto file."""
+    """Service Definitions
+    """
 
     @staticmethod
-    def GetKnowledgeDomainFiles(request,
+    def GetAllDomainFiles(request,
             target,
             options=(),
             channel_credentials=None,
@@ -59,8 +129,76 @@ class DiscoverSpaceKnowledgeDomainService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.domain.DiscoverSpaceKnowledgeDomainService/GetKnowledgeDomainFiles',
-            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.GetKnowledgeDomainFilesRequest.SerializeToString,
-            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.GetKnowledgeDomainFilesResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.domain.DiscoverSpaceKnowledgeDomainService/GetAllDomainFiles',
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainServicesAccessAuthDetails.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.GetAllDomainFilesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetUpdatedDomain(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.domain.DiscoverSpaceKnowledgeDomainService/GetUpdatedDomain',
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainServicesAccessAuthDetails.SerializeToString,
+            ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2.SpaceKnowledgeDomain.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetBestAnswers(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.domain.DiscoverSpaceKnowledgeDomainService/GetBestAnswers',
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.GetBestAnswersRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.GetBestAnswersResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def RetrieveMessageContextPages(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.domain.DiscoverSpaceKnowledgeDomainService/RetrieveMessageContextPages',
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.RetrieveMessageContextPagesRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.RetrieveMessageContextPagesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def IsMessageContextInDomain(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.domain.DiscoverSpaceKnowledgeDomainService/IsMessageContextInDomain',
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.IsMessageContextInDomainRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.IsMessageContextInDomainResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

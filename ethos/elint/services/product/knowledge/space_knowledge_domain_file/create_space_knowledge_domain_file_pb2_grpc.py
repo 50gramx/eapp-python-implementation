@@ -2,7 +2,6 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from ethos.elint.entities import space_knowledge_domain_file_pb2 as ethos_dot_elint_dot_entities_dot_space__knowledge__domain__file__pb2
 from ethos.elint.services.product.knowledge.space_knowledge_domain_file import create_space_knowledge_domain_file_pb2 as ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_create__space__knowledge__domain__file__pb2
 
 
@@ -16,11 +15,6 @@ class CreateSpaceKnowledgeDomainFileServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.CreateSpaceKnowledgeDomainFile = channel.unary_unary(
-                '/elint.services.product.knowledge.file.CreateSpaceKnowledgeDomainFileService/CreateSpaceKnowledgeDomainFile',
-                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_create__space__knowledge__domain__file__pb2.CreateSpaceKnowledgeDomainFileRequest.SerializeToString,
-                response_deserializer=ethos_dot_elint_dot_entities_dot_space__knowledge__domain__file__pb2.SpaceKnowledgeDomainFile.FromString,
-                )
         self.UploadSpaceKnowledgeDomainFile = channel.stream_stream(
                 '/elint.services.product.knowledge.file.CreateSpaceKnowledgeDomainFileService/UploadSpaceKnowledgeDomainFile',
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_create__space__knowledge__domain__file__pb2.UploadSpaceKnowledgeDomainFileRequest.SerializeToString,
@@ -32,12 +26,6 @@ class CreateSpaceKnowledgeDomainFileServiceServicer(object):
     """Service Definitions
     """
 
-    def CreateSpaceKnowledgeDomainFile(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def UploadSpaceKnowledgeDomainFile(self, request_iterator, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -47,11 +35,6 @@ class CreateSpaceKnowledgeDomainFileServiceServicer(object):
 
 def add_CreateSpaceKnowledgeDomainFileServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'CreateSpaceKnowledgeDomainFile': grpc.unary_unary_rpc_method_handler(
-                    servicer.CreateSpaceKnowledgeDomainFile,
-                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_create__space__knowledge__domain__file__pb2.CreateSpaceKnowledgeDomainFileRequest.FromString,
-                    response_serializer=ethos_dot_elint_dot_entities_dot_space__knowledge__domain__file__pb2.SpaceKnowledgeDomainFile.SerializeToString,
-            ),
             'UploadSpaceKnowledgeDomainFile': grpc.stream_stream_rpc_method_handler(
                     servicer.UploadSpaceKnowledgeDomainFile,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_create__space__knowledge__domain__file__pb2.UploadSpaceKnowledgeDomainFileRequest.FromString,
@@ -67,23 +50,6 @@ def add_CreateSpaceKnowledgeDomainFileServiceServicer_to_server(servicer, server
 class CreateSpaceKnowledgeDomainFileService(object):
     """Service Definitions
     """
-
-    @staticmethod
-    def CreateSpaceKnowledgeDomainFile(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.file.CreateSpaceKnowledgeDomainFileService/CreateSpaceKnowledgeDomainFile',
-            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_create__space__knowledge__domain__file__pb2.CreateSpaceKnowledgeDomainFileRequest.SerializeToString,
-            ethos_dot_elint_dot_entities_dot_space__knowledge__domain__file__pb2.SpaceKnowledgeDomainFile.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def UploadSpaceKnowledgeDomainFile(request_iterator,

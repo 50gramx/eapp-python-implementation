@@ -27,6 +27,7 @@ try:
 except AttributeError:
   google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2.google.protobuf.timestamp_pb2
 from ethos.elint.entities import space_knowledge_domain_file_pb2 as ethos_dot_elint_dot_entities_dot_space__knowledge__domain__file__pb2
+from ethos.elint.services.product.knowledge.space_knowledge_domain import access_space_knowledge_domain_pb2 as ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2
 from ethos.elint.services.product.knowledge.space_knowledge_domain_file import access_space_knowledge_domain_file_pb2 as ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_access__space__knowledge__domain__file__pb2
 
 
@@ -36,57 +37,11 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nkethos/elint/services/product/knowledge/space_knowledge_domain_file/create_space_knowledge_domain_file.proto\x12%elint.services.product.knowledge.file\x1a\"ethos/elint/entities/generic.proto\x1a\"ethos/elint/entities/account.proto\x1a\x31\x65thos/elint/entities/space_knowledge_domain.proto\x1a\x36\x65thos/elint/entities/space_knowledge_domain_file.proto\x1akethos/elint/services/product/knowledge/space_knowledge_domain_file/access_space_knowledge_domain_file.proto\"\xb1\x02\n%CreateSpaceKnowledgeDomainFileRequest\x12\x99\x01\n7space_knowledge_domain_file_service_access_auth_details\x18\x01 \x01(\x0b\x32X.elint.services.product.knowledge.file.SpaceKnowledgeDomainFileServicesAccessAuthDetails\x12(\n space_knowledge_domain_file_name\x18\x02 \x01(\t\x12\x42\n\x16space_knowledge_domain\x18\x03 \x01(\x0b\x32\".elint.entity.SpaceKnowledgeDomain\"\x8e\x02\n%UploadSpaceKnowledgeDomainFileRequest\x12\x99\x01\n7space_knowledge_domain_file_service_access_auth_details\x18\x01 \x01(\x0b\x32X.elint.services.product.knowledge.file.SpaceKnowledgeDomainFileServicesAccessAuthDetails\x12\x34\n\x04\x66ile\x18\x02 \x01(\x0b\x32&.elint.entity.SpaceKnowledgeDomainFile\x12\x13\n\x0b\x66ile_buffer\x18\x03 \x01(\x0c\"I\n&UploadSpaceKnowledgeDomainFileResponse\x12\x0e\n\x06length\x18\x01 \x01(\x05\x12\x0f\n\x07\x66ile_id\x18\x02 \x01(\t2\x88\x03\n%CreateSpaceKnowledgeDomainFileService\x12\x98\x01\n\x1e\x43reateSpaceKnowledgeDomainFile\x12L.elint.services.product.knowledge.file.CreateSpaceKnowledgeDomainFileRequest\x1a&.elint.entity.SpaceKnowledgeDomainFile\"\x00\x12\xc3\x01\n\x1eUploadSpaceKnowledgeDomainFile\x12L.elint.services.product.knowledge.file.UploadSpaceKnowledgeDomainFileRequest\x1aM.elint.services.product.knowledge.file.UploadSpaceKnowledgeDomainFileResponse\"\x00(\x01\x30\x01\x62\x06proto3'
+  serialized_pb=b'\nkethos/elint/services/product/knowledge/space_knowledge_domain_file/create_space_knowledge_domain_file.proto\x12%elint.services.product.knowledge.file\x1a\"ethos/elint/entities/generic.proto\x1a\"ethos/elint/entities/account.proto\x1a\x31\x65thos/elint/entities/space_knowledge_domain.proto\x1a\x36\x65thos/elint/entities/space_knowledge_domain_file.proto\x1a\x61\x65thos/elint/services/product/knowledge/space_knowledge_domain/access_space_knowledge_domain.proto\x1akethos/elint/services/product/knowledge/space_knowledge_domain_file/access_space_knowledge_domain_file.proto\"\xb8\x03\n%UploadSpaceKnowledgeDomainFileRequest\x12\x93\x01\n3space_knowledge_domain_services_access_auth_details\x18\x01 \x01(\x0b\x32V.elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails\x12(\n space_knowledge_domain_file_name\x18\x02 \x01(\t\x12(\n space_knowledge_domain_file_size\x18\x03 \x01(\x05\x12O\n*space_knowledge_domain_file_extension_type\x18\x04 \x01(\x0e\x32\x1b.elint.entity.ExtentionType\x12?\n space_knowledge_domain_file_tags\x18\x05 \x03(\x0b\x32\x15.elint.entity.FileTag\x12\x13\n\x0b\x66ile_buffer\x18\x06 \x01(\x0c\"\xb9\x02\n&UploadSpaceKnowledgeDomainFileResponse\x12\x99\x01\n7space_knowledge_domain_file_service_access_auth_details\x18\x01 \x01(\x0b\x32X.elint.services.product.knowledge.file.SpaceKnowledgeDomainFileServicesAccessAuthDetails\x12\x0e\n\x06length\x18\x02 \x01(\x05\x12/\n\'space_knowledge_domain_file_upload_done\x18\x03 \x01(\x08\x12\x32\n*space_knowledge_domain_file_upload_message\x18\x04 \x01(\t2\xed\x01\n%CreateSpaceKnowledgeDomainFileService\x12\xc3\x01\n\x1eUploadSpaceKnowledgeDomainFile\x12L.elint.services.product.knowledge.file.UploadSpaceKnowledgeDomainFileRequest\x1aM.elint.services.product.knowledge.file.UploadSpaceKnowledgeDomainFileResponse\"\x00(\x01\x30\x01\x62\x06proto3'
   ,
-  dependencies=[ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_space__knowledge__domain__file__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_access__space__knowledge__domain__file__pb2.DESCRIPTOR,])
+  dependencies=[ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_space__knowledge__domain__file__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_access__space__knowledge__domain__file__pb2.DESCRIPTOR,])
 
 
-
-
-_CREATESPACEKNOWLEDGEDOMAINFILEREQUEST = _descriptor.Descriptor(
-  name='CreateSpaceKnowledgeDomainFileRequest',
-  full_name='elint.services.product.knowledge.file.CreateSpaceKnowledgeDomainFileRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='space_knowledge_domain_file_service_access_auth_details', full_name='elint.services.product.knowledge.file.CreateSpaceKnowledgeDomainFileRequest.space_knowledge_domain_file_service_access_auth_details', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='space_knowledge_domain_file_name', full_name='elint.services.product.knowledge.file.CreateSpaceKnowledgeDomainFileRequest.space_knowledge_domain_file_name', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='space_knowledge_domain', full_name='elint.services.product.knowledge.file.CreateSpaceKnowledgeDomainFileRequest.space_knowledge_domain', index=2,
-      number=3, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=439,
-  serialized_end=744,
-)
 
 
 _UPLOADSPACEKNOWLEDGEDOMAINFILEREQUEST = _descriptor.Descriptor(
@@ -98,22 +53,43 @@ _UPLOADSPACEKNOWLEDGEDOMAINFILEREQUEST = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='space_knowledge_domain_file_service_access_auth_details', full_name='elint.services.product.knowledge.file.UploadSpaceKnowledgeDomainFileRequest.space_knowledge_domain_file_service_access_auth_details', index=0,
+      name='space_knowledge_domain_services_access_auth_details', full_name='elint.services.product.knowledge.file.UploadSpaceKnowledgeDomainFileRequest.space_knowledge_domain_services_access_auth_details', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='file', full_name='elint.services.product.knowledge.file.UploadSpaceKnowledgeDomainFileRequest.file', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      name='space_knowledge_domain_file_name', full_name='elint.services.product.knowledge.file.UploadSpaceKnowledgeDomainFileRequest.space_knowledge_domain_file_name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='file_buffer', full_name='elint.services.product.knowledge.file.UploadSpaceKnowledgeDomainFileRequest.file_buffer', index=2,
-      number=3, type=12, cpp_type=9, label=1,
+      name='space_knowledge_domain_file_size', full_name='elint.services.product.knowledge.file.UploadSpaceKnowledgeDomainFileRequest.space_knowledge_domain_file_size', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='space_knowledge_domain_file_extension_type', full_name='elint.services.product.knowledge.file.UploadSpaceKnowledgeDomainFileRequest.space_knowledge_domain_file_extension_type', index=3,
+      number=4, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='space_knowledge_domain_file_tags', full_name='elint.services.product.knowledge.file.UploadSpaceKnowledgeDomainFileRequest.space_knowledge_domain_file_tags', index=4,
+      number=5, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='file_buffer', full_name='elint.services.product.knowledge.file.UploadSpaceKnowledgeDomainFileRequest.file_buffer', index=5,
+      number=6, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -130,8 +106,8 @@ _UPLOADSPACEKNOWLEDGEDOMAINFILEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=747,
-  serialized_end=1017,
+  serialized_start=538,
+  serialized_end=978,
 )
 
 
@@ -144,15 +120,29 @@ _UPLOADSPACEKNOWLEDGEDOMAINFILERESPONSE = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='length', full_name='elint.services.product.knowledge.file.UploadSpaceKnowledgeDomainFileResponse.length', index=0,
-      number=1, type=5, cpp_type=1, label=1,
+      name='space_knowledge_domain_file_service_access_auth_details', full_name='elint.services.product.knowledge.file.UploadSpaceKnowledgeDomainFileResponse.space_knowledge_domain_file_service_access_auth_details', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='length', full_name='elint.services.product.knowledge.file.UploadSpaceKnowledgeDomainFileResponse.length', index=1,
+      number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='file_id', full_name='elint.services.product.knowledge.file.UploadSpaceKnowledgeDomainFileResponse.file_id', index=1,
-      number=2, type=9, cpp_type=9, label=1,
+      name='space_knowledge_domain_file_upload_done', full_name='elint.services.product.knowledge.file.UploadSpaceKnowledgeDomainFileResponse.space_knowledge_domain_file_upload_done', index=2,
+      number=3, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='space_knowledge_domain_file_upload_message', full_name='elint.services.product.knowledge.file.UploadSpaceKnowledgeDomainFileResponse.space_knowledge_domain_file_upload_message', index=3,
+      number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -169,25 +159,17 @@ _UPLOADSPACEKNOWLEDGEDOMAINFILERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1019,
-  serialized_end=1092,
+  serialized_start=981,
+  serialized_end=1294,
 )
 
-_CREATESPACEKNOWLEDGEDOMAINFILEREQUEST.fields_by_name['space_knowledge_domain_file_service_access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_access__space__knowledge__domain__file__pb2._SPACEKNOWLEDGEDOMAINFILESERVICESACCESSAUTHDETAILS
-_CREATESPACEKNOWLEDGEDOMAINFILEREQUEST.fields_by_name['space_knowledge_domain'].message_type = ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2._SPACEKNOWLEDGEDOMAIN
-_UPLOADSPACEKNOWLEDGEDOMAINFILEREQUEST.fields_by_name['space_knowledge_domain_file_service_access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_access__space__knowledge__domain__file__pb2._SPACEKNOWLEDGEDOMAINFILESERVICESACCESSAUTHDETAILS
-_UPLOADSPACEKNOWLEDGEDOMAINFILEREQUEST.fields_by_name['file'].message_type = ethos_dot_elint_dot_entities_dot_space__knowledge__domain__file__pb2._SPACEKNOWLEDGEDOMAINFILE
-DESCRIPTOR.message_types_by_name['CreateSpaceKnowledgeDomainFileRequest'] = _CREATESPACEKNOWLEDGEDOMAINFILEREQUEST
+_UPLOADSPACEKNOWLEDGEDOMAINFILEREQUEST.fields_by_name['space_knowledge_domain_services_access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2._SPACEKNOWLEDGEDOMAINSERVICESACCESSAUTHDETAILS
+_UPLOADSPACEKNOWLEDGEDOMAINFILEREQUEST.fields_by_name['space_knowledge_domain_file_extension_type'].enum_type = ethos_dot_elint_dot_entities_dot_space__knowledge__domain__file__pb2._EXTENTIONTYPE
+_UPLOADSPACEKNOWLEDGEDOMAINFILEREQUEST.fields_by_name['space_knowledge_domain_file_tags'].message_type = ethos_dot_elint_dot_entities_dot_space__knowledge__domain__file__pb2._FILETAG
+_UPLOADSPACEKNOWLEDGEDOMAINFILERESPONSE.fields_by_name['space_knowledge_domain_file_service_access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_access__space__knowledge__domain__file__pb2._SPACEKNOWLEDGEDOMAINFILESERVICESACCESSAUTHDETAILS
 DESCRIPTOR.message_types_by_name['UploadSpaceKnowledgeDomainFileRequest'] = _UPLOADSPACEKNOWLEDGEDOMAINFILEREQUEST
 DESCRIPTOR.message_types_by_name['UploadSpaceKnowledgeDomainFileResponse'] = _UPLOADSPACEKNOWLEDGEDOMAINFILERESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
-
-CreateSpaceKnowledgeDomainFileRequest = _reflection.GeneratedProtocolMessageType('CreateSpaceKnowledgeDomainFileRequest', (_message.Message,), {
-  'DESCRIPTOR' : _CREATESPACEKNOWLEDGEDOMAINFILEREQUEST,
-  '__module__' : 'ethos.elint.services.product.knowledge.space_knowledge_domain_file.create_space_knowledge_domain_file_pb2'
-  # @@protoc_insertion_point(class_scope:elint.services.product.knowledge.file.CreateSpaceKnowledgeDomainFileRequest)
-  })
-_sym_db.RegisterMessage(CreateSpaceKnowledgeDomainFileRequest)
 
 UploadSpaceKnowledgeDomainFileRequest = _reflection.GeneratedProtocolMessageType('UploadSpaceKnowledgeDomainFileRequest', (_message.Message,), {
   'DESCRIPTOR' : _UPLOADSPACEKNOWLEDGEDOMAINFILEREQUEST,
@@ -212,23 +194,13 @@ _CREATESPACEKNOWLEDGEDOMAINFILESERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1095,
-  serialized_end=1487,
+  serialized_start=1297,
+  serialized_end=1534,
   methods=[
-  _descriptor.MethodDescriptor(
-    name='CreateSpaceKnowledgeDomainFile',
-    full_name='elint.services.product.knowledge.file.CreateSpaceKnowledgeDomainFileService.CreateSpaceKnowledgeDomainFile',
-    index=0,
-    containing_service=None,
-    input_type=_CREATESPACEKNOWLEDGEDOMAINFILEREQUEST,
-    output_type=ethos_dot_elint_dot_entities_dot_space__knowledge__domain__file__pb2._SPACEKNOWLEDGEDOMAINFILE,
-    serialized_options=None,
-    create_key=_descriptor._internal_create_key,
-  ),
   _descriptor.MethodDescriptor(
     name='UploadSpaceKnowledgeDomainFile',
     full_name='elint.services.product.knowledge.file.CreateSpaceKnowledgeDomainFileService.UploadSpaceKnowledgeDomainFile',
-    index=1,
+    index=0,
     containing_service=None,
     input_type=_UPLOADSPACEKNOWLEDGEDOMAINFILEREQUEST,
     output_type=_UPLOADSPACEKNOWLEDGEDOMAINFILERESPONSE,

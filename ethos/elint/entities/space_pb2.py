@@ -26,13 +26,49 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n ethos/elint/entities/space.proto\x12\x0c\x65lint.entity\x1a\"ethos/elint/entities/account.proto\x1a!ethos/elint/entities/galaxy.proto\"\xac\x01\n\x05Space\x12$\n\x06galaxy\x18\x01 \x01(\x0b\x32\x14.elint.entity.Galaxy\x12\x10\n\x08space_id\x18\x02 \x01(\t\x12+\n\nspace_type\x18\x03 \x01(\x0e\x32\x17.elint.entity.SpaceType\x12>\n\x14space_isolation_type\x18\x04 \x01(\x0e\x32 .elint.entity.SpaceIsolationType*!\n\tSpaceType\x12\n\n\x06\x43LOSED\x10\x00\x12\x08\n\x04OPEN\x10\x01*4\n\x12SpaceIsolationType\x12\x10\n\x0cNOT_ISOLATED\x10\x00\x12\x0c\n\x08ISOLATED\x10\x01\x62\x06proto3'
+  serialized_pb=b'\n ethos/elint/entities/space.proto\x12\x0c\x65lint.entity\x1a\"ethos/elint/entities/account.proto\x1a!ethos/elint/entities/galaxy.proto\"\xcf\x02\n\x05Space\x12$\n\x06galaxy\x18\x01 \x01(\x0b\x32\x14.elint.entity.Galaxy\x12\x10\n\x08space_id\x18\x02 \x01(\t\x12\x46\n\x18space_accessibility_type\x18\x03 \x01(\x0e\x32$.elint.entity.SpaceAccessibilityType\x12>\n\x14space_isolation_type\x18\x04 \x01(\x0e\x32 .elint.entity.SpaceIsolationType\x12\x38\n\x11space_entity_type\x18\x05 \x01(\x0e\x32\x1d.elint.entity.SpaceEntityType\x12\x16\n\x0espace_admin_id\x18\x06 \x01(\t\x12\x34\n\x10space_created_at\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp*?\n\tSpaceKind\x12\r\n\tKNOWLEDGE\x10\x00\x12\x0b\n\x07PRODUCT\x10\x01\x12\x0b\n\x07SERVICE\x10\x02\x12\t\n\x05THING\x10\x03*.\n\x16SpaceAccessibilityType\x12\n\n\x06\x43LOSED\x10\x00\x12\x08\n\x04OPEN\x10\x01*4\n\x12SpaceIsolationType\x12\x10\n\x0cNOT_ISOLATED\x10\x00\x12\x0c\n\x08ISOLATED\x10\x01*0\n\x0fSpaceEntityType\x12\x0b\n\x07\x41\x43\x43OUNT\x10\x00\x12\x10\n\x0cORGANIZATION\x10\x01\x62\x06proto3'
   ,
   dependencies=[ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_galaxy__pb2.DESCRIPTOR,])
 
-_SPACETYPE = _descriptor.EnumDescriptor(
-  name='SpaceType',
-  full_name='elint.entity.SpaceType',
+_SPACEKIND = _descriptor.EnumDescriptor(
+  name='SpaceKind',
+  full_name='elint.entity.SpaceKind',
+  filename=None,
+  file=DESCRIPTOR,
+  create_key=_descriptor._internal_create_key,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='KNOWLEDGE', index=0, number=0,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='PRODUCT', index=1, number=1,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='SERVICE', index=2, number=2,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='THING', index=3, number=3,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+  ],
+  containing_type=None,
+  serialized_options=None,
+  serialized_start=459,
+  serialized_end=522,
+)
+_sym_db.RegisterEnumDescriptor(_SPACEKIND)
+
+SpaceKind = enum_type_wrapper.EnumTypeWrapper(_SPACEKIND)
+_SPACEACCESSIBILITYTYPE = _descriptor.EnumDescriptor(
+  name='SpaceAccessibilityType',
+  full_name='elint.entity.SpaceAccessibilityType',
   filename=None,
   file=DESCRIPTOR,
   create_key=_descriptor._internal_create_key,
@@ -50,12 +86,12 @@ _SPACETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=296,
-  serialized_end=329,
+  serialized_start=524,
+  serialized_end=570,
 )
-_sym_db.RegisterEnumDescriptor(_SPACETYPE)
+_sym_db.RegisterEnumDescriptor(_SPACEACCESSIBILITYTYPE)
 
-SpaceType = enum_type_wrapper.EnumTypeWrapper(_SPACETYPE)
+SpaceAccessibilityType = enum_type_wrapper.EnumTypeWrapper(_SPACEACCESSIBILITYTYPE)
 _SPACEISOLATIONTYPE = _descriptor.EnumDescriptor(
   name='SpaceIsolationType',
   full_name='elint.entity.SpaceIsolationType',
@@ -76,16 +112,48 @@ _SPACEISOLATIONTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=331,
-  serialized_end=383,
+  serialized_start=572,
+  serialized_end=624,
 )
 _sym_db.RegisterEnumDescriptor(_SPACEISOLATIONTYPE)
 
 SpaceIsolationType = enum_type_wrapper.EnumTypeWrapper(_SPACEISOLATIONTYPE)
+_SPACEENTITYTYPE = _descriptor.EnumDescriptor(
+  name='SpaceEntityType',
+  full_name='elint.entity.SpaceEntityType',
+  filename=None,
+  file=DESCRIPTOR,
+  create_key=_descriptor._internal_create_key,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='ACCOUNT', index=0, number=0,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='ORGANIZATION', index=1, number=1,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+  ],
+  containing_type=None,
+  serialized_options=None,
+  serialized_start=626,
+  serialized_end=674,
+)
+_sym_db.RegisterEnumDescriptor(_SPACEENTITYTYPE)
+
+SpaceEntityType = enum_type_wrapper.EnumTypeWrapper(_SPACEENTITYTYPE)
+KNOWLEDGE = 0
+PRODUCT = 1
+SERVICE = 2
+THING = 3
 CLOSED = 0
 OPEN = 1
 NOT_ISOLATED = 0
 ISOLATED = 1
+ACCOUNT = 0
+ORGANIZATION = 1
 
 
 
@@ -112,7 +180,7 @@ _SPACE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='space_type', full_name='elint.entity.Space.space_type', index=2,
+      name='space_accessibility_type', full_name='elint.entity.Space.space_accessibility_type', index=2,
       number=3, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -122,6 +190,27 @@ _SPACE = _descriptor.Descriptor(
       name='space_isolation_type', full_name='elint.entity.Space.space_isolation_type', index=3,
       number=4, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='space_entity_type', full_name='elint.entity.Space.space_entity_type', index=4,
+      number=5, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='space_admin_id', full_name='elint.entity.Space.space_admin_id', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='space_created_at', full_name='elint.entity.Space.space_created_at', index=6,
+      number=7, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -138,15 +227,19 @@ _SPACE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=122,
-  serialized_end=294,
+  serialized_end=457,
 )
 
 _SPACE.fields_by_name['galaxy'].message_type = ethos_dot_elint_dot_entities_dot_galaxy__pb2._GALAXY
-_SPACE.fields_by_name['space_type'].enum_type = _SPACETYPE
+_SPACE.fields_by_name['space_accessibility_type'].enum_type = _SPACEACCESSIBILITYTYPE
 _SPACE.fields_by_name['space_isolation_type'].enum_type = _SPACEISOLATIONTYPE
+_SPACE.fields_by_name['space_entity_type'].enum_type = _SPACEENTITYTYPE
+_SPACE.fields_by_name['space_created_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 DESCRIPTOR.message_types_by_name['Space'] = _SPACE
-DESCRIPTOR.enum_types_by_name['SpaceType'] = _SPACETYPE
+DESCRIPTOR.enum_types_by_name['SpaceKind'] = _SPACEKIND
+DESCRIPTOR.enum_types_by_name['SpaceAccessibilityType'] = _SPACEACCESSIBILITYTYPE
 DESCRIPTOR.enum_types_by_name['SpaceIsolationType'] = _SPACEISOLATIONTYPE
+DESCRIPTOR.enum_types_by_name['SpaceEntityType'] = _SPACEENTITYTYPE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Space = _reflection.GeneratedProtocolMessageType('Space', (_message.Message,), {

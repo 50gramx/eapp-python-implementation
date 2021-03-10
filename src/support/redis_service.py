@@ -2,18 +2,18 @@ import os
 
 import redis
 
-redis_host = os.environ['EA_KB_REDIS_HOST']
-redis_port = os.environ['EA_KB_REDIS_PORT']
+redis_host = os.environ['EA_ID_REDIS_HOST']
+redis_port = os.environ['EA_ID_REDIS_PORT']
 
 redis_connector = redis.Redis(host=redis_host, port=redis_port)
 
 
-def set_kv(kv_pair):
-    return redis_connector.mset(kv_pair)
+def set_kv(key, value):
+    return redis_connector.mset({key: value})
 
 
 def get_kv(key):
-    return redis_connector.get(key)
+    return redis_connector.get(key).decode('utf-8')
 
 
 # --------------------------------
@@ -21,7 +21,7 @@ def get_kv(key):
 # --------------------------------
 
 def rpush(list_key, item):
-    return redis_connector.rpush(list_key, item)
+    return redis_connector.rpush(list_key, str(item))
 
 
 def lrange(list_key, start, end):
@@ -29,8 +29,10 @@ def lrange(list_key, start, end):
 
 
 def lindex(list_key, index):
-    return redis_connector.lindex(list_key, index)
+    value = redis_connector.lindex(list_key, index)
+    return value if value is None else value.decode('utf-8')
 
 
 def lpop(list_key):
-    return redis_connector.lpop(list_key)
+    value = redis_connector.lpop(list_key)
+    return value if value is None else value.decode('utf-8')

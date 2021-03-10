@@ -3,10 +3,10 @@ import random
 import string
 import time
 import uuid
+from datetime import datetime
 
 from google.protobuf.timestamp_pb2 import Timestamp
 from sendgrid import SendGridAPIClient, Mail
-from twilio.rest import Client
 from validate_email import validate_email
 
 sendgrid_api_key = os.environ.get('SENDGRID_API_KEY')
@@ -39,13 +39,13 @@ def mail(from_email: str, to_email: str, subject: str, html_content: str) -> boo
         return False
 
 
-def get_random_string(length) -> (str, float):
+def get_random_string(length) -> str:
     """
     Random string with the combination of lower and upper case
     :param length: length of the random string
     :return:  random string, generated_at time
     """
-    return ''.join(random.choice(string.ascii_letters) for i in range(length)), time.time()
+    return ''.join(random.choice(string.digits) for i in range(length))
 
 
 def get_random_digits(length) -> (str, float):
@@ -55,35 +55,6 @@ def get_random_digits(length) -> (str, float):
         :return:  random string, generated_at time
         """
     return ''.join(random.choice(string.digits) for i in range(length)), time.time()
-
-
-def get_current_timestamp() -> Timestamp:
-    curr_time = time.time()
-    seconds = int(curr_time)
-    nanos = int((curr_time - seconds) * 10 ** 9)
-    return Timestamp(seconds=seconds, nanos=nanos)
-
-
-def get_future_timestamp(after_seconds: int, after_minutes: int = 0, after_hours: int = 0) -> Timestamp:
-    future_time = time.time() + after_seconds + (after_minutes * 60) + (after_hours * 3600)
-    seconds = int(future_time)
-    nanos = int((future_time - seconds) * 10 ** 9)
-    return Timestamp(seconds=seconds, nanos=nanos)
-
-
-def format_time2timestamp(time: float) -> Timestamp:
-    """
-    returns time in timestamp, by default the current timestamp
-    :param time:
-    :return: google.protobuf.Timestamp
-    """
-    seconds = int(time)
-    nanos = int((time - seconds) * 10 ** 9)
-    return Timestamp(seconds=seconds, nanos=nanos)
-
-
-def gen_uuid() -> str:
-    return str(uuid.uuid4())
 
 
 def check_service_time_consumption(no_of_iter: int, service_func, service_func_params=None) -> float:
@@ -111,11 +82,64 @@ def check_service_time_consumption(no_of_iter: int, service_func, service_func_p
 
 def send_otp(country_code, account_mobile_number, verification_code):
     # Download the helper library from https://www.twilio.com/docs/python/install
-    client = Client(twilio_account_sid, twilio_auth_token)
+    # client = Client(twilio_account_sid, twilio_auth_token)
 
-    message = client.messages.create(
-        body=f"Hello Pathos! The OTP to access your account is {verification_code}. Thanks.",
-        from_='+18182379146',
-        to=f"{country_code}{account_mobile_number}"
-    )
+    # message = client.messages.create(
+    #     body=f"Hello Pathos! The OTP to access your account is {verification_code}. Thanks.",
+    #     from_='+18182379146',
+    #     to=f"{country_code}{account_mobile_number}"
+    # )
+    print(verification_code)
     return get_current_timestamp()
+
+
+# --------------------------------------
+# Timestamps Helpers
+# --------------------------------------
+
+def get_current_timestamp() -> Timestamp:
+    ts = Timestamp()
+    ts.GetCurrentTime()
+    return ts
+
+
+def format_timestamp_to_datetime(timestamp: Timestamp) -> datetime:
+    return timestamp.ToDatetime()
+
+
+def format_timestamp_to_iso_string(timestamp: Timestamp) -> str:
+    return timestamp.ToJsonString()
+
+
+def format_datetime_to_timestamp(timestamp: datetime) -> Timestamp:
+    timestamp_obj = Timestamp()
+    timestamp_obj.FromDatetime(timestamp)
+    return timestamp_obj
+
+
+def format_iso_string_to_timestamp(timestamp: str) -> Timestamp:
+    ts = Timestamp()
+    ts.FromJsonString(timestamp)
+    return ts
+
+
+def format_datetime_to_iso_string(timestamp: datetime) -> str:
+    return format_timestamp_to_iso_string(format_datetime_to_timestamp(timestamp))
+
+
+def format_iso_string_to_datetime(timestamp: str) -> datetime:
+    return format_timestamp_to_datetime(format_iso_string_to_timestamp(timestamp))
+
+
+def get_future_timestamp(after_seconds: int, after_minutes: int = 0, after_hours: int = 0) -> Timestamp:
+    ts = get_current_timestamp()
+    future_seconds = ts.seconds + after_seconds + (after_minutes * 60) + (after_hours * 3600)
+    return Timestamp(seconds=future_seconds, nanos=ts.nanos)
+
+
+# --------------------------------------
+# Generic Helpers
+# --------------------------------------
+
+def gen_uuid() -> str:
+    return str(uuid.uuid4()).upper()

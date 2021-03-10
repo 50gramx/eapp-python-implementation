@@ -1,9 +1,203 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="34942910-25ec-4982-94a1-b355c8cfa8e7" name="Default Changelist" comment="updated protos and added temporary onboarding services">
+    <list default="true" id="34942910-25ec-4982-94a1-b355c8cfa8e7" name="Default Changelist" comment="updated protos to latest, removed onboard_account_service.py, updated models.py to base_models.py, added account_connection_models.py, added account_assistant_connection_models.py">
+      <change afterPath="$PROJECT_DIR$/ethos/elint/entities/account_assistant_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/entities/account_assistant_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/entities/space_knowledge_domain_file_page_para_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/entities/space_knowledge_domain_file_page_para_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/entities/space_knowledge_domain_file_page_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/entities/space_knowledge_domain_file_page_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/cognitive/assist/context/context_account_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/cognitive/assist/context/context_account_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/cognitive/assist/knowledge/generator_knowledge_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/cognitive/assist/knowledge/generator_knowledge_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/cognitive/assist/knowledge/reader_knowledge_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/cognitive/assist/knowledge/reader_knowledge_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/cognitive/assist/knowledge/retriever_knowledge_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/cognitive/assist/knowledge/retriever_knowledge_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/action/space_knowledge_action_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/action/space_knowledge_action_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/conversation/message/account/receive_account_message_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/conversation/message/account/receive_account_message_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/conversation/message/account/send_account_message_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/conversation/message/account/send_account_message_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/conversation/message/account_assistant/receive_account_assistant_message_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/conversation/message/account_assistant/receive_account_assistant_message_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/conversation/message/account_assistant/send_account_assistant_message_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/conversation/message/account_assistant/send_account_assistant_message_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/conversation/message/message_conversation_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/conversation/message/message_conversation_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/account/connect_account_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/account/connect_account_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/account/discover_account_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/account/discover_account_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/account/notify_account_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/account/notify_account_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/account_assistant/access_account_assistant_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/account_assistant/access_account_assistant_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/account_assistant/action_account_assistant_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/account_assistant/action_account_assistant_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/account_assistant/connect_account_assistant_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/account_assistant/connect_account_assistant_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/account_assistant/create_account_assistant_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/account_assistant/create_account_assistant_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/account_assistant/discover_account_assistant_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/account_assistant/discover_account_assistant_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/organisation/create_organization_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/organisation/create_organization_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/space/access_space_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/space/access_space_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/space/create_space_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/space/create_space_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page/access_space_knowledge_domain_file_page_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page/access_space_knowledge_domain_file_page_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page/create_space_knowledge_domain_file_page_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page/create_space_knowledge_domain_file_page_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page/delete_space_knowledge_domain_file_page_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page/delete_space_knowledge_domain_file_page_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page/discover_space_knowledge_domain_file_page_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page/discover_space_knowledge_domain_file_page_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page_para/access_space_knowledge_domain_file_page_para_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page_para/access_space_knowledge_domain_file_page_para_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page_para/create_space_knowledge_domain_file_page_para_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page_para/create_space_knowledge_domain_file_page_para_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page_para/delete_space_knowledge_domain_file_page_para_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page_para/delete_space_knowledge_domain_file_page_para_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page_para/discover_space_knowledge_domain_file_page_para_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file_page_para/discover_space_knowledge_domain_file_page_para_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_inferred/access_space_knowledge_domain_inferred_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_inferred/access_space_knowledge_domain_inferred_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_inferred/discover_space_knowledge_domain_inferred_pb2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_inferred/discover_space_knowledge_domain_inferred_pb2_grpc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/account_assistant_connection_models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/account_connection_models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/base_models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/account/connect_account_service.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/account/discover_account_service.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/account/notify_account_service.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/account_assistant/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/account_assistant/access_account_assistant_service.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/account_assistant/action_account_assistant_service.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/account_assistant/connect_account_assistant_service.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/account_assistant/create_account_assistant_service.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/account_assistant/discover_account_assistant_service.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/space/access_space_service.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/space/create_space_service.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services_caller/account_assistant_message_service_caller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services_caller/account_assistant_service_caller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services_caller/account_service_caller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services_caller/message_conversation_service_caller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services_caller/space_knowledge_action_services_caller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services_caller/space_services_caller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/support/format_proto_entities.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/support/notifications/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/support/notifications/apple_push_notifications.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/domain_dump.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/entities.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/space_dump.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/environment/microservices/eapp-action.local.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/environment/microservices/eapp-cog-assist-context.local.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/environment/microservices/eapp-cog-reader.local.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/environment/microservices/eapp-cog-retriever.local.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/environment/microservices/eapp-conversation.local.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/environment/microservices/eapp-identity.local.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/environment/microservices/eapp-knowledge.local.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/build/build_proto_src.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../eapp-service-core/src/main/proto/ethos/elint/services/product/knowledge/data_service.proto" beforeDir="false" afterPath="$PROJECT_DIR$/../eapp-service-core/src/main/proto/ethos/elint/services/product/knowledge/file.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eapp_identity_program.sh" beforeDir="false" afterPath="$PROJECT_DIR$/eapp_identity_program.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/account_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/entities/account_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/file_page_indexed_pb2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/file_page_indexed_pb2_grpc.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/file_page_pb2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/file_page_pb2_grpc.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/galaxy_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/entities/galaxy_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/generic_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/entities/generic_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/space_knowledge_domain_file_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/entities/space_knowledge_domain_file_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/space_knowledge_domain_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/entities/space_knowledge_domain_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/space_knowledge_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/entities/space_knowledge_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/space_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/entities/space_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/entities/universe_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/entities/universe_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/identity/account/access_account_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/account/access_account_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/identity/account/access_account_pb2_grpc.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/account/access_account_pb2_grpc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/identity/account/create_account_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/services/product/identity/account/create_account_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/identity/account/delete_account_pb2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/identity/account/delete_account_pb2_grpc.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/identity/account/onboard_account_pb2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/identity/account/onboard_account_pb2_grpc.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge/access_space_knowledge_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge/access_space_knowledge_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge/access_space_knowledge_pb2_grpc.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge/access_space_knowledge_pb2_grpc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge/create_space_knowledge_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge/create_space_knowledge_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge/create_space_knowledge_pb2_grpc.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge/create_space_knowledge_pb2_grpc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge/discover_space_knowledge_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge/discover_space_knowledge_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge/discover_space_knowledge_pb2_grpc.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge/discover_space_knowledge_pb2_grpc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge/onboard_space_knowledge_pb2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge/onboard_space_knowledge_pb2_grpc.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain/access_space_knowledge_domain_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain/access_space_knowledge_domain_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain/access_space_knowledge_domain_pb2_grpc.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain/access_space_knowledge_domain_pb2_grpc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain/create_space_knowledge_domain_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain/create_space_knowledge_domain_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain/create_space_knowledge_domain_pb2_grpc.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain/create_space_knowledge_domain_pb2_grpc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain/delete_space_knowledge_domain_pb2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain/delete_space_knowledge_domain_pb2_grpc.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain/discover_space_knowledge_domain_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain/discover_space_knowledge_domain_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain/discover_space_knowledge_domain_pb2_grpc.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain/discover_space_knowledge_domain_pb2_grpc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain/locate_space_knowledge_domain_pb2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain/locate_space_knowledge_domain_pb2_grpc.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file/access_space_knowledge_domain_file_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file/access_space_knowledge_domain_file_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file/access_space_knowledge_domain_file_pb2_grpc.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file/access_space_knowledge_domain_file_pb2_grpc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file/create_space_knowledge_domain_file_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file/create_space_knowledge_domain_file_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file/create_space_knowledge_domain_file_pb2_grpc.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file/create_space_knowledge_domain_file_pb2_grpc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file/delete_space_knowledge_domain_file_pb2.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file/delete_space_knowledge_domain_file_pb2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file/delete_space_knowledge_domain_file_pb2_grpc.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file/delete_space_knowledge_domain_file_pb2_grpc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file/discover_space_knowledge_domain_file_pb2_grpc.py" beforeDir="false" afterPath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file/discover_space_knowledge_domain_file_pb2_grpc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file/extract_space_knowledge_domain_file_pb2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ethos/elint/services/product/knowledge/space_knowledge_domain_file/extract_space_knowledge_domain_file_pb2_grpc.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application_context.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/application_context.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/clients/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services_caller/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/clients/onboard_account_clients.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/create_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/create_db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/loader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/account/access_account_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/account/access_account_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/account/create_account_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/account/create_account_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/onboard_account_service.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/onboard_organization_service.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/onboard_organization_space_service.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/support/db_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/support/db_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/support/helper_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/support/helper_functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/support/redis_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/support/redis_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/support/session_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/support/session_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../eapp-service-core/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../eapp-service-core/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/.idea/lapp-wiki.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/.idea/eapp-wiki.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/environment/microservices/eapp-identity.env" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/environment/microservices/eapp-identity.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/environment/microservices/eapp-knowledge.env" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/environment/microservices/eapp-knowledge.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/intel8-tensorrt/installs/install_nvidia_drivers.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/build/intel8-tensorrt/installs/install_nvidia_drivers.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/intel8-tensorrt/installs/mxnet/update_cmake.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/build/intel8-tensorrt/installs/mxnet/update_cmake.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/intel8-tensorrt/prerequisite_installation.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/build/intel8-tensorrt/prerequisite_installation.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/intel8-tensorrt/readme.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/build/intel8-tensorrt/readme.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/intel8-tensorrt/run_trtis.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/build/intel8-tensorrt/run_trtis.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/intel8-tensorrt/tensorrt-build.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/build/intel8-tensorrt/tensorrt-build.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/intel8-tensorrt/trtis_build_cmake_step_1_install_cuda.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/build/intel8-tensorrt/trtis_build_cmake_step_1_install_cuda.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/intel8-tensorrt/trtis_build_cmake_step_2_add_env.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/build/intel8-tensorrt/trtis_build_cmake_step_2_add_env.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/intel8-tensorrt/trtis_build_cmake_step_3_install_cudnn.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/build/intel8-tensorrt/trtis_build_cmake_step_3_install_cudnn.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/intel8-tensorrt/trtis_build_cmake_step_4_download_trt.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/build/intel8-tensorrt/trtis_build_cmake_step_4_download_trt.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/intel8-tensorrt/trtis_build_cmake_step_5_configure_cmake.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/build/intel8-tensorrt/trtis_build_cmake_step_5_configure_cmake.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/intel8-tensorrt/trtis_build_cmake_step_6_build.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/build/intel8-tensorrt/trtis_build_cmake_step_6_build.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/intel8-tensorrt/trtis_build_docker_step_1.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/build/intel8-tensorrt/trtis_build_docker_step_1.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/intel8-tensorrt/trtis_deploy_single_server.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/build/intel8-tensorrt/trtis_deploy_single_server.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/lapp-web-site/docker-entrypoint.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/build/lapp-web-site/docker-entrypoint.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/lapp_intel8_fb_drqa/build_lapp_intel8_fb_drqa.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/build/lapp_intel8_fb_drqa/build_lapp_intel8_fb_drqa.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/lapp_intel8_fb_drqa/configure_intelligence_drqa_server.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/build/lapp_intel8_fb_drqa/configure_intelligence_drqa_server.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/lapp_intel8_fb_drqa/setup_env.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/build/lapp_intel8_fb_drqa/setup_env.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/lapp_intel8_fb_drqa/start_lapp_intel8_fb_drqa.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/build/lapp_intel8_fb_drqa/start_lapp_intel8_fb_drqa.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/services/build_python_services.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/services/build_python_services.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/services/build_swift_services.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/config/scripts/services/build_swift_services.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../wiki/eapp-wiki/service_configurations/api_descriptor.pb" beforeDir="false" afterPath="$PROJECT_DIR$/../../../wiki/eapp-wiki/service_configurations/api_descriptor.pb" afterDir="false" />
     </list>
     <list id="7da50ba8-f629-4fad-95fa-6b7fd26b3082" name="Revert &quot;vanilla: only frontend alive&quot;" comment="undo #2" />
     <list id="d8805b4c-5768-4885-82a5-b8b005d6475e" name="vanilla: only frontend alive" comment="undo #1" />
@@ -39,13 +233,24 @@
       </list>
     </option>
   </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$/../../web/eapp-product-site" value="feature/NE-49-apis-user-sign-up" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../eapp-service-core" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="SYNC" />
   </component>
   <component name="ProjectId" id="1gpcvikQTb51fOCXZexJfdbXtGZ" />
@@ -58,10 +263,12 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="com.google.cloudcode.ide_session_index" value="20210101_0001" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../eapp-product/src/support" />
+    <property name="com.google.cloudcode.ide_session_index" value="20210310_0000" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/services_caller" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -77,6 +284,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/services_caller" />
       <recent name="$PROJECT_DIR$/../eapp-product/src/support" />
       <recent name="$PROJECT_DIR$/../eapp-product/src/helpers" />
     </key>
@@ -110,6 +318,15 @@
       <workItem from="1608470356267" duration="13525000" />
       <workItem from="1608636317749" duration="43449000" />
       <workItem from="1609504183206" duration="1629000" />
+      <workItem from="1613990589487" duration="1607000" />
+      <workItem from="1614011826304" duration="29094000" />
+      <workItem from="1614436059943" duration="8813000" />
+      <workItem from="1614538221918" duration="66000" />
+      <workItem from="1614549534747" duration="47204000" />
+      <workItem from="1614987588928" duration="8461000" />
+      <workItem from="1615012664443" duration="4911000" />
+      <workItem from="1615269144015" duration="579000" />
+      <workItem from="1615357279669" duration="800000" />
     </task>
     <task id="LOCAL-00001" summary="added Dockerfile and heroku.yml config files">
       <created>1598846200158</created>
@@ -381,7 +598,6 @@
       <path value="$PROJECT_DIR$/../../web/eapp-identity-site" />
       <path value="$PROJECT_DIR$/../../web/eapp-product-site" />
     </ignored-roots>
-    <MESSAGE value="updated react-scripts from v3.4.1 to v3.4.3, removed unused imports" />
     <MESSAGE value="vanilla: only frontend alive" />
     <MESSAGE value="Revert &quot;vanilla: only frontend alive&quot;&#10;&#10;This reverts commit 852c4fed" />
     <MESSAGE value="updated protos, added one service" />
@@ -406,6 +622,7 @@
     <MESSAGE value="added compiled protos to git" />
     <MESSAGE value="updated protos and implementation" />
     <MESSAGE value="updated protos and added temporary onboarding services" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated protos and added temporary onboarding services" />
+    <MESSAGE value="updated protos to latest, removed onboard_account_service.py, updated models.py to base_models.py, added account_connection_models.py, added account_assistant_connection_models.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated protos to latest, removed onboard_account_service.py, updated models.py to base_models.py, added account_connection_models.py, added account_assistant_connection_models.py" />
   </component>
 </project>

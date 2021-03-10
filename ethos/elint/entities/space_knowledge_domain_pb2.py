@@ -14,6 +14,10 @@ _sym_db = _symbol_database.Default()
 
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 from ethos.elint.entities import space_knowledge_pb2 as ethos_dot_elint_dot_entities_dot_space__knowledge__pb2
+try:
+  google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_space__knowledge__pb2.google_dot_protobuf_dot_timestamp__pb2
+except AttributeError:
+  google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_space__knowledge__pb2.google.protobuf.timestamp_pb2
 
 from google.protobuf.timestamp_pb2 import *
 
@@ -23,7 +27,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n1ethos/elint/entities/space_knowledge_domain.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\x1a*ethos/elint/entities/space_knowledge.proto\"\x80\x03\n\x14SpaceKnowledgeDomain\x12!\n\x19space_knowledge_domain_id\x18\x01 \x01(\t\x12#\n\x1bspace_knowledge_domain_name\x18\x03 \x01(\t\x12*\n\"space_knowledge_domain_description\x18\x04 \x01(\t\x12X\n\"space_knowledge_domain_collar_enum\x18\x05 \x01(\x0e\x32,.elint.entity.SpaceKnowledgeDomainCollarEnum\x12\x35\n\x0fspace_knowledge\x18\x06 \x01(\x0b\x32\x1c.elint.entity.SpaceKnowledge\x12.\n\ncreated_at\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x33\n\x0flast_updated_at\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"e\n\x1eSpaceKnowledgeDomainAccessMeta\x12\x1b\n\x13knowledge_domain_id\x18\x01 \x01(\t\x12&\n\x1eknowledge_access_session_token\x18\x02 \x01(\t*\xa7\x02\n\x1eSpaceKnowledgeDomainCollarEnum\x12\x10\n\x0cWHITE_COLLAR\x10\x00\x12\x0f\n\x0b\x42LUE_COLLAR\x10\x01\x12\x0f\n\x0bPINK_COLLAR\x10\x02\x12\x0f\n\x0bGOLD_COLLAR\x10\x03\x12\x0e\n\nRED_COLLAR\x10\x04\x12\x11\n\rPURPLE_COLLAR\x10\x05\x12\x0e\n\nNEW_COLLAR\x10\x06\x12\r\n\tNO_COLLAR\x10\x07\x12\x11\n\rORANGE_COLLAR\x10\x08\x12\x10\n\x0cGREEN_COLLAR\x10\t\x12\x12\n\x0eSCARLET_COLLAR\x10\n\x12\x10\n\x0c\x42ROWN_COLLAR\x10\x0b\x12\x10\n\x0cSTEEL_COLLAR\x10\x0c\x12\x10\n\x0c\x42LACK_COLLAR\x10\r\x12\x0f\n\x0bGREY_COLLAR\x10\x0eP\x00\x62\x06proto3'
+  serialized_pb=b'\n1ethos/elint/entities/space_knowledge_domain.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\x1a*ethos/elint/entities/space_knowledge.proto\"\xa9\x03\n\x14SpaceKnowledgeDomain\x12!\n\x19space_knowledge_domain_id\x18\x01 \x01(\t\x12#\n\x1bspace_knowledge_domain_name\x18\x02 \x01(\t\x12*\n\"space_knowledge_domain_description\x18\x03 \x01(\t\x12X\n\"space_knowledge_domain_collar_enum\x18\x04 \x01(\x0e\x32,.elint.entity.SpaceKnowledgeDomainCollarEnum\x12\'\n\x1fspace_knowledge_domain_isolated\x18\x05 \x01(\x08\x12\x35\n\x0fspace_knowledge\x18\x06 \x01(\x0b\x32\x1c.elint.entity.SpaceKnowledge\x12.\n\ncreated_at\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x33\n\x0flast_updated_at\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xa5\x01\n$SpaceKnowledgeDomainInferringAccount\x12\x1c\n\x14inferring_account_id\x18\x01 \x01(\t\x12\x1a\n\x12space_knowledge_id\x18\x02 \x01(\t\x12\x12\n\naccount_id\x18\x03 \x01(\t\x12/\n\x0binferred_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"E\n\x0cRankedAnswer\x12\x12\n\ncontext_id\x18\x01 \x01(\t\x12\x11\n\tpara_rank\x18\x02 \x01(\x02\x12\x0e\n\x06\x61nswer\x18\x03 \x01(\t*\xa7\x02\n\x1eSpaceKnowledgeDomainCollarEnum\x12\x10\n\x0cWHITE_COLLAR\x10\x00\x12\x0f\n\x0b\x42LUE_COLLAR\x10\x01\x12\x0f\n\x0bPINK_COLLAR\x10\x02\x12\x0f\n\x0bGOLD_COLLAR\x10\x03\x12\x0e\n\nRED_COLLAR\x10\x04\x12\x11\n\rPURPLE_COLLAR\x10\x05\x12\x0e\n\nNEW_COLLAR\x10\x06\x12\r\n\tNO_COLLAR\x10\x07\x12\x11\n\rORANGE_COLLAR\x10\x08\x12\x10\n\x0cGREEN_COLLAR\x10\t\x12\x12\n\x0eSCARLET_COLLAR\x10\n\x12\x10\n\x0c\x42ROWN_COLLAR\x10\x0b\x12\x10\n\x0cSTEEL_COLLAR\x10\x0c\x12\x10\n\x0c\x42LACK_COLLAR\x10\r\x12\x0f\n\x0bGREY_COLLAR\x10\x0eP\x00\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_space__knowledge__pb2.DESCRIPTOR,],
   public_dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
@@ -113,8 +117,8 @@ _SPACEKNOWLEDGEDOMAINCOLLARENUM = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=635,
-  serialized_end=930,
+  serialized_start=812,
+  serialized_end=1107,
 )
 _sym_db.RegisterEnumDescriptor(_SPACEKNOWLEDGEDOMAINCOLLARENUM)
 
@@ -154,41 +158,48 @@ _SPACEKNOWLEDGEDOMAIN = _descriptor.Descriptor(
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='space_knowledge_domain_name', full_name='elint.entity.SpaceKnowledgeDomain.space_knowledge_domain_name', index=1,
-      number=3, type=9, cpp_type=9, label=1,
+      number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='space_knowledge_domain_description', full_name='elint.entity.SpaceKnowledgeDomain.space_knowledge_domain_description', index=2,
-      number=4, type=9, cpp_type=9, label=1,
+      number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='space_knowledge_domain_collar_enum', full_name='elint.entity.SpaceKnowledgeDomain.space_knowledge_domain_collar_enum', index=3,
-      number=5, type=14, cpp_type=8, label=1,
+      number=4, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='space_knowledge', full_name='elint.entity.SpaceKnowledgeDomain.space_knowledge', index=4,
+      name='space_knowledge_domain_isolated', full_name='elint.entity.SpaceKnowledgeDomain.space_knowledge_domain_isolated', index=4,
+      number=5, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='space_knowledge', full_name='elint.entity.SpaceKnowledgeDomain.space_knowledge', index=5,
       number=6, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='created_at', full_name='elint.entity.SpaceKnowledgeDomain.created_at', index=5,
+      name='created_at', full_name='elint.entity.SpaceKnowledgeDomain.created_at', index=6,
       number=7, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='last_updated_at', full_name='elint.entity.SpaceKnowledgeDomain.last_updated_at', index=6,
+      name='last_updated_at', full_name='elint.entity.SpaceKnowledgeDomain.last_updated_at', index=7,
       number=8, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -207,28 +218,88 @@ _SPACEKNOWLEDGEDOMAIN = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=145,
-  serialized_end=529,
+  serialized_end=570,
 )
 
 
-_SPACEKNOWLEDGEDOMAINACCESSMETA = _descriptor.Descriptor(
-  name='SpaceKnowledgeDomainAccessMeta',
-  full_name='elint.entity.SpaceKnowledgeDomainAccessMeta',
+_SPACEKNOWLEDGEDOMAININFERRINGACCOUNT = _descriptor.Descriptor(
+  name='SpaceKnowledgeDomainInferringAccount',
+  full_name='elint.entity.SpaceKnowledgeDomainInferringAccount',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='knowledge_domain_id', full_name='elint.entity.SpaceKnowledgeDomainAccessMeta.knowledge_domain_id', index=0,
+      name='inferring_account_id', full_name='elint.entity.SpaceKnowledgeDomainInferringAccount.inferring_account_id', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='knowledge_access_session_token', full_name='elint.entity.SpaceKnowledgeDomainAccessMeta.knowledge_access_session_token', index=1,
+      name='space_knowledge_id', full_name='elint.entity.SpaceKnowledgeDomainInferringAccount.space_knowledge_id', index=1,
       number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='account_id', full_name='elint.entity.SpaceKnowledgeDomainInferringAccount.account_id', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='inferred_at', full_name='elint.entity.SpaceKnowledgeDomainInferringAccount.inferred_at', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=573,
+  serialized_end=738,
+)
+
+
+_RANKEDANSWER = _descriptor.Descriptor(
+  name='RankedAnswer',
+  full_name='elint.entity.RankedAnswer',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='context_id', full_name='elint.entity.RankedAnswer.context_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='para_rank', full_name='elint.entity.RankedAnswer.para_rank', index=1,
+      number=2, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='answer', full_name='elint.entity.RankedAnswer.answer', index=2,
+      number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -245,16 +316,18 @@ _SPACEKNOWLEDGEDOMAINACCESSMETA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=531,
-  serialized_end=632,
+  serialized_start=740,
+  serialized_end=809,
 )
 
 _SPACEKNOWLEDGEDOMAIN.fields_by_name['space_knowledge_domain_collar_enum'].enum_type = _SPACEKNOWLEDGEDOMAINCOLLARENUM
 _SPACEKNOWLEDGEDOMAIN.fields_by_name['space_knowledge'].message_type = ethos_dot_elint_dot_entities_dot_space__knowledge__pb2._SPACEKNOWLEDGE
 _SPACEKNOWLEDGEDOMAIN.fields_by_name['created_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _SPACEKNOWLEDGEDOMAIN.fields_by_name['last_updated_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_SPACEKNOWLEDGEDOMAININFERRINGACCOUNT.fields_by_name['inferred_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 DESCRIPTOR.message_types_by_name['SpaceKnowledgeDomain'] = _SPACEKNOWLEDGEDOMAIN
-DESCRIPTOR.message_types_by_name['SpaceKnowledgeDomainAccessMeta'] = _SPACEKNOWLEDGEDOMAINACCESSMETA
+DESCRIPTOR.message_types_by_name['SpaceKnowledgeDomainInferringAccount'] = _SPACEKNOWLEDGEDOMAININFERRINGACCOUNT
+DESCRIPTOR.message_types_by_name['RankedAnswer'] = _RANKEDANSWER
 DESCRIPTOR.enum_types_by_name['SpaceKnowledgeDomainCollarEnum'] = _SPACEKNOWLEDGEDOMAINCOLLARENUM
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -265,12 +338,19 @@ SpaceKnowledgeDomain = _reflection.GeneratedProtocolMessageType('SpaceKnowledgeD
   })
 _sym_db.RegisterMessage(SpaceKnowledgeDomain)
 
-SpaceKnowledgeDomainAccessMeta = _reflection.GeneratedProtocolMessageType('SpaceKnowledgeDomainAccessMeta', (_message.Message,), {
-  'DESCRIPTOR' : _SPACEKNOWLEDGEDOMAINACCESSMETA,
+SpaceKnowledgeDomainInferringAccount = _reflection.GeneratedProtocolMessageType('SpaceKnowledgeDomainInferringAccount', (_message.Message,), {
+  'DESCRIPTOR' : _SPACEKNOWLEDGEDOMAININFERRINGACCOUNT,
   '__module__' : 'ethos.elint.entities.space_knowledge_domain_pb2'
-  # @@protoc_insertion_point(class_scope:elint.entity.SpaceKnowledgeDomainAccessMeta)
+  # @@protoc_insertion_point(class_scope:elint.entity.SpaceKnowledgeDomainInferringAccount)
   })
-_sym_db.RegisterMessage(SpaceKnowledgeDomainAccessMeta)
+_sym_db.RegisterMessage(SpaceKnowledgeDomainInferringAccount)
+
+RankedAnswer = _reflection.GeneratedProtocolMessageType('RankedAnswer', (_message.Message,), {
+  'DESCRIPTOR' : _RANKEDANSWER,
+  '__module__' : 'ethos.elint.entities.space_knowledge_domain_pb2'
+  # @@protoc_insertion_point(class_scope:elint.entity.RankedAnswer)
+  })
+_sym_db.RegisterMessage(RankedAnswer)
 
 
 # @@protoc_insertion_point(module_scope)

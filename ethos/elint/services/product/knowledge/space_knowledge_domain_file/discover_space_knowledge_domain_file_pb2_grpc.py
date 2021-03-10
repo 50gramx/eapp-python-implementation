@@ -7,7 +7,8 @@ from ethos.elint.services.product.knowledge.space_knowledge_domain_file import d
 
 
 class DiscoverKnowledgeDomainFileServiceStub(object):
-    """Missing associated documentation comment in .proto file."""
+    """Service Definition
+    """
 
     def __init__(self, channel):
         """Constructor.
@@ -28,7 +29,8 @@ class DiscoverKnowledgeDomainFileServiceStub(object):
 
 
 class DiscoverKnowledgeDomainFileServiceServicer(object):
-    """Missing associated documentation comment in .proto file."""
+    """Service Definition
+    """
 
     def GetFileDetails(self, request, context):
         """Missing associated documentation comment in .proto file."""
@@ -63,7 +65,8 @@ def add_DiscoverKnowledgeDomainFileServiceServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class DiscoverKnowledgeDomainFileService(object):
-    """Missing associated documentation comment in .proto file."""
+    """Service Definition
+    """
 
     @staticmethod
     def GetFileDetails(request,

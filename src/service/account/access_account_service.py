@@ -1,12 +1,15 @@
-from ethos.elint.entities.generic_pb2 import TemporaryTokenDetails
+from ethos.elint.entities.generic_pb2 import TemporaryTokenDetails, ResponseMeta
 from ethos.elint.services.product.identity.account.access_account_pb2 import ValidateAccountResponse, \
-    VerifyAccountResponse
+    VerifyAccountResponse, ValidateAccountServicesResponse, ReAccountAccessTokenResponse
 from ethos.elint.services.product.identity.account.access_account_pb2_grpc import AccessAccountServiceServicer
-from support.db_service import is_existing_account_mobile, get_account
-from support.helper_functions import get_random_string, gen_uuid, get_current_timestamp, send_otp, get_future_timestamp
+from models.base_models import AccountDevices
+from services_caller.account_service_caller import validate_account_services_caller
+from support.db_service import is_existing_account_mobile, get_account, update_account_devices
+from support.helper_functions import get_random_string, gen_uuid, get_current_timestamp, send_otp, get_future_timestamp, \
+    format_timestamp_to_datetime
 from support.redis_service import set_kv, get_kv
 from support.session_manager import create_account_access_auth_details, update_persistent_session_last_requested_at, \
-    create_account_service_access_auth_details
+    is_persistent_session_valid, create_account_services_access_auth_details
 
 
 class AccessAccountService(AccessAccountServiceServicer):
@@ -15,6 +18,7 @@ class AccessAccountService(AccessAccountServiceServicer):
         self.session_scope = self.__class__.__name__
 
     def ValidateAccount(self, request, context):
+        print("AccessAccountService:ValidateAccount invoked.")
         # get request params here
         account_mobile_number = request.account_mobile_number
         requested_at = request.requested_at
@@ -25,14 +29,14 @@ class AccessAccountService(AccessAccountServiceServicer):
         # take action
         if account_exists_with_mobile:
             # send otp
-            verification_code = get_random_string(6)
+            verification_code = get_random_string(4)
             code_token = gen_uuid()
             code_generated_at = get_current_timestamp()
             # send the code to mobile
             country_code = "+91"
             code_sent_at = send_otp(country_code, account_mobile_number, verification_code)
             # store the token details
-            set_kv({code_token: verification_code})
+            set_kv(code_token, verification_code)
             # create the code token details here
             verification_code_token_details = TemporaryTokenDetails(
                 token=code_token,
@@ -60,6 +64,7 @@ class AccessAccountService(AccessAccountServiceServicer):
         return validate_account_response
 
     def VerifyAccount(self, request, context):
+        print("AccessAccountService:VerifyAccount invoked.")
         # get the request params here
         account_access_auth_details = request.account_access_auth_details
         resend_code = request.resend_code
@@ -80,8 +85,15 @@ class AccessAccountService(AccessAccountServiceServicer):
                 verification_message = "Account successfully verified."
                 # access account id
                 account = get_account(account_mobile_number=account_access_auth_details.account_mobile_number)
-                account_service_access_auth_details = create_account_service_access_auth_details(
+                account_service_access_auth_details = create_account_services_access_auth_details(
                     account_id=account.account_id, session_scope=self.session_scope)
+                # update account devices
+                update_account_devices(
+                    account_id=account.account_id,
+                    account_device_os=request.account_device_details.account_device_os,
+                    account_device_token=request.account_device_details.device_token,
+                    account_device_token_accessed_at=format_timestamp_to_datetime(requested_at)
+                )
                 verify_account_response = VerifyAccountResponse(
                     account_service_access_auth_details=account_service_access_auth_details,
                     verification_done=verification_done,
@@ -97,7 +109,7 @@ class AccessAccountService(AccessAccountServiceServicer):
                 )
         else:
             # resend the code and return the status
-            new_verification_code = get_random_string(6)
+            new_verification_code = get_random_string(4)
             country_code = "+91"
             account_mobile_number = account_access_auth_details.account_mobile_number
             code_sent_at = send_otp(country_code, account_mobile_number, new_verification_code)
@@ -109,3 +121,57 @@ class AccessAccountService(AccessAccountServiceServicer):
                 verification_message=verification_message
             )
         return verify_account_response
+
+    def ValidateAccountServices(self, request, context):
+        print("AccessAccountService:ValidateAccountServices invoked.")
+        account = request.account
+        account_services_access_session_token_details = request.account_services_access_session_token_details
+        requested_at = request.requested_at
+
+        # validate the account
+        if get_account(account_id=account.account_id).account_id != account.account_id:
+            account_service_access_validation_done = False
+            account_service_access_validation_message = "Requesting account is not legit. This action will be reported."
+            # create the response here
+            validate_account_service_response = ValidateAccountServicesResponse(
+                account_service_access_validation_done=account_service_access_validation_done,
+                account_service_access_validation_message=account_service_access_validation_message
+            )
+            return validate_account_service_response
+        else:
+            # validate the session
+            session_valid, session_valid_message = is_persistent_session_valid(
+                account_services_access_session_token_details.session_token,
+                account.account_id,
+                self.session_scope
+            )
+            validate_account_service_response = ValidateAccountServicesResponse(
+                account_service_access_validation_done=session_valid,
+                account_service_access_validation_message=session_valid_message
+            )
+            return validate_account_service_response
+
+    def ReAccountAccessToken(self, request, context):
+        print("AccessAccountService:ReAccountAccessToken")
+        validation_done, validation_message = validate_account_services_caller(
+            request.account_service_access_auth_details)
+        meta = ResponseMeta(meta_done=validation_done, meta_message=validation_message)
+        if validation_done is False:
+            if validation_message == "Session has expired. Retrieve a new session.":
+                # create a new account services access auth details
+                new_access_auth_details = create_account_services_access_auth_details(
+                    account_id=request.account_service_access_auth_details.account.account_id,
+                    session_scope=self.session_scope)
+                return ReAccountAccessTokenResponse(
+                    account_service_access_auth_details=new_access_auth_details,
+                    response_meta=ResponseMeta(meta_done=True, meta_message="New Session retrieved."))
+            else:
+                # Not authorised access, do not create one
+                return ReAccountAccessTokenResponse(
+                    account_service_access_auth_details=request.account_service_access_auth_details,
+                    response_meta=meta)
+        else:
+            # Session is valid, no need to create one
+            return ReAccountAccessTokenResponse(
+                account_service_access_auth_details=request.account_service_access_auth_details,
+                response_meta=ResponseMeta(meta_done=True, meta_message="Session is already valid."))

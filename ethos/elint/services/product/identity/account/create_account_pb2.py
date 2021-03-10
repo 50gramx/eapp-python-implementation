@@ -30,7 +30,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nBethos/elint/services/product/identity/account/create_account.proto\x12\'elint.services.product.identity.account\x1a\"ethos/elint/entities/generic.proto\x1a\"ethos/elint/entities/account.proto\x1a\x42\x65thos/elint/services/product/identity/account/access_account.proto\"s\n ValidateAccountWithMobileRequest\x12\x1d\n\x15\x61\x63\x63ount_mobile_number\x18\x01 \x01(\t\x12\x30\n\x0crequested_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x8c\x03\n!ValidateAccountWithMobileResponse\x12j\n\x1d\x61\x63\x63ount_creation_auth_details\x18\x01 \x01(\x0b\x32\x43.elint.services.product.identity.account.AccountCreationAuthDetails\x12\"\n\x1a\x61\x63\x63ount_exists_with_mobile\x18\x02 \x01(\x08\x12L\n\x1fverification_code_token_details\x18\x03 \x01(\x0b\x32#.elint.entity.TemporaryTokenDetails\x12\x30\n\x0c\x63ode_sent_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12)\n!validate_account_with_mobile_done\x18\x05 \x01(\x08\x12,\n$validate_account_with_mobile_message\x18\x06 \x01(\t\"\xb8\x02\n\x1aVerificationAccountRequest\x12j\n\x1d\x61\x63\x63ount_creation_auth_details\x18\x01 \x01(\x0b\x32\x43.elint.services.product.identity.account.AccountCreationAuthDetails\x12\x13\n\x0bresend_code\x18\x02 \x01(\x08\x12\x19\n\x11verification_code\x18\x03 \x01(\t\x12L\n\x1fverification_code_token_details\x18\x04 \x01(\x0b\x32#.elint.entity.TemporaryTokenDetails\x12\x30\n\x0crequested_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"V\n\x1bVerificationAccountResponse\x12\x19\n\x11verification_done\x18\x01 \x01(\x08\x12\x1c\n\x14verification_message\x18\x02 \x01(\t\"\xe2\x02\n CaptureAccountMetaDetailsRequest\x12j\n\x1d\x61\x63\x63ount_creation_auth_details\x18\x01 \x01(\x0b\x32\x43.elint.services.product.identity.account.AccountCreationAuthDetails\x12\x1a\n\x12\x61\x63\x63ount_first_name\x18\x02 \x01(\t\x12\x19\n\x11\x61\x63\x63ount_last_name\x18\x03 \x01(\t\x12\x34\n\x10\x61\x63\x63ount_birth_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x33\n\x0e\x61\x63\x63ount_gender\x18\x05 \x01(\x0e\x32\x1b.elint.entity.AccountGender\x12\x30\n\x0crequested_at\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xdc\x01\n!CaptureAccountMetaDetailsResponse\x12v\n#account_service_access_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x1d\n\x15\x61\x63\x63ount_creation_done\x18\x02 \x01(\x08\x12 \n\x18\x61\x63\x63ount_creation_message\x18\x03 \x01(\t\"\xca\x01\n\x1a\x41\x63\x63ountCreationAuthDetails\x12\x1d\n\x15\x61\x63\x63ount_mobile_number\x18\x01 \x01(\t\x12[\n&account_creation_session_token_details\x18\x02 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\x12\x30\n\x0crequested_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp2\xa9\x04\n\x14\x43reateAccountService\x12\xb4\x01\n\x19ValidateAccountWithMobile\x12I.elint.services.product.identity.account.ValidateAccountWithMobileRequest\x1aJ.elint.services.product.identity.account.ValidateAccountWithMobileResponse\"\x00\x12\xa2\x01\n\x13VerificationAccount\x12\x43.elint.services.product.identity.account.VerificationAccountRequest\x1a\x44.elint.services.product.identity.account.VerificationAccountResponse\"\x00\x12\xb4\x01\n\x19\x43\x61ptureAccountMetaDetails\x12I.elint.services.product.identity.account.CaptureAccountMetaDetailsRequest\x1aJ.elint.services.product.identity.account.CaptureAccountMetaDetailsResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\nBethos/elint/services/product/identity/account/create_account.proto\x12\'elint.services.product.identity.account\x1a\"ethos/elint/entities/generic.proto\x1a\"ethos/elint/entities/account.proto\x1a\x42\x65thos/elint/services/product/identity/account/access_account.proto\"s\n ValidateAccountWithMobileRequest\x12\x1d\n\x15\x61\x63\x63ount_mobile_number\x18\x01 \x01(\t\x12\x30\n\x0crequested_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x8c\x03\n!ValidateAccountWithMobileResponse\x12j\n\x1d\x61\x63\x63ount_creation_auth_details\x18\x01 \x01(\x0b\x32\x43.elint.services.product.identity.account.AccountCreationAuthDetails\x12\"\n\x1a\x61\x63\x63ount_exists_with_mobile\x18\x02 \x01(\x08\x12L\n\x1fverification_code_token_details\x18\x03 \x01(\x0b\x32#.elint.entity.TemporaryTokenDetails\x12\x30\n\x0c\x63ode_sent_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12)\n!validate_account_with_mobile_done\x18\x05 \x01(\x08\x12,\n$validate_account_with_mobile_message\x18\x06 \x01(\t\"\xb8\x02\n\x1aVerificationAccountRequest\x12j\n\x1d\x61\x63\x63ount_creation_auth_details\x18\x01 \x01(\x0b\x32\x43.elint.services.product.identity.account.AccountCreationAuthDetails\x12\x13\n\x0bresend_code\x18\x02 \x01(\x08\x12\x19\n\x11verification_code\x18\x03 \x01(\t\x12L\n\x1fverification_code_token_details\x18\x04 \x01(\x0b\x32#.elint.entity.TemporaryTokenDetails\x12\x30\n\x0crequested_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"V\n\x1bVerificationAccountResponse\x12\x19\n\x11verification_done\x18\x01 \x01(\x08\x12\x1c\n\x14verification_message\x18\x02 \x01(\t\"\xa6\x03\n CaptureAccountMetaDetailsRequest\x12j\n\x1d\x61\x63\x63ount_creation_auth_details\x18\x01 \x01(\x0b\x32\x43.elint.services.product.identity.account.AccountCreationAuthDetails\x12\x1a\n\x12\x61\x63\x63ount_first_name\x18\x02 \x01(\t\x12\x19\n\x11\x61\x63\x63ount_last_name\x18\x03 \x01(\t\x12\x34\n\x10\x61\x63\x63ount_birth_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x33\n\x0e\x61\x63\x63ount_gender\x18\x05 \x01(\x0e\x32\x1b.elint.entity.AccountGender\x12\x42\n\x16\x61\x63\x63ount_device_details\x18\x06 \x01(\x0b\x32\".elint.entity.AccountDeviceDetails\x12\x30\n\x0crequested_at\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xdc\x01\n!CaptureAccountMetaDetailsResponse\x12v\n#account_service_access_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x1d\n\x15\x61\x63\x63ount_creation_done\x18\x02 \x01(\x08\x12 \n\x18\x61\x63\x63ount_creation_message\x18\x03 \x01(\t\"\xca\x01\n\x1a\x41\x63\x63ountCreationAuthDetails\x12\x1d\n\x15\x61\x63\x63ount_mobile_number\x18\x01 \x01(\t\x12[\n&account_creation_session_token_details\x18\x02 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\x12\x30\n\x0crequested_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp2\xa9\x04\n\x14\x43reateAccountService\x12\xb4\x01\n\x19ValidateAccountWithMobile\x12I.elint.services.product.identity.account.ValidateAccountWithMobileRequest\x1aJ.elint.services.product.identity.account.ValidateAccountWithMobileResponse\"\x00\x12\xa2\x01\n\x13VerificationAccount\x12\x43.elint.services.product.identity.account.VerificationAccountRequest\x1a\x44.elint.services.product.identity.account.VerificationAccountResponse\"\x00\x12\xb4\x01\n\x19\x43\x61ptureAccountMetaDetails\x12I.elint.services.product.identity.account.CaptureAccountMetaDetailsRequest\x1aJ.elint.services.product.identity.account.CaptureAccountMetaDetailsResponse\"\x00\x62\x06proto3'
   ,
   dependencies=[ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.DESCRIPTOR,])
 
@@ -286,8 +286,15 @@ _CAPTUREACCOUNTMETADETAILSREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='requested_at', full_name='elint.services.product.identity.account.CaptureAccountMetaDetailsRequest.requested_at', index=5,
+      name='account_device_details', full_name='elint.services.product.identity.account.CaptureAccountMetaDetailsRequest.account_device_details', index=5,
       number=6, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='requested_at', full_name='elint.services.product.identity.account.CaptureAccountMetaDetailsRequest.requested_at', index=6,
+      number=7, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -305,7 +312,7 @@ _CAPTUREACCOUNTMETADETAILSREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=1171,
-  serialized_end=1525,
+  serialized_end=1593,
 )
 
 
@@ -350,8 +357,8 @@ _CAPTUREACCOUNTMETADETAILSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1528,
-  serialized_end=1748,
+  serialized_start=1596,
+  serialized_end=1816,
 )
 
 
@@ -396,8 +403,8 @@ _ACCOUNTCREATIONAUTHDETAILS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1751,
-  serialized_end=1953,
+  serialized_start=1819,
+  serialized_end=2021,
 )
 
 _VALIDATEACCOUNTWITHMOBILEREQUEST.fields_by_name['requested_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -410,6 +417,7 @@ _VERIFICATIONACCOUNTREQUEST.fields_by_name['requested_at'].message_type = google
 _CAPTUREACCOUNTMETADETAILSREQUEST.fields_by_name['account_creation_auth_details'].message_type = _ACCOUNTCREATIONAUTHDETAILS
 _CAPTUREACCOUNTMETADETAILSREQUEST.fields_by_name['account_birth_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _CAPTUREACCOUNTMETADETAILSREQUEST.fields_by_name['account_gender'].enum_type = ethos_dot_elint_dot_entities_dot_account__pb2._ACCOUNTGENDER
+_CAPTUREACCOUNTMETADETAILSREQUEST.fields_by_name['account_device_details'].message_type = ethos_dot_elint_dot_entities_dot_account__pb2._ACCOUNTDEVICEDETAILS
 _CAPTUREACCOUNTMETADETAILSREQUEST.fields_by_name['requested_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _CAPTUREACCOUNTMETADETAILSRESPONSE.fields_by_name['account_service_access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS
 _ACCOUNTCREATIONAUTHDETAILS.fields_by_name['account_creation_session_token_details'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._PERSISTENTSESSIONTOKENDETAILS
@@ -481,8 +489,8 @@ _CREATEACCOUNTSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1956,
-  serialized_end=2509,
+  serialized_start=2024,
+  serialized_end=2577,
   methods=[
   _descriptor.MethodDescriptor(
     name='ValidateAccountWithMobile',

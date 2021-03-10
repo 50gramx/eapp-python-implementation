@@ -2,12 +2,12 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from ethos.elint.entities import space_pb2 as ethos_dot_elint_dot_entities_dot_space__pb2
 from ethos.elint.services.product.knowledge.space_knowledge import create_space_knowledge_pb2 as ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_create__space__knowledge__pb2
 
 
 class CreateSpaceKnowledgeServiceStub(object):
-    """Missing associated documentation comment in .proto file."""
+    """Service Definitions
+    """
 
     def __init__(self, channel):
         """Constructor.
@@ -15,17 +15,18 @@ class CreateSpaceKnowledgeServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.CreateSpaceKnowledge = channel.unary_unary(
-                '/elint.services.product.knowledge.space.CreateSpaceKnowledgeService/CreateSpaceKnowledge',
-                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_create__space__knowledge__pb2.CreateSpaceKnowledgeRequest.SerializeToString,
-                response_deserializer=ethos_dot_elint_dot_entities_dot_space__pb2.Space.FromString,
+        self.CreateAccountSpaceKnowledge = channel.unary_unary(
+                '/elint.services.product.knowledge.space.CreateSpaceKnowledgeService/CreateAccountSpaceKnowledge',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_create__space__knowledge__pb2.CreateAccountSpaceKnowledgeRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_create__space__knowledge__pb2.CreateAccountSpaceKnowledgeResponse.FromString,
                 )
 
 
 class CreateSpaceKnowledgeServiceServicer(object):
-    """Missing associated documentation comment in .proto file."""
+    """Service Definitions
+    """
 
-    def CreateSpaceKnowledge(self, request, context):
+    def CreateAccountSpaceKnowledge(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -34,10 +35,10 @@ class CreateSpaceKnowledgeServiceServicer(object):
 
 def add_CreateSpaceKnowledgeServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'CreateSpaceKnowledge': grpc.unary_unary_rpc_method_handler(
-                    servicer.CreateSpaceKnowledge,
-                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_create__space__knowledge__pb2.CreateSpaceKnowledgeRequest.FromString,
-                    response_serializer=ethos_dot_elint_dot_entities_dot_space__pb2.Space.SerializeToString,
+            'CreateAccountSpaceKnowledge': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateAccountSpaceKnowledge,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_create__space__knowledge__pb2.CreateAccountSpaceKnowledgeRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_create__space__knowledge__pb2.CreateAccountSpaceKnowledgeResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -47,10 +48,11 @@ def add_CreateSpaceKnowledgeServiceServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class CreateSpaceKnowledgeService(object):
-    """Missing associated documentation comment in .proto file."""
+    """Service Definitions
+    """
 
     @staticmethod
-    def CreateSpaceKnowledge(request,
+    def CreateAccountSpaceKnowledge(request,
             target,
             options=(),
             channel_credentials=None,
@@ -60,8 +62,8 @@ class CreateSpaceKnowledgeService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.space.CreateSpaceKnowledgeService/CreateSpaceKnowledge',
-            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_create__space__knowledge__pb2.CreateSpaceKnowledgeRequest.SerializeToString,
-            ethos_dot_elint_dot_entities_dot_space__pb2.Space.FromString,
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.space.CreateSpaceKnowledgeService/CreateAccountSpaceKnowledge',
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_create__space__knowledge__pb2.CreateAccountSpaceKnowledgeRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_create__space__knowledge__pb2.CreateAccountSpaceKnowledgeResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

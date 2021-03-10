@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n#ethos/elint/entities/universe.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\"\xa3\x01\n\x08Universe\x12\x13\n\x0buniverse_id\x18\x01 \x01(\t\x12/\n\x0b\x62ig_bang_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x15\n\runiverse_name\x18\x03 \x01(\t\x12\x1c\n\x14universe_unique_name\x18\x04 \x01(\t\x12\x1c\n\x14universe_description\x18\x05 \x01(\tP\x00\x62\x06proto3'
+  serialized_pb=b'\n#ethos/elint/entities/universe.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\"\x85\x01\n\x08Universe\x12\x13\n\x0buniverse_id\x18\x01 \x01(\t\x12/\n\x0b\x62ig_bang_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x15\n\runiverse_name\x18\x03 \x01(\t\x12\x1c\n\x14universe_description\x18\x04 \x01(\tP\x00\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,],
   public_dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
@@ -59,15 +59,8 @@ _UNIVERSE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='universe_unique_name', full_name='elint.entity.Universe.universe_unique_name', index=3,
+      name='universe_description', full_name='elint.entity.Universe.universe_description', index=3,
       number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='universe_description', full_name='elint.entity.Universe.universe_description', index=4,
-      number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -85,7 +78,7 @@ _UNIVERSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=87,
-  serialized_end=250,
+  serialized_end=220,
 )
 
 _UNIVERSE.fields_by_name['big_bang_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP

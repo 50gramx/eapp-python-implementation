@@ -15,10 +15,15 @@ class AccessSpaceKnowledgeDomainServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.AccessKnowledgeDomainToken = channel.unary_unary(
-                '/elint.services.product.knowledge.domain.AccessSpaceKnowledgeDomainService/AccessKnowledgeDomainToken',
-                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.AccessKnowledgeDomainTokenRequest.SerializeToString,
-                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.AccessKnowledgeDomainTokenResponse.FromString,
+        self.SpaceKnowledgeDomainAccessToken = channel.unary_unary(
+                '/elint.services.product.knowledge.domain.AccessSpaceKnowledgeDomainService/SpaceKnowledgeDomainAccessToken',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainAccessTokenRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainAccessTokenResponse.FromString,
+                )
+        self.ValidateSpaceKnowledgeDomainServices = channel.unary_unary(
+                '/elint.services.product.knowledge.domain.AccessSpaceKnowledgeDomainService/ValidateSpaceKnowledgeDomainServices',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainServicesAccessAuthDetails.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.ValidateSpaceKnowledgeDomainServicesResponse.FromString,
                 )
 
 
@@ -26,8 +31,16 @@ class AccessSpaceKnowledgeDomainServiceServicer(object):
     """Service Definitions
     """
 
-    def AccessKnowledgeDomainToken(self, request, context):
+    def SpaceKnowledgeDomainAccessToken(self, request, context):
         """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ValidateSpaceKnowledgeDomainServices(self, request, context):
+        """rpc SpaceKnowledgeDomainInferenceAccessToken (SpaceKnowledgeDomainInferenceAccessTokenRequest) returns (SpaceKnowledgeDomainAccessTokenResponse) {
+        }; // todo: maybe need to write this service
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -35,10 +48,15 @@ class AccessSpaceKnowledgeDomainServiceServicer(object):
 
 def add_AccessSpaceKnowledgeDomainServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'AccessKnowledgeDomainToken': grpc.unary_unary_rpc_method_handler(
-                    servicer.AccessKnowledgeDomainToken,
-                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.AccessKnowledgeDomainTokenRequest.FromString,
-                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.AccessKnowledgeDomainTokenResponse.SerializeToString,
+            'SpaceKnowledgeDomainAccessToken': grpc.unary_unary_rpc_method_handler(
+                    servicer.SpaceKnowledgeDomainAccessToken,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainAccessTokenRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainAccessTokenResponse.SerializeToString,
+            ),
+            'ValidateSpaceKnowledgeDomainServices': grpc.unary_unary_rpc_method_handler(
+                    servicer.ValidateSpaceKnowledgeDomainServices,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainServicesAccessAuthDetails.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.ValidateSpaceKnowledgeDomainServicesResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -52,7 +70,7 @@ class AccessSpaceKnowledgeDomainService(object):
     """
 
     @staticmethod
-    def AccessKnowledgeDomainToken(request,
+    def SpaceKnowledgeDomainAccessToken(request,
             target,
             options=(),
             channel_credentials=None,
@@ -62,8 +80,25 @@ class AccessSpaceKnowledgeDomainService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.domain.AccessSpaceKnowledgeDomainService/AccessKnowledgeDomainToken',
-            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.AccessKnowledgeDomainTokenRequest.SerializeToString,
-            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.AccessKnowledgeDomainTokenResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.domain.AccessSpaceKnowledgeDomainService/SpaceKnowledgeDomainAccessToken',
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainAccessTokenRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainAccessTokenResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ValidateSpaceKnowledgeDomainServices(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.domain.AccessSpaceKnowledgeDomainService/ValidateSpaceKnowledgeDomainServices',
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainServicesAccessAuthDetails.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.ValidateSpaceKnowledgeDomainServicesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -25,7 +25,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n6ethos/elint/entities/space_knowledge_domain_file.proto\x12\x0c\x65lint.entity\x1a\x31\x65thos/elint/entities/space_knowledge_domain.proto\"5\n\x07\x46ileTag\x12\x13\n\x0b\x66ile_tag_id\x18\x01 \x01(\x05\x12\x15\n\rfile_tag_name\x18\x02 \x01(\t\"\x87\x04\n\x18SpaceKnowledgeDomainFile\x12(\n space_knowledge_domain_file_name\x18\x01 \x01(\t\x12(\n space_knowledge_domain_file_size\x18\x02 \x01(\x05\x12&\n\x1espace_knowledge_domain_file_id\x18\x03 \x01(\t\x12O\n*space_knowledge_domain_file_extension_type\x18\x04 \x01(\x0e\x32\x1b.elint.entity.ExtentionType\x12\x42\n\x16space_knowledge_domain\x18\x05 \x01(\x0b\x32\".elint.entity.SpaceKnowledgeDomain\x12?\n space_knowledge_domain_file_tags\x18\x06 \x03(\x0b\x32\x15.elint.entity.FileTag\x12.\n\ncreated_at\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x33\n\x0flast_updated_at\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x34\n\x10last_accessed_at\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp*5\n\rExtentionType\x12\x07\n\x03PNG\x10\x00\x12\x08\n\x04JPEG\x10\x01\x12\x07\n\x03PDF\x10\x02\x12\x08\n\x04TEXT\x10\x03\x62\x06proto3'
+  serialized_pb=b'\n6ethos/elint/entities/space_knowledge_domain_file.proto\x12\x0c\x65lint.entity\x1a\x31\x65thos/elint/entities/space_knowledge_domain.proto\"5\n\x07\x46ileTag\x12\x13\n\x0b\x66ile_tag_id\x18\x01 \x01(\t\x12\x15\n\rfile_tag_name\x18\x02 \x01(\t\"\x87\x04\n\x18SpaceKnowledgeDomainFile\x12(\n space_knowledge_domain_file_name\x18\x01 \x01(\t\x12(\n space_knowledge_domain_file_size\x18\x02 \x01(\x05\x12&\n\x1espace_knowledge_domain_file_id\x18\x03 \x01(\t\x12O\n*space_knowledge_domain_file_extension_type\x18\x04 \x01(\x0e\x32\x1b.elint.entity.ExtentionType\x12\x42\n\x16space_knowledge_domain\x18\x05 \x01(\x0b\x32\".elint.entity.SpaceKnowledgeDomain\x12?\n space_knowledge_domain_file_tags\x18\x06 \x03(\x0b\x32\x15.elint.entity.FileTag\x12.\n\ncreated_at\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x33\n\x0flast_updated_at\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x34\n\x10last_accessed_at\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp*5\n\rExtentionType\x12\x07\n\x03PNG\x10\x00\x12\x08\n\x04JPEG\x10\x01\x12\x07\n\x03PDF\x10\x02\x12\x08\n\x04TEXT\x10\x03\x62\x06proto3'
   ,
   dependencies=[ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2.DESCRIPTOR,])
 
@@ -82,8 +82,8 @@ _FILETAG = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='file_tag_id', full_name='elint.entity.FileTag.file_tag_id', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),

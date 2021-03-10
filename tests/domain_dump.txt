@@ -1,0 +1,30 @@
+{
+  "spaceKnowledgeDomainId": "32bf6942-9a6f-4042-a1bb-b1692d477084",
+  "spaceKnowledgeDomainName": "My White Knowledge Domain",
+  "spaceKnowledgeDomainDescription": "My informations",
+  "spaceKnowledgeDomainIsolated": true,
+  "spaceKnowledge": {
+    "spaceKnowledgeName": "My Knowledge Space",
+    "spaceKnowledgeId": "b8028d91-fa46-41b3-a567-4af664c6b514",
+    "space": {
+      "galaxy": {
+        "galaxyId": "bc7e04c1-8961-409b-b436-3964dc213b92",
+        "galaxyName": "Our Galaxy",
+        "universe": {
+          "universeId": "fd181449-25cb-4916-9867-22e8dfe6fec4",
+          "bigBangAt": "2021-01-23T02:19:45.598781108Z",
+          "universeName": "Our Universe",
+          "universeDescription": "Our Universe Description"
+        },
+        "galaxyCreatedAt": "2021-01-23T02:19:45.608702898Z"
+      },
+      "spaceId": "4c65cf1d-7855-4939-8b90-4482040d7397",
+      "spaceAccessibilityType": "OPEN",
+      "spaceAdminId": "f24d5317-fd5b-40b3-9d33-3c67da3d91b4",
+      "spaceCreatedAt": "2021-02-07T02:29:15Z"
+    },
+    "createdAt": "2021-02-07T02:29:16.298608064Z"
+  },
+  "createdAt": "2021-02-07T02:29:17.529622077Z",
+  "lastUpdatedAt": "2021-02-07T02:29:17.529649972Z"
+}

@@ -11,6 +11,11 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from ethos.elint.entities import space_knowledge_pb2 as ethos_dot_elint_dot_entities_dot_space__knowledge__pb2
+try:
+  google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_space__knowledge__pb2.google_dot_protobuf_dot_timestamp__pb2
+except AttributeError:
+  google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_space__knowledge__pb2.google.protobuf.timestamp_pb2
 from ethos.elint.entities import space_knowledge_domain_pb2 as ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2
 try:
   google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2.google_dot_protobuf_dot_timestamp__pb2
@@ -21,6 +26,12 @@ try:
   google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_account__pb2.google_dot_protobuf_dot_timestamp__pb2
 except AttributeError:
   google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_account__pb2.google.protobuf.timestamp_pb2
+from ethos.elint.entities import generic_pb2 as ethos_dot_elint_dot_entities_dot_generic__pb2
+try:
+  google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_generic__pb2.google_dot_protobuf_dot_timestamp__pb2
+except AttributeError:
+  google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_generic__pb2.google.protobuf.timestamp_pb2
+from ethos.elint.services.product.knowledge.space_knowledge import access_space_knowledge_pb2 as ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_access__space__knowledge__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -29,21 +40,35 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nUethos/elint/services/product/knowledge/space_knowledge/discover_space_knowledge.proto\x12&elint.services.product.knowledge.space\x1a\x31\x65thos/elint/entities/space_knowledge_domain.proto\x1a\"ethos/elint/entities/account.proto\"!\n\x1fGetSpaceKnowledgeDomainsRequest\"\"\n GetSpaceKnowledgeDomainsResponse2\xd1\x01\n\x1d\x44iscoverSpaceKnowledgeService\x12\xaf\x01\n\x18GetSpaceKnowledgeDomains\x12G.elint.services.product.knowledge.space.GetSpaceKnowledgeDomainsRequest\x1aH.elint.services.product.knowledge.space.GetSpaceKnowledgeDomainsResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\nUethos/elint/services/product/knowledge/space_knowledge/discover_space_knowledge.proto\x12&elint.services.product.knowledge.space\x1a*ethos/elint/entities/space_knowledge.proto\x1a\x31\x65thos/elint/entities/space_knowledge_domain.proto\x1a\"ethos/elint/entities/account.proto\x1a\"ethos/elint/entities/generic.proto\x1aSethos/elint/services/product/knowledge/space_knowledge/access_space_knowledge.proto\"\xb2\x01\n(GetInferredSpaceKnowledgeDomainsResponse\x12S\n\x1fspace_knowledge_inferred_domain\x18\x01 \x03(\x0b\x32*.elint.entity.SpaceKnowledgeInferredDomain\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\x9a\x01\n GetSpaceKnowledgeDomainsResponse\x12\x43\n\x17space_knowledge_domains\x18\x01 \x03(\x0b\x32\".elint.entity.SpaceKnowledgeDomain\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xad\x01\n\"GetSpaceKnowledgeDomainByIdRequest\x12\x64\n\x0b\x61\x63\x63\x65ss_auth\x18\x01 \x01(\x0b\x32O.elint.services.product.knowledge.space.SpaceKnowledgeServicesAccessAuthDetails\x12!\n\x19space_knowledge_domain_id\x18\x02 \x01(\t\"\x9c\x01\n#GetSpaceKnowledgeDomainByIdResponse\x12\x42\n\x16space_knowledge_domain\x18\x01 \x01(\x0b\x32\".elint.entity.SpaceKnowledgeDomain\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta2\xde\x04\n\x1d\x44iscoverSpaceKnowledgeService\x12\xc7\x01\n GetInferredSpaceKnowledgeDomains\x12O.elint.services.product.knowledge.space.SpaceKnowledgeServicesAccessAuthDetails\x1aP.elint.services.product.knowledge.space.GetInferredSpaceKnowledgeDomainsResponse\"\x00\x12\xb7\x01\n\x18GetSpaceKnowledgeDomains\x12O.elint.services.product.knowledge.space.SpaceKnowledgeServicesAccessAuthDetails\x1aH.elint.services.product.knowledge.space.GetSpaceKnowledgeDomainsResponse\"\x00\x12\xb8\x01\n\x1bGetSpaceKnowledgeDomainById\x12J.elint.services.product.knowledge.space.GetSpaceKnowledgeDomainByIdRequest\x1aK.elint.services.product.knowledge.space.GetSpaceKnowledgeDomainByIdResponse\"\x00\x62\x06proto3'
   ,
-  dependencies=[ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,])
+  dependencies=[ethos_dot_elint_dot_entities_dot_space__knowledge__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_access__space__knowledge__pb2.DESCRIPTOR,])
 
 
 
 
-_GETSPACEKNOWLEDGEDOMAINSREQUEST = _descriptor.Descriptor(
-  name='GetSpaceKnowledgeDomainsRequest',
-  full_name='elint.services.product.knowledge.space.GetSpaceKnowledgeDomainsRequest',
+_GETINFERREDSPACEKNOWLEDGEDOMAINSRESPONSE = _descriptor.Descriptor(
+  name='GetInferredSpaceKnowledgeDomainsResponse',
+  full_name='elint.services.product.knowledge.space.GetInferredSpaceKnowledgeDomainsResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
+    _descriptor.FieldDescriptor(
+      name='space_knowledge_inferred_domain', full_name='elint.services.product.knowledge.space.GetInferredSpaceKnowledgeDomainsResponse.space_knowledge_inferred_domain', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='response_meta', full_name='elint.services.product.knowledge.space.GetInferredSpaceKnowledgeDomainsResponse.response_meta', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -56,8 +81,8 @@ _GETSPACEKNOWLEDGEDOMAINSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=216,
-  serialized_end=249,
+  serialized_start=382,
+  serialized_end=560,
 )
 
 
@@ -69,6 +94,20 @@ _GETSPACEKNOWLEDGEDOMAINSRESPONSE = _descriptor.Descriptor(
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
+    _descriptor.FieldDescriptor(
+      name='space_knowledge_domains', full_name='elint.services.product.knowledge.space.GetSpaceKnowledgeDomainsResponse.space_knowledge_domains', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='response_meta', full_name='elint.services.product.knowledge.space.GetSpaceKnowledgeDomainsResponse.response_meta', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -81,20 +120,107 @@ _GETSPACEKNOWLEDGEDOMAINSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=251,
-  serialized_end=285,
+  serialized_start=563,
+  serialized_end=717,
 )
 
-DESCRIPTOR.message_types_by_name['GetSpaceKnowledgeDomainsRequest'] = _GETSPACEKNOWLEDGEDOMAINSREQUEST
+
+_GETSPACEKNOWLEDGEDOMAINBYIDREQUEST = _descriptor.Descriptor(
+  name='GetSpaceKnowledgeDomainByIdRequest',
+  full_name='elint.services.product.knowledge.space.GetSpaceKnowledgeDomainByIdRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='access_auth', full_name='elint.services.product.knowledge.space.GetSpaceKnowledgeDomainByIdRequest.access_auth', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='space_knowledge_domain_id', full_name='elint.services.product.knowledge.space.GetSpaceKnowledgeDomainByIdRequest.space_knowledge_domain_id', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=720,
+  serialized_end=893,
+)
+
+
+_GETSPACEKNOWLEDGEDOMAINBYIDRESPONSE = _descriptor.Descriptor(
+  name='GetSpaceKnowledgeDomainByIdResponse',
+  full_name='elint.services.product.knowledge.space.GetSpaceKnowledgeDomainByIdResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='space_knowledge_domain', full_name='elint.services.product.knowledge.space.GetSpaceKnowledgeDomainByIdResponse.space_knowledge_domain', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='response_meta', full_name='elint.services.product.knowledge.space.GetSpaceKnowledgeDomainByIdResponse.response_meta', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=896,
+  serialized_end=1052,
+)
+
+_GETINFERREDSPACEKNOWLEDGEDOMAINSRESPONSE.fields_by_name['space_knowledge_inferred_domain'].message_type = ethos_dot_elint_dot_entities_dot_space__knowledge__pb2._SPACEKNOWLEDGEINFERREDDOMAIN
+_GETINFERREDSPACEKNOWLEDGEDOMAINSRESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
+_GETSPACEKNOWLEDGEDOMAINSRESPONSE.fields_by_name['space_knowledge_domains'].message_type = ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2._SPACEKNOWLEDGEDOMAIN
+_GETSPACEKNOWLEDGEDOMAINSRESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
+_GETSPACEKNOWLEDGEDOMAINBYIDREQUEST.fields_by_name['access_auth'].message_type = ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_access__space__knowledge__pb2._SPACEKNOWLEDGESERVICESACCESSAUTHDETAILS
+_GETSPACEKNOWLEDGEDOMAINBYIDRESPONSE.fields_by_name['space_knowledge_domain'].message_type = ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2._SPACEKNOWLEDGEDOMAIN
+_GETSPACEKNOWLEDGEDOMAINBYIDRESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
+DESCRIPTOR.message_types_by_name['GetInferredSpaceKnowledgeDomainsResponse'] = _GETINFERREDSPACEKNOWLEDGEDOMAINSRESPONSE
 DESCRIPTOR.message_types_by_name['GetSpaceKnowledgeDomainsResponse'] = _GETSPACEKNOWLEDGEDOMAINSRESPONSE
+DESCRIPTOR.message_types_by_name['GetSpaceKnowledgeDomainByIdRequest'] = _GETSPACEKNOWLEDGEDOMAINBYIDREQUEST
+DESCRIPTOR.message_types_by_name['GetSpaceKnowledgeDomainByIdResponse'] = _GETSPACEKNOWLEDGEDOMAINBYIDRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-GetSpaceKnowledgeDomainsRequest = _reflection.GeneratedProtocolMessageType('GetSpaceKnowledgeDomainsRequest', (_message.Message,), {
-  'DESCRIPTOR' : _GETSPACEKNOWLEDGEDOMAINSREQUEST,
+GetInferredSpaceKnowledgeDomainsResponse = _reflection.GeneratedProtocolMessageType('GetInferredSpaceKnowledgeDomainsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETINFERREDSPACEKNOWLEDGEDOMAINSRESPONSE,
   '__module__' : 'ethos.elint.services.product.knowledge.space_knowledge.discover_space_knowledge_pb2'
-  # @@protoc_insertion_point(class_scope:elint.services.product.knowledge.space.GetSpaceKnowledgeDomainsRequest)
+  # @@protoc_insertion_point(class_scope:elint.services.product.knowledge.space.GetInferredSpaceKnowledgeDomainsResponse)
   })
-_sym_db.RegisterMessage(GetSpaceKnowledgeDomainsRequest)
+_sym_db.RegisterMessage(GetInferredSpaceKnowledgeDomainsResponse)
 
 GetSpaceKnowledgeDomainsResponse = _reflection.GeneratedProtocolMessageType('GetSpaceKnowledgeDomainsResponse', (_message.Message,), {
   'DESCRIPTOR' : _GETSPACEKNOWLEDGEDOMAINSRESPONSE,
@@ -102,6 +228,20 @@ GetSpaceKnowledgeDomainsResponse = _reflection.GeneratedProtocolMessageType('Get
   # @@protoc_insertion_point(class_scope:elint.services.product.knowledge.space.GetSpaceKnowledgeDomainsResponse)
   })
 _sym_db.RegisterMessage(GetSpaceKnowledgeDomainsResponse)
+
+GetSpaceKnowledgeDomainByIdRequest = _reflection.GeneratedProtocolMessageType('GetSpaceKnowledgeDomainByIdRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETSPACEKNOWLEDGEDOMAINBYIDREQUEST,
+  '__module__' : 'ethos.elint.services.product.knowledge.space_knowledge.discover_space_knowledge_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.knowledge.space.GetSpaceKnowledgeDomainByIdRequest)
+  })
+_sym_db.RegisterMessage(GetSpaceKnowledgeDomainByIdRequest)
+
+GetSpaceKnowledgeDomainByIdResponse = _reflection.GeneratedProtocolMessageType('GetSpaceKnowledgeDomainByIdResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETSPACEKNOWLEDGEDOMAINBYIDRESPONSE,
+  '__module__' : 'ethos.elint.services.product.knowledge.space_knowledge.discover_space_knowledge_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.knowledge.space.GetSpaceKnowledgeDomainByIdResponse)
+  })
+_sym_db.RegisterMessage(GetSpaceKnowledgeDomainByIdResponse)
 
 
 
@@ -112,16 +252,36 @@ _DISCOVERSPACEKNOWLEDGESERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=288,
-  serialized_end=497,
+  serialized_start=1055,
+  serialized_end=1661,
   methods=[
+  _descriptor.MethodDescriptor(
+    name='GetInferredSpaceKnowledgeDomains',
+    full_name='elint.services.product.knowledge.space.DiscoverSpaceKnowledgeService.GetInferredSpaceKnowledgeDomains',
+    index=0,
+    containing_service=None,
+    input_type=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_access__space__knowledge__pb2._SPACEKNOWLEDGESERVICESACCESSAUTHDETAILS,
+    output_type=_GETINFERREDSPACEKNOWLEDGEDOMAINSRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
   _descriptor.MethodDescriptor(
     name='GetSpaceKnowledgeDomains',
     full_name='elint.services.product.knowledge.space.DiscoverSpaceKnowledgeService.GetSpaceKnowledgeDomains',
-    index=0,
+    index=1,
     containing_service=None,
-    input_type=_GETSPACEKNOWLEDGEDOMAINSREQUEST,
+    input_type=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_access__space__knowledge__pb2._SPACEKNOWLEDGESERVICESACCESSAUTHDETAILS,
     output_type=_GETSPACEKNOWLEDGEDOMAINSRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetSpaceKnowledgeDomainById',
+    full_name='elint.services.product.knowledge.space.DiscoverSpaceKnowledgeService.GetSpaceKnowledgeDomainById',
+    index=2,
+    containing_service=None,
+    input_type=_GETSPACEKNOWLEDGEDOMAINBYIDREQUEST,
+    output_type=_GETSPACEKNOWLEDGEDOMAINBYIDRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

@@ -2,15 +2,11 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from ethos.elint.services.product.knowledge.space_knowledge_domain import access_space_knowledge_domain_pb2 as ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2
 from ethos.elint.services.product.knowledge.space_knowledge_domain_file import access_space_knowledge_domain_file_pb2 as ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_access__space__knowledge__domain__file__pb2
 
 
 class AccessSpaceKnowledgeDomainFileServiceStub(object):
-    """Message Definitions
-    No Messages Defined Yet
-
-    Service Definitions
+    """Service Definitions
     """
 
     def __init__(self, channel):
@@ -19,21 +15,29 @@ class AccessSpaceKnowledgeDomainFileServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.AccessSpaceKnowledgeDomainFileToken = channel.unary_unary(
-                '/elint.services.product.knowledge.file.AccessSpaceKnowledgeDomainFileService/AccessSpaceKnowledgeDomainFileToken',
-                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainServicesAccessAuthDetails.SerializeToString,
-                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_access__space__knowledge__domain__file__pb2.SpaceKnowledgeDomainFileServicesAccessAuthDetails.FromString,
+        self.SpaceKnowledgeDomainFileAccessToken = channel.unary_unary(
+                '/elint.services.product.knowledge.file.AccessSpaceKnowledgeDomainFileService/SpaceKnowledgeDomainFileAccessToken',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_access__space__knowledge__domain__file__pb2.SpaceKnowledgeDomainFileAccessTokenRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_access__space__knowledge__domain__file__pb2.SpaceKnowledgeDomainFileAccessTokenResponse.FromString,
+                )
+        self.ValidateSpaceKnowledgeDomainFileServices = channel.unary_unary(
+                '/elint.services.product.knowledge.file.AccessSpaceKnowledgeDomainFileService/ValidateSpaceKnowledgeDomainFileServices',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_access__space__knowledge__domain__file__pb2.SpaceKnowledgeDomainFileServicesAccessAuthDetails.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_access__space__knowledge__domain__file__pb2.ValidateSpaceKnowledgeDomainFileServicesResponse.FromString,
                 )
 
 
 class AccessSpaceKnowledgeDomainFileServiceServicer(object):
-    """Message Definitions
-    No Messages Defined Yet
-
-    Service Definitions
+    """Service Definitions
     """
 
-    def AccessSpaceKnowledgeDomainFileToken(self, request, context):
+    def SpaceKnowledgeDomainFileAccessToken(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ValidateSpaceKnowledgeDomainFileServices(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -42,10 +46,15 @@ class AccessSpaceKnowledgeDomainFileServiceServicer(object):
 
 def add_AccessSpaceKnowledgeDomainFileServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'AccessSpaceKnowledgeDomainFileToken': grpc.unary_unary_rpc_method_handler(
-                    servicer.AccessSpaceKnowledgeDomainFileToken,
-                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainServicesAccessAuthDetails.FromString,
-                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_access__space__knowledge__domain__file__pb2.SpaceKnowledgeDomainFileServicesAccessAuthDetails.SerializeToString,
+            'SpaceKnowledgeDomainFileAccessToken': grpc.unary_unary_rpc_method_handler(
+                    servicer.SpaceKnowledgeDomainFileAccessToken,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_access__space__knowledge__domain__file__pb2.SpaceKnowledgeDomainFileAccessTokenRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_access__space__knowledge__domain__file__pb2.SpaceKnowledgeDomainFileAccessTokenResponse.SerializeToString,
+            ),
+            'ValidateSpaceKnowledgeDomainFileServices': grpc.unary_unary_rpc_method_handler(
+                    servicer.ValidateSpaceKnowledgeDomainFileServices,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_access__space__knowledge__domain__file__pb2.SpaceKnowledgeDomainFileServicesAccessAuthDetails.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_access__space__knowledge__domain__file__pb2.ValidateSpaceKnowledgeDomainFileServicesResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -55,14 +64,11 @@ def add_AccessSpaceKnowledgeDomainFileServiceServicer_to_server(servicer, server
 
  # This class is part of an EXPERIMENTAL API.
 class AccessSpaceKnowledgeDomainFileService(object):
-    """Message Definitions
-    No Messages Defined Yet
-
-    Service Definitions
+    """Service Definitions
     """
 
     @staticmethod
-    def AccessSpaceKnowledgeDomainFileToken(request,
+    def SpaceKnowledgeDomainFileAccessToken(request,
             target,
             options=(),
             channel_credentials=None,
@@ -72,8 +78,25 @@ class AccessSpaceKnowledgeDomainFileService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.file.AccessSpaceKnowledgeDomainFileService/AccessSpaceKnowledgeDomainFileToken',
-            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainServicesAccessAuthDetails.SerializeToString,
-            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_access__space__knowledge__domain__file__pb2.SpaceKnowledgeDomainFileServicesAccessAuthDetails.FromString,
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.file.AccessSpaceKnowledgeDomainFileService/SpaceKnowledgeDomainFileAccessToken',
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_access__space__knowledge__domain__file__pb2.SpaceKnowledgeDomainFileAccessTokenRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_access__space__knowledge__domain__file__pb2.SpaceKnowledgeDomainFileAccessTokenResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ValidateSpaceKnowledgeDomainFileServices(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.file.AccessSpaceKnowledgeDomainFileService/ValidateSpaceKnowledgeDomainFileServices',
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_access__space__knowledge__domain__file__pb2.SpaceKnowledgeDomainFileServicesAccessAuthDetails.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file_dot_access__space__knowledge__domain__file__pb2.ValidateSpaceKnowledgeDomainFileServicesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

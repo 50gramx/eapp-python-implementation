@@ -11,14 +11,11 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-from ethos.elint.entities import generic_pb2 as ethos_dot_elint_dot_entities_dot_generic__pb2
-try:
-  google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_generic__pb2.google_dot_protobuf_dot_timestamp__pb2
-except AttributeError:
-  google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_generic__pb2.google.protobuf.timestamp_pb2
-from ethos.elint.entities import space_pb2 as ethos_dot_elint_dot_entities_dot_space__pb2
-from ethos.elint.entities import galaxy_pb2 as ethos_dot_elint_dot_entities_dot_galaxy__pb2
+from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
+from ethos.elint.services.product.identity.space import access_space_pb2 as ethos_dot_elint_dot_services_dot_product_dot_identity_dot_space_dot_access__space__pb2
+from ethos.elint.services.product.knowledge.space_knowledge import access_space_knowledge_pb2 as ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_access__space__knowledge__pb2
 
+from google.protobuf.timestamp_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='ethos/elint/services/product/knowledge/space_knowledge/create_space_knowledge.proto',
@@ -26,58 +23,38 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nSethos/elint/services/product/knowledge/space_knowledge/create_space_knowledge.proto\x12&elint.services.product.knowledge.space\x1a\"ethos/elint/entities/generic.proto\x1a ethos/elint/entities/space.proto\x1a!ethos/elint/entities/galaxy.proto\"\xf1\x02\n\x1b\x43reateSpaceKnowledgeRequest\x12*\n\rspace_details\x18\x01 \x01(\x0b\x32\x13.elint.entity.Space\x12\x61\n,space_knowledge_access_session_token_details\x18\x02 \x01(\x0b\x32+.elint.entity.PersistentSessionTokenDetails\x12+\n\nspace_type\x18\x03 \x01(\x0e\x32\x17.elint.entity.SpaceType\x12>\n\x14space_isolation_type\x18\x04 \x01(\x0e\x32 .elint.entity.SpaceIsolationType\x12$\n\x06galaxy\x18\x05 \x01(\x0b\x32\x14.elint.entity.Galaxy\x12\x30\n\x0crequested_at\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp2\x91\x01\n\x1b\x43reateSpaceKnowledgeService\x12r\n\x14\x43reateSpaceKnowledge\x12\x43.elint.services.product.knowledge.space.CreateSpaceKnowledgeRequest\x1a\x13.elint.entity.Space\"\x00\x62\x06proto3'
+  serialized_pb=b'\nSethos/elint/services/product/knowledge/space_knowledge/create_space_knowledge.proto\x12&elint.services.product.knowledge.space\x1a\x1fgoogle/protobuf/timestamp.proto\x1a>ethos/elint/services/product/identity/space/access_space.proto\x1aSethos/elint/services/product/knowledge/space_knowledge/access_space_knowledge.proto\"\xe6\x01\n\"CreateAccountSpaceKnowledgeRequest\x12p\n!space_service_access_auth_details\x18\x01 \x01(\x0b\x32\x45.elint.services.product.identity.space.SpaceServicesAccessAuthDetails\x12\x1c\n\x14space_knowledge_name\x18\x02 \x01(\t\x12\x30\n\x0crequested_at\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x8a\x02\n#CreateAccountSpaceKnowledgeResponse\x12\x85\x01\n,space_knowledge_services_access_auth_details\x18\x01 \x01(\x0b\x32O.elint.services.product.knowledge.space.SpaceKnowledgeServicesAccessAuthDetails\x12+\n#create_account_space_knowledge_done\x18\x02 \x01(\x08\x12.\n&create_account_space_knowledge_message\x18\x03 \x01(\t2\xd8\x01\n\x1b\x43reateSpaceKnowledgeService\x12\xb8\x01\n\x1b\x43reateAccountSpaceKnowledge\x12J.elint.services.product.knowledge.space.CreateAccountSpaceKnowledgeRequest\x1aK.elint.services.product.knowledge.space.CreateAccountSpaceKnowledgeResponse\"\x00P\x00\x62\x06proto3'
   ,
-  dependencies=[ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_space__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_galaxy__pb2.DESCRIPTOR,])
+  dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_identity_dot_space_dot_access__space__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_access__space__knowledge__pb2.DESCRIPTOR,],
+  public_dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
 
 
 
-_CREATESPACEKNOWLEDGEREQUEST = _descriptor.Descriptor(
-  name='CreateSpaceKnowledgeRequest',
-  full_name='elint.services.product.knowledge.space.CreateSpaceKnowledgeRequest',
+_CREATEACCOUNTSPACEKNOWLEDGEREQUEST = _descriptor.Descriptor(
+  name='CreateAccountSpaceKnowledgeRequest',
+  full_name='elint.services.product.knowledge.space.CreateAccountSpaceKnowledgeRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='space_details', full_name='elint.services.product.knowledge.space.CreateSpaceKnowledgeRequest.space_details', index=0,
+      name='space_service_access_auth_details', full_name='elint.services.product.knowledge.space.CreateAccountSpaceKnowledgeRequest.space_service_access_auth_details', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='space_knowledge_access_session_token_details', full_name='elint.services.product.knowledge.space.CreateSpaceKnowledgeRequest.space_knowledge_access_session_token_details', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      name='space_knowledge_name', full_name='elint.services.product.knowledge.space.CreateAccountSpaceKnowledgeRequest.space_knowledge_name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='space_type', full_name='elint.services.product.knowledge.space.CreateSpaceKnowledgeRequest.space_type', index=2,
-      number=3, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='space_isolation_type', full_name='elint.services.product.knowledge.space.CreateSpaceKnowledgeRequest.space_isolation_type', index=3,
-      number=4, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='galaxy', full_name='elint.services.product.knowledge.space.CreateSpaceKnowledgeRequest.galaxy', index=4,
-      number=5, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='requested_at', full_name='elint.services.product.knowledge.space.CreateSpaceKnowledgeRequest.requested_at', index=5,
+      name='requested_at', full_name='elint.services.product.knowledge.space.CreateAccountSpaceKnowledgeRequest.requested_at', index=2,
       number=6, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -95,25 +72,76 @@ _CREATESPACEKNOWLEDGEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=233,
-  serialized_end=602,
+  serialized_start=310,
+  serialized_end=540,
 )
 
-_CREATESPACEKNOWLEDGEREQUEST.fields_by_name['space_details'].message_type = ethos_dot_elint_dot_entities_dot_space__pb2._SPACE
-_CREATESPACEKNOWLEDGEREQUEST.fields_by_name['space_knowledge_access_session_token_details'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._PERSISTENTSESSIONTOKENDETAILS
-_CREATESPACEKNOWLEDGEREQUEST.fields_by_name['space_type'].enum_type = ethos_dot_elint_dot_entities_dot_space__pb2._SPACETYPE
-_CREATESPACEKNOWLEDGEREQUEST.fields_by_name['space_isolation_type'].enum_type = ethos_dot_elint_dot_entities_dot_space__pb2._SPACEISOLATIONTYPE
-_CREATESPACEKNOWLEDGEREQUEST.fields_by_name['galaxy'].message_type = ethos_dot_elint_dot_entities_dot_galaxy__pb2._GALAXY
-_CREATESPACEKNOWLEDGEREQUEST.fields_by_name['requested_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
-DESCRIPTOR.message_types_by_name['CreateSpaceKnowledgeRequest'] = _CREATESPACEKNOWLEDGEREQUEST
+
+_CREATEACCOUNTSPACEKNOWLEDGERESPONSE = _descriptor.Descriptor(
+  name='CreateAccountSpaceKnowledgeResponse',
+  full_name='elint.services.product.knowledge.space.CreateAccountSpaceKnowledgeResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='space_knowledge_services_access_auth_details', full_name='elint.services.product.knowledge.space.CreateAccountSpaceKnowledgeResponse.space_knowledge_services_access_auth_details', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='create_account_space_knowledge_done', full_name='elint.services.product.knowledge.space.CreateAccountSpaceKnowledgeResponse.create_account_space_knowledge_done', index=1,
+      number=2, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='create_account_space_knowledge_message', full_name='elint.services.product.knowledge.space.CreateAccountSpaceKnowledgeResponse.create_account_space_knowledge_message', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=543,
+  serialized_end=809,
+)
+
+_CREATEACCOUNTSPACEKNOWLEDGEREQUEST.fields_by_name['space_service_access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_space_dot_access__space__pb2._SPACESERVICESACCESSAUTHDETAILS
+_CREATEACCOUNTSPACEKNOWLEDGEREQUEST.fields_by_name['requested_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_CREATEACCOUNTSPACEKNOWLEDGERESPONSE.fields_by_name['space_knowledge_services_access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_access__space__knowledge__pb2._SPACEKNOWLEDGESERVICESACCESSAUTHDETAILS
+DESCRIPTOR.message_types_by_name['CreateAccountSpaceKnowledgeRequest'] = _CREATEACCOUNTSPACEKNOWLEDGEREQUEST
+DESCRIPTOR.message_types_by_name['CreateAccountSpaceKnowledgeResponse'] = _CREATEACCOUNTSPACEKNOWLEDGERESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-CreateSpaceKnowledgeRequest = _reflection.GeneratedProtocolMessageType('CreateSpaceKnowledgeRequest', (_message.Message,), {
-  'DESCRIPTOR' : _CREATESPACEKNOWLEDGEREQUEST,
+CreateAccountSpaceKnowledgeRequest = _reflection.GeneratedProtocolMessageType('CreateAccountSpaceKnowledgeRequest', (_message.Message,), {
+  'DESCRIPTOR' : _CREATEACCOUNTSPACEKNOWLEDGEREQUEST,
   '__module__' : 'ethos.elint.services.product.knowledge.space_knowledge.create_space_knowledge_pb2'
-  # @@protoc_insertion_point(class_scope:elint.services.product.knowledge.space.CreateSpaceKnowledgeRequest)
+  # @@protoc_insertion_point(class_scope:elint.services.product.knowledge.space.CreateAccountSpaceKnowledgeRequest)
   })
-_sym_db.RegisterMessage(CreateSpaceKnowledgeRequest)
+_sym_db.RegisterMessage(CreateAccountSpaceKnowledgeRequest)
+
+CreateAccountSpaceKnowledgeResponse = _reflection.GeneratedProtocolMessageType('CreateAccountSpaceKnowledgeResponse', (_message.Message,), {
+  'DESCRIPTOR' : _CREATEACCOUNTSPACEKNOWLEDGERESPONSE,
+  '__module__' : 'ethos.elint.services.product.knowledge.space_knowledge.create_space_knowledge_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.knowledge.space.CreateAccountSpaceKnowledgeResponse)
+  })
+_sym_db.RegisterMessage(CreateAccountSpaceKnowledgeResponse)
 
 
 
@@ -124,16 +152,16 @@ _CREATESPACEKNOWLEDGESERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=605,
-  serialized_end=750,
+  serialized_start=812,
+  serialized_end=1028,
   methods=[
   _descriptor.MethodDescriptor(
-    name='CreateSpaceKnowledge',
-    full_name='elint.services.product.knowledge.space.CreateSpaceKnowledgeService.CreateSpaceKnowledge',
+    name='CreateAccountSpaceKnowledge',
+    full_name='elint.services.product.knowledge.space.CreateSpaceKnowledgeService.CreateAccountSpaceKnowledge',
     index=0,
     containing_service=None,
-    input_type=_CREATESPACEKNOWLEDGEREQUEST,
-    output_type=ethos_dot_elint_dot_entities_dot_space__pb2._SPACE,
+    input_type=_CREATEACCOUNTSPACEKNOWLEDGEREQUEST,
+    output_type=_CREATEACCOUNTSPACEKNOWLEDGERESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
