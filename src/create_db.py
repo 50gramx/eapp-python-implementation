@@ -1,8 +1,11 @@
 import os
 
 from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
-from models.base_models import Base
+from models.base_models import Base, Universe, Galaxy, Space, AccountConvenienceSecrets, AccountSecrets, Account, \
+    AccountDevices, AccountAssistant
+from support.helper_functions import gen_uuid, format_timestamp_to_datetime, get_current_timestamp
 
 db_url = f"postgres://{os.environ['EA_ID_DB_USER']}" \
          f":{os.environ['EA_ID_DB_PASS']}" \
@@ -18,6 +21,8 @@ engine = create_engine(db_url, echo=True)
 # Space.__table__.drop(engine)
 # AccountConvenienceSecrets.__table__.drop(engine)
 # AccountSecrets.__table__.drop(engine)
+# AccountDevices.__table__.drop(engine)
+# AccountAssistant.__table__.drop(engine)
 # Account.__table__.drop(engine)
 # Galaxy.__table__.drop(engine)
 # Universe.__table__.drop(engine)
@@ -25,7 +30,7 @@ engine = create_engine(db_url, echo=True)
 # ----------------------------------
 # Create Tables
 # ----------------------------------
-Base.metadata.create_all(engine)
+# Base.metadata.create_all(engine)
 
 # ----------------------------------
 # Insert Record in Tables
@@ -33,9 +38,9 @@ Base.metadata.create_all(engine)
 # Session = sessionmaker(bind=engine)
 # session = Session()
 # universe_id = gen_uuid()
-# universe_name = "Our Universe"
-# universe_description = "Our Universe Description"
-# universe_big_bang_at = timestamp_to_datetime(get_current_timestamp())
+# universe_name = "Ethos Universe"
+# universe_description = ""
+# universe_big_bang_at = format_timestamp_to_datetime(get_current_timestamp())
 #
 # new_universe = Universe(
 #     universe_id=universe_id,
@@ -47,8 +52,8 @@ Base.metadata.create_all(engine)
 # session.commit()
 #
 # galaxy_id = gen_uuid()
-# galaxy_name = "Our Galaxy"
-# galaxy_created_at = timestamp_to_datetime(get_current_timestamp())
+# galaxy_name = "Public Galaxy"
+# galaxy_created_at = format_timestamp_to_datetime(get_current_timestamp())
 # universe_id = session.query(Universe).first().universe_id
 #
 # new_galaxy = Galaxy(
