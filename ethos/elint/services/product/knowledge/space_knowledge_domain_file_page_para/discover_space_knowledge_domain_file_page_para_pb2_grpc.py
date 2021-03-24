@@ -31,6 +31,11 @@ class DiscoverSpaceKnowledgeDomainFilePageParaServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file__page__para_dot_discover__space__knowledge__domain__file__page__para__pb2.GetParaByIdRequest.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file__page__para_dot_discover__space__knowledge__domain__file__page__para__pb2.GetParaByIdResponse.FromString,
                 )
+        self.GetParaImageById = channel.unary_stream(
+                '/elint.services.product.knowledge.page.para.DiscoverSpaceKnowledgeDomainFilePageParaService/GetParaImageById',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file__page__para_dot_discover__space__knowledge__domain__file__page__para__pb2.GetParaImageByIdRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file__page__para_dot_discover__space__knowledge__domain__file__page__para__pb2.GetParaImageByIdResponse.FromString,
+                )
 
 
 class DiscoverSpaceKnowledgeDomainFilePageParaServiceServicer(object):
@@ -55,6 +60,12 @@ class DiscoverSpaceKnowledgeDomainFilePageParaServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetParaImageById(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_DiscoverSpaceKnowledgeDomainFilePageParaServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -72,6 +83,11 @@ def add_DiscoverSpaceKnowledgeDomainFilePageParaServiceServicer_to_server(servic
                     servicer.GetParaById,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file__page__para_dot_discover__space__knowledge__domain__file__page__para__pb2.GetParaByIdRequest.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file__page__para_dot_discover__space__knowledge__domain__file__page__para__pb2.GetParaByIdResponse.SerializeToString,
+            ),
+            'GetParaImageById': grpc.unary_stream_rpc_method_handler(
+                    servicer.GetParaImageById,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file__page__para_dot_discover__space__knowledge__domain__file__page__para__pb2.GetParaImageByIdRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file__page__para_dot_discover__space__knowledge__domain__file__page__para__pb2.GetParaImageByIdResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -132,5 +148,22 @@ class DiscoverSpaceKnowledgeDomainFilePageParaService(object):
         return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.page.para.DiscoverSpaceKnowledgeDomainFilePageParaService/GetParaById',
             ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file__page__para_dot_discover__space__knowledge__domain__file__page__para__pb2.GetParaByIdRequest.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file__page__para_dot_discover__space__knowledge__domain__file__page__para__pb2.GetParaByIdResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetParaImageById(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/elint.services.product.knowledge.page.para.DiscoverSpaceKnowledgeDomainFilePageParaService/GetParaImageById',
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file__page__para_dot_discover__space__knowledge__domain__file__page__para__pb2.GetParaImageByIdRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain__file__page__para_dot_discover__space__knowledge__domain__file__page__para__pb2.GetParaImageByIdResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -19,9 +19,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='ethos/elint/entities/universe.proto',
   package='elint.entity',
   syntax='proto3',
-  serialized_options=None,
+  serialized_options=b'\n\014elint.entityB\rUniverseProtoP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n#ethos/elint/entities/universe.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\"\x85\x01\n\x08Universe\x12\x13\n\x0buniverse_id\x18\x01 \x01(\t\x12/\n\x0b\x62ig_bang_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x15\n\runiverse_name\x18\x03 \x01(\t\x12\x1c\n\x14universe_description\x18\x04 \x01(\tP\x00\x62\x06proto3'
+  serialized_pb=b'\n#ethos/elint/entities/universe.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\"\x85\x01\n\x08Universe\x12\x13\n\x0buniverse_id\x18\x01 \x01(\t\x12/\n\x0b\x62ig_bang_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x15\n\runiverse_name\x18\x03 \x01(\t\x12\x1c\n\x14universe_description\x18\x04 \x01(\tB\x1f\n\x0c\x65lint.entityB\rUniverseProtoP\x01P\x00\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,],
   public_dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
@@ -93,4 +93,5 @@ Universe = _reflection.GeneratedProtocolMessageType('Universe', (_message.Messag
 _sym_db.RegisterMessage(Universe)
 
 
+DESCRIPTOR._options = None
 # @@protoc_insertion_point(module_scope)

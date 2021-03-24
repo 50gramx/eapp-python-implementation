@@ -37,6 +37,11 @@ class DiscoverSpaceKnowledgeDomainServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.RetrieveMessageContextPagesRequest.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.RetrieveMessageContextPagesResponse.FromString,
                 )
+        self.RetrieveMessageContextParas = channel.unary_unary(
+                '/elint.services.product.knowledge.domain.DiscoverSpaceKnowledgeDomainService/RetrieveMessageContextParas',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.RetrieveMessageContextPagesRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.RetrieveMessageContextPagesResponse.FromString,
+                )
         self.IsMessageContextInDomain = channel.unary_unary(
                 '/elint.services.product.knowledge.domain.DiscoverSpaceKnowledgeDomainService/IsMessageContextInDomain',
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.IsMessageContextInDomainRequest.SerializeToString,
@@ -67,8 +72,13 @@ class DiscoverSpaceKnowledgeDomainServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def RetrieveMessageContextPages(self, request, context):
-        """rpc IsDomianInferredByAccount () returns () {};
-        """
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def RetrieveMessageContextParas(self, request, context):
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -99,6 +109,11 @@ def add_DiscoverSpaceKnowledgeDomainServiceServicer_to_server(servicer, server):
             ),
             'RetrieveMessageContextPages': grpc.unary_unary_rpc_method_handler(
                     servicer.RetrieveMessageContextPages,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.RetrieveMessageContextPagesRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.RetrieveMessageContextPagesResponse.SerializeToString,
+            ),
+            'RetrieveMessageContextParas': grpc.unary_unary_rpc_method_handler(
+                    servicer.RetrieveMessageContextParas,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.RetrieveMessageContextPagesRequest.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.RetrieveMessageContextPagesResponse.SerializeToString,
             ),
@@ -181,6 +196,23 @@ class DiscoverSpaceKnowledgeDomainService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.domain.DiscoverSpaceKnowledgeDomainService/RetrieveMessageContextPages',
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.RetrieveMessageContextPagesRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.RetrieveMessageContextPagesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def RetrieveMessageContextParas(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.domain.DiscoverSpaceKnowledgeDomainService/RetrieveMessageContextParas',
             ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.RetrieveMessageContextPagesRequest.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.RetrieveMessageContextPagesResponse.FromString,
             options, channel_credentials,

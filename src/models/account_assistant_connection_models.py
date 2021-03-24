@@ -4,7 +4,8 @@ from sqlalchemy import Column, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 
 from db_session import DbSession
-from support.helper_functions import format_timestamp_to_datetime, get_current_timestamp
+from ethos.elint.entities import account_assistant_pb2
+from support.helper_functions import format_timestamp_to_datetime, get_current_timestamp, format_datetime_to_timestamp
 
 AccountAssistantConnectionModels = declarative_base()
 
@@ -54,17 +55,28 @@ class AccountAssistantConnections:
         )
         with DbSession.session_scope() as session:
             session.execute(statement)
+            session.flush()
             session.commit()
         return
 
-    def is_account_connected(self, account_connection_id: str, account_id: str) -> bool:
+    def is_account_connected(self, account_id: str) -> bool:
         with DbSession.session_scope() as session:
             statement = session.query(self.account_assistant_connection_table).filter(
-                self.account_connection_table.c.account_connection_id == account_connection_id,
                 self.account_connection_table.c.account_id == account_id
             )
             account_connected = session.query(statement.exists()).scalar()
             return account_connected
+
+    def get_connected_account(self, account_id: str) -> account_assistant_pb2.AccountAssistantConnectedAccount:
+        with DbSession.session_scope() as session:
+            connected_account = session.query(self.account_connection_table).filter(
+                self.account_connection_table.c.account_id == account_id
+            ).first()
+            return account_assistant_pb2.AccountAssistantConnectedAccount(
+                account_connection_id=connected_account.account_connection_id,
+                account_id=connected_account.account_id,
+                connected_at=format_datetime_to_timestamp(connected_account.connected_at)
+            )
 
     # Account Assistant Connection
     def get_account_assistant_connection_model(self):

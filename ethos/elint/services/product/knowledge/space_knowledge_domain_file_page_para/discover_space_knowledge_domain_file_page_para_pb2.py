@@ -26,7 +26,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x81\x01\x65thos/elint/services/product/knowledge/space_knowledge_domain_file_page_para/discover_space_knowledge_domain_file_page_para.proto\x12*elint.services.product.knowledge.page.para\x1a\"ethos/elint/entities/generic.proto\x1a@ethos/elint/entities/space_knowledge_domain_file_page_para.proto\x1a\x61\x65thos/elint/services/product/knowledge/space_knowledge_domain/access_space_knowledge_domain.proto\"u\n\rListOfParaIds\x12\x31\n)space_knowledge_domain_file_page_para_ids\x18\x01 \x03(\t\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xbb\x01\n\x12GetParaTextByIdReq\x12s\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32V.elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails\x12\x30\n(space_knowledge_domain_file_page_para_id\x18\x02 \x01(\t\"Z\n\x12GetParaTextByIdRes\x12\x11\n\tpara_text\x18\x01 \x01(\t\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xbb\x01\n\x12GetParaByIdRequest\x12s\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32V.elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails\x12\x30\n(space_knowledge_domain_file_page_para_id\x18\x02 \x01(\t\"\xa7\x01\n\x13GetParaByIdResponse\x12]\n%space_knowledge_domain_file_page_para\x18\x01 \x01(\x0b\x32..elint.entity.SpaceKnowledgeDomainFilePagePara\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta2\x81\x04\n/DiscoverSpaceKnowledgeDomainFilePageParaService\x12\xa4\x01\n\rGetAllParaIds\x12V.elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails\x1a\x39.elint.services.product.knowledge.page.para.ListOfParaIds\"\x00\x12\x93\x01\n\x0fGetParaTextById\x12>.elint.services.product.knowledge.page.para.GetParaTextByIdReq\x1a>.elint.services.product.knowledge.page.para.GetParaTextByIdRes\"\x00\x12\x90\x01\n\x0bGetParaById\x12>.elint.services.product.knowledge.page.para.GetParaByIdRequest\x1a?.elint.services.product.knowledge.page.para.GetParaByIdResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x81\x01\x65thos/elint/services/product/knowledge/space_knowledge_domain_file_page_para/discover_space_knowledge_domain_file_page_para.proto\x12*elint.services.product.knowledge.page.para\x1a\"ethos/elint/entities/generic.proto\x1a@ethos/elint/entities/space_knowledge_domain_file_page_para.proto\x1a\x61\x65thos/elint/services/product/knowledge/space_knowledge_domain/access_space_knowledge_domain.proto\"u\n\rListOfParaIds\x12\x31\n)space_knowledge_domain_file_page_para_ids\x18\x01 \x03(\t\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xbb\x01\n\x12GetParaTextByIdReq\x12s\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32V.elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails\x12\x30\n(space_knowledge_domain_file_page_para_id\x18\x02 \x01(\t\"Z\n\x12GetParaTextByIdRes\x12\x11\n\tpara_text\x18\x01 \x01(\t\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xbb\x01\n\x12GetParaByIdRequest\x12s\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32V.elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails\x12\x30\n(space_knowledge_domain_file_page_para_id\x18\x02 \x01(\t\"\xa7\x01\n\x13GetParaByIdResponse\x12]\n%space_knowledge_domain_file_page_para\x18\x01 \x01(\x0b\x32..elint.entity.SpaceKnowledgeDomainFilePagePara\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xc0\x01\n\x17GetParaImageByIdRequest\x12s\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32V.elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails\x12\x30\n(space_knowledge_domain_file_page_para_id\x18\x02 \x01(\t\"/\n\x18GetParaImageByIdResponse\x12\x13\n\x0bimage_chunk\x18\x01 \x01(\x0c\x32\xa5\x05\n/DiscoverSpaceKnowledgeDomainFilePageParaService\x12\xa4\x01\n\rGetAllParaIds\x12V.elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails\x1a\x39.elint.services.product.knowledge.page.para.ListOfParaIds\"\x00\x12\x93\x01\n\x0fGetParaTextById\x12>.elint.services.product.knowledge.page.para.GetParaTextByIdReq\x1a>.elint.services.product.knowledge.page.para.GetParaTextByIdRes\"\x00\x12\x90\x01\n\x0bGetParaById\x12>.elint.services.product.knowledge.page.para.GetParaByIdRequest\x1a?.elint.services.product.knowledge.page.para.GetParaByIdResponse\"\x00\x12\xa1\x01\n\x10GetParaImageById\x12\x43.elint.services.product.knowledge.page.para.GetParaImageByIdRequest\x1a\x44.elint.services.product.knowledge.page.para.GetParaImageByIdResponse\"\x00\x30\x01\x62\x06proto3'
   ,
   dependencies=[ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_space__knowledge__domain__file__page__para__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.DESCRIPTOR,])
 
@@ -227,17 +227,91 @@ _GETPARABYIDRESPONSE = _descriptor.Descriptor(
   serialized_end=1138,
 )
 
+
+_GETPARAIMAGEBYIDREQUEST = _descriptor.Descriptor(
+  name='GetParaImageByIdRequest',
+  full_name='elint.services.product.knowledge.page.para.GetParaImageByIdRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='access_auth_details', full_name='elint.services.product.knowledge.page.para.GetParaImageByIdRequest.access_auth_details', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='space_knowledge_domain_file_page_para_id', full_name='elint.services.product.knowledge.page.para.GetParaImageByIdRequest.space_knowledge_domain_file_page_para_id', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1141,
+  serialized_end=1333,
+)
+
+
+_GETPARAIMAGEBYIDRESPONSE = _descriptor.Descriptor(
+  name='GetParaImageByIdResponse',
+  full_name='elint.services.product.knowledge.page.para.GetParaImageByIdResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='image_chunk', full_name='elint.services.product.knowledge.page.para.GetParaImageByIdResponse.image_chunk', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"",
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1335,
+  serialized_end=1382,
+)
+
 _LISTOFPARAIDS.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
 _GETPARATEXTBYIDREQ.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2._SPACEKNOWLEDGEDOMAINSERVICESACCESSAUTHDETAILS
 _GETPARATEXTBYIDRES.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
 _GETPARABYIDREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2._SPACEKNOWLEDGEDOMAINSERVICESACCESSAUTHDETAILS
 _GETPARABYIDRESPONSE.fields_by_name['space_knowledge_domain_file_page_para'].message_type = ethos_dot_elint_dot_entities_dot_space__knowledge__domain__file__page__para__pb2._SPACEKNOWLEDGEDOMAINFILEPAGEPARA
 _GETPARABYIDRESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
+_GETPARAIMAGEBYIDREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2._SPACEKNOWLEDGEDOMAINSERVICESACCESSAUTHDETAILS
 DESCRIPTOR.message_types_by_name['ListOfParaIds'] = _LISTOFPARAIDS
 DESCRIPTOR.message_types_by_name['GetParaTextByIdReq'] = _GETPARATEXTBYIDREQ
 DESCRIPTOR.message_types_by_name['GetParaTextByIdRes'] = _GETPARATEXTBYIDRES
 DESCRIPTOR.message_types_by_name['GetParaByIdRequest'] = _GETPARABYIDREQUEST
 DESCRIPTOR.message_types_by_name['GetParaByIdResponse'] = _GETPARABYIDRESPONSE
+DESCRIPTOR.message_types_by_name['GetParaImageByIdRequest'] = _GETPARAIMAGEBYIDREQUEST
+DESCRIPTOR.message_types_by_name['GetParaImageByIdResponse'] = _GETPARAIMAGEBYIDRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 ListOfParaIds = _reflection.GeneratedProtocolMessageType('ListOfParaIds', (_message.Message,), {
@@ -275,6 +349,20 @@ GetParaByIdResponse = _reflection.GeneratedProtocolMessageType('GetParaByIdRespo
   })
 _sym_db.RegisterMessage(GetParaByIdResponse)
 
+GetParaImageByIdRequest = _reflection.GeneratedProtocolMessageType('GetParaImageByIdRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETPARAIMAGEBYIDREQUEST,
+  '__module__' : 'ethos.elint.services.product.knowledge.space_knowledge_domain_file_page_para.discover_space_knowledge_domain_file_page_para_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.knowledge.page.para.GetParaImageByIdRequest)
+  })
+_sym_db.RegisterMessage(GetParaImageByIdRequest)
+
+GetParaImageByIdResponse = _reflection.GeneratedProtocolMessageType('GetParaImageByIdResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETPARAIMAGEBYIDRESPONSE,
+  '__module__' : 'ethos.elint.services.product.knowledge.space_knowledge_domain_file_page_para.discover_space_knowledge_domain_file_page_para_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.knowledge.page.para.GetParaImageByIdResponse)
+  })
+_sym_db.RegisterMessage(GetParaImageByIdResponse)
+
 
 
 _DISCOVERSPACEKNOWLEDGEDOMAINFILEPAGEPARASERVICE = _descriptor.ServiceDescriptor(
@@ -284,8 +372,8 @@ _DISCOVERSPACEKNOWLEDGEDOMAINFILEPAGEPARASERVICE = _descriptor.ServiceDescriptor
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1141,
-  serialized_end=1654,
+  serialized_start=1385,
+  serialized_end=2062,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetAllParaIds',
@@ -314,6 +402,16 @@ _DISCOVERSPACEKNOWLEDGEDOMAINFILEPAGEPARASERVICE = _descriptor.ServiceDescriptor
     containing_service=None,
     input_type=_GETPARABYIDREQUEST,
     output_type=_GETPARABYIDRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetParaImageById',
+    full_name='elint.services.product.knowledge.page.para.DiscoverSpaceKnowledgeDomainFilePageParaService.GetParaImageById',
+    index=3,
+    containing_service=None,
+    input_type=_GETPARAIMAGEBYIDREQUEST,
+    output_type=_GETPARAIMAGEBYIDRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

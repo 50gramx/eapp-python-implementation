@@ -20,9 +20,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='ethos/elint/entities/space_knowledge_domain_file_page.proto',
   package='elint.entity',
   syntax='proto3',
-  serialized_options=None,
+  serialized_options=b'\n\014elint.entityB!SpaceKnowledgeDomainFilePageProtoP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n;ethos/elint/entities/space_knowledge_domain_file_page.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x36\x65thos/elint/entities/space_knowledge_domain_file.proto\"\x8d\x03\n\x1cSpaceKnowledgeDomainFilePage\x12+\n#space_knowledge_domain_file_page_id\x18\x01 \x01(\t\x12.\n&space_knowledge_domain_file_page_count\x18\x02 \x01(\x05\x12K\n\x1bspace_knowledge_domain_file\x18\x03 \x01(\x0b\x32&.elint.entity.SpaceKnowledgeDomainFile\x12(\n\tpage_tags\x18\x04 \x03(\x0b\x32\x15.elint.entity.PageTag\x12.\n\ncreated_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x33\n\x0flast_updated_at\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x34\n\x10last_accessed_at\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"5\n\x07PageTag\x12\x13\n\x0bpage_tag_id\x18\x01 \x01(\t\x12\x15\n\rpage_tag_name\x18\x02 \x01(\tP\x00\x62\x06proto3'
+  serialized_pb=b'\n;ethos/elint/entities/space_knowledge_domain_file_page.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x36\x65thos/elint/entities/space_knowledge_domain_file.proto\"\x8d\x03\n\x1cSpaceKnowledgeDomainFilePage\x12+\n#space_knowledge_domain_file_page_id\x18\x01 \x01(\t\x12.\n&space_knowledge_domain_file_page_count\x18\x02 \x01(\x05\x12K\n\x1bspace_knowledge_domain_file\x18\x03 \x01(\x0b\x32&.elint.entity.SpaceKnowledgeDomainFile\x12(\n\tpage_tags\x18\x04 \x03(\x0b\x32\x15.elint.entity.PageTag\x12.\n\ncreated_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x33\n\x0flast_updated_at\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x34\n\x10last_accessed_at\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"5\n\x07PageTag\x12\x13\n\x0bpage_tag_id\x18\x01 \x01(\t\x12\x15\n\rpage_tag_name\x18\x02 \x01(\tB3\n\x0c\x65lint.entityB!SpaceKnowledgeDomainFilePageProtoP\x01P\x00\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_space__knowledge__domain__file__pb2.DESCRIPTOR,],
   public_dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
@@ -166,4 +166,5 @@ PageTag = _reflection.GeneratedProtocolMessageType('PageTag', (_message.Message,
 _sym_db.RegisterMessage(PageTag)
 
 
+DESCRIPTOR._options = None
 # @@protoc_insertion_point(module_scope)

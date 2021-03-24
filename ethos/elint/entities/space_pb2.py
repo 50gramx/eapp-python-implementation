@@ -24,9 +24,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='ethos/elint/entities/space.proto',
   package='elint.entity',
   syntax='proto3',
-  serialized_options=None,
+  serialized_options=b'\n\014elint.entityB\nSpaceProtoP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n ethos/elint/entities/space.proto\x12\x0c\x65lint.entity\x1a\"ethos/elint/entities/account.proto\x1a!ethos/elint/entities/galaxy.proto\"\xcf\x02\n\x05Space\x12$\n\x06galaxy\x18\x01 \x01(\x0b\x32\x14.elint.entity.Galaxy\x12\x10\n\x08space_id\x18\x02 \x01(\t\x12\x46\n\x18space_accessibility_type\x18\x03 \x01(\x0e\x32$.elint.entity.SpaceAccessibilityType\x12>\n\x14space_isolation_type\x18\x04 \x01(\x0e\x32 .elint.entity.SpaceIsolationType\x12\x38\n\x11space_entity_type\x18\x05 \x01(\x0e\x32\x1d.elint.entity.SpaceEntityType\x12\x16\n\x0espace_admin_id\x18\x06 \x01(\t\x12\x34\n\x10space_created_at\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp*?\n\tSpaceKind\x12\r\n\tKNOWLEDGE\x10\x00\x12\x0b\n\x07PRODUCT\x10\x01\x12\x0b\n\x07SERVICE\x10\x02\x12\t\n\x05THING\x10\x03*.\n\x16SpaceAccessibilityType\x12\n\n\x06\x43LOSED\x10\x00\x12\x08\n\x04OPEN\x10\x01*4\n\x12SpaceIsolationType\x12\x10\n\x0cNOT_ISOLATED\x10\x00\x12\x0c\n\x08ISOLATED\x10\x01*0\n\x0fSpaceEntityType\x12\x0b\n\x07\x41\x43\x43OUNT\x10\x00\x12\x10\n\x0cORGANIZATION\x10\x01\x62\x06proto3'
+  serialized_pb=b'\n ethos/elint/entities/space.proto\x12\x0c\x65lint.entity\x1a\"ethos/elint/entities/account.proto\x1a!ethos/elint/entities/galaxy.proto\"\xcf\x02\n\x05Space\x12$\n\x06galaxy\x18\x01 \x01(\x0b\x32\x14.elint.entity.Galaxy\x12\x10\n\x08space_id\x18\x02 \x01(\t\x12\x46\n\x18space_accessibility_type\x18\x03 \x01(\x0e\x32$.elint.entity.SpaceAccessibilityType\x12>\n\x14space_isolation_type\x18\x04 \x01(\x0e\x32 .elint.entity.SpaceIsolationType\x12\x38\n\x11space_entity_type\x18\x05 \x01(\x0e\x32\x1d.elint.entity.SpaceEntityType\x12\x16\n\x0espace_admin_id\x18\x06 \x01(\t\x12\x34\n\x10space_created_at\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp*?\n\tSpaceKind\x12\r\n\tKNOWLEDGE\x10\x00\x12\x0b\n\x07PRODUCT\x10\x01\x12\x0b\n\x07SERVICE\x10\x02\x12\t\n\x05THING\x10\x03*.\n\x16SpaceAccessibilityType\x12\n\n\x06\x43LOSED\x10\x00\x12\x08\n\x04OPEN\x10\x01*4\n\x12SpaceIsolationType\x12\x10\n\x0cNOT_ISOLATED\x10\x00\x12\x0c\n\x08ISOLATED\x10\x01*0\n\x0fSpaceEntityType\x12\x0b\n\x07\x41\x43\x43OUNT\x10\x00\x12\x10\n\x0cORGANIZATION\x10\x01\x42\x1c\n\x0c\x65lint.entityB\nSpaceProtoP\x01\x62\x06proto3'
   ,
   dependencies=[ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_galaxy__pb2.DESCRIPTOR,])
 
@@ -250,4 +250,5 @@ Space = _reflection.GeneratedProtocolMessageType('Space', (_message.Message,), {
 _sym_db.RegisterMessage(Space)
 
 
+DESCRIPTOR._options = None
 # @@protoc_insertion_point(module_scope)

@@ -32,6 +32,21 @@ class ConnectAccountServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ConnectedAccounts.FromString,
                 )
+        self.IsAccountConnected = channel.unary_unary(
+                '/elint.services.product.identity.account.ConnectAccountService/IsAccountConnected',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.IsAccountConnectedRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
+                )
+        self.SyncAccountConnections = channel.unary_unary(
+                '/elint.services.product.identity.account.ConnectAccountService/SyncAccountConnections',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.SyncAccountConnectionsRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.SyncAccountConnectionsResponse.FromString,
+                )
+        self.ConnectAccount = channel.unary_unary(
+                '/elint.services.product.identity.account.ConnectAccountService/ConnectAccount',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ConnectAccountRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ConnectAccountResponse.FromString,
+                )
 
 
 class ConnectAccountServiceServicer(object):
@@ -56,6 +71,24 @@ class ConnectAccountServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def IsAccountConnected(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SyncAccountConnections(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ConnectAccount(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ConnectAccountServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -73,6 +106,21 @@ def add_ConnectAccountServiceServicer_to_server(servicer, server):
                     servicer.GetAllConnectedAccounts,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ConnectedAccounts.SerializeToString,
+            ),
+            'IsAccountConnected': grpc.unary_unary_rpc_method_handler(
+                    servicer.IsAccountConnected,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.IsAccountConnectedRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.SerializeToString,
+            ),
+            'SyncAccountConnections': grpc.unary_unary_rpc_method_handler(
+                    servicer.SyncAccountConnections,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.SyncAccountConnectionsRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.SyncAccountConnectionsResponse.SerializeToString,
+            ),
+            'ConnectAccount': grpc.unary_unary_rpc_method_handler(
+                    servicer.ConnectAccount,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ConnectAccountRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ConnectAccountResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -133,5 +181,56 @@ class ConnectAccountService(object):
         return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.ConnectAccountService/GetAllConnectedAccounts',
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ConnectedAccounts.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def IsAccountConnected(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.ConnectAccountService/IsAccountConnected',
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.IsAccountConnectedRequest.SerializeToString,
+            ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SyncAccountConnections(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.ConnectAccountService/SyncAccountConnections',
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.SyncAccountConnectionsRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.SyncAccountConnectionsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ConnectAccount(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.ConnectAccountService/ConnectAccount',
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ConnectAccountRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ConnectAccountResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

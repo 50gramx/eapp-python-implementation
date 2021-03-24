@@ -23,9 +23,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='ethos/elint/services/cognitive/assist/context/context_account.proto',
   package='elint.services.cognitive.assist.context.account',
   syntax='proto3',
-  serialized_options=None,
+  serialized_options=b'\n/elint.services.cognitive.assist.context.accountB\023ContextAccountProtoP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nCethos/elint/services/cognitive/assist/context/context_account.proto\x12/elint.services.cognitive.assist.context.account\x1a*ethos/elint/entities/space_knowledge.proto\x1aVethos/elint/services/product/identity/account_assistant/access_account_assistant.proto\"\x9c\x01\n\x0e\x41\x63\x63ountMessage\x12y\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32\\.elint.services.product.identity.account.assistant.AccountAssistantServicesAccessAuthDetails\x12\x0f\n\x07message\x18\x02 \x01(\t\"\\\n\x15\x41\x63\x63ountMessageContext\x12\x43\n\x17knowledge_space_actions\x18\x01 \x03(\x0e\x32\".elint.entity.SpaceKnowledgeAction2\xbf\x01\n\x15\x43ontextAccountService\x12\xa5\x01\n\x18GetAccountMessageContext\x12?.elint.services.cognitive.assist.context.account.AccountMessage\x1a\x46.elint.services.cognitive.assist.context.account.AccountMessageContext\"\x00\x62\x06proto3'
+  serialized_pb=b'\nCethos/elint/services/cognitive/assist/context/context_account.proto\x12/elint.services.cognitive.assist.context.account\x1a*ethos/elint/entities/space_knowledge.proto\x1aVethos/elint/services/product/identity/account_assistant/access_account_assistant.proto\"\x9c\x01\n\x0e\x41\x63\x63ountMessage\x12y\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32\\.elint.services.product.identity.account.assistant.AccountAssistantServicesAccessAuthDetails\x12\x0f\n\x07message\x18\x02 \x01(\t\"\\\n\x15\x41\x63\x63ountMessageContext\x12\x43\n\x17knowledge_space_actions\x18\x01 \x03(\x0e\x32\".elint.entity.SpaceKnowledgeAction2\xbf\x01\n\x15\x43ontextAccountService\x12\xa5\x01\n\x18GetAccountMessageContext\x12?.elint.services.cognitive.assist.context.account.AccountMessage\x1a\x46.elint.services.cognitive.assist.context.account.AccountMessageContext\"\x00\x42H\n/elint.services.cognitive.assist.context.accountB\x13\x43ontextAccountProtoP\x01\x62\x06proto3'
   ,
   dependencies=[ethos_dot_elint_dot_entities_dot_space__knowledge__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_access__account__assistant__pb2.DESCRIPTOR,])
 
@@ -123,6 +123,7 @@ AccountMessageContext = _reflection.GeneratedProtocolMessageType('AccountMessage
 _sym_db.RegisterMessage(AccountMessageContext)
 
 
+DESCRIPTOR._options = None
 
 _CONTEXTACCOUNTSERVICE = _descriptor.ServiceDescriptor(
   name='ContextAccountService',

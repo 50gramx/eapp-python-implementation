@@ -21,9 +21,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='ethos/elint/entities/space_knowledge.proto',
   package='elint.entity',
   syntax='proto3',
-  serialized_options=None,
+  serialized_options=b'\n\014elint.entityB\023SpaceKnowledgeProtoP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n*ethos/elint/entities/space_knowledge.proto\x12\x0c\x65lint.entity\x1a ethos/elint/entities/space.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xc8\x01\n\x0eSpaceKnowledge\x12\x1c\n\x14space_knowledge_name\x18\x01 \x01(\t\x12\x1a\n\x12space_knowledge_id\x18\x02 \x01(\t\x12(\n space_knowledge_admin_account_id\x18\x03 \x01(\t\x12\"\n\x05space\x18\x04 \x01(\x0b\x32\x13.elint.entity.Space\x12.\n\ncreated_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xaa\x01\n\x1cSpaceKnowledgeInferredDomain\x12\x1a\n\x12inferred_domain_id\x18\x01 \x01(\t\x12\x1a\n\x12space_knowledge_id\x18\x02 \x01(\t\x12!\n\x19space_knowledge_domain_id\x18\x03 \x01(\t\x12/\n\x0binferred_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp*(\n\x14SpaceKnowledgeAction\x12\x10\n\x0c\x41SK_QUESTION\x10\x00P\x01\x62\x06proto3'
+  serialized_pb=b'\n*ethos/elint/entities/space_knowledge.proto\x12\x0c\x65lint.entity\x1a ethos/elint/entities/space.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xc8\x01\n\x0eSpaceKnowledge\x12\x1c\n\x14space_knowledge_name\x18\x01 \x01(\t\x12\x1a\n\x12space_knowledge_id\x18\x02 \x01(\t\x12(\n space_knowledge_admin_account_id\x18\x03 \x01(\t\x12\"\n\x05space\x18\x04 \x01(\x0b\x32\x13.elint.entity.Space\x12.\n\ncreated_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xaa\x01\n\x1cSpaceKnowledgeInferredDomain\x12\x1a\n\x12inferred_domain_id\x18\x01 \x01(\t\x12\x1a\n\x12space_knowledge_id\x18\x02 \x01(\t\x12!\n\x19space_knowledge_domain_id\x18\x03 \x01(\t\x12/\n\x0binferred_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp*(\n\x14SpaceKnowledgeAction\x12\x10\n\x0c\x41SK_QUESTION\x10\x00\x42%\n\x0c\x65lint.entityB\x13SpaceKnowledgeProtoP\x01P\x01\x62\x06proto3'
   ,
   dependencies=[ethos_dot_elint_dot_entities_dot_space__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,],
   public_dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
@@ -188,4 +188,5 @@ SpaceKnowledgeInferredDomain = _reflection.GeneratedProtocolMessageType('SpaceKn
 _sym_db.RegisterMessage(SpaceKnowledgeInferredDomain)
 
 
+DESCRIPTOR._options = None
 # @@protoc_insertion_point(module_scope)

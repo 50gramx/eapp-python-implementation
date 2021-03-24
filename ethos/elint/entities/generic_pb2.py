@@ -19,9 +19,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='ethos/elint/entities/generic.proto',
   package='elint.entity',
   syntax='proto3',
-  serialized_options=None,
+  serialized_options=b'\n\014elint.entityB\014GenericProtoP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\"ethos/elint/entities/generic.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\"\xe1\x01\n\x1dPersistentSessionTokenDetails\x12\x15\n\rsession_token\x18\x01 \x01(\t\x12\x15\n\rsession_scope\x18\x02 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x30\n\x0clast_used_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xae\x01\n\x1cTemporarySessionTokenDetails\x12\x15\n\rsession_token\x18\x01 \x01(\t\x12\x15\n\rsession_scope\x18\x02 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xbb\x01\n\x16PersistentTokenDetails\x12\r\n\x05token\x18\x01 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x30\n\x0clast_used_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x88\x01\n\x15TemporaryTokenDetails\x12\r\n\x05token\x18\x01 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"7\n\x0cResponseMeta\x12\x11\n\tmeta_done\x18\x01 \x01(\x08\x12\x14\n\x0cmeta_message\x18\x02 \x01(\tP\x00\x62\x06proto3'
+  serialized_pb=b'\n\"ethos/elint/entities/generic.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\"\xe1\x01\n\x1dPersistentSessionTokenDetails\x12\x15\n\rsession_token\x18\x01 \x01(\t\x12\x15\n\rsession_scope\x18\x02 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x30\n\x0clast_used_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xae\x01\n\x1cTemporarySessionTokenDetails\x12\x15\n\rsession_token\x18\x01 \x01(\t\x12\x15\n\rsession_scope\x18\x02 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xbb\x01\n\x16PersistentTokenDetails\x12\r\n\x05token\x18\x01 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x30\n\x0clast_used_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x88\x01\n\x15TemporaryTokenDetails\x12\r\n\x05token\x18\x01 \x01(\t\x12\x30\n\x0cgenerated_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nvalid_till\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"7\n\x0cResponseMeta\x12\x11\n\tmeta_done\x18\x01 \x01(\x08\x12\x14\n\x0cmeta_message\x18\x02 \x01(\tB\x1e\n\x0c\x65lint.entityB\x0cGenericProtoP\x01P\x00\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,],
   public_dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
@@ -332,4 +332,5 @@ ResponseMeta = _reflection.GeneratedProtocolMessageType('ResponseMeta', (_messag
 _sym_db.RegisterMessage(ResponseMeta)
 
 
+DESCRIPTOR._options = None
 # @@protoc_insertion_point(module_scope)

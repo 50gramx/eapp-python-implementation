@@ -24,9 +24,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='ethos/elint/entities/organization.proto',
   package='elint.entity',
   syntax='proto3',
-  serialized_options=None,
+  serialized_options=b'\n\014elint.entityB\021OrganizationProtoP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\'ethos/elint/entities/organization.proto\x12\x0c\x65lint.entity\x1a\"ethos/elint/entities/account.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xd3\x01\n\x0cOrganization\x12\x17\n\x0forganization_id\x18\x01 \x01(\t\x12\x19\n\x11organization_name\x18\x02 \x01(\t\x12\x1d\n\x15organization_space_id\x18\x03 \x01(\t\x12\x18\n\x10\x61\x64min_account_id\x18\x04 \x01(\t\x12\x0e\n\x06\x61\x63tive\x18\x05 \x01(\x08\x12\x16\n\x0e\x62illing_active\x18\x06 \x01(\x08\x12.\n\ncreated_at\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"h\n\x1aReserveOrganizationRequest\x12\x1a\n\x12organization_space\x18\x01 \x01(\t\x12.\n\ncreated_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xac\x01\n\x1bReserveOrganizationResponse\x12\x1a\n\x12organization_space\x18\x01 \x01(\t\x12#\n\x1borganization_space_reserved\x18\x02 \x01(\x08\x12\x18\n\x10\x61\x63\x63ount_email_id\x18\x03 \x01(\t\x12!\n\x19\x61\x63\x63ount_email_id_verified\x18\x04 \x01(\x08\x12\x0f\n\x07message\x18\x05 \x01(\tP\x01\x62\x06proto3'
+  serialized_pb=b'\n\'ethos/elint/entities/organization.proto\x12\x0c\x65lint.entity\x1a\"ethos/elint/entities/account.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xd3\x01\n\x0cOrganization\x12\x17\n\x0forganization_id\x18\x01 \x01(\t\x12\x19\n\x11organization_name\x18\x02 \x01(\t\x12\x1d\n\x15organization_space_id\x18\x03 \x01(\t\x12\x18\n\x10\x61\x64min_account_id\x18\x04 \x01(\t\x12\x0e\n\x06\x61\x63tive\x18\x05 \x01(\x08\x12\x16\n\x0e\x62illing_active\x18\x06 \x01(\x08\x12.\n\ncreated_at\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"h\n\x1aReserveOrganizationRequest\x12\x1a\n\x12organization_space\x18\x01 \x01(\t\x12.\n\ncreated_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xac\x01\n\x1bReserveOrganizationResponse\x12\x1a\n\x12organization_space\x18\x01 \x01(\t\x12#\n\x1borganization_space_reserved\x18\x02 \x01(\x08\x12\x18\n\x10\x61\x63\x63ount_email_id\x18\x03 \x01(\t\x12!\n\x19\x61\x63\x63ount_email_id_verified\x18\x04 \x01(\x08\x12\x0f\n\x07message\x18\x05 \x01(\tB#\n\x0c\x65lint.entityB\x11OrganizationProtoP\x01P\x01\x62\x06proto3'
   ,
   dependencies=[ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,],
   public_dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
@@ -235,4 +235,5 @@ ReserveOrganizationResponse = _reflection.GeneratedProtocolMessageType('ReserveO
 _sym_db.RegisterMessage(ReserveOrganizationResponse)
 
 
+DESCRIPTOR._options = None
 # @@protoc_insertion_point(module_scope)

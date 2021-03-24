@@ -19,9 +19,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='ethos/elint/entities/organization_space.proto',
   package='elint.entity',
   syntax='proto3',
-  serialized_options=None,
+  serialized_options=b'\n\014elint.entityB\026OrganizationSpaceProtoP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n-ethos/elint/entities/organization_space.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\"\xca\x01\n\x11OrganizationSpace\x12\x10\n\x08space_id\x18\x01 \x01(\t\x12\x12\n\nspace_name\x18\x02 \x01(\t\x12!\n\x19white_knowledge_domain_id\x18\x03 \x01(\t\x12#\n\x1bwhite_knowledge_domain_name\x18\x04 \x01(\t\x12\x17\n\x0forganization_id\x18\x05 \x01(\t\x12.\n\ncreated_at\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"r\n\x1d\x43laimOrganizationSpaceRequest\x12\x1f\n\x17organization_space_name\x18\x01 \x01(\t\x12\x30\n\x0crequested_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"W\n\x1e\x43laimOrganizationSpaceResponse\x12$\n\x1corganization_space_available\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\tP\x00\x62\x06proto3'
+  serialized_pb=b'\n-ethos/elint/entities/organization_space.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\"\xca\x01\n\x11OrganizationSpace\x12\x10\n\x08space_id\x18\x01 \x01(\t\x12\x12\n\nspace_name\x18\x02 \x01(\t\x12!\n\x19white_knowledge_domain_id\x18\x03 \x01(\t\x12#\n\x1bwhite_knowledge_domain_name\x18\x04 \x01(\t\x12\x17\n\x0forganization_id\x18\x05 \x01(\t\x12.\n\ncreated_at\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"r\n\x1d\x43laimOrganizationSpaceRequest\x12\x1f\n\x17organization_space_name\x18\x01 \x01(\t\x12\x30\n\x0crequested_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"W\n\x1e\x43laimOrganizationSpaceResponse\x12$\n\x1corganization_space_available\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\tB(\n\x0c\x65lint.entityB\x16OrganizationSpaceProtoP\x01P\x00\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,],
   public_dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
@@ -202,4 +202,5 @@ ClaimOrganizationSpaceResponse = _reflection.GeneratedProtocolMessageType('Claim
 _sym_db.RegisterMessage(ClaimOrganizationSpaceResponse)
 
 
+DESCRIPTOR._options = None
 # @@protoc_insertion_point(module_scope)

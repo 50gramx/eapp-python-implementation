@@ -20,12 +20,23 @@ class ConnectAccountAssistantServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_connect__account__assistant__pb2.IsAccountConnectedRequest.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
                 )
+        self.ConnectAccount = channel.unary_unary(
+                '/elint.services.product.identity.account.assistant.ConnectAccountAssistantService/ConnectAccount',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_connect__account__assistant__pb2.ConnectAccountRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_connect__account__assistant__pb2.ConnectAccountResponse.FromString,
+                )
 
 
 class ConnectAccountAssistantServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def IsAccountConnected(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ConnectAccount(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -38,6 +49,11 @@ def add_ConnectAccountAssistantServiceServicer_to_server(servicer, server):
                     servicer.IsAccountConnected,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_connect__account__assistant__pb2.IsAccountConnectedRequest.FromString,
                     response_serializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.SerializeToString,
+            ),
+            'ConnectAccount': grpc.unary_unary_rpc_method_handler(
+                    servicer.ConnectAccount,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_connect__account__assistant__pb2.ConnectAccountRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_connect__account__assistant__pb2.ConnectAccountResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -63,5 +79,22 @@ class ConnectAccountAssistantService(object):
         return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.assistant.ConnectAccountAssistantService/IsAccountConnected',
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_connect__account__assistant__pb2.IsAccountConnectedRequest.SerializeToString,
             ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ConnectAccount(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.assistant.ConnectAccountAssistantService/ConnectAccount',
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_connect__account__assistant__pb2.ConnectAccountRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_connect__account__assistant__pb2.ConnectAccountResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

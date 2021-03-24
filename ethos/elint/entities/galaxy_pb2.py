@@ -22,9 +22,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='ethos/elint/entities/galaxy.proto',
   package='elint.entity',
   syntax='proto3',
-  serialized_options=None,
+  serialized_options=b'\n\014elint.entityB\013GalaxyProtoP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n!ethos/elint/entities/galaxy.proto\x12\x0c\x65lint.entity\x1a#ethos/elint/entities/universe.proto\"\x91\x01\n\x06Galaxy\x12\x11\n\tgalaxy_id\x18\x01 \x01(\t\x12\x13\n\x0bgalaxy_name\x18\x02 \x01(\t\x12(\n\x08universe\x18\x03 \x01(\x0b\x32\x16.elint.entity.Universe\x12\x35\n\x11galaxy_created_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestampb\x06proto3'
+  serialized_pb=b'\n!ethos/elint/entities/galaxy.proto\x12\x0c\x65lint.entity\x1a#ethos/elint/entities/universe.proto\"\x91\x01\n\x06Galaxy\x12\x11\n\tgalaxy_id\x18\x01 \x01(\t\x12\x13\n\x0bgalaxy_name\x18\x02 \x01(\t\x12(\n\x08universe\x18\x03 \x01(\x0b\x32\x16.elint.entity.Universe\x12\x35\n\x11galaxy_created_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.TimestampB\x1d\n\x0c\x65lint.entityB\x0bGalaxyProtoP\x01\x62\x06proto3'
   ,
   dependencies=[ethos_dot_elint_dot_entities_dot_universe__pb2.DESCRIPTOR,])
 
@@ -96,4 +96,5 @@ Galaxy = _reflection.GeneratedProtocolMessageType('Galaxy', (_message.Message,),
 _sym_db.RegisterMessage(Galaxy)
 
 
+DESCRIPTOR._options = None
 # @@protoc_insertion_point(module_scope)
