@@ -1,3 +1,5 @@
+import phonenumbers
+
 from ethos.elint.entities.generic_pb2 import TemporaryTokenDetails
 from ethos.elint.services.product.identity.account.create_account_pb2 import ValidateAccountWithMobileResponse, \
     VerificationAccountResponse, CaptureAccountMetaDetailsResponse
@@ -26,7 +28,8 @@ class CreateAccountService(CreateAccountServiceServicer):
         requested_at = request.requested_at
 
         # check account existence
-        account_exists_with_mobile = is_existing_account_mobile(account_mobile_number)
+        account_country_code = "+" + str(phonenumbers.parse(account_mobile_number, "IN").country_code)
+        account_exists_with_mobile = is_existing_account_mobile(account_country_code, account_mobile_number)
 
         # take action
         if not account_exists_with_mobile:
