@@ -3,7 +3,8 @@ from datetime import datetime
 from db_session import DbSession
 from ethos.elint.entities import account_pb2, galaxy_pb2, universe_pb2, space_pb2, account_assistant_pb2
 from ethos.elint.entities.space_pb2 import SpaceAccessibilityType, SpaceIsolationType, SpaceEntityType
-from models.base_models import Account, Space, Galaxy, Universe, AccountAssistant, AccountDevices
+from models.base_models import Account, Space, Galaxy, Universe, AccountAssistant, AccountDevices, \
+    AccountAssistantNameCode
 from support.format_proto_entities import format_account_assistant_to_entity
 from support.helper_functions import gen_uuid, get_current_timestamp, \
     format_timestamp_to_datetime, format_datetime_to_timestamp
@@ -23,18 +24,37 @@ def is_existing_account_email(account_email_id: str) -> bool:
     return account_exists
 
 
-def is_existing_account_mobile(account_mobile_number: str) -> bool:
+def is_existing_account_mobile(account_country_code: str, account_mobile_number: str) -> bool:
     """
     check for the existence of account_mobile_number in account table as a account_mobile_number
+    :param account_country_code:
     :param account_mobile_number:
     :return:
     """
     with DbSession.session_scope() as session:
         q = session.query(Account.account_id).filter(
+            Account.account_country_code == account_country_code,
             Account.account_mobile_number == account_mobile_number
         )
         account_exists = session.query(q.exists()).scalar()
         return account_exists
+
+
+def is_account_assistant_name_available(account_assistant_name: str) -> (bool, int):
+    """
+    checks if the name is available or not and if available with which name code
+    :param account_assistant_name: str (lower, by default)
+    :return:
+    is account assistant name available -> bool
+    if available, which name_code is available -> int
+    """
+    account_assistant_name = account_assistant_name.lower()
+    with DbSession.session_scope() as session:
+        query = session.query(AccountAssistantNameCode).filter(
+            AccountAssistantNameCode.account_assistant_name == account_assistant_name
+        ).all()
+        # if query
+    pass
 
 
 def add_new_account(account: Account) -> None:
@@ -136,7 +156,7 @@ def get_galaxy(with_galaxy_id: str) -> galaxy_pb2.Galaxy:
 def get_our_galaxy() -> galaxy_pb2.Galaxy:
     with DbSession.session_scope() as session:
         galaxy = session.query(Galaxy).filter(
-            Galaxy.galaxy_name == "Our Galaxy"
+            Galaxy.galaxy_name == "Public Galaxy"
         ).first()
         galaxy_id = galaxy.galaxy_id
         galaxy_name = galaxy.galaxy_name
