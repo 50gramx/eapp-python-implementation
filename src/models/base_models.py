@@ -84,6 +84,15 @@ class AccountAssistant(Base):
     __tablename__ = "account_assistant"
 
     account_assistant_id = Column(String(255), primary_key=True)
+    account_assistant_name_code = Column(Integer(), nullable=False)
+    account_assistant_name = Column(String(255), nullable=False)
     account_id = Column(String(255), ForeignKey('account.account_id'))
     created_at = Column(DateTime(), nullable=False)
     last_assisted_at = Column(DateTime(), nullable=False)
+
+
+class AccountAssistantNameCode(Base):
+    __tablename__ = "account_assistant_name_code"
+
+    account_assistant_name = Column(String(255), primary_key=True)
+    account_assistant_name_code = Column(Integer(), primary_key=True)
