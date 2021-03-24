@@ -1,5 +1,6 @@
+from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account_assistant.create_account_assistant_pb2 import \
-    CreateAccountAssistantResponse, CreateMeta
+    CreateAccountAssistantResponse
 from ethos.elint.services.product.identity.account_assistant.create_account_assistant_pb2_grpc import \
     CreateAccountAssistantServiceServicer
 from models.account_assistant_connection_models import AccountAssistantConnections
@@ -21,7 +22,7 @@ class CreateAccountAssistantService(CreateAccountAssistantServiceServicer):
         validation_done, validation_message = validate_account_services_caller(request)
         if validation_done is False:
             return CreateAccountAssistantResponse(
-                create_meta=CreateMeta(create_done=validation_done, create_message=validation_message)
+                response_meta=ResponseMeta(create_done=validation_done, create_message=validation_message)
             )
         else:
             new_account_assistant_id = add_new_account_assistant(account_id=request.account.account_id)
@@ -43,10 +44,10 @@ class CreateAccountAssistantService(CreateAccountAssistantServiceServicer):
             _, _ = setup_account_assistant_conversations_caller(access_auth_details=access_auth_details)
             if access_done is False:
                 return CreateAccountAssistantResponse(
-                    create_meta=CreateMeta(create_done=access_done, create_message=access_message)
+                    response_meta=ResponseMeta(create_done=access_done, create_message=access_message)
                 )
             else:
                 return CreateAccountAssistantResponse(
                     account_assistant_services_access_auth_details=access_auth_details,
-                    create_meta=CreateMeta(create_done=validation_done, create_message=validation_message)
+                    response_meta=ResponseMeta(create_done=validation_done, create_message=validation_message)
                 )
