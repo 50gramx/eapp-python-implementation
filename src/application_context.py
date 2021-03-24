@@ -19,6 +19,10 @@ class ApplicationContext(object):
         return Registry.get_service('discover_account_service_stub')
 
     @staticmethod
+    def connect_account_service_stub():
+        return Registry.get_service('connect_account_service_stub')
+
+    @staticmethod
     def create_space_service_stub():
         """
         :return: ethos.elint.services.product.identity.space.create_space_pb2_grpc
