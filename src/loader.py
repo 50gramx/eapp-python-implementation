@@ -8,6 +8,7 @@ from ethos.elint.services.product.conversation.message.account_assistant.send_ac
 from ethos.elint.services.product.conversation.message.message_conversation_pb2_grpc import \
     MessageConversationServiceStub
 from ethos.elint.services.product.identity.account.access_account_pb2_grpc import AccessAccountServiceStub
+from ethos.elint.services.product.identity.account.connect_account_pb2_grpc import ConnectAccountServiceStub
 from ethos.elint.services.product.identity.account.discover_account_pb2_grpc import DiscoverAccountServiceStub
 from ethos.elint.services.product.identity.account_assistant.access_account_assistant_pb2_grpc import \
     AccessAccountAssistantServiceStub
@@ -44,6 +45,9 @@ class Loader(object):
     def __init_service_stubs():
         channels = []
 
+        # ------------------------------------
+        # IDENTITY STUBS
+        # ------------------------------------
         # grpc_secured = os.environ["EAPP_SERVICE_PRODUCT_COMMON_GRPC_EXTERNAL_SECURE"]
         grpc_host = "[::]"
         grpc_port = os.environ['PORT']
@@ -65,6 +69,8 @@ class Loader(object):
         Registry.register_service('access_account_service_stub', access_account_service_stub)
         discover_account_service_stub = DiscoverAccountServiceStub(identity_common_channel)
         Registry.register_service('discover_account_service_stub', discover_account_service_stub)
+        connect_account_service_stub = ConnectAccountServiceStub(identity_common_channel)
+        Registry.register_service('connect_account_service_stub', connect_account_service_stub)
 
         access_space_service_stub = AccessSpaceServiceStub(identity_common_channel)
         Registry.register_service('access_space_service_stub', access_space_service_stub)
@@ -79,7 +85,7 @@ class Loader(object):
         Registry.register_service('discover_account_assistant_service_stub', discover_account_assistant_service_stub)
 
         # ------------------------------------
-        # IDENTITY STUBS
+        # ACTION STUBS
         # ------------------------------------
         action_grpc_host = os.environ['EAPP_SERVICE_ACTION_HOST']
         action_grpc_port = os.environ['EAPP_SERVICE_ACTION_PORT']
