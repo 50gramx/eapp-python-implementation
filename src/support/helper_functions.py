@@ -7,6 +7,7 @@ from datetime import datetime
 
 from google.protobuf.timestamp_pb2 import Timestamp
 from sendgrid import SendGridAPIClient, Mail
+from twilio.rest import Client
 from validate_email import validate_email
 
 sendgrid_api_key = os.environ.get('SENDGRID_API_KEY')
@@ -82,13 +83,13 @@ def check_service_time_consumption(no_of_iter: int, service_func, service_func_p
 
 def send_otp(country_code, account_mobile_number, verification_code):
     # Download the helper library from https://www.twilio.com/docs/python/install
-    # client = Client(twilio_account_sid, twilio_auth_token)
+    client = Client(twilio_account_sid, twilio_auth_token)
 
-    # message = client.messages.create(
-    #     body=f"Hello Pathos! The OTP to access your account is {verification_code}. Thanks.",
-    #     from_='+18182379146',
-    #     to=f"{country_code}{account_mobile_number}"
-    # )
+    message = client.messages.create(
+        body=f"Hello Pathos! The OTP to access your account is {verification_code}. Thanks.",
+        from_='+18182379146',
+        to=f"{country_code}{account_mobile_number}"
+    )
     print(verification_code)
     return get_current_timestamp()
 

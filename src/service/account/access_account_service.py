@@ -36,8 +36,7 @@ class AccessAccountService(AccessAccountServiceServicer):
             code_token = gen_uuid()
             code_generated_at = get_current_timestamp()
             # send the code to mobile
-            country_code = "+91"
-            code_sent_at = send_otp(country_code, account_mobile_number, verification_code)
+            code_sent_at = send_otp(account_country_code, account_mobile_number, verification_code)
             # store the token details
             set_kv(code_token, verification_code)
             # create the code token details here
