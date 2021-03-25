@@ -86,7 +86,7 @@ def send_otp(country_code, account_mobile_number, verification_code):
     client = Client(twilio_account_sid, twilio_auth_token)
 
     message = client.messages.create(
-        body=f"Hello Pathos! The OTP to access your account is {verification_code}. Thanks.",
+        body=f"Welcome aboard @50GRAMX, OTP to access your account is {verification_code}.",
         from_='+18182379146',
         to=f"{country_code}{account_mobile_number}"
     )
