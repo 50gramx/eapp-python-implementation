@@ -1,3 +1,5 @@
+import logging
+
 import phonenumbers
 
 from ethos.elint.entities.generic_pb2 import TemporaryTokenDetails, ResponseMeta
@@ -20,7 +22,7 @@ class AccessAccountService(AccessAccountServiceServicer):
         self.session_scope = self.__class__.__name__
 
     def ValidateAccount(self, request, context):
-        print("AccessAccountService:ValidateAccount invoked.")
+        logging.info("AccessAccountService:ValidateAccount")
         # get request params here
         account_mobile_number = request.account_mobile_number
         requested_at = request.requested_at
@@ -66,7 +68,7 @@ class AccessAccountService(AccessAccountServiceServicer):
         return validate_account_response
 
     def VerifyAccount(self, request, context):
-        print("AccessAccountService:VerifyAccount invoked.")
+        logging.info("AccessAccountService:VerifyAccount invoked.")
         # get the request params here
         account_access_auth_details = request.account_access_auth_details
         resend_code = request.resend_code
@@ -125,7 +127,7 @@ class AccessAccountService(AccessAccountServiceServicer):
         return verify_account_response
 
     def ValidateAccountServices(self, request, context):
-        print("AccessAccountService:ValidateAccountServices invoked.")
+        logging.info("AccessAccountService:ValidateAccountServices invoked.")
         account = request.account
         account_services_access_session_token_details = request.account_services_access_session_token_details
         requested_at = request.requested_at
@@ -154,7 +156,7 @@ class AccessAccountService(AccessAccountServiceServicer):
             return validate_account_service_response
 
     def ReAccountAccessToken(self, request, context):
-        print("AccessAccountService:ReAccountAccessToken")
+        logging.info("AccessAccountService:ReAccountAccessToken")
         validation_done, validation_message = validate_account_services_caller(
             request.account_service_access_auth_details)
         meta = ResponseMeta(meta_done=validation_done, meta_message=validation_message)
