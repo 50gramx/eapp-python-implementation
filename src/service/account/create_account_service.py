@@ -168,8 +168,8 @@ class CreateAccountService(CreateAccountServiceServicer):
             account_creation_message=account_creation_message
         )
         # create account assistant
-        create_done, create_message, account_assistant_services_access_auth_details = create_account_assistant_caller(
-            account_services_access_auth_details)
+        # create_done, create_message, account_assistant_services_access_auth_details = create_account_assistant_caller(
+        #     account_services_access_auth_details)
         # create account assistant connection
 
         return capture_account_meta_details_response
