@@ -59,7 +59,8 @@ def is_persistent_session_valid(session_token, account_identifier, session_scope
         return False, "Unauthorized validation request. This action will be reported."
 
 
-def create_account_creation_auth_details(account_mobile_number: str, session_scope: str):
+def create_account_creation_auth_details(account_mobile_country_code: str, account_mobile_number: str,
+                                         session_scope: str):
     # Message Parameters
     session_token, requested_at, valid_till = gen_session_meta(session_validity_in_seconds=600)
     # Add the session meta to redis
@@ -74,6 +75,7 @@ def create_account_creation_auth_details(account_mobile_number: str, session_sco
         valid_till=valid_till
     )
     account_creation_auth_details = AccountCreationAuthDetails(
+        account_mobile_country_code=account_mobile_country_code,
         account_mobile_number=account_mobile_number,
         account_creation_session_token_details=persistent_session_token_details,
         requested_at=requested_at
