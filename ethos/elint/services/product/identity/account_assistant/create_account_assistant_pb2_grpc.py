@@ -20,10 +20,10 @@ class CreateAccountAssistantServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_create__account__assistant__pb2.CreateAccountAssistantRequest.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_create__account__assistant__pb2.CreateAccountAssistantResponse.FromString,
                 )
-        self.IsAccountAssistantNameAvailable = channel.unary_unary(
-                '/elint.services.product.identity.account.assistant.CreateAccountAssistantService/IsAccountAssistantNameAvailable',
-                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_create__account__assistant__pb2.IsAccountAssistantNameAvailableRequest.SerializeToString,
-                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_create__account__assistant__pb2.IsAccountAssistantNameAvailableResponse.FromString,
+        self.GetAccountAssistantNameCode = channel.unary_unary(
+                '/elint.services.product.identity.account.assistant.CreateAccountAssistantService/GetAccountAssistantNameCode',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_create__account__assistant__pb2.GetAccountAssistantNameCodeRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_create__account__assistant__pb2.GetAccountAssistantNameCodeResponse.FromString,
                 )
 
 
@@ -37,7 +37,7 @@ class CreateAccountAssistantServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def IsAccountAssistantNameAvailable(self, request, context):
+    def GetAccountAssistantNameCode(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -51,10 +51,10 @@ def add_CreateAccountAssistantServiceServicer_to_server(servicer, server):
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_create__account__assistant__pb2.CreateAccountAssistantRequest.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_create__account__assistant__pb2.CreateAccountAssistantResponse.SerializeToString,
             ),
-            'IsAccountAssistantNameAvailable': grpc.unary_unary_rpc_method_handler(
-                    servicer.IsAccountAssistantNameAvailable,
-                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_create__account__assistant__pb2.IsAccountAssistantNameAvailableRequest.FromString,
-                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_create__account__assistant__pb2.IsAccountAssistantNameAvailableResponse.SerializeToString,
+            'GetAccountAssistantNameCode': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetAccountAssistantNameCode,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_create__account__assistant__pb2.GetAccountAssistantNameCodeRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_create__account__assistant__pb2.GetAccountAssistantNameCodeResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -85,7 +85,7 @@ class CreateAccountAssistantService(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def IsAccountAssistantNameAvailable(request,
+    def GetAccountAssistantNameCode(request,
             target,
             options=(),
             channel_credentials=None,
@@ -95,8 +95,8 @@ class CreateAccountAssistantService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.assistant.CreateAccountAssistantService/IsAccountAssistantNameAvailable',
-            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_create__account__assistant__pb2.IsAccountAssistantNameAvailableRequest.SerializeToString,
-            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_create__account__assistant__pb2.IsAccountAssistantNameAvailableResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.assistant.CreateAccountAssistantService/GetAccountAssistantNameCode',
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_create__account__assistant__pb2.GetAccountAssistantNameCodeRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_create__account__assistant__pb2.GetAccountAssistantNameCodeResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

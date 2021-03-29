@@ -40,22 +40,16 @@ def is_existing_account_mobile(account_country_code: str, account_mobile_number:
         return account_exists
 
 
-def is_account_assistant_name_available(account_assistant_name: str) -> (bool, int):
-    """
-    checks if the name is available or not and if available with which name code
-    :param account_assistant_name: str (lower, by default)
-    :return:
-    is account assistant name available -> bool
-    if available, which name_code is available -> int
-    """
+def get_account_assistant_name_code(account_assistant_name: str) -> int:
     account_assistant_name = account_assistant_name.lower()
     with DbSession.session_scope() as session:
-        query = session.query(AccountAssistantNameCode).filter(
+        account_assistant_name_code = session.query(AccountAssistantNameCode).filter(
             AccountAssistantNameCode.account_assistant_name == account_assistant_name
         ).all()
-        # if query
-        # TODO: Complete this
-    pass
+        if len(account_assistant_name_code) > 0:
+            return len(account_assistant_name_code) + 1
+        else:
+            return 1
 
 
 def add_new_account(account: Account) -> None:
@@ -105,12 +99,14 @@ def add_new_entity(entity) -> None:
     return
 
 
-def add_new_account_assistant(account_id: str) -> str:
+def add_new_account_assistant(account_id: str, account_assistant_name_code: int, account_assistant_name: str) -> str:
     created_at = get_current_timestamp()
     last_assisted_at = get_current_timestamp()
     account_assistant_id = gen_uuid()
     new_account_assistant = AccountAssistant(
         account_assistant_id=account_assistant_id,
+        account_assistant_name_code=account_assistant_name_code,
+        account_assistant_name=account_assistant_name,
         account_id=account_id,
         created_at=format_timestamp_to_datetime(created_at),
         last_assisted_at=format_timestamp_to_datetime(last_assisted_at)

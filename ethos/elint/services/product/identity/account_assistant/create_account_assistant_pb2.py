@@ -31,7 +31,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nVethos/elint/services/product/identity/account_assistant/create_account_assistant.proto\x12\x31\x65lint.services.product.identity.account.assistant\x1a,ethos/elint/entities/account_assistant.proto\x1a\"ethos/elint/entities/generic.proto\x1a\x42\x65thos/elint/services/product/identity/account/access_account.proto\x1aVethos/elint/services/product/identity/account_assistant/access_account_assistant.proto\"\xcc\x01\n\x1d\x43reateAccountAssistantRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12#\n\x1b\x61\x63\x63ount_assistant_name_code\x18\x02 \x01(\x05\x12\x1e\n\x16\x61\x63\x63ount_assistant_name\x18\x03 \x01(\t\"\xea\x01\n\x1e\x43reateAccountAssistantResponse\x12\x94\x01\n.account_assistant_services_access_auth_details\x18\x01 \x01(\x0b\x32\\.elint.services.product.identity.account.assistant.AccountAssistantServicesAccessAuthDetails\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xb0\x01\n&IsAccountAssistantNameAvailableRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x1e\n\x16\x61\x63\x63ount_assistant_name\x18\x02 \x01(\t\"\xae\x01\n\'IsAccountAssistantNameAvailableResponse\x12+\n#is_account_assistant_name_available\x18\x01 \x01(\x08\x12#\n\x1b\x61\x63\x63ount_assistant_name_code\x18\x02 \x01(\x05\x12\x31\n\rresponse_meta\x18\x03 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta2\xbe\x03\n\x1d\x43reateAccountAssistantService\x12\xbf\x01\n\x16\x43reateAccountAssistant\x12P.elint.services.product.identity.account.assistant.CreateAccountAssistantRequest\x1aQ.elint.services.product.identity.account.assistant.CreateAccountAssistantResponse\"\x00\x12\xda\x01\n\x1fIsAccountAssistantNameAvailable\x12Y.elint.services.product.identity.account.assistant.IsAccountAssistantNameAvailableRequest\x1aZ.elint.services.product.identity.account.assistant.IsAccountAssistantNameAvailableResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\nVethos/elint/services/product/identity/account_assistant/create_account_assistant.proto\x12\x31\x65lint.services.product.identity.account.assistant\x1a,ethos/elint/entities/account_assistant.proto\x1a\"ethos/elint/entities/generic.proto\x1a\x42\x65thos/elint/services/product/identity/account/access_account.proto\x1aVethos/elint/services/product/identity/account_assistant/access_account_assistant.proto\"\xcc\x01\n\x1d\x43reateAccountAssistantRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12#\n\x1b\x61\x63\x63ount_assistant_name_code\x18\x02 \x01(\x05\x12\x1e\n\x16\x61\x63\x63ount_assistant_name\x18\x03 \x01(\t\"\xea\x01\n\x1e\x43reateAccountAssistantResponse\x12\x94\x01\n.account_assistant_services_access_auth_details\x18\x01 \x01(\x0b\x32\\.elint.services.product.identity.account.assistant.AccountAssistantServicesAccessAuthDetails\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xac\x01\n\"GetAccountAssistantNameCodeRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x1e\n\x16\x61\x63\x63ount_assistant_name\x18\x02 \x01(\t\"}\n#GetAccountAssistantNameCodeResponse\x12#\n\x1b\x61\x63\x63ount_assistant_name_code\x18\x01 \x01(\x05\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta2\xb2\x03\n\x1d\x43reateAccountAssistantService\x12\xbf\x01\n\x16\x43reateAccountAssistant\x12P.elint.services.product.identity.account.assistant.CreateAccountAssistantRequest\x1aQ.elint.services.product.identity.account.assistant.CreateAccountAssistantResponse\"\x00\x12\xce\x01\n\x1bGetAccountAssistantNameCode\x12U.elint.services.product.identity.account.assistant.GetAccountAssistantNameCodeRequest\x1aV.elint.services.product.identity.account.assistant.GetAccountAssistantNameCodeResponse\"\x00\x62\x06proto3'
   ,
   dependencies=[ethos_dot_elint_dot_entities_dot_account__assistant__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_access__account__assistant__pb2.DESCRIPTOR,])
 
@@ -123,23 +123,23 @@ _CREATEACCOUNTASSISTANTRESPONSE = _descriptor.Descriptor(
 )
 
 
-_ISACCOUNTASSISTANTNAMEAVAILABLEREQUEST = _descriptor.Descriptor(
-  name='IsAccountAssistantNameAvailableRequest',
-  full_name='elint.services.product.identity.account.assistant.IsAccountAssistantNameAvailableRequest',
+_GETACCOUNTASSISTANTNAMECODEREQUEST = _descriptor.Descriptor(
+  name='GetAccountAssistantNameCodeRequest',
+  full_name='elint.services.product.identity.account.assistant.GetAccountAssistantNameCodeRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='access_auth_details', full_name='elint.services.product.identity.account.assistant.IsAccountAssistantNameAvailableRequest.access_auth_details', index=0,
+      name='access_auth_details', full_name='elint.services.product.identity.account.assistant.GetAccountAssistantNameCodeRequest.access_auth_details', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='account_assistant_name', full_name='elint.services.product.identity.account.assistant.IsAccountAssistantNameAvailableRequest.account_assistant_name', index=1,
+      name='account_assistant_name', full_name='elint.services.product.identity.account.assistant.GetAccountAssistantNameCodeRequest.account_assistant_name', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -158,35 +158,28 @@ _ISACCOUNTASSISTANTNAMEAVAILABLEREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=824,
-  serialized_end=1000,
+  serialized_end=996,
 )
 
 
-_ISACCOUNTASSISTANTNAMEAVAILABLERESPONSE = _descriptor.Descriptor(
-  name='IsAccountAssistantNameAvailableResponse',
-  full_name='elint.services.product.identity.account.assistant.IsAccountAssistantNameAvailableResponse',
+_GETACCOUNTASSISTANTNAMECODERESPONSE = _descriptor.Descriptor(
+  name='GetAccountAssistantNameCodeResponse',
+  full_name='elint.services.product.identity.account.assistant.GetAccountAssistantNameCodeResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='is_account_assistant_name_available', full_name='elint.services.product.identity.account.assistant.IsAccountAssistantNameAvailableResponse.is_account_assistant_name_available', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='account_assistant_name_code', full_name='elint.services.product.identity.account.assistant.IsAccountAssistantNameAvailableResponse.account_assistant_name_code', index=1,
-      number=2, type=5, cpp_type=1, label=1,
+      name='account_assistant_name_code', full_name='elint.services.product.identity.account.assistant.GetAccountAssistantNameCodeResponse.account_assistant_name_code', index=0,
+      number=1, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='response_meta', full_name='elint.services.product.identity.account.assistant.IsAccountAssistantNameAvailableResponse.response_meta', index=2,
-      number=3, type=11, cpp_type=10, label=1,
+      name='response_meta', full_name='elint.services.product.identity.account.assistant.GetAccountAssistantNameCodeResponse.response_meta', index=1,
+      number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -203,19 +196,19 @@ _ISACCOUNTASSISTANTNAMEAVAILABLERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1003,
-  serialized_end=1177,
+  serialized_start=998,
+  serialized_end=1123,
 )
 
 _CREATEACCOUNTASSISTANTREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS
 _CREATEACCOUNTASSISTANTRESPONSE.fields_by_name['account_assistant_services_access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_access__account__assistant__pb2._ACCOUNTASSISTANTSERVICESACCESSAUTHDETAILS
 _CREATEACCOUNTASSISTANTRESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
-_ISACCOUNTASSISTANTNAMEAVAILABLEREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS
-_ISACCOUNTASSISTANTNAMEAVAILABLERESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
+_GETACCOUNTASSISTANTNAMECODEREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS
+_GETACCOUNTASSISTANTNAMECODERESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
 DESCRIPTOR.message_types_by_name['CreateAccountAssistantRequest'] = _CREATEACCOUNTASSISTANTREQUEST
 DESCRIPTOR.message_types_by_name['CreateAccountAssistantResponse'] = _CREATEACCOUNTASSISTANTRESPONSE
-DESCRIPTOR.message_types_by_name['IsAccountAssistantNameAvailableRequest'] = _ISACCOUNTASSISTANTNAMEAVAILABLEREQUEST
-DESCRIPTOR.message_types_by_name['IsAccountAssistantNameAvailableResponse'] = _ISACCOUNTASSISTANTNAMEAVAILABLERESPONSE
+DESCRIPTOR.message_types_by_name['GetAccountAssistantNameCodeRequest'] = _GETACCOUNTASSISTANTNAMECODEREQUEST
+DESCRIPTOR.message_types_by_name['GetAccountAssistantNameCodeResponse'] = _GETACCOUNTASSISTANTNAMECODERESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 CreateAccountAssistantRequest = _reflection.GeneratedProtocolMessageType('CreateAccountAssistantRequest', (_message.Message,), {
@@ -232,19 +225,19 @@ CreateAccountAssistantResponse = _reflection.GeneratedProtocolMessageType('Creat
   })
 _sym_db.RegisterMessage(CreateAccountAssistantResponse)
 
-IsAccountAssistantNameAvailableRequest = _reflection.GeneratedProtocolMessageType('IsAccountAssistantNameAvailableRequest', (_message.Message,), {
-  'DESCRIPTOR' : _ISACCOUNTASSISTANTNAMEAVAILABLEREQUEST,
+GetAccountAssistantNameCodeRequest = _reflection.GeneratedProtocolMessageType('GetAccountAssistantNameCodeRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETACCOUNTASSISTANTNAMECODEREQUEST,
   '__module__' : 'ethos.elint.services.product.identity.account_assistant.create_account_assistant_pb2'
-  # @@protoc_insertion_point(class_scope:elint.services.product.identity.account.assistant.IsAccountAssistantNameAvailableRequest)
+  # @@protoc_insertion_point(class_scope:elint.services.product.identity.account.assistant.GetAccountAssistantNameCodeRequest)
   })
-_sym_db.RegisterMessage(IsAccountAssistantNameAvailableRequest)
+_sym_db.RegisterMessage(GetAccountAssistantNameCodeRequest)
 
-IsAccountAssistantNameAvailableResponse = _reflection.GeneratedProtocolMessageType('IsAccountAssistantNameAvailableResponse', (_message.Message,), {
-  'DESCRIPTOR' : _ISACCOUNTASSISTANTNAMEAVAILABLERESPONSE,
+GetAccountAssistantNameCodeResponse = _reflection.GeneratedProtocolMessageType('GetAccountAssistantNameCodeResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETACCOUNTASSISTANTNAMECODERESPONSE,
   '__module__' : 'ethos.elint.services.product.identity.account_assistant.create_account_assistant_pb2'
-  # @@protoc_insertion_point(class_scope:elint.services.product.identity.account.assistant.IsAccountAssistantNameAvailableResponse)
+  # @@protoc_insertion_point(class_scope:elint.services.product.identity.account.assistant.GetAccountAssistantNameCodeResponse)
   })
-_sym_db.RegisterMessage(IsAccountAssistantNameAvailableResponse)
+_sym_db.RegisterMessage(GetAccountAssistantNameCodeResponse)
 
 
 
@@ -255,8 +248,8 @@ _CREATEACCOUNTASSISTANTSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1180,
-  serialized_end=1626,
+  serialized_start=1126,
+  serialized_end=1560,
   methods=[
   _descriptor.MethodDescriptor(
     name='CreateAccountAssistant',
@@ -269,12 +262,12 @@ _CREATEACCOUNTASSISTANTSERVICE = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='IsAccountAssistantNameAvailable',
-    full_name='elint.services.product.identity.account.assistant.CreateAccountAssistantService.IsAccountAssistantNameAvailable',
+    name='GetAccountAssistantNameCode',
+    full_name='elint.services.product.identity.account.assistant.CreateAccountAssistantService.GetAccountAssistantNameCode',
     index=1,
     containing_service=None,
-    input_type=_ISACCOUNTASSISTANTNAMEAVAILABLEREQUEST,
-    output_type=_ISACCOUNTASSISTANTNAMEAVAILABLERESPONSE,
+    input_type=_GETACCOUNTASSISTANTNAMECODEREQUEST,
+    output_type=_GETACCOUNTASSISTANTNAMECODERESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

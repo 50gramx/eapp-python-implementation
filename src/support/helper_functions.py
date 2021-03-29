@@ -10,6 +10,9 @@ from sendgrid import SendGridAPIClient, Mail
 from twilio.rest import Client
 from validate_email import validate_email
 
+from ethos.elint.entities.generic_pb2 import TemporaryTokenDetails
+from support.redis_service import set_kv, get_kv
+
 sendgrid_api_key = os.environ.get('SENDGRID_API_KEY')
 twilio_account_sid = os.environ['SMS_API_ACCOUNT_SID']
 twilio_auth_token = os.environ['SMS_API_AUTH_TOKEN']
@@ -81,7 +84,7 @@ def check_service_time_consumption(no_of_iter: int, service_func, service_func_p
     return tts * 1000
 
 
-def send_otp(country_code, account_mobile_number, verification_code):
+def send_otp(country_code, account_mobile_number, verification_code) -> Timestamp:
     # Download the helper library from https://www.twilio.com/docs/python/install
     client = Client(twilio_account_sid, twilio_auth_token)
 
@@ -144,3 +147,30 @@ def get_future_timestamp(after_seconds: int, after_minutes: int = 0, after_hours
 
 def gen_uuid() -> str:
     return str(uuid.uuid4()).upper()
+
+
+# --------------------------------------
+# Phone Numbers
+# --------------------------------------
+def generate_verification_code_token(account_mobile_country_code: str, account_mobile_number: str,
+                                     code_token: str = None) -> (
+        TemporaryTokenDetails, Timestamp):
+    verification_code = get_random_string(4)
+    if code_token is None:
+        code_token = gen_uuid()
+    code_sent_at = send_otp(account_mobile_country_code, account_mobile_number, verification_code)
+    set_kv(code_token, verification_code)
+    verification_code_token_details = TemporaryTokenDetails(
+        token=code_token,
+        generated_at=get_current_timestamp(),
+        valid_till=get_future_timestamp(after_seconds=180)
+    )
+    return verification_code_token_details, code_sent_at
+
+
+def verify_verification_code_token(token: str, verification_code: str) -> bool:
+    sent_verification_code = get_kv(token)
+    if verification_code == sent_verification_code:
+        return True
+    else:
+        return False
