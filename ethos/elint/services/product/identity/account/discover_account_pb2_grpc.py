@@ -22,6 +22,11 @@ class DiscoverAccountServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.GetAccountByIdRequest.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.GetAccountByIdResponse.FromString,
                 )
+        self.GetAccountProfilePicture = channel.unary_stream(
+                '/elint.services.product.identity.account.DiscoverAccountService/GetAccountProfilePicture',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.GetAccountProfilePictureRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.GetAccountProfilePictureResponse.FromString,
+                )
         self.GetAccountAssistant = channel.unary_unary(
                 '/elint.services.product.identity.account.DiscoverAccountService/GetAccountAssistant',
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
@@ -38,6 +43,12 @@ class DiscoverAccountServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def GetAccountById(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetAccountProfilePicture(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -62,6 +73,11 @@ def add_DiscoverAccountServiceServicer_to_server(servicer, server):
                     servicer.GetAccountById,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.GetAccountByIdRequest.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.GetAccountByIdResponse.SerializeToString,
+            ),
+            'GetAccountProfilePicture': grpc.unary_stream_rpc_method_handler(
+                    servicer.GetAccountProfilePicture,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.GetAccountProfilePictureRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.GetAccountProfilePictureResponse.SerializeToString,
             ),
             'GetAccountAssistant': grpc.unary_unary_rpc_method_handler(
                     servicer.GetAccountAssistant,
@@ -97,6 +113,23 @@ class DiscoverAccountService(object):
         return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.DiscoverAccountService/GetAccountById',
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.GetAccountByIdRequest.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.GetAccountByIdResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetAccountProfilePicture(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/elint.services.product.identity.account.DiscoverAccountService/GetAccountProfilePicture',
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.GetAccountProfilePictureRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.GetAccountProfilePictureResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

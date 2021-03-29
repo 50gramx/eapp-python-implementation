@@ -35,7 +35,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\'elint.services.product.identity.accountB\024DiscoverAccountProtoP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nDethos/elint/services/product/identity/account/discover_account.proto\x12\'elint.services.product.identity.account\x1a\"ethos/elint/entities/account.proto\x1a,ethos/elint/entities/account_assistant.proto\x1a\"ethos/elint/entities/generic.proto\x1a\x42\x65thos/elint/services/product/identity/account/access_account.proto\"+\n\x15GetAccountByIdRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\"s\n\x16GetAccountByIdResponse\x12&\n\x07\x61\x63\x63ount\x18\x01 \x01(\x0b\x32\x15.elint.entity.Account\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xc7\x01\n IsAccountExistsWithMobileRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x1c\n\x14\x61\x63\x63ount_country_code\x18\x02 \x01(\t\x12\x1d\n\x15\x61\x63\x63ount_mobile_number\x18\x03 \x01(\t2\xba\x03\n\x16\x44iscoverAccountService\x12\x93\x01\n\x0eGetAccountById\x12>.elint.services.product.identity.account.GetAccountByIdRequest\x1a?.elint.services.product.identity.account.GetAccountByIdResponse\"\x00\x12\x82\x01\n\x13GetAccountAssistant\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x1e.elint.entity.AccountAssistant\"\x00\x12\x84\x01\n\x19IsAccountExistsWithMobile\x12I.elint.services.product.identity.account.IsAccountExistsWithMobileRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x42\x41\n\'elint.services.product.identity.accountB\x14\x44iscoverAccountProtoP\x01\x62\x06proto3'
+  serialized_pb=b'\nDethos/elint/services/product/identity/account/discover_account.proto\x12\'elint.services.product.identity.account\x1a\"ethos/elint/entities/account.proto\x1a,ethos/elint/entities/account_assistant.proto\x1a\"ethos/elint/entities/generic.proto\x1a\x42\x65thos/elint/services/product/identity/account/access_account.proto\"+\n\x15GetAccountByIdRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\"s\n\x16GetAccountByIdResponse\x12&\n\x07\x61\x63\x63ount\x18\x01 \x01(\x0b\x32\x15.elint.entity.Account\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xed\x01\n\x1fGetAccountProfilePictureRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12/\n\x0cpicture_size\x18\x02 \x01(\x0e\x32\x19.elint.entity.PictureSize\x12\x31\n\rpicture_scale\x18\x03 \x01(\x0e\x32\x1a.elint.entity.PictureScale\"i\n GetAccountProfilePictureResponse\x12\x12\n\nimage_data\x18\x01 \x01(\x0c\x12\x31\n\rresponse_meta\x18\x03 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xc7\x01\n IsAccountExistsWithMobileRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x1c\n\x14\x61\x63\x63ount_country_code\x18\x02 \x01(\t\x12\x1d\n\x15\x61\x63\x63ount_mobile_number\x18\x03 \x01(\t2\xf0\x04\n\x16\x44iscoverAccountService\x12\x93\x01\n\x0eGetAccountById\x12>.elint.services.product.identity.account.GetAccountByIdRequest\x1a?.elint.services.product.identity.account.GetAccountByIdResponse\"\x00\x12\xb3\x01\n\x18GetAccountProfilePicture\x12H.elint.services.product.identity.account.GetAccountProfilePictureRequest\x1aI.elint.services.product.identity.account.GetAccountProfilePictureResponse\"\x00\x30\x01\x12\x82\x01\n\x13GetAccountAssistant\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x1e.elint.entity.AccountAssistant\"\x00\x12\x84\x01\n\x19IsAccountExistsWithMobile\x12I.elint.services.product.identity.account.IsAccountExistsWithMobileRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x42\x41\n\'elint.services.product.identity.accountB\x14\x44iscoverAccountProtoP\x01\x62\x06proto3'
   ,
   dependencies=[ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_account__assistant__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.DESCRIPTOR,])
 
@@ -113,6 +113,91 @@ _GETACCOUNTBYIDRESPONSE = _descriptor.Descriptor(
 )
 
 
+_GETACCOUNTPROFILEPICTUREREQUEST = _descriptor.Descriptor(
+  name='GetAccountProfilePictureRequest',
+  full_name='elint.services.product.identity.account.GetAccountProfilePictureRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='access_auth_details', full_name='elint.services.product.identity.account.GetAccountProfilePictureRequest.access_auth_details', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='picture_size', full_name='elint.services.product.identity.account.GetAccountProfilePictureRequest.picture_size', index=1,
+      number=2, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='picture_scale', full_name='elint.services.product.identity.account.GetAccountProfilePictureRequest.picture_scale', index=2,
+      number=3, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=462,
+  serialized_end=699,
+)
+
+
+_GETACCOUNTPROFILEPICTURERESPONSE = _descriptor.Descriptor(
+  name='GetAccountProfilePictureResponse',
+  full_name='elint.services.product.identity.account.GetAccountProfilePictureResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='image_data', full_name='elint.services.product.identity.account.GetAccountProfilePictureResponse.image_data', index=0,
+      number=1, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"",
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='response_meta', full_name='elint.services.product.identity.account.GetAccountProfilePictureResponse.response_meta', index=1,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=701,
+  serialized_end=806,
+)
+
+
 _ISACCOUNTEXISTSWITHMOBILEREQUEST = _descriptor.Descriptor(
   name='IsAccountExistsWithMobileRequest',
   full_name='elint.services.product.identity.account.IsAccountExistsWithMobileRequest',
@@ -154,15 +239,21 @@ _ISACCOUNTEXISTSWITHMOBILEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=462,
-  serialized_end=661,
+  serialized_start=809,
+  serialized_end=1008,
 )
 
 _GETACCOUNTBYIDRESPONSE.fields_by_name['account'].message_type = ethos_dot_elint_dot_entities_dot_account__pb2._ACCOUNT
 _GETACCOUNTBYIDRESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
+_GETACCOUNTPROFILEPICTUREREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS
+_GETACCOUNTPROFILEPICTUREREQUEST.fields_by_name['picture_size'].enum_type = ethos_dot_elint_dot_entities_dot_generic__pb2._PICTURESIZE
+_GETACCOUNTPROFILEPICTUREREQUEST.fields_by_name['picture_scale'].enum_type = ethos_dot_elint_dot_entities_dot_generic__pb2._PICTURESCALE
+_GETACCOUNTPROFILEPICTURERESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
 _ISACCOUNTEXISTSWITHMOBILEREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS
 DESCRIPTOR.message_types_by_name['GetAccountByIdRequest'] = _GETACCOUNTBYIDREQUEST
 DESCRIPTOR.message_types_by_name['GetAccountByIdResponse'] = _GETACCOUNTBYIDRESPONSE
+DESCRIPTOR.message_types_by_name['GetAccountProfilePictureRequest'] = _GETACCOUNTPROFILEPICTUREREQUEST
+DESCRIPTOR.message_types_by_name['GetAccountProfilePictureResponse'] = _GETACCOUNTPROFILEPICTURERESPONSE
 DESCRIPTOR.message_types_by_name['IsAccountExistsWithMobileRequest'] = _ISACCOUNTEXISTSWITHMOBILEREQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -179,6 +270,20 @@ GetAccountByIdResponse = _reflection.GeneratedProtocolMessageType('GetAccountByI
   # @@protoc_insertion_point(class_scope:elint.services.product.identity.account.GetAccountByIdResponse)
   })
 _sym_db.RegisterMessage(GetAccountByIdResponse)
+
+GetAccountProfilePictureRequest = _reflection.GeneratedProtocolMessageType('GetAccountProfilePictureRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETACCOUNTPROFILEPICTUREREQUEST,
+  '__module__' : 'ethos.elint.services.product.identity.account.discover_account_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.identity.account.GetAccountProfilePictureRequest)
+  })
+_sym_db.RegisterMessage(GetAccountProfilePictureRequest)
+
+GetAccountProfilePictureResponse = _reflection.GeneratedProtocolMessageType('GetAccountProfilePictureResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETACCOUNTPROFILEPICTURERESPONSE,
+  '__module__' : 'ethos.elint.services.product.identity.account.discover_account_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.identity.account.GetAccountProfilePictureResponse)
+  })
+_sym_db.RegisterMessage(GetAccountProfilePictureResponse)
 
 IsAccountExistsWithMobileRequest = _reflection.GeneratedProtocolMessageType('IsAccountExistsWithMobileRequest', (_message.Message,), {
   'DESCRIPTOR' : _ISACCOUNTEXISTSWITHMOBILEREQUEST,
@@ -197,8 +302,8 @@ _DISCOVERACCOUNTSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=664,
-  serialized_end=1106,
+  serialized_start=1011,
+  serialized_end=1635,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetAccountById',
@@ -211,9 +316,19 @@ _DISCOVERACCOUNTSERVICE = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
+    name='GetAccountProfilePicture',
+    full_name='elint.services.product.identity.account.DiscoverAccountService.GetAccountProfilePicture',
+    index=1,
+    containing_service=None,
+    input_type=_GETACCOUNTPROFILEPICTUREREQUEST,
+    output_type=_GETACCOUNTPROFILEPICTURERESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
     name='GetAccountAssistant',
     full_name='elint.services.product.identity.account.DiscoverAccountService.GetAccountAssistant',
-    index=1,
+    index=2,
     containing_service=None,
     input_type=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS,
     output_type=ethos_dot_elint_dot_entities_dot_account__assistant__pb2._ACCOUNTASSISTANT,
@@ -223,7 +338,7 @@ _DISCOVERACCOUNTSERVICE = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='IsAccountExistsWithMobile',
     full_name='elint.services.product.identity.account.DiscoverAccountService.IsAccountExistsWithMobile',
-    index=2,
+    index=3,
     containing_service=None,
     input_type=_ISACCOUNTEXISTSWITHMOBILEREQUEST,
     output_type=ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA,
