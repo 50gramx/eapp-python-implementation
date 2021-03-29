@@ -47,9 +47,13 @@ def get_account_assistant_name_code(account_assistant_name: str) -> int:
             AccountAssistantNameCode.account_assistant_name == account_assistant_name
         ).all()
         if len(account_assistant_name_code) > 0:
-            return len(account_assistant_name_code) + 1
+            new_name_code = len(account_assistant_name_code) + 1
         else:
-            return 1
+            new_name_code = 1
+        session.add(AccountAssistantNameCode(account_assistant_name=account_assistant_name,
+                                             account_assistant_name_code=new_name_code))
+        session.commit()
+        return new_name_code
 
 
 def add_new_account(account: Account) -> None:
