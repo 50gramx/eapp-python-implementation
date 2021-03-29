@@ -4,6 +4,8 @@ from ethos.elint.entities.account_assistant_pb2 import AccountAssistantConnected
 from ethos.elint.services.product.identity.account.access_account_pb2 import AccountServicesAccessAuthDetails
 from ethos.elint.services.product.identity.account_assistant.access_account_assistant_pb2 import \
     AccountAssistantServicesAccessAuthDetails, AccountAssistantAccessTokenWithMasterConnectionRequest
+from ethos.elint.services.product.identity.account_assistant.create_account_assistant_pb2 import \
+    GetAccountAssistantNameCodeRequest
 
 
 def account_assistant_access_token_caller(
@@ -47,3 +49,15 @@ def create_account_assistant_caller(
 def get_account_assistant_by_account_caller(account: account_pb2.Account) -> account_assistant_pb2.AccountAssistant:
     stub = ApplicationContext.discover_account_assistant_service_stub()
     return stub.GetAccountAssistantByAccount(account)
+
+
+def get_account_assistant_name_code_caller(access_auth_details: AccountServicesAccessAuthDetails,
+                                           account_assistant_name: str) -> (bool, str, int):
+    stub = ApplicationContext.discover_account_assistant_service_stub()
+    response = stub.GetAccountAssistantNameCode(
+        GetAccountAssistantNameCodeRequest(
+            access_auth_details=access_auth_details,
+            account_assistant_name=account_assistant_name
+        )
+    )
+    return response.response_meta.meta_done, response.response_meta.meta_message, response.account_assistant_name_code
