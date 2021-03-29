@@ -59,7 +59,7 @@ def get_account_assistant_by_account_caller(account: account_pb2.Account) -> acc
 
 def get_account_assistant_name_code_caller(access_auth_details: AccountServicesAccessAuthDetails,
                                            account_assistant_name: str) -> (bool, str, int):
-    stub = ApplicationContext.discover_account_assistant_service_stub()
+    stub = ApplicationContext.create_account_assistant_service_stub()
     response = stub.GetAccountAssistantNameCode(
         GetAccountAssistantNameCodeRequest(
             access_auth_details=access_auth_details,
