@@ -1,3 +1,5 @@
+import logging
+
 from ethos.elint.entities.account_assistant_pb2 import AccountAssistant
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account.discover_account_pb2 import GetAccountByIdResponse
@@ -13,14 +15,14 @@ class DiscoverAccountService(DiscoverAccountServiceServicer):
         self.session_scope = self.__class__.__name__
 
     def GetAccountById(self, request, context):
-        print("DiscoverAccountService:GetAccountById")
+        logging.info("DiscoverAccountService:GetAccountById")
         return GetAccountByIdResponse(
             account=get_account(account_id=request.account_id),
             response_meta=ResponseMeta(meta_done=True, meta_message="Get complete.")
         )
 
     def GetAccountAssistant(self, request, context):
-        print("DiscoverAccountService:GetAccountAssistant")
+        logging.info("DiscoverAccountService:GetAccountAssistant")
         validation_done, validation_message = validate_account_services_caller(request)
         if validation_done is False:
             return AccountAssistant()
@@ -28,7 +30,7 @@ class DiscoverAccountService(DiscoverAccountServiceServicer):
             return get_account_assistant_by_account_caller(request.account)
 
     def IsAccountExistsWithMobile(self, request, context):
-        print("DiscoverAccountService:IsAccountExistsWithMobile")
+        logging.info("DiscoverAccountService:IsAccountExistsWithMobile")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
         response_meta = ResponseMeta(meta_done=validation_done, meta_message=validation_message)
         if validation_done is False:

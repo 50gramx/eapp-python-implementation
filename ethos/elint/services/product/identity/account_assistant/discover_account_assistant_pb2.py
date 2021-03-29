@@ -21,6 +21,12 @@ try:
   google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_account__pb2.google_dot_protobuf_dot_timestamp__pb2
 except AttributeError:
   google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_account__pb2.google.protobuf.timestamp_pb2
+from ethos.elint.entities import generic_pb2 as ethos_dot_elint_dot_entities_dot_generic__pb2
+try:
+  google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_generic__pb2.google_dot_protobuf_dot_timestamp__pb2
+except AttributeError:
+  google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_generic__pb2.google.protobuf.timestamp_pb2
+from ethos.elint.services.product.identity.account import access_account_pb2 as ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -29,13 +35,123 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nXethos/elint/services/product/identity/account_assistant/discover_account_assistant.proto\x12\x31\x65lint.services.product.identity.account.assistant\x1a,ethos/elint/entities/account_assistant.proto\x1a\"ethos/elint/entities/account.proto2z\n\x1f\x44iscoverAccountAssistantService\x12W\n\x1cGetAccountAssistantByAccount\x12\x15.elint.entity.Account\x1a\x1e.elint.entity.AccountAssistant\"\x00\x62\x06proto3'
+  serialized_pb=b'\nXethos/elint/services/product/identity/account_assistant/discover_account_assistant.proto\x12\x31\x65lint.services.product.identity.account.assistant\x1a,ethos/elint/entities/account_assistant.proto\x1a\"ethos/elint/entities/account.proto\x1a\"ethos/elint/entities/generic.proto\x1a\x42\x65thos/elint/services/product/identity/account/access_account.proto\"\xa7\x01\n)GetAccountAssistantMetaByAccountIdRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x12\n\naccount_id\x18\x02 \x01(\t\"\xc2\x01\n*GetAccountAssistantMetaByAccountIdResponse\x12\x1c\n\x14\x61\x63\x63ount_assistant_id\x18\x01 \x01(\t\x12#\n\x1b\x61\x63\x63ount_assistant_name_code\x18\x02 \x01(\x05\x12\x1e\n\x16\x61\x63\x63ount_assistant_name\x18\x03 \x01(\t\x12\x31\n\rresponse_meta\x18\x04 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta2\xe0\x02\n\x1f\x44iscoverAccountAssistantService\x12W\n\x1cGetAccountAssistantByAccount\x12\x15.elint.entity.Account\x1a\x1e.elint.entity.AccountAssistant\"\x00\x12\xe3\x01\n\"GetAccountAssistantMetaByAccountId\x12\\.elint.services.product.identity.account.assistant.GetAccountAssistantMetaByAccountIdRequest\x1a].elint.services.product.identity.account.assistant.GetAccountAssistantMetaByAccountIdResponse\"\x00\x62\x06proto3'
   ,
-  dependencies=[ethos_dot_elint_dot_entities_dot_account__assistant__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,])
+  dependencies=[ethos_dot_elint_dot_entities_dot_account__assistant__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.DESCRIPTOR,])
 
 
 
+
+_GETACCOUNTASSISTANTMETABYACCOUNTIDREQUEST = _descriptor.Descriptor(
+  name='GetAccountAssistantMetaByAccountIdRequest',
+  full_name='elint.services.product.identity.account.assistant.GetAccountAssistantMetaByAccountIdRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='access_auth_details', full_name='elint.services.product.identity.account.assistant.GetAccountAssistantMetaByAccountIdRequest.access_auth_details', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='account_id', full_name='elint.services.product.identity.account.assistant.GetAccountAssistantMetaByAccountIdRequest.account_id', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=330,
+  serialized_end=497,
+)
+
+
+_GETACCOUNTASSISTANTMETABYACCOUNTIDRESPONSE = _descriptor.Descriptor(
+  name='GetAccountAssistantMetaByAccountIdResponse',
+  full_name='elint.services.product.identity.account.assistant.GetAccountAssistantMetaByAccountIdResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='account_assistant_id', full_name='elint.services.product.identity.account.assistant.GetAccountAssistantMetaByAccountIdResponse.account_assistant_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='account_assistant_name_code', full_name='elint.services.product.identity.account.assistant.GetAccountAssistantMetaByAccountIdResponse.account_assistant_name_code', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='account_assistant_name', full_name='elint.services.product.identity.account.assistant.GetAccountAssistantMetaByAccountIdResponse.account_assistant_name', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='response_meta', full_name='elint.services.product.identity.account.assistant.GetAccountAssistantMetaByAccountIdResponse.response_meta', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=500,
+  serialized_end=694,
+)
+
+_GETACCOUNTASSISTANTMETABYACCOUNTIDREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS
+_GETACCOUNTASSISTANTMETABYACCOUNTIDRESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
+DESCRIPTOR.message_types_by_name['GetAccountAssistantMetaByAccountIdRequest'] = _GETACCOUNTASSISTANTMETABYACCOUNTIDREQUEST
+DESCRIPTOR.message_types_by_name['GetAccountAssistantMetaByAccountIdResponse'] = _GETACCOUNTASSISTANTMETABYACCOUNTIDRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+GetAccountAssistantMetaByAccountIdRequest = _reflection.GeneratedProtocolMessageType('GetAccountAssistantMetaByAccountIdRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETACCOUNTASSISTANTMETABYACCOUNTIDREQUEST,
+  '__module__' : 'ethos.elint.services.product.identity.account_assistant.discover_account_assistant_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.identity.account.assistant.GetAccountAssistantMetaByAccountIdRequest)
+  })
+_sym_db.RegisterMessage(GetAccountAssistantMetaByAccountIdRequest)
+
+GetAccountAssistantMetaByAccountIdResponse = _reflection.GeneratedProtocolMessageType('GetAccountAssistantMetaByAccountIdResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETACCOUNTASSISTANTMETABYACCOUNTIDRESPONSE,
+  '__module__' : 'ethos.elint.services.product.identity.account_assistant.discover_account_assistant_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.identity.account.assistant.GetAccountAssistantMetaByAccountIdResponse)
+  })
+_sym_db.RegisterMessage(GetAccountAssistantMetaByAccountIdResponse)
 
 
 
@@ -46,8 +162,8 @@ _DISCOVERACCOUNTASSISTANTSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=225,
-  serialized_end=347,
+  serialized_start=697,
+  serialized_end=1049,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetAccountAssistantByAccount',
@@ -56,6 +172,16 @@ _DISCOVERACCOUNTASSISTANTSERVICE = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=ethos_dot_elint_dot_entities_dot_account__pb2._ACCOUNT,
     output_type=ethos_dot_elint_dot_entities_dot_account__assistant__pb2._ACCOUNTASSISTANT,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetAccountAssistantMetaByAccountId',
+    full_name='elint.services.product.identity.account.assistant.DiscoverAccountAssistantService.GetAccountAssistantMetaByAccountId',
+    index=1,
+    containing_service=None,
+    input_type=_GETACCOUNTASSISTANTMETABYACCOUNTIDREQUEST,
+    output_type=_GETACCOUNTASSISTANTMETABYACCOUNTIDRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

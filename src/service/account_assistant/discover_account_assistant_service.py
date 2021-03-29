@@ -1,6 +1,12 @@
+import logging
+
+from ethos.elint.entities.generic_pb2 import ResponseMeta
+from ethos.elint.services.product.identity.account_assistant.discover_account_assistant_pb2 import \
+    GetAccountAssistantMetaByAccountIdResponse
 from ethos.elint.services.product.identity.account_assistant.discover_account_assistant_pb2_grpc import \
     DiscoverAccountAssistantServiceServicer
-from support.db_service import get_account_assistant
+from services_caller.account_service_caller import validate_account_services_caller
+from support.db_service import get_account_assistant, get_account_assistant_meta
 
 
 class DiscoverAccountAssistantService(DiscoverAccountAssistantServiceServicer):
@@ -9,5 +15,21 @@ class DiscoverAccountAssistantService(DiscoverAccountAssistantServiceServicer):
         self.session_scope = self.__class__.__name__
 
     def GetAccountAssistantByAccount(self, request, context):
-        print("DiscoverAccountAssistantService:GetAccountAssistantByAccount")
+        logging.info("DiscoverAccountAssistantService:GetAccountAssistantByAccount")
         return get_account_assistant(account=request)
+
+    def GetAccountAssistantMetaByAccountId(self, request, context):
+        logging.info("DiscoverAccountAssistantService:GetAccountAssistantMetaByAccountId")
+        validation_done, validate_message = validate_account_services_caller(request)
+        response_meta = ResponseMeta(meta_done=validation_done, meta_message=validate_message)
+        if validation_done is False:
+            return GetAccountAssistantMetaByAccountIdResponse(response_meta=response_meta)
+        else:
+            account_assistant_id, account_assistant_name_code, account_assistant_name = get_account_assistant_meta(
+                account_id=request.account_id)
+            return GetAccountAssistantMetaByAccountIdResponse(
+                account_assistant_id=account_assistant_id,
+                account_assistant_name_code=account_assistant_name_code,
+                account_assistant_name=account_assistant_name,
+                response_meta=response_meta
+            )

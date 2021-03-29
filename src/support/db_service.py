@@ -54,6 +54,7 @@ def is_account_assistant_name_available(account_assistant_name: str) -> (bool, i
             AccountAssistantNameCode.account_assistant_name == account_assistant_name
         ).all()
         # if query
+        # TODO: Complete this
     pass
 
 
@@ -244,6 +245,15 @@ def get_account_assistant(account: account_pb2.Account) -> account_assistant_pb2
             account_assistant=account_assistant,
             session=session
         )
+
+
+def get_account_assistant_meta(account_id: str) -> (str, int, str):
+    with DbSession.session_scope() as session:
+        account_assistant = session.query(AccountAssistant).filter(
+            AccountAssistant.account_id == account_id
+        ).first()
+        return (account_assistant.account_assistant_id, account_assistant.account_assistant_name,
+                account_assistant.account_assistant_name_code)
 
 
 def get_account_device_token(account_id: str) -> str:

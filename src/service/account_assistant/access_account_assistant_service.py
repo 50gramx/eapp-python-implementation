@@ -1,3 +1,5 @@
+import logging
+
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account_assistant.access_account_assistant_pb2 import \
     AccountAssistantAccessTokenResponse, ValidateAccessMeta
@@ -15,12 +17,11 @@ class AccessAccountAssistantService(AccessAccountAssistantServiceServicer):
         self.session_scope = self.__class__.__name__
 
     def AccountAssistantAccessToken(self, request, context):
-        print("AccessAccountAssistantService:AccountAssistantAccessToken")
+        logging.info("AccessAccountAssistantService:AccountAssistantAccessToken")
         validation_done, validate_message = validate_account_services_caller(request)
+        response_meta = ResponseMeta(meta_done=validation_done, meta_message=validate_message)
         if validation_done is False:
-            return AccountAssistantAccessTokenResponse(meta=ResponseMeta(
-                meta_done=validation_done,
-                meta_message=validate_message))
+            return AccountAssistantAccessTokenResponse(meta=response_meta)
         else:
             account_assistant = get_account_assistant(account=request.account)
             access_auth_details = create_account_assistant_services_access_auth_details(
@@ -29,13 +30,11 @@ class AccessAccountAssistantService(AccessAccountAssistantServiceServicer):
             )
             return AccountAssistantAccessTokenResponse(
                 account_assistant_services_access_auth_details=access_auth_details,
-                meta=ResponseMeta(
-                    meta_done=validation_done,
-                    meta_message=validate_message)
+                meta=response_meta
             )
 
     def AccountAssistantAccessTokenWithMasterConnection(self, request, context):
-        print("AccessAccountAssistantService:AccountAssistantAccessTokenWithMasterConnection")
+        logging.info("AccessAccountAssistantService:AccountAssistantAccessTokenWithMasterConnection")
         account, _, _ = get_account_by_id_caller(account_id=request.connected_account.account_id)
         account_assistant = get_account_assistant_by_account_caller(account=account)
         if account_assistant.account_assistant_id != request.account_assistant_id:
@@ -55,7 +54,7 @@ class AccessAccountAssistantService(AccessAccountAssistantServiceServicer):
             )
 
     def ValidateAccountAssistantServices(self, request, context):
-        print("AccessAccountAssistantService:AccountAssistantAccessToken")
+        logging.info("AccessAccountAssistantService:AccountAssistantAccessToken")
         session_valid, session_valid_message = is_persistent_session_valid(
             session_token=request.account_assistant_services_access_session_token_details.session_token,
             account_identifier=request.account_assistant.account_assistant_id,

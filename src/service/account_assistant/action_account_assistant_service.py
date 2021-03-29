@@ -1,3 +1,5 @@
+import logging
+
 from google.protobuf.any_pb2 import Any
 
 from ethos.elint.entities.generic_pb2 import ResponseMeta
@@ -14,7 +16,7 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
         self.session_scope = self.__class__.__name__
 
     def ActOnAccountMessage(self, request, context):
-        print("ActionAccountAssistantService:ActOnAccountMessage")
+        logging.info("ActionAccountAssistantService:ActOnAccountMessage")
         validation_done, validation_message = validate_account_assistant_services_caller(request.access_auth_details)
         if validation_done is False:
             return ResponseMeta(meta_done=validation_done, meta_message=validation_message)
