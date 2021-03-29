@@ -5,6 +5,7 @@ from ethos.elint.services.product.identity.account.create_account_pb2 import Val
 from ethos.elint.services.product.identity.account.create_account_pb2_grpc import CreateAccountServiceServicer
 from models.account_connection_models import AccountConnections
 from models.base_models import Account, AccountDevices
+from services_caller.account_assistant_service_caller import create_account_assistant_caller
 from services_caller.message_conversation_service_caller import setup_account_conversations_caller
 from support.db_service import is_existing_account_mobile, add_new_account, get_our_galaxy, add_new_account_devices
 from support.helper_functions import gen_uuid, format_timestamp_to_datetime, generate_verification_code_token, \
@@ -119,9 +120,8 @@ class CreateAccountService(CreateAccountServiceServicer):
             account_creation_message=account_creation_message
         )
         # create account assistant
-        # create_done, create_message, account_assistant_services_access_auth_details = create_account_assistant_caller(
-        #     account_services_access_auth_details)
-        # account_assistant_name
-        # create account assistant connection
-
+        _, _, _ = create_account_assistant_caller(
+            access_auth_details=account_services_access_auth_details,
+            account_assistant_name=request.account_assistant_name
+        )
         return capture_account_meta_details_response

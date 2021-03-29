@@ -5,7 +5,7 @@ from ethos.elint.services.product.identity.account.access_account_pb2 import Acc
 from ethos.elint.services.product.identity.account_assistant.access_account_assistant_pb2 import \
     AccountAssistantServicesAccessAuthDetails, AccountAssistantAccessTokenWithMasterConnectionRequest
 from ethos.elint.services.product.identity.account_assistant.create_account_assistant_pb2 import \
-    GetAccountAssistantNameCodeRequest
+    GetAccountAssistantNameCodeRequest, CreateAccountAssistantRequest
 
 
 def account_assistant_access_token_caller(
@@ -37,10 +37,16 @@ def validate_account_assistant_services_caller(
 
 
 def create_account_assistant_caller(
-        access_auth_details: AccountServicesAccessAuthDetails
+        access_auth_details: AccountServicesAccessAuthDetails,
+        account_assistant_name: str
 ) -> (bool, str, AccountAssistantServicesAccessAuthDetails):
     stub = ApplicationContext.create_account_assistant_service_stub()
-    response = stub.CreateAccountAssistant(access_auth_details)
+    response = stub.CreateAccountAssistant(
+        CreateAccountAssistantRequest(
+            access_auth_details=access_auth_details,
+            account_assistant_name=account_assistant_name
+        )
+    )
     return (response.create_meta.create_done,
             response.create_meta.create_message,
             response.account_assistant_services_access_auth_details)
