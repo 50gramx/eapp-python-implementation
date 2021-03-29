@@ -31,7 +31,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nVethos/elint/services/product/identity/account_assistant/create_account_assistant.proto\x12\x31\x65lint.services.product.identity.account.assistant\x1a,ethos/elint/entities/account_assistant.proto\x1a\"ethos/elint/entities/generic.proto\x1a\x42\x65thos/elint/services/product/identity/account/access_account.proto\x1aVethos/elint/services/product/identity/account_assistant/access_account_assistant.proto\"\xcc\x01\n\x1d\x43reateAccountAssistantRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12#\n\x1b\x61\x63\x63ount_assistant_name_code\x18\x02 \x01(\x05\x12\x1e\n\x16\x61\x63\x63ount_assistant_name\x18\x03 \x01(\t\"\xea\x01\n\x1e\x43reateAccountAssistantResponse\x12\x94\x01\n.account_assistant_services_access_auth_details\x18\x01 \x01(\x0b\x32\\.elint.services.product.identity.account.assistant.AccountAssistantServicesAccessAuthDetails\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xac\x01\n\"GetAccountAssistantNameCodeRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x1e\n\x16\x61\x63\x63ount_assistant_name\x18\x02 \x01(\t\"}\n#GetAccountAssistantNameCodeResponse\x12#\n\x1b\x61\x63\x63ount_assistant_name_code\x18\x01 \x01(\x05\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta2\xb2\x03\n\x1d\x43reateAccountAssistantService\x12\xbf\x01\n\x16\x43reateAccountAssistant\x12P.elint.services.product.identity.account.assistant.CreateAccountAssistantRequest\x1aQ.elint.services.product.identity.account.assistant.CreateAccountAssistantResponse\"\x00\x12\xce\x01\n\x1bGetAccountAssistantNameCode\x12U.elint.services.product.identity.account.assistant.GetAccountAssistantNameCodeRequest\x1aV.elint.services.product.identity.account.assistant.GetAccountAssistantNameCodeResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\nVethos/elint/services/product/identity/account_assistant/create_account_assistant.proto\x12\x31\x65lint.services.product.identity.account.assistant\x1a,ethos/elint/entities/account_assistant.proto\x1a\"ethos/elint/entities/generic.proto\x1a\x42\x65thos/elint/services/product/identity/account/access_account.proto\x1aVethos/elint/services/product/identity/account_assistant/access_account_assistant.proto\"\xa7\x01\n\x1d\x43reateAccountAssistantRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x1e\n\x16\x61\x63\x63ount_assistant_name\x18\x02 \x01(\t\"\xea\x01\n\x1e\x43reateAccountAssistantResponse\x12\x94\x01\n.account_assistant_services_access_auth_details\x18\x01 \x01(\x0b\x32\\.elint.services.product.identity.account.assistant.AccountAssistantServicesAccessAuthDetails\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xac\x01\n\"GetAccountAssistantNameCodeRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x1e\n\x16\x61\x63\x63ount_assistant_name\x18\x02 \x01(\t\"}\n#GetAccountAssistantNameCodeResponse\x12#\n\x1b\x61\x63\x63ount_assistant_name_code\x18\x01 \x01(\x05\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta2\xb2\x03\n\x1d\x43reateAccountAssistantService\x12\xbf\x01\n\x16\x43reateAccountAssistant\x12P.elint.services.product.identity.account.assistant.CreateAccountAssistantRequest\x1aQ.elint.services.product.identity.account.assistant.CreateAccountAssistantResponse\"\x00\x12\xce\x01\n\x1bGetAccountAssistantNameCode\x12U.elint.services.product.identity.account.assistant.GetAccountAssistantNameCodeRequest\x1aV.elint.services.product.identity.account.assistant.GetAccountAssistantNameCodeResponse\"\x00\x62\x06proto3'
   ,
   dependencies=[ethos_dot_elint_dot_entities_dot_account__assistant__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_access__account__assistant__pb2.DESCRIPTOR,])
 
@@ -54,15 +54,8 @@ _CREATEACCOUNTASSISTANTREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='account_assistant_name_code', full_name='elint.services.product.identity.account.assistant.CreateAccountAssistantRequest.account_assistant_name_code', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='account_assistant_name', full_name='elint.services.product.identity.account.assistant.CreateAccountAssistantRequest.account_assistant_name', index=2,
-      number=3, type=9, cpp_type=9, label=1,
+      name='account_assistant_name', full_name='elint.services.product.identity.account.assistant.CreateAccountAssistantRequest.account_assistant_name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -80,7 +73,7 @@ _CREATEACCOUNTASSISTANTREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=380,
-  serialized_end=584,
+  serialized_end=547,
 )
 
 
@@ -118,8 +111,8 @@ _CREATEACCOUNTASSISTANTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=587,
-  serialized_end=821,
+  serialized_start=550,
+  serialized_end=784,
 )
 
 
@@ -157,8 +150,8 @@ _GETACCOUNTASSISTANTNAMECODEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=824,
-  serialized_end=996,
+  serialized_start=787,
+  serialized_end=959,
 )
 
 
@@ -196,8 +189,8 @@ _GETACCOUNTASSISTANTNAMECODERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=998,
-  serialized_end=1123,
+  serialized_start=961,
+  serialized_end=1086,
 )
 
 _CREATEACCOUNTASSISTANTREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS
@@ -248,8 +241,8 @@ _CREATEACCOUNTASSISTANTSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1126,
-  serialized_end=1560,
+  serialized_start=1089,
+  serialized_end=1523,
   methods=[
   _descriptor.MethodDescriptor(
     name='CreateAccountAssistant',
