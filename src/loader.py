@@ -49,7 +49,7 @@ class Loader(object):
         # IDENTITY STUBS
         # ------------------------------------
         # grpc_secured = os.environ["EAPP_SERVICE_PRODUCT_COMMON_GRPC_EXTERNAL_SECURE"]
-        grpc_host = "[::]"
+        grpc_host = "localhost"
         grpc_port = os.environ['PORT']
         # grpc_certificate_file = os.environ['EAPP_SERVICE_PRODUCT_COMMON_GRPC_EXTERNAL_CERTIFICATE_FILE']
 
