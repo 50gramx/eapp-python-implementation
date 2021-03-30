@@ -32,7 +32,7 @@ from ethos.elint.services.product.identity.space.access_space_pb2_grpc import ad
 from ethos.elint.services.product.identity.space.create_space_pb2_grpc import add_CreateSpaceServiceServicer_to_server
 from loader import Loader
 
-PORT = os.environ.get('PORT', None)
+PORT = os.environ.get('EAPP_SERVICE_IDENTITY_PORT', None)
 if PORT is None:
     logging.error("PORT NOT FOUND!")
 
