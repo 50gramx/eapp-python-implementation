@@ -1,6 +1,6 @@
 import logging
 
-from sqlalchemy import Column, String, DateTime, Boolean
+from sqlalchemy import Column, String, DateTime, Boolean, update
 from sqlalchemy.ext.declarative import declarative_base
 
 from db_session import DbSession
@@ -145,5 +145,23 @@ class AccountConnections:
         with DbSession.session_scope() as session:
             session.execute(statement)
             session.flush()
+            session.commit()
+        return
+
+    def update_account_interest_in_connection(self, account_id: str, is_interested: bool):
+        statement = (update(self.account_connection_table).where(
+            self.account_connection_table.c.account_id == account_id).values(
+            account_interested_in_connection=is_interested))
+        with DbSession.session_scope() as session:
+            session.execute(statement)
+            session.commit()
+        return
+
+    def update_connected_account_interest_in_connection(self, account_id: str, is_interested: bool):
+        statement = (update(self.account_connection_table).where(
+            self.account_connection_table.c.account_id == account_id).values(
+            connected_account_interested_in_connection=is_interested))
+        with DbSession.session_scope() as session:
+            session.execute(statement)
             session.commit()
         return
