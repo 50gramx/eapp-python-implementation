@@ -47,8 +47,8 @@ def create_account_assistant_caller(
             account_assistant_name=account_assistant_name
         )
     )
-    return (response.create_meta.create_done,
-            response.create_meta.create_message,
+    return (response.response_meta.meta_done,
+            response.response_meta.meta_message,
             response.account_assistant_services_access_auth_details)
 
 
