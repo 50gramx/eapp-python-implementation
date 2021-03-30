@@ -59,7 +59,7 @@ class CreateAccountAssistantService(CreateAccountAssistantServiceServicer):
 
     def GetAccountAssistantNameCode(self, request, context):
         logging.info("CreateAccountAssistantService:GetAccountAssistantNameCode")
-        validation_done, validation_message = validate_account_services_caller(request)
+        validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
         response_meta = ResponseMeta(meta_done=validation_done, meta_message=validation_message)
         if validation_done is False:
             return GetAccountAssistantNameCodeResponse(response_meta=response_meta)
