@@ -30,18 +30,18 @@ class CreateAccountAssistantService(CreateAccountAssistantServiceServicer):
             _, _, account_assistant_name_code = get_account_assistant_name_code_caller(
                 access_auth_details=request.access_auth_details, account_assistant_name=request.account_assistant_name)
             new_account_assistant_id = add_new_account_assistant(
-                account_id=request.account.account_id,
+                account_id=request.access_auth_details.account.account_id,
                 account_assistant_name_code=account_assistant_name_code,
                 account_assistant_name=request.account_assistant_name)
             # setup account assistant connections
             account_assistant_connections = AccountAssistantConnections(account_assistant_id=new_account_assistant_id)
             account_assistant_connections.setup_account_assistant_connections()
             # add new account assistant to account connections
-            account_connections = AccountConnections(account_id=request.account.account_id)
+            account_connections = AccountConnections(account_id=request.access_auth_details.account.account_id)
             new_connection_id = gen_uuid()
             account_assistant_connections.add_new_account_connection(
                 account_connection_id=new_connection_id,
-                account_id=request.account.account_id)
+                account_id=request.access_auth_details.account.account_id)
             account_connections.add_new_account_assistant_connection(
                 account_assistant_connection_id=new_connection_id,
                 account_assistant_id=new_account_assistant_id
