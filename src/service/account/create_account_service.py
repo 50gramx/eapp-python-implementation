@@ -85,7 +85,7 @@ class CreateAccountService(CreateAccountServiceServicer):
         account_galaxy_id = get_our_galaxy().galaxy_id
         new_account = Account(
             account_analytics_id=account_analytics_id, account_id=account_id,
-            account_country_code=request.account_creation_auth_details.account_mobile_number.account_mobile_country_code,
+            account_country_code=request.account_creation_auth_details.account_mobile_country_code,
             account_mobile_number=request.account_creation_auth_details.account_mobile_number,
             account_first_name=request.account_first_name, account_last_name=request.account_last_name,
             account_galaxy_id=account_galaxy_id, account_gender=request.account_gender,
