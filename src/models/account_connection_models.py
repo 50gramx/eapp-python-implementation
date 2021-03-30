@@ -1,6 +1,6 @@
 import logging
 
-from sqlalchemy import Column, String, DateTime
+from sqlalchemy import Column, String, DateTime, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 
 from db_session import DbSession
@@ -83,6 +83,8 @@ class AccountConnections:
 
             account_connection_id = Column(String(255), primary_key=True, unique=True)
             account_id = Column(String(255), nullable=False)
+            account_interested_in_connection = Column(Boolean(), nullable=False)
+            connected_account_interested_in_connection = Column(Boolean(), nullable=False)
             connected_at = Column(DateTime, nullable=False)
 
         return AccountConnection
@@ -96,6 +98,8 @@ class AccountConnections:
             return [account_pb2.AccountConnectedAccount(
                 account_connection_id=connected_account.account_connection_id,
                 account_id=connected_account.account_id,
+                account_interested_in_connection=connected_account.account_interested_in_connection,
+                connected_account_interested_in_connection=connected_account.connected_account_interested_in_connection,
                 connected_at=format_datetime_to_timestamp(connected_account.connected_at)
             ) for connected_account in all_connected_account]
 
@@ -107,6 +111,8 @@ class AccountConnections:
             return account_pb2.AccountConnectedAccount(
                 account_connection_id=connected_account.account_connection_id,
                 account_id=connected_account.account_id,
+                account_interested_in_connection=connected_account.account_interested_in_connection,
+                connected_account_interested_in_connection=connected_account.connected_account_interested_in_connection,
                 connected_at=format_datetime_to_timestamp(connected_account.connected_at)
             )
 
@@ -127,11 +133,13 @@ class AccountConnections:
             account_connection_exists = session.query(statement.exists()).scalar()
             return account_connection_exists
 
-    def add_new_account_connection(self, account_connection_id: str, account_id: str):
+    def add_new_account_connection(self, account_connection_id: str, account_id: str, self_connecting: bool):
         statement = AccountConnectionModels.metadata.tables[
             self.account_connection_model_name].insert().values(
             account_connection_id=account_connection_id,
             account_id=account_id,
+            account_interested_in_connection=self_connecting,
+            connected_account_interested_in_connection=not self_connecting,
             connected_at=format_timestamp_to_datetime(get_current_timestamp())
         )
         with DbSession.session_scope() as session:

@@ -1,3 +1,5 @@
+import logging
+
 import phonenumbers
 
 from ethos.elint.entities.generic_pb2 import ResponseMeta
@@ -17,7 +19,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
         self.session_scope = self.__class__.__name__
 
     def GetAllConnectedAccountAssistants(self, request, context):
-        print("ConnectAccountService:GetAllConnectedAccountAssistants")
+        logging.info("ConnectAccountService:GetAllConnectedAccountAssistants")
         access_done, access_message = validate_account_services_caller(request)
         meta = ResponseMeta(meta_done=access_done, meta_message=access_message)
         if access_done is False:
@@ -29,7 +31,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                 connected_account_assistants=list_of_connected_account_assistants, response_meta=meta)
 
     def IsAccountAssistantConnected(self, request, context):
-        print("ConnectAccountService:IsAccountAssistantConnected")
+        logging.info("ConnectAccountService:IsAccountAssistantConnected")
         account_connections = AccountConnections(account_id=request.account_id)
         account_assistant_connected = account_connections.is_account_assistant_connected(
             account_assistant_connection_id=request.connected_account_assistant.account_assistant_connection_id,
@@ -41,7 +43,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
             return ResponseMeta(meta_done=account_assistant_connected, meta_message="Account Assistant connected.")
 
     def GetAllConnectedAccounts(self, request, context):
-        print("ConnectAccountService:GetAllConnectedAccounts")
+        logging.info("ConnectAccountService:GetAllConnectedAccounts")
         access_done, access_message = validate_account_services_caller(request)
         if access_done is False:
             return ConnectedAccounts(
@@ -54,7 +56,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                 response_meta=ResponseMeta(meta_done=access_done, meta_message=access_message))
 
     def IsAccountConnected(self, request, context):
-        print("ConnectAccountService:SyncAccountConnections")
+        logging.info("ConnectAccountService:IsAccountConnected")
         access_done, access_message = validate_account_services_caller(request.access_auth_details)
         response_meta = ResponseMeta(meta_done=access_done, meta_message=access_message)
         if access_done is False:
@@ -71,7 +73,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                 return ResponseMeta(meta_done=False, meta_message="Account not connected.")
 
     def ConnectAccount(self, request, context):
-        print("ConnectAccountService:ConnectAccount")
+        logging.info("ConnectAccountService:ConnectAccount")
         access_done, access_message = validate_account_services_caller(request.access_auth_details)
         response_meta = ResponseMeta(meta_done=access_done, meta_message=access_message)
         if access_done is False:
@@ -91,10 +93,13 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                 new_connection_id = gen_uuid()
                 account_connections.add_new_account_connection(
                     account_connection_id=new_connection_id,
-                    account_id=request.connecting_account_id)
+                    account_id=request.connecting_account_id,
+                    self_connecting=True
+                )
                 connecting_account_connections.add_new_account_connection(
                     account_connection_id=new_connection_id,
-                    account_id=request.access_auth_details.account.account_id
+                    account_id=request.access_auth_details.account.account_id,
+                    self_connecting=False
                 )
                 connected_account = account_connections.get_connected_account(account_id=request.connecting_account_id)
                 return ConnectAccountResponse(
@@ -103,7 +108,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                 )
 
     def SyncAccountConnections(self, request, context):
-        print("ConnectAccountService:SyncAccountConnections")
+        logging.info("ConnectAccountService:SyncAccountConnections")
         access_done, access_message = validate_account_services_caller(request.access_auth_details)
         response_meta = ResponseMeta(meta_done=access_done, meta_message=access_message)
         if access_done is False:
@@ -141,10 +146,10 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                                     else:
                                         pass
                                 except AttributeError:
-                                    print(f"Attribute Error: {account_mobile_number}")
+                                    logging.error(f"Attribute Error: {account_mobile_number}")
 
                             else:
                                 pass
                     except phonenumbers.phonenumberutil.NumberParseException:
-                        print("Not a valid number")
+                        logging.exception("Not a valid number")
             return SyncAccountConnectionsResponse(connected_accounts=connected_accounts, response_meta=response_meta)
