@@ -86,7 +86,6 @@ def update_account_devices(account_id: str, account_device_os: int, account_devi
         existing_account_devices.account_device_os = account_device_os
         existing_account_devices.account_device_token = account_device_token
         existing_account_devices.account_device_token_accessed_at = account_device_token_accessed_at
-        session.flush()
         session.commit()
     return
 
