@@ -12,6 +12,8 @@ from ethos.elint.services.product.identity.account.connect_account_pb2_grpc impo
 from ethos.elint.services.product.identity.account.discover_account_pb2_grpc import DiscoverAccountServiceStub
 from ethos.elint.services.product.identity.account_assistant.access_account_assistant_pb2_grpc import \
     AccessAccountAssistantServiceStub
+from ethos.elint.services.product.identity.account_assistant.connect_account_assistant_pb2_grpc import \
+    ConnectAccountAssistantServiceStub
 from ethos.elint.services.product.identity.account_assistant.create_account_assistant_pb2_grpc import \
     CreateAccountAssistantServiceStub
 from ethos.elint.services.product.identity.account_assistant.discover_account_assistant_pb2_grpc import \
@@ -83,6 +85,8 @@ class Loader(object):
         Registry.register_service('create_account_assistant_service_stub', create_account_assistant_service_stub)
         discover_account_assistant_service_stub = DiscoverAccountAssistantServiceStub(identity_common_channel)
         Registry.register_service('discover_account_assistant_service_stub', discover_account_assistant_service_stub)
+        connect_account_assistant_service_stub = ConnectAccountAssistantServiceStub(identity_common_channel)
+        Registry.register_service('connect_account_assistant_service_stub', connect_account_assistant_service_stub)
 
         # ------------------------------------
         # ACTION STUBS

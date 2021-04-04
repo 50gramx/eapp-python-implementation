@@ -7,8 +7,10 @@ from ethos.elint.services.product.identity.account.connect_account_pb2 import Co
     ConnectedAccounts, SyncAccountConnectionsResponse, ConnectAccountResponse
 from ethos.elint.services.product.identity.account.connect_account_pb2_grpc import ConnectAccountServiceServicer
 from models.account_connection_models import AccountConnections
+from services_caller import account_assistant_service_caller, account_service_caller
+from services_caller.account_assistant_service_caller import account_assistant_access_token_caller
 from services_caller.account_service_caller import validate_account_services_caller, \
-    is_account_exists_with_mobile_caller, connect_account_caller
+    is_account_exists_with_mobile_caller
 from support.db_service import get_account
 from support.helper_functions import gen_uuid
 
@@ -104,6 +106,14 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     self_connecting=False
                 )
                 connected_account = account_connections.get_connected_account(account_id=request.connecting_account_id)
+                # connect with account assistant
+                _, _, account_assistant_access_auth_details = account_assistant_access_token_caller(
+                    access_auth_details=request.access_auth_details)
+                _, _, _ = account_assistant_service_caller.connect_account_caller(
+                    access_auth_details=account_assistant_access_auth_details,
+                    connecting_account_id=request.connecting_account_id
+                )
+                # done
                 return ConnectAccountResponse(
                     connected_account=connected_account,
                     response_meta=ResponseMeta(meta_done=True, meta_message="Account connected")
@@ -137,7 +147,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                             if is_account_exists_with_mobile:
                                 try:
                                     connecting_account = get_account(account_mobile_number=account_mobile_number)
-                                    is_account_connected, account_connected_message, connected_account = connect_account_caller(
+                                    is_account_connected, account_connected_message, connected_account = account_service_caller.connect_account_caller(
                                         access_auth_details=request.access_auth_details,
                                         connecting_account_id=connecting_account.account_id)
                                     if is_account_connected is True:
