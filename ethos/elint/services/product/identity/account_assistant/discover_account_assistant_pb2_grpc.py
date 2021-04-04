@@ -27,6 +27,11 @@ class DiscoverAccountAssistantServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_discover__account__assistant__pb2.GetAccountAssistantMetaByAccountIdRequest.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_discover__account__assistant__pb2.GetAccountAssistantMetaByAccountIdResponse.FromString,
                 )
+        self.GetAccountAssistantMetaByAccountAssistantId = channel.unary_unary(
+                '/elint.services.product.identity.account.assistant.DiscoverAccountAssistantService/GetAccountAssistantMetaByAccountAssistantId',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_discover__account__assistant__pb2.GetAccountAssistantMetaByAccountAssistantIdRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_discover__account__assistant__pb2.GetAccountAssistantMetaByAccountAssistantIdResponse.FromString,
+                )
 
 
 class DiscoverAccountAssistantServiceServicer(object):
@@ -45,6 +50,12 @@ class DiscoverAccountAssistantServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetAccountAssistantMetaByAccountAssistantId(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_DiscoverAccountAssistantServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -57,6 +68,11 @@ def add_DiscoverAccountAssistantServiceServicer_to_server(servicer, server):
                     servicer.GetAccountAssistantMetaByAccountId,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_discover__account__assistant__pb2.GetAccountAssistantMetaByAccountIdRequest.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_discover__account__assistant__pb2.GetAccountAssistantMetaByAccountIdResponse.SerializeToString,
+            ),
+            'GetAccountAssistantMetaByAccountAssistantId': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetAccountAssistantMetaByAccountAssistantId,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_discover__account__assistant__pb2.GetAccountAssistantMetaByAccountAssistantIdRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_discover__account__assistant__pb2.GetAccountAssistantMetaByAccountAssistantIdResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -100,5 +116,22 @@ class DiscoverAccountAssistantService(object):
         return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.assistant.DiscoverAccountAssistantService/GetAccountAssistantMetaByAccountId',
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_discover__account__assistant__pb2.GetAccountAssistantMetaByAccountIdRequest.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_discover__account__assistant__pb2.GetAccountAssistantMetaByAccountIdResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetAccountAssistantMetaByAccountAssistantId(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.assistant.DiscoverAccountAssistantService/GetAccountAssistantMetaByAccountAssistantId',
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_discover__account__assistant__pb2.GetAccountAssistantMetaByAccountAssistantIdRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_discover__account__assistant__pb2.GetAccountAssistantMetaByAccountAssistantIdResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

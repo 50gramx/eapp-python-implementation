@@ -2,6 +2,7 @@ from datetime import datetime
 
 from db_session import DbSession
 from ethos.elint.entities import account_pb2, galaxy_pb2, universe_pb2, space_pb2, account_assistant_pb2
+from ethos.elint.entities.account_assistant_pb2 import AccountAssistantMeta
 from ethos.elint.entities.space_pb2 import SpaceAccessibilityType, SpaceIsolationType, SpaceEntityType
 from models.base_models import Account, Space, Galaxy, Universe, AccountAssistant, AccountDevices, \
     AccountAssistantNameCode
@@ -246,13 +247,22 @@ def get_account_assistant(account: account_pb2.Account) -> account_assistant_pb2
         )
 
 
-def get_account_assistant_meta(account_id: str) -> (str, int, str):
+def get_account_assistant_meta(account_id: str = None, account_assistant_id: str = None) -> AccountAssistantMeta:
     with DbSession.session_scope() as session:
-        account_assistant = session.query(AccountAssistant).filter(
-            AccountAssistant.account_id == account_id
-        ).first()
-        return (account_assistant.account_assistant_id, account_assistant.account_assistant_name,
-                account_assistant.account_assistant_name_code)
+        if account_id is not None:
+            account_assistant = session.query(AccountAssistant).filter(
+                AccountAssistant.account_id == account_id
+            ).first()
+        else:
+            account_assistant = session.query(AccountAssistant).filter(
+                AccountAssistant.account_assistant_id == account_assistant_id
+            ).first()
+        return AccountAssistantMeta(
+            account_assistant_id=account_assistant.account_assistant_id,
+            account_assistant_name_code=account_assistant.account_assistant_name_code,
+            account_assistant_name=account_assistant.account_assistant_name,
+            account_id=account_assistant.account_id
+        )
 
 
 def get_account_device_token(account_id: str) -> str:

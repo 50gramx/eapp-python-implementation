@@ -26,7 +26,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\014elint.entityB\025AccountAssistantProtoP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n,ethos/elint/entities/account_assistant.proto\x12\x0c\x65lint.entity\x1a\"ethos/elint/entities/account.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x83\x02\n\x10\x41\x63\x63ountAssistant\x12\x1c\n\x14\x61\x63\x63ount_assistant_id\x18\x01 \x01(\t\x12#\n\x1b\x61\x63\x63ount_assistant_name_code\x18\x02 \x01(\x05\x12\x1e\n\x16\x61\x63\x63ount_assistant_name\x18\x03 \x01(\t\x12&\n\x07\x61\x63\x63ount\x18\x04 \x01(\x0b\x32\x15.elint.entity.Account\x12.\n\ncreated_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x34\n\x10last_assisted_at\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x87\x01\n AccountAssistantConnectedAccount\x12\x1d\n\x15\x61\x63\x63ount_connection_id\x18\x01 \x01(\t\x12\x12\n\naccount_id\x18\x02 \x01(\t\x12\x30\n\x0c\x63onnected_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xa4\x01\n)AccountAssistantConnectedAccountAssistant\x12\'\n\x1f\x61\x63\x63ount_assistant_connection_id\x18\x01 \x01(\t\x12\x1c\n\x14\x61\x63\x63ount_assistant_id\x18\x02 \x01(\t\x12\x30\n\x0c\x63onnected_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.TimestampB\'\n\x0c\x65lint.entityB\x15\x41\x63\x63ountAssistantProtoP\x01P\x01\x62\x06proto3'
+  serialized_pb=b'\n,ethos/elint/entities/account_assistant.proto\x12\x0c\x65lint.entity\x1a\"ethos/elint/entities/account.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x83\x02\n\x10\x41\x63\x63ountAssistant\x12\x1c\n\x14\x61\x63\x63ount_assistant_id\x18\x01 \x01(\t\x12#\n\x1b\x61\x63\x63ount_assistant_name_code\x18\x02 \x01(\x05\x12\x1e\n\x16\x61\x63\x63ount_assistant_name\x18\x03 \x01(\t\x12&\n\x07\x61\x63\x63ount\x18\x04 \x01(\x0b\x32\x15.elint.entity.Account\x12.\n\ncreated_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x34\n\x10last_assisted_at\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x87\x01\n AccountAssistantConnectedAccount\x12\x1d\n\x15\x61\x63\x63ount_connection_id\x18\x01 \x01(\t\x12\x12\n\naccount_id\x18\x02 \x01(\t\x12\x30\n\x0c\x63onnected_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xa4\x01\n)AccountAssistantConnectedAccountAssistant\x12\'\n\x1f\x61\x63\x63ount_assistant_connection_id\x18\x01 \x01(\t\x12\x1c\n\x14\x61\x63\x63ount_assistant_id\x18\x02 \x01(\t\x12\x30\n\x0c\x63onnected_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x8d\x01\n\x14\x41\x63\x63ountAssistantMeta\x12\x1c\n\x14\x61\x63\x63ount_assistant_id\x18\x01 \x01(\t\x12#\n\x1b\x61\x63\x63ount_assistant_name_code\x18\x02 \x01(\x05\x12\x1e\n\x16\x61\x63\x63ount_assistant_name\x18\x03 \x01(\t\x12\x12\n\naccount_id\x18\x04 \x01(\tB\'\n\x0c\x65lint.entityB\x15\x41\x63\x63ountAssistantProtoP\x01P\x01\x62\x06proto3'
   ,
   dependencies=[ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,],
   public_dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
@@ -192,6 +192,59 @@ _ACCOUNTASSISTANTCONNECTEDACCOUNTASSISTANT = _descriptor.Descriptor(
   serialized_end=696,
 )
 
+
+_ACCOUNTASSISTANTMETA = _descriptor.Descriptor(
+  name='AccountAssistantMeta',
+  full_name='elint.entity.AccountAssistantMeta',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='account_assistant_id', full_name='elint.entity.AccountAssistantMeta.account_assistant_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='account_assistant_name_code', full_name='elint.entity.AccountAssistantMeta.account_assistant_name_code', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='account_assistant_name', full_name='elint.entity.AccountAssistantMeta.account_assistant_name', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='account_id', full_name='elint.entity.AccountAssistantMeta.account_id', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=699,
+  serialized_end=840,
+)
+
 _ACCOUNTASSISTANT.fields_by_name['account'].message_type = ethos_dot_elint_dot_entities_dot_account__pb2._ACCOUNT
 _ACCOUNTASSISTANT.fields_by_name['created_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _ACCOUNTASSISTANT.fields_by_name['last_assisted_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -200,6 +253,7 @@ _ACCOUNTASSISTANTCONNECTEDACCOUNTASSISTANT.fields_by_name['connected_at'].messag
 DESCRIPTOR.message_types_by_name['AccountAssistant'] = _ACCOUNTASSISTANT
 DESCRIPTOR.message_types_by_name['AccountAssistantConnectedAccount'] = _ACCOUNTASSISTANTCONNECTEDACCOUNT
 DESCRIPTOR.message_types_by_name['AccountAssistantConnectedAccountAssistant'] = _ACCOUNTASSISTANTCONNECTEDACCOUNTASSISTANT
+DESCRIPTOR.message_types_by_name['AccountAssistantMeta'] = _ACCOUNTASSISTANTMETA
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 AccountAssistant = _reflection.GeneratedProtocolMessageType('AccountAssistant', (_message.Message,), {
@@ -222,6 +276,13 @@ AccountAssistantConnectedAccountAssistant = _reflection.GeneratedProtocolMessage
   # @@protoc_insertion_point(class_scope:elint.entity.AccountAssistantConnectedAccountAssistant)
   })
 _sym_db.RegisterMessage(AccountAssistantConnectedAccountAssistant)
+
+AccountAssistantMeta = _reflection.GeneratedProtocolMessageType('AccountAssistantMeta', (_message.Message,), {
+  'DESCRIPTOR' : _ACCOUNTASSISTANTMETA,
+  '__module__' : 'ethos.elint.entities.account_assistant_pb2'
+  # @@protoc_insertion_point(class_scope:elint.entity.AccountAssistantMeta)
+  })
+_sym_db.RegisterMessage(AccountAssistantMeta)
 
 
 DESCRIPTOR._options = None
