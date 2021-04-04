@@ -1,3 +1,5 @@
+import logging
+
 from google.protobuf.text_format import MessageToString
 
 from ethos.elint.entities.generic_pb2 import ResponseMeta
@@ -11,12 +13,12 @@ class NotifyAccountService(NotifyAccountServiceServicer):
         self.session_scope = self.__class__.__name__
 
     def NewReceivedMessageFromAccountAssistant(self, request, context):
-        print("NotifyAccountService:NewReceivedMessageFromAccountAssistant")
+        logging.info("NotifyAccountService:NewReceivedMessageFromAccountAssistant")
         ios_new_messages_payload = {
             'aps': {
-                'alert': "Received new messages",
+                'alert': "You've received new messages from account assistants",
                 'sound': "default",
-                'badge': 1,
+                'badge': 0,
             },
             'account_id': request.account_id,
             'connected_account_assistant': MessageToString(request.connected_account_assistant, as_one_line=True),
@@ -25,8 +27,29 @@ class NotifyAccountService(NotifyAccountServiceServicer):
         try:
             apns = ApplePushNotifications()
             apns.notify_account(account_id=request.account_id, payload=ios_new_messages_payload)
-            print("DEBUG:: NOTIFICATION SENT")
+            logging.info("DEBUG:: NOTIFICATION SENT")
             return ResponseMeta(meta_done=True, meta_message="Notified successfully!")
         except:
-            print("DEBUG:: NOTIFICATION NOT SENT")
+            logging.info("DEBUG:: NOTIFICATION NOT SENT")
+            return ResponseMeta(meta_done=False, meta_message="Couldn't notify account!")
+
+    def NewReceivedMessageFromAccount(self, request, context):
+        logging.info("NotifyAccountService:NewReceivedMessageFromAccount")
+        ios_new_messages_payload = {
+            'aps': {
+                'alert': "You've received new messages from accounts",
+                'sound': "default",
+                'badge': 0,
+            },
+            'account_id': request.account_id,
+            'service': "NotifyAccountService",
+            'rpc': "ListenForReceivedAccountMessages"
+        }
+        try:
+            apns = ApplePushNotifications()
+            apns.notify_account(account_id=request.account_id, payload=ios_new_messages_payload)
+            logging.info("DEBUG:: NOTIFICATION SENT")
+            return ResponseMeta(meta_done=True, meta_message="Notified successfully!")
+        except:
+            logging.info("DEBUG:: NOTIFICATION NOT SENT")
             return ResponseMeta(meta_done=False, meta_message="Couldn't notify account!")

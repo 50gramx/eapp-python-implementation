@@ -20,6 +20,11 @@ class SendAccountMessageServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.MessageForAccountAssistant.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.MessageForAccountAssistantSent.FromString,
                 )
+        self.SendMessageToAccount = channel.unary_unary(
+                '/elint.services.product.conversation.message.account.SendAccountMessageService/SendMessageToAccount',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.MessageForAccount.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.MessageForAccountSent.FromString,
+                )
         self.SyncAccountAssistantSentMessages = channel.unary_stream(
                 '/elint.services.product.conversation.message.account.SendAccountMessageService/SyncAccountAssistantSentMessages',
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.SyncSentMessagesRequest.SerializeToString,
@@ -37,6 +42,12 @@ class SendAccountMessageServiceServicer(object):
     """
 
     def SendMessageToAccountAssistant(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SendMessageToAccount(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -61,6 +72,11 @@ def add_SendAccountMessageServiceServicer_to_server(servicer, server):
                     servicer.SendMessageToAccountAssistant,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.MessageForAccountAssistant.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.MessageForAccountAssistantSent.SerializeToString,
+            ),
+            'SendMessageToAccount': grpc.unary_unary_rpc_method_handler(
+                    servicer.SendMessageToAccount,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.MessageForAccount.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.MessageForAccountSent.SerializeToString,
             ),
             'SyncAccountAssistantSentMessages': grpc.unary_stream_rpc_method_handler(
                     servicer.SyncAccountAssistantSentMessages,
@@ -97,6 +113,23 @@ class SendAccountMessageService(object):
         return grpc.experimental.unary_unary(request, target, '/elint.services.product.conversation.message.account.SendAccountMessageService/SendMessageToAccountAssistant',
             ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.MessageForAccountAssistant.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.MessageForAccountAssistantSent.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SendMessageToAccount(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.conversation.message.account.SendAccountMessageService/SendMessageToAccount',
+            ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.MessageForAccount.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.MessageForAccountSent.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

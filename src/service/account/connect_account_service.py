@@ -57,20 +57,15 @@ class ConnectAccountService(ConnectAccountServiceServicer):
 
     def IsAccountConnected(self, request, context):
         logging.info("ConnectAccountService:IsAccountConnected")
-        access_done, access_message = validate_account_services_caller(request.access_auth_details)
-        response_meta = ResponseMeta(meta_done=access_done, meta_message=access_message)
-        if access_done is False:
-            return response_meta
+        account_connections = AccountConnections(account_id=request.account_id)
+        is_account_connected = account_connections.is_account_connected(
+            account_connection_id=request.connected_account.account_connection_id,
+            account_id=request.connected_account.account_id
+        )
+        if is_account_connected:
+            return ResponseMeta(meta_done=True, meta_message="Account connected.")
         else:
-            account_connections = AccountConnections(account_id=request.access_auth_details.account.account_id)
-            is_account_connected = account_connections.is_account_connected(
-                account_connection_id=request.connected_account.account_connection_id,
-                account_id=request.connected_account.account_id
-            )
-            if is_account_connected:
-                return ResponseMeta(meta_done=True, meta_message="Account connected.")
-            else:
-                return ResponseMeta(meta_done=False, meta_message="Account not connected.")
+            return ResponseMeta(meta_done=False, meta_message="Account not connected.")
 
     def ConnectAccount(self, request, context):
         logging.info("ConnectAccountService:ConnectAccount")

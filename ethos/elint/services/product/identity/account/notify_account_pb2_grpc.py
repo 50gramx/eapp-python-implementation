@@ -21,6 +21,11 @@ class NotifyAccountServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_notify__account__pb2.NewReceivedMessageFromAccountAssistantRequest.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
                 )
+        self.NewReceivedMessageFromAccount = channel.unary_unary(
+                '/elint.services.product.identity.account.NotifyAccountService/NewReceivedMessageFromAccount',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_notify__account__pb2.NewReceivedMessageFromAccountRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
+                )
 
 
 class NotifyAccountServiceServicer(object):
@@ -33,12 +38,23 @@ class NotifyAccountServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def NewReceivedMessageFromAccount(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_NotifyAccountServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'NewReceivedMessageFromAccountAssistant': grpc.unary_unary_rpc_method_handler(
                     servicer.NewReceivedMessageFromAccountAssistant,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_notify__account__pb2.NewReceivedMessageFromAccountAssistantRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.SerializeToString,
+            ),
+            'NewReceivedMessageFromAccount': grpc.unary_unary_rpc_method_handler(
+                    servicer.NewReceivedMessageFromAccount,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_notify__account__pb2.NewReceivedMessageFromAccountRequest.FromString,
                     response_serializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.SerializeToString,
             ),
     }
@@ -65,6 +81,23 @@ class NotifyAccountService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.NotifyAccountService/NewReceivedMessageFromAccountAssistant',
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_notify__account__pb2.NewReceivedMessageFromAccountAssistantRequest.SerializeToString,
+            ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def NewReceivedMessageFromAccount(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.NotifyAccountService/NewReceivedMessageFromAccount',
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_notify__account__pb2.NewReceivedMessageFromAccountRequest.SerializeToString,
             ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
