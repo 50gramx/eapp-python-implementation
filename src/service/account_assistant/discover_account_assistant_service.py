@@ -34,7 +34,7 @@ class DiscoverAccountAssistantService(DiscoverAccountAssistantServiceServicer):
 
     def GetAccountAssistantMetaByAccountAssistantId(self, request, context):
         logging.info("DiscoverAccountAssistantService:GetAccountAssistantMetaByAccountId")
-        validation_done, validate_message = validate_account_services_caller(request)
+        validation_done, validate_message = validate_account_services_caller(request.access_auth_details)
         response_meta = ResponseMeta(meta_done=validation_done, meta_message=validate_message)
         if validation_done is False:
             return GetAccountAssistantMetaByAccountAssistantIdResponse(response_meta=response_meta)
