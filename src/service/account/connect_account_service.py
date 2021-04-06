@@ -82,7 +82,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
             origin_region_code = phonenumbers.region_code_for_country_code(
                 int(origin_country_code.replace('+', '')))
             account_mobiles = []
-            for mn in set(request.connecting_account_mobile_numbers):
+            for mn in request.connecting_account_mobile_numbers:
                 try:
                     parsed_mn = phonenumbers.parse(mn, origin_region_code)
                     account_mobiles.append(AccountMobile(
@@ -159,12 +159,16 @@ class ConnectAccountService(ConnectAccountServiceServicer):
             ).account_mobiles_exists
             account_mobile_number = request.access_auth_details.account.account_mobile_number
             connected_accounts = []
+            already_connected = []
             for account_mobile_exists in account_mobiles_exists:
-                if account_mobile_exists.account_exists and account_mobile_exists.account_mobile_number != account_mobile_number:
+                if account_mobile_exists.account_exists and (
+                        account_mobile_exists.account_mobile_number != account_mobile_number) and (
+                        account_mobile_exists.account_mobile_number not in already_connected):
                     connecting_account = get_account(account_mobile_number=account_mobile_exists.account_mobile_number)
                     is_account_connected, _, connected_account = account_service_caller.connect_account_caller(
                         access_auth_details=request.access_auth_details,
                         connecting_account_id=connecting_account.account_id)
+                    already_connected.append(account_mobile_exists.account_mobile_number)
                     if is_account_connected:
                         connected_accounts.append(
                             SyncAccountConnectionsResponse.ConnectedAccount(

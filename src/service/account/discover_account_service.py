@@ -55,7 +55,7 @@ class DiscoverAccountService(DiscoverAccountServiceServicer):
                 return ResponseMeta(meta_done=False, meta_message="Account doesn't exists.")
 
     def AreAccountsExistingWithMobile(self, request, context):
-        logging.info("DiscoverAccountService:IsAccountExistsWithMobile")
+        logging.info("DiscoverAccountService:AreAccountsExistingWithMobile")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
         response_meta = ResponseMeta(meta_done=validation_done, meta_message=validation_message)
         if validation_done is False:
