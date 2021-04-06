@@ -2,7 +2,8 @@ import logging
 
 from ethos.elint.entities.account_assistant_pb2 import AccountAssistant
 from ethos.elint.entities.generic_pb2 import ResponseMeta
-from ethos.elint.services.product.identity.account.discover_account_pb2 import GetAccountByIdResponse
+from ethos.elint.services.product.identity.account.discover_account_pb2 import GetAccountByIdResponse, \
+    AreAccountsExistingWithMobileResponse
 from ethos.elint.services.product.identity.account.discover_account_pb2_grpc import DiscoverAccountServiceServicer
 from services_caller.account_assistant_service_caller import get_account_assistant_by_account_caller
 from services_caller.account_service_caller import validate_account_services_caller
@@ -52,3 +53,23 @@ class DiscoverAccountService(DiscoverAccountServiceServicer):
                 return ResponseMeta(meta_done=True, meta_message="Account exists.")
             else:
                 return ResponseMeta(meta_done=False, meta_message="Account doesn't exists.")
+
+    def AreAccountsExistingWithMobile(self, request, context):
+        logging.info("DiscoverAccountService:IsAccountExistsWithMobile")
+        validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
+        response_meta = ResponseMeta(meta_done=validation_done, meta_message=validation_message)
+        if validation_done is False:
+            return AreAccountsExistingWithMobileResponse(response_meta=response_meta)
+        else:
+            return AreAccountsExistingWithMobileResponse(
+                account_mobiles_exists=[
+                    AreAccountsExistingWithMobileResponse.AccountMobileExists(
+                        account_country_code=account_mobile.account_country_code,
+                        account_mobile_number=account_mobile.account_mobile_number,
+                        account_exists=is_existing_account_mobile(
+                            account_country_code=account_mobile.account_country_code,
+                            account_mobile_number=account_mobile.account_mobile_number)
+                    ) for account_mobile in request.account_mobiles
+                ],
+                response_meta=response_meta
+            )

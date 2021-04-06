@@ -35,7 +35,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\'elint.services.product.identity.accountB\024DiscoverAccountProtoP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nDethos/elint/services/product/identity/account/discover_account.proto\x12\'elint.services.product.identity.account\x1a\"ethos/elint/entities/account.proto\x1a,ethos/elint/entities/account_assistant.proto\x1a\"ethos/elint/entities/generic.proto\x1a\x42\x65thos/elint/services/product/identity/account/access_account.proto\"+\n\x15GetAccountByIdRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\"s\n\x16GetAccountByIdResponse\x12&\n\x07\x61\x63\x63ount\x18\x01 \x01(\x0b\x32\x15.elint.entity.Account\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xed\x01\n\x1fGetAccountProfilePictureRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12/\n\x0cpicture_size\x18\x02 \x01(\x0e\x32\x19.elint.entity.PictureSize\x12\x31\n\rpicture_scale\x18\x03 \x01(\x0e\x32\x1a.elint.entity.PictureScale\"i\n GetAccountProfilePictureResponse\x12\x12\n\nimage_data\x18\x01 \x01(\x0c\x12\x31\n\rresponse_meta\x18\x03 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xc7\x01\n IsAccountExistsWithMobileRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x1c\n\x14\x61\x63\x63ount_country_code\x18\x02 \x01(\t\x12\x1d\n\x15\x61\x63\x63ount_mobile_number\x18\x03 \x01(\t2\xf0\x04\n\x16\x44iscoverAccountService\x12\x93\x01\n\x0eGetAccountById\x12>.elint.services.product.identity.account.GetAccountByIdRequest\x1a?.elint.services.product.identity.account.GetAccountByIdResponse\"\x00\x12\xb3\x01\n\x18GetAccountProfilePicture\x12H.elint.services.product.identity.account.GetAccountProfilePictureRequest\x1aI.elint.services.product.identity.account.GetAccountProfilePictureResponse\"\x00\x30\x01\x12\x82\x01\n\x13GetAccountAssistant\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x1e.elint.entity.AccountAssistant\"\x00\x12\x84\x01\n\x19IsAccountExistsWithMobile\x12I.elint.services.product.identity.account.IsAccountExistsWithMobileRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x42\x41\n\'elint.services.product.identity.accountB\x14\x44iscoverAccountProtoP\x01\x62\x06proto3'
+  serialized_pb=b'\nDethos/elint/services/product/identity/account/discover_account.proto\x12\'elint.services.product.identity.account\x1a\"ethos/elint/entities/account.proto\x1a,ethos/elint/entities/account_assistant.proto\x1a\"ethos/elint/entities/generic.proto\x1a\x42\x65thos/elint/services/product/identity/account/access_account.proto\"+\n\x15GetAccountByIdRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\"s\n\x16GetAccountByIdResponse\x12&\n\x07\x61\x63\x63ount\x18\x01 \x01(\x0b\x32\x15.elint.entity.Account\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xed\x01\n\x1fGetAccountProfilePictureRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12/\n\x0cpicture_size\x18\x02 \x01(\x0e\x32\x19.elint.entity.PictureSize\x12\x31\n\rpicture_scale\x18\x03 \x01(\x0e\x32\x1a.elint.entity.PictureScale\"i\n GetAccountProfilePictureResponse\x12\x12\n\nimage_data\x18\x01 \x01(\x0c\x12\x31\n\rresponse_meta\x18\x03 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xc7\x01\n IsAccountExistsWithMobileRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x1c\n\x14\x61\x63\x63ount_country_code\x18\x02 \x01(\t\x12\x1d\n\x15\x61\x63\x63ount_mobile_number\x18\x03 \x01(\t\"\xc4\x01\n$AreAccountsExistingWithMobileRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x34\n\x0f\x61\x63\x63ount_mobiles\x18\x02 \x03(\x0b\x32\x1b.elint.entity.AccountMobile\"\xcb\x02\n%AreAccountsExistingWithMobileResponse\x12\x82\x01\n\x16\x61\x63\x63ount_mobiles_exists\x18\x01 \x03(\x0b\x32\x62.elint.services.product.identity.account.AreAccountsExistingWithMobileResponse.AccountMobileExists\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\x1aj\n\x13\x41\x63\x63ountMobileExists\x12\x1c\n\x14\x61\x63\x63ount_country_code\x18\x01 \x01(\t\x12\x1d\n\x15\x61\x63\x63ount_mobile_number\x18\x02 \x01(\t\x12\x16\n\x0e\x61\x63\x63ount_exists\x18\x03 \x01(\x08\x32\xb3\x06\n\x16\x44iscoverAccountService\x12\x93\x01\n\x0eGetAccountById\x12>.elint.services.product.identity.account.GetAccountByIdRequest\x1a?.elint.services.product.identity.account.GetAccountByIdResponse\"\x00\x12\xb3\x01\n\x18GetAccountProfilePicture\x12H.elint.services.product.identity.account.GetAccountProfilePictureRequest\x1aI.elint.services.product.identity.account.GetAccountProfilePictureResponse\"\x00\x30\x01\x12\x82\x01\n\x13GetAccountAssistant\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x1e.elint.entity.AccountAssistant\"\x00\x12\x84\x01\n\x19IsAccountExistsWithMobile\x12I.elint.services.product.identity.account.IsAccountExistsWithMobileRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\xc0\x01\n\x1d\x41reAccountsExistingWithMobile\x12M.elint.services.product.identity.account.AreAccountsExistingWithMobileRequest\x1aN.elint.services.product.identity.account.AreAccountsExistingWithMobileResponse\"\x00\x42\x41\n\'elint.services.product.identity.accountB\x14\x44iscoverAccountProtoP\x01\x62\x06proto3'
   ,
   dependencies=[ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_account__assistant__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.DESCRIPTOR,])
 
@@ -243,6 +243,129 @@ _ISACCOUNTEXISTSWITHMOBILEREQUEST = _descriptor.Descriptor(
   serialized_end=1008,
 )
 
+
+_AREACCOUNTSEXISTINGWITHMOBILEREQUEST = _descriptor.Descriptor(
+  name='AreAccountsExistingWithMobileRequest',
+  full_name='elint.services.product.identity.account.AreAccountsExistingWithMobileRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='access_auth_details', full_name='elint.services.product.identity.account.AreAccountsExistingWithMobileRequest.access_auth_details', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='account_mobiles', full_name='elint.services.product.identity.account.AreAccountsExistingWithMobileRequest.account_mobiles', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1011,
+  serialized_end=1207,
+)
+
+
+_AREACCOUNTSEXISTINGWITHMOBILERESPONSE_ACCOUNTMOBILEEXISTS = _descriptor.Descriptor(
+  name='AccountMobileExists',
+  full_name='elint.services.product.identity.account.AreAccountsExistingWithMobileResponse.AccountMobileExists',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='account_country_code', full_name='elint.services.product.identity.account.AreAccountsExistingWithMobileResponse.AccountMobileExists.account_country_code', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='account_mobile_number', full_name='elint.services.product.identity.account.AreAccountsExistingWithMobileResponse.AccountMobileExists.account_mobile_number', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='account_exists', full_name='elint.services.product.identity.account.AreAccountsExistingWithMobileResponse.AccountMobileExists.account_exists', index=2,
+      number=3, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1435,
+  serialized_end=1541,
+)
+
+_AREACCOUNTSEXISTINGWITHMOBILERESPONSE = _descriptor.Descriptor(
+  name='AreAccountsExistingWithMobileResponse',
+  full_name='elint.services.product.identity.account.AreAccountsExistingWithMobileResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='account_mobiles_exists', full_name='elint.services.product.identity.account.AreAccountsExistingWithMobileResponse.account_mobiles_exists', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='response_meta', full_name='elint.services.product.identity.account.AreAccountsExistingWithMobileResponse.response_meta', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[_AREACCOUNTSEXISTINGWITHMOBILERESPONSE_ACCOUNTMOBILEEXISTS, ],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1210,
+  serialized_end=1541,
+)
+
 _GETACCOUNTBYIDRESPONSE.fields_by_name['account'].message_type = ethos_dot_elint_dot_entities_dot_account__pb2._ACCOUNT
 _GETACCOUNTBYIDRESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
 _GETACCOUNTPROFILEPICTUREREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS
@@ -250,11 +373,18 @@ _GETACCOUNTPROFILEPICTUREREQUEST.fields_by_name['picture_size'].enum_type = etho
 _GETACCOUNTPROFILEPICTUREREQUEST.fields_by_name['picture_scale'].enum_type = ethos_dot_elint_dot_entities_dot_generic__pb2._PICTURESCALE
 _GETACCOUNTPROFILEPICTURERESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
 _ISACCOUNTEXISTSWITHMOBILEREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS
+_AREACCOUNTSEXISTINGWITHMOBILEREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS
+_AREACCOUNTSEXISTINGWITHMOBILEREQUEST.fields_by_name['account_mobiles'].message_type = ethos_dot_elint_dot_entities_dot_account__pb2._ACCOUNTMOBILE
+_AREACCOUNTSEXISTINGWITHMOBILERESPONSE_ACCOUNTMOBILEEXISTS.containing_type = _AREACCOUNTSEXISTINGWITHMOBILERESPONSE
+_AREACCOUNTSEXISTINGWITHMOBILERESPONSE.fields_by_name['account_mobiles_exists'].message_type = _AREACCOUNTSEXISTINGWITHMOBILERESPONSE_ACCOUNTMOBILEEXISTS
+_AREACCOUNTSEXISTINGWITHMOBILERESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
 DESCRIPTOR.message_types_by_name['GetAccountByIdRequest'] = _GETACCOUNTBYIDREQUEST
 DESCRIPTOR.message_types_by_name['GetAccountByIdResponse'] = _GETACCOUNTBYIDRESPONSE
 DESCRIPTOR.message_types_by_name['GetAccountProfilePictureRequest'] = _GETACCOUNTPROFILEPICTUREREQUEST
 DESCRIPTOR.message_types_by_name['GetAccountProfilePictureResponse'] = _GETACCOUNTPROFILEPICTURERESPONSE
 DESCRIPTOR.message_types_by_name['IsAccountExistsWithMobileRequest'] = _ISACCOUNTEXISTSWITHMOBILEREQUEST
+DESCRIPTOR.message_types_by_name['AreAccountsExistingWithMobileRequest'] = _AREACCOUNTSEXISTINGWITHMOBILEREQUEST
+DESCRIPTOR.message_types_by_name['AreAccountsExistingWithMobileResponse'] = _AREACCOUNTSEXISTINGWITHMOBILERESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 GetAccountByIdRequest = _reflection.GeneratedProtocolMessageType('GetAccountByIdRequest', (_message.Message,), {
@@ -292,6 +422,28 @@ IsAccountExistsWithMobileRequest = _reflection.GeneratedProtocolMessageType('IsA
   })
 _sym_db.RegisterMessage(IsAccountExistsWithMobileRequest)
 
+AreAccountsExistingWithMobileRequest = _reflection.GeneratedProtocolMessageType('AreAccountsExistingWithMobileRequest', (_message.Message,), {
+  'DESCRIPTOR' : _AREACCOUNTSEXISTINGWITHMOBILEREQUEST,
+  '__module__' : 'ethos.elint.services.product.identity.account.discover_account_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.identity.account.AreAccountsExistingWithMobileRequest)
+  })
+_sym_db.RegisterMessage(AreAccountsExistingWithMobileRequest)
+
+AreAccountsExistingWithMobileResponse = _reflection.GeneratedProtocolMessageType('AreAccountsExistingWithMobileResponse', (_message.Message,), {
+
+  'AccountMobileExists' : _reflection.GeneratedProtocolMessageType('AccountMobileExists', (_message.Message,), {
+    'DESCRIPTOR' : _AREACCOUNTSEXISTINGWITHMOBILERESPONSE_ACCOUNTMOBILEEXISTS,
+    '__module__' : 'ethos.elint.services.product.identity.account.discover_account_pb2'
+    # @@protoc_insertion_point(class_scope:elint.services.product.identity.account.AreAccountsExistingWithMobileResponse.AccountMobileExists)
+    })
+  ,
+  'DESCRIPTOR' : _AREACCOUNTSEXISTINGWITHMOBILERESPONSE,
+  '__module__' : 'ethos.elint.services.product.identity.account.discover_account_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.identity.account.AreAccountsExistingWithMobileResponse)
+  })
+_sym_db.RegisterMessage(AreAccountsExistingWithMobileResponse)
+_sym_db.RegisterMessage(AreAccountsExistingWithMobileResponse.AccountMobileExists)
+
 
 DESCRIPTOR._options = None
 
@@ -302,8 +454,8 @@ _DISCOVERACCOUNTSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1011,
-  serialized_end=1635,
+  serialized_start=1544,
+  serialized_end=2363,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetAccountById',
@@ -342,6 +494,16 @@ _DISCOVERACCOUNTSERVICE = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_ISACCOUNTEXISTSWITHMOBILEREQUEST,
     output_type=ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='AreAccountsExistingWithMobile',
+    full_name='elint.services.product.identity.account.DiscoverAccountService.AreAccountsExistingWithMobile',
+    index=4,
+    containing_service=None,
+    input_type=_AREACCOUNTSEXISTINGWITHMOBILEREQUEST,
+    output_type=_AREACCOUNTSEXISTINGWITHMOBILERESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
