@@ -112,6 +112,13 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                                                                               is_interested=True)
                     connecting_account_connections.update_connected_account_interest_in_connection(
                         account_id=request.access_auth_details.account.account_id, is_interested=True)
+                    # connect with account assistant
+                    _, _, account_assistant_access_auth_details = account_assistant_access_token_caller(
+                        access_auth_details=request.access_auth_details)
+                    _, _, _ = account_assistant_service_caller.connect_account_caller(
+                        access_auth_details=account_assistant_access_auth_details,
+                        connecting_account_id=request.connecting_account_id
+                    )
                 connected_account = account_connections.get_connected_account(
                     account_id=request.connecting_account_id)
                 return ConnectAccountResponse(
