@@ -3,7 +3,7 @@ import logging
 import phonenumbers
 
 from application_context import ApplicationContext
-from ethos.elint.entities.account_pb2 import AccountMobile
+from ethos.elint.entities.account_pb2 import AccountMobile, AccountConnectedAccount
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account.connect_account_pb2 import ConnectedAccountAssistants, \
     ConnectedAccounts, SyncAccountConnectionsResponse, ConnectAccountResponse, ParseAccountMobilesResponse
@@ -185,3 +185,13 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                                 )
                             ),
                             response_meta=response_meta)
+                else:
+                    yield SyncAccountConnectionsResponse(
+                        connected_account=SyncAccountConnectionsResponse.ConnectedAccount(
+                            connected_account=AccountConnectedAccount(),
+                            connected_account_mobile=AccountMobile(
+                                account_country_code=account_mobile_exists.account_country_code,
+                                account_mobile_number=account_mobile_exists.account_mobile_number
+                            )
+                        ),
+                        response_meta=response_meta)
