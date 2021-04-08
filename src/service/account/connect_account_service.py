@@ -165,7 +165,6 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                 )
             ).account_mobiles_exists
             account_mobile_number = request.access_auth_details.account.account_mobile_number
-            connected_accounts = []
             already_connected = []
             for account_mobile_exists in account_mobiles_exists:
                 if account_mobile_exists.account_exists and (
@@ -177,13 +176,12 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                         connecting_account_id=connecting_account.account_id)
                     already_connected.append(account_mobile_exists.account_mobile_number)
                     if is_account_connected:
-                        connected_accounts.append(
-                            SyncAccountConnectionsResponse.ConnectedAccount(
+                        yield SyncAccountConnectionsResponse(
+                            connected_account=SyncAccountConnectionsResponse.ConnectedAccount(
                                 connected_account=connected_account,
                                 connected_account_mobile=AccountMobile(
                                     account_country_code=account_mobile_exists.account_country_code,
                                     account_mobile_number=account_mobile_exists.account_mobile_number
                                 )
-                            )
-                        )
-            return SyncAccountConnectionsResponse(connected_accounts=connected_accounts, response_meta=response_meta)
+                            ),
+                            response_meta=response_meta)

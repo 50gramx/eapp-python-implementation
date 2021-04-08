@@ -42,7 +42,7 @@ class ConnectAccountServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ParseAccountMobilesRequest.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ParseAccountMobilesResponse.FromString,
                 )
-        self.SyncAccountConnections = channel.unary_unary(
+        self.SyncAccountConnections = channel.unary_stream(
                 '/elint.services.product.identity.account.ConnectAccountService/SyncAccountConnections',
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.SyncAccountConnectionsRequest.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.SyncAccountConnectionsResponse.FromString,
@@ -128,7 +128,7 @@ def add_ConnectAccountServiceServicer_to_server(servicer, server):
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ParseAccountMobilesRequest.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ParseAccountMobilesResponse.SerializeToString,
             ),
-            'SyncAccountConnections': grpc.unary_unary_rpc_method_handler(
+            'SyncAccountConnections': grpc.unary_stream_rpc_method_handler(
                     servicer.SyncAccountConnections,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.SyncAccountConnectionsRequest.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.SyncAccountConnectionsResponse.SerializeToString,
@@ -245,7 +245,7 @@ class ConnectAccountService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.ConnectAccountService/SyncAccountConnections',
+        return grpc.experimental.unary_stream(request, target, '/elint.services.product.identity.account.ConnectAccountService/SyncAccountConnections',
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.SyncAccountConnectionsRequest.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.SyncAccountConnectionsResponse.FromString,
             options, channel_credentials,
