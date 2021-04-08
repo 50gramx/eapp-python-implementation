@@ -37,7 +37,7 @@ class DiscoverAccountServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.IsAccountExistsWithMobileRequest.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
                 )
-        self.AreAccountsExistingWithMobile = channel.unary_unary(
+        self.AreAccountsExistingWithMobile = channel.unary_stream(
                 '/elint.services.product.identity.account.DiscoverAccountService/AreAccountsExistingWithMobile',
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.AreAccountsExistingWithMobileRequest.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.AreAccountsExistingWithMobileResponse.FromString,
@@ -100,7 +100,7 @@ def add_DiscoverAccountServiceServicer_to_server(servicer, server):
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.IsAccountExistsWithMobileRequest.FromString,
                     response_serializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.SerializeToString,
             ),
-            'AreAccountsExistingWithMobile': grpc.unary_unary_rpc_method_handler(
+            'AreAccountsExistingWithMobile': grpc.unary_stream_rpc_method_handler(
                     servicer.AreAccountsExistingWithMobile,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.AreAccountsExistingWithMobileRequest.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.AreAccountsExistingWithMobileResponse.SerializeToString,
@@ -194,7 +194,7 @@ class DiscoverAccountService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.DiscoverAccountService/AreAccountsExistingWithMobile',
+        return grpc.experimental.unary_stream(request, target, '/elint.services.product.identity.account.DiscoverAccountService/AreAccountsExistingWithMobile',
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.AreAccountsExistingWithMobileRequest.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.AreAccountsExistingWithMobileResponse.FromString,
             options, channel_credentials,

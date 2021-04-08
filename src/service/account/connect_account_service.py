@@ -2,13 +2,11 @@ import logging
 
 import phonenumbers
 
-from application_context import ApplicationContext
-from ethos.elint.entities.account_pb2 import AccountMobile, AccountConnectedAccount
+from ethos.elint.entities.account_pb2 import AccountMobile
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account.connect_account_pb2 import ConnectedAccountAssistants, \
-    ConnectedAccounts, SyncAccountConnectionsResponse, ConnectAccountResponse, ParseAccountMobilesResponse
+    ConnectedAccounts, ConnectAccountResponse, ParseAccountMobilesResponse, SyncAccountConnectionsResponse
 from ethos.elint.services.product.identity.account.connect_account_pb2_grpc import ConnectAccountServiceServicer
-from ethos.elint.services.product.identity.account.discover_account_pb2 import AreAccountsExistingWithMobileRequest
 from models.account_connection_models import AccountConnections
 from services_caller import account_assistant_service_caller, account_service_caller
 from services_caller.account_assistant_service_caller import account_assistant_access_token_caller
@@ -152,46 +150,27 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                 )
 
     def SyncAccountConnections(self, request, context):
-        logging.info("ConnectAccountService:SyncAccountConnections")
-        access_done, access_message = validate_account_services_caller(request.access_auth_details)
-        response_meta = ResponseMeta(meta_done=access_done, meta_message=access_message)
-        if access_done is False:
-            return SyncAccountConnectionsResponse(response_meta=response_meta)
-        else:
-            account_mobiles_exists = ApplicationContext.discover_account_service_stub().AreAccountsExistingWithMobile(
-                AreAccountsExistingWithMobileRequest(
-                    access_auth_details=request.access_auth_details,
-                    account_mobiles=request.connecting_account_mobiles
+        account_country_code = request.access_auth_details.account.account_country_code
+        account_mobile_number = request.access_auth_details.account.account_mobile_number
+        if request.connecting_account_mobile.account_mobile_number != account_mobile_number and \
+                request.connecting_account_mobile.account_country_code != account_country_code:
+
+            connecting_account = get_account(
+                account_mobile_number=request.connecting_account_mobile.account_mobile_number)
+
+            is_account_connected, is_account_connected_message, connected_account = account_service_caller.connect_account_caller(
+                access_auth_details=request.access_auth_details,
+                connecting_account_id=connecting_account.account_id)
+
+            if is_account_connected:
+                yield SyncAccountConnectionsResponse(
+                    connected_account=SyncAccountConnectionsResponse.ConnectedAccount(
+                        connected_account=connected_account,
+                        connected_account_mobile=AccountMobile(
+                            account_country_code=request.connecting_account_mobile.account_country_code,
+                            account_mobile_number=request.connecting_account_mobile.account_mobile_number
+                        )
+                    ),
+                    response_meta=ResponseMeta(meta_done=is_account_connected,
+                                               meta_message=is_account_connected_message)
                 )
-            ).account_mobiles_exists
-            account_mobile_number = request.access_auth_details.account.account_mobile_number
-            already_connected = []
-            for account_mobile_exists in account_mobiles_exists:
-                if account_mobile_exists.account_exists and (
-                        account_mobile_exists.account_mobile_number != account_mobile_number) and (
-                        account_mobile_exists.account_mobile_number not in already_connected):
-                    connecting_account = get_account(account_mobile_number=account_mobile_exists.account_mobile_number)
-                    is_account_connected, _, connected_account = account_service_caller.connect_account_caller(
-                        access_auth_details=request.access_auth_details,
-                        connecting_account_id=connecting_account.account_id)
-                    already_connected.append(account_mobile_exists.account_mobile_number)
-                    if is_account_connected:
-                        yield SyncAccountConnectionsResponse(
-                            connected_account=SyncAccountConnectionsResponse.ConnectedAccount(
-                                connected_account=connected_account,
-                                connected_account_mobile=AccountMobile(
-                                    account_country_code=account_mobile_exists.account_country_code,
-                                    account_mobile_number=account_mobile_exists.account_mobile_number
-                                )
-                            ),
-                            response_meta=response_meta)
-                else:
-                    yield SyncAccountConnectionsResponse(
-                        connected_account=SyncAccountConnectionsResponse.ConnectedAccount(
-                            connected_account=AccountConnectedAccount(),
-                            connected_account_mobile=AccountMobile(
-                                account_country_code=account_mobile_exists.account_country_code,
-                                account_mobile_number=account_mobile_exists.account_mobile_number
-                            )
-                        ),
-                        response_meta=response_meta)
