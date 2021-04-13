@@ -152,54 +152,38 @@ class ConnectAccountService(ConnectAccountServiceServicer):
     def SyncAccountConnections(self, request, context):
         logging.info("ConnectAccountService:SyncAccountConnections")
         logging.info(f"{type(request)}: {request}")
-        try:
-            logging.info("trying to access request params")
-            account_country_code = request.access_auth_details.account.account_country_code
-            account_mobile_number = request.access_auth_details.account.account_mobile_number
-            logging.info("begin mobile number checking")
-            if request.connecting_account_mobile.account_mobile_number != account_mobile_number:
-                try:
-                    logging.info("trying to get account")
-                    connecting_account = get_account(
-                        account_mobile_number=request.connecting_account_mobile.account_mobile_number)
-                except Exception as e:
-                    logging.info(f"Exception:162: {e}")
-
-                try:
-                    logging.info("trying to connect account")
-                    is_account_connected, is_account_connected_message, connected_account = account_service_caller.connect_account_caller(
-                        access_auth_details=request.access_auth_details,
-                        connecting_account_id=connecting_account.account_id)
-                except Exception as e:
-                    logging.info(f"Exception:169: {e}")
-
-                try:
-                    logging.info("trying to check if account connected")
-                    if is_account_connected:
-                        return SyncAccountConnectionsResponse(
-                            connected_account=SyncAccountConnectionsResponse.ConnectedAccount(
-                                connected_account=connected_account,
-                                connected_account_mobile=AccountMobile(
-                                    account_country_code=request.connecting_account_mobile.account_country_code,
-                                    account_mobile_number=request.connecting_account_mobile.account_mobile_number
-                                )
-                            ),
-                            response_meta=ResponseMeta(meta_done=is_account_connected,
-                                                       meta_message=is_account_connected_message)
+        logging.info("trying to access request params")
+        account_mobile_number = request.access_auth_details.account.account_mobile_number
+        logging.info("begin mobile number checking")
+        if request.connecting_account_mobile.account_mobile_number != account_mobile_number:
+            logging.info("trying to get account")
+            connecting_account = get_account(
+                account_mobile_number=request.connecting_account_mobile.account_mobile_number)
+            logging.info("trying to connect account")
+            is_account_connected, is_account_connected_message, connected_account = account_service_caller.connect_account_caller(
+                access_auth_details=request.access_auth_details,
+                connecting_account_id=connecting_account.account_id)
+            logging.info("trying to check if account connected")
+            if is_account_connected:
+                return SyncAccountConnectionsResponse(
+                    connected_account=SyncAccountConnectionsResponse.ConnectedAccount(
+                        connected_account=connected_account,
+                        connected_account_mobile=AccountMobile(
+                            account_country_code=request.connecting_account_mobile.account_country_code,
+                            account_mobile_number=request.connecting_account_mobile.account_mobile_number
                         )
-                    else:
-                        return SyncAccountConnectionsResponse(
-                            response_meta=ResponseMeta(meta_done=is_account_connected,
-                                                       meta_message=is_account_connected_message)
-                        )
-                except Exception as e:
-                    logging.info(f"Exception:185 {e}")
-                    return SyncAccountConnectionsResponse()
+                    ),
+                    response_meta=ResponseMeta(meta_done=is_account_connected,
+                                               meta_message=is_account_connected_message)
+                )
             else:
                 return SyncAccountConnectionsResponse(
-                    response_meta=ResponseMeta(meta_done=False,
-                                               meta_message="Account Syncing is self account")
+                    response_meta=ResponseMeta(meta_done=is_account_connected,
+                                               meta_message=is_account_connected_message)
                 )
-        except Exception as e:
-            logging.info(f"Exception:189 {e}")
-            return SyncAccountConnectionsResponse()
+        else:
+            return SyncAccountConnectionsResponse(
+                response_meta=ResponseMeta(
+                    meta_done=False,
+                    meta_message="Account Syncing is self account")
+            )
