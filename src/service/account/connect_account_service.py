@@ -151,27 +151,40 @@ class ConnectAccountService(ConnectAccountServiceServicer):
 
     def SyncAccountConnections(self, request, context):
         logging.info("ConnectAccountService:SyncAccountConnections")
-        account_country_code = request.access_auth_details.account.account_country_code
-        account_mobile_number = request.access_auth_details.account.account_mobile_number
-        if request.connecting_account_mobile.account_mobile_number != account_mobile_number and \
-                request.connecting_account_mobile.account_country_code != account_country_code:
+        try:
+            account_country_code = request.access_auth_details.account.account_country_code
+            account_mobile_number = request.access_auth_details.account.account_mobile_number
+            if request.connecting_account_mobile.account_mobile_number != account_mobile_number and \
+                    request.connecting_account_mobile.account_country_code != account_country_code:
+                try:
+                    connecting_account = get_account(
+                        account_mobile_number=request.connecting_account_mobile.account_mobile_number)
+                except Exception as e:
+                    print(f"Exception:162: {e}")
 
-            connecting_account = get_account(
-                account_mobile_number=request.connecting_account_mobile.account_mobile_number)
+                try:
+                    is_account_connected, is_account_connected_message, connected_account = account_service_caller.connect_account_caller(
+                        access_auth_details=request.access_auth_details,
+                        connecting_account_id=connecting_account.account_id)
+                except Exception as e:
+                    print(f"Exception:169: {e}")
 
-            is_account_connected, is_account_connected_message, connected_account = account_service_caller.connect_account_caller(
-                access_auth_details=request.access_auth_details,
-                connecting_account_id=connecting_account.account_id)
-
-            if is_account_connected:
-                return SyncAccountConnectionsResponse(
-                    connected_account=SyncAccountConnectionsResponse.ConnectedAccount(
-                        connected_account=connected_account,
-                        connected_account_mobile=AccountMobile(
-                            account_country_code=request.connecting_account_mobile.account_country_code,
-                            account_mobile_number=request.connecting_account_mobile.account_mobile_number
+                try:
+                    if is_account_connected:
+                        return SyncAccountConnectionsResponse(
+                            connected_account=SyncAccountConnectionsResponse.ConnectedAccount(
+                                connected_account=connected_account,
+                                connected_account_mobile=AccountMobile(
+                                    account_country_code=request.connecting_account_mobile.account_country_code,
+                                    account_mobile_number=request.connecting_account_mobile.account_mobile_number
+                                )
+                            ),
+                            response_meta=ResponseMeta(meta_done=is_account_connected,
+                                                       meta_message=is_account_connected_message)
                         )
-                    ),
-                    response_meta=ResponseMeta(meta_done=is_account_connected,
-                                               meta_message=is_account_connected_message)
-                )
+                except Exception as e:
+                    print(f"Exception:185 {e}")
+                    return SyncAccountConnectionsResponse()
+        except Exception as e:
+            print(f"Exception:189 {e}")
+            return SyncAccountConnectionsResponse()
