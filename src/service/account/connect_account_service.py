@@ -188,6 +188,11 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                             response_meta=ResponseMeta(meta_done=is_account_connected,
                                                        meta_message=is_account_connected_message)
                         )
+                    else:
+                        return SyncAccountConnectionsResponse(
+                            response_meta=ResponseMeta(meta_done=is_account_connected,
+                                                       meta_message=is_account_connected_message)
+                        )
                 except Exception as e:
                     logging.info(f"Exception:185 {e}")
                     return SyncAccountConnectionsResponse()
