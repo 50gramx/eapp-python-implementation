@@ -191,6 +191,11 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                 except Exception as e:
                     logging.info(f"Exception:185 {e}")
                     return SyncAccountConnectionsResponse()
+            else:
+                return SyncAccountConnectionsResponse(
+                    response_meta=ResponseMeta(meta_done=False,
+                                               meta_message="Account Syncing is self account")
+                )
         except Exception as e:
             logging.info(f"Exception:189 {e}")
             return SyncAccountConnectionsResponse()
