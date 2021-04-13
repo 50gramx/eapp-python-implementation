@@ -150,6 +150,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                 )
 
     def SyncAccountConnections(self, request, context):
+        logging.info("ConnectAccountService:SyncAccountConnections")
         account_country_code = request.access_auth_details.account.account_country_code
         account_mobile_number = request.access_auth_details.account.account_mobile_number
         if request.connecting_account_mobile.account_mobile_number != account_mobile_number and \
@@ -163,7 +164,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                 connecting_account_id=connecting_account.account_id)
 
             if is_account_connected:
-                yield SyncAccountConnectionsResponse(
+                return SyncAccountConnectionsResponse(
                     connected_account=SyncAccountConnectionsResponse.ConnectedAccount(
                         connected_account=connected_account,
                         connected_account_mobile=AccountMobile(
