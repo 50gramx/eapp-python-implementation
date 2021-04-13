@@ -157,8 +157,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
             account_country_code = request.access_auth_details.account.account_country_code
             account_mobile_number = request.access_auth_details.account.account_mobile_number
             logging.info("begin mobile number checking")
-            if request.connecting_account_mobile.account_mobile_number != account_mobile_number and \
-                    request.connecting_account_mobile.account_country_code != account_country_code:
+            if request.connecting_account_mobile.account_mobile_number != account_mobile_number:
                 try:
                     logging.info("trying to get account")
                     connecting_account = get_account(
