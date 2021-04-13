@@ -3,6 +3,7 @@
 import grpc
 
 from ethos.elint.services.product.conversation.message.account import send_account_message_pb2 as ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2
+from ethos.elint.services.product.identity.account import access_account_pb2 as ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2
 
 
 class SendAccountMessageServiceStub(object):
@@ -25,15 +26,20 @@ class SendAccountMessageServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.MessageForAccount.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.MessageForAccountSent.FromString,
                 )
+        self.SendSpeedMessageToAccount = channel.stream_stream(
+                '/elint.services.product.conversation.message.account.SendAccountMessageService/SendSpeedMessageToAccount',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.MessageForAccount.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.FullMessageForAccountSent.FromString,
+                )
         self.SyncAccountAssistantSentMessages = channel.unary_stream(
                 '/elint.services.product.conversation.message.account.SendAccountMessageService/SyncAccountAssistantSentMessages',
-                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.SyncSentMessagesRequest.SerializeToString,
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.AccountAssistantSentMessage.FromString,
                 )
         self.SyncAccountSentMessages = channel.unary_stream(
                 '/elint.services.product.conversation.message.account.SendAccountMessageService/SyncAccountSentMessages',
-                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.SyncSentMessagesRequest.SerializeToString,
-                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.AccountSentMessage.FromString,
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.SyncAccountSentMessagesResponse.FromString,
                 )
 
 
@@ -48,6 +54,12 @@ class SendAccountMessageServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def SendMessageToAccount(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SendSpeedMessageToAccount(self, request_iterator, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -78,15 +90,20 @@ def add_SendAccountMessageServiceServicer_to_server(servicer, server):
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.MessageForAccount.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.MessageForAccountSent.SerializeToString,
             ),
+            'SendSpeedMessageToAccount': grpc.stream_stream_rpc_method_handler(
+                    servicer.SendSpeedMessageToAccount,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.MessageForAccount.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.FullMessageForAccountSent.SerializeToString,
+            ),
             'SyncAccountAssistantSentMessages': grpc.unary_stream_rpc_method_handler(
                     servicer.SyncAccountAssistantSentMessages,
-                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.SyncSentMessagesRequest.FromString,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.AccountAssistantSentMessage.SerializeToString,
             ),
             'SyncAccountSentMessages': grpc.unary_stream_rpc_method_handler(
                     servicer.SyncAccountSentMessages,
-                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.SyncSentMessagesRequest.FromString,
-                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.AccountSentMessage.SerializeToString,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.SyncAccountSentMessagesResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -134,6 +151,23 @@ class SendAccountMessageService(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def SendSpeedMessageToAccount(request_iterator,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.stream_stream(request_iterator, target, '/elint.services.product.conversation.message.account.SendAccountMessageService/SendSpeedMessageToAccount',
+            ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.MessageForAccount.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.FullMessageForAccountSent.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def SyncAccountAssistantSentMessages(request,
             target,
             options=(),
@@ -145,7 +179,7 @@ class SendAccountMessageService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/elint.services.product.conversation.message.account.SendAccountMessageService/SyncAccountAssistantSentMessages',
-            ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.SyncSentMessagesRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.AccountAssistantSentMessage.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -162,7 +196,7 @@ class SendAccountMessageService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/elint.services.product.conversation.message.account.SendAccountMessageService/SyncAccountSentMessages',
-            ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.SyncSentMessagesRequest.SerializeToString,
-            ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.AccountSentMessage.FromString,
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.SyncAccountSentMessagesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -4,6 +4,7 @@ from google.protobuf.text_format import MessageToString
 
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account.notify_account_pb2_grpc import NotifyAccountServiceServicer
+from services_caller.account_service_caller import get_account_by_id_caller
 from support.notifications.apple_push_notifications import ApplePushNotifications
 
 
@@ -35,9 +36,13 @@ class NotifyAccountService(NotifyAccountServiceServicer):
 
     def NewReceivedMessageFromAccount(self, request, context):
         logging.info("NotifyAccountService:NewReceivedMessageFromAccount")
+        account = get_account_by_id_caller(account_id=request.connecting_account_id)
         ios_new_messages_payload = {
             'aps': {
-                'alert': "You've received new messages from accounts",
+                'alert': {
+                    "title": f"{account.account_first_name} {account.account_last_name}",
+                    "body": f"{request.message}",
+                },
                 'sound': "default",
                 'badge': 0,
             },

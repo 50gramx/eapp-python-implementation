@@ -29,7 +29,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nBethos/elint/services/product/identity/account/notify_account.proto\x12\'elint.services.product.identity.account\x1a\"ethos/elint/entities/account.proto\x1a\"ethos/elint/entities/generic.proto\"\xc7\x01\n-NewReceivedMessageFromAccountAssistantRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12S\n\x1b\x63onnected_account_assistant\x18\x02 \x01(\x0b\x32..elint.entity.AccountConnectedAccountAssistant\x12-\n%account_assistant_received_message_id\x18\x03 \x01(\t\":\n$NewReceivedMessageFromAccountRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t2\xc6\x02\n\x14NotifyAccountService\x12\x9e\x01\n&NewReceivedMessageFromAccountAssistant\x12V.elint.services.product.identity.account.NewReceivedMessageFromAccountAssistantRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x8c\x01\n\x1dNewReceivedMessageFromAccount\x12M.elint.services.product.identity.account.NewReceivedMessageFromAccountRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x62\x06proto3'
+  serialized_pb=b'\nBethos/elint/services/product/identity/account/notify_account.proto\x12\'elint.services.product.identity.account\x1a\"ethos/elint/entities/account.proto\x1a\"ethos/elint/entities/generic.proto\"\xc7\x01\n-NewReceivedMessageFromAccountAssistantRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12S\n\x1b\x63onnected_account_assistant\x18\x02 \x01(\x0b\x32..elint.entity.AccountConnectedAccountAssistant\x12-\n%account_assistant_received_message_id\x18\x03 \x01(\t\"j\n$NewReceivedMessageFromAccountRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12\x1d\n\x15\x63onnecting_account_id\x18\x02 \x01(\t\x12\x0f\n\x07message\x18\x03 \x01(\t2\xc6\x02\n\x14NotifyAccountService\x12\x9e\x01\n&NewReceivedMessageFromAccountAssistant\x12V.elint.services.product.identity.account.NewReceivedMessageFromAccountAssistantRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x8c\x01\n\x1dNewReceivedMessageFromAccount\x12M.elint.services.product.identity.account.NewReceivedMessageFromAccountRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x62\x06proto3'
   ,
   dependencies=[ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,])
 
@@ -97,6 +97,20 @@ _NEWRECEIVEDMESSAGEFROMACCOUNTREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='connecting_account_id', full_name='elint.services.product.identity.account.NewReceivedMessageFromAccountRequest.connecting_account_id', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='message', full_name='elint.services.product.identity.account.NewReceivedMessageFromAccountRequest.message', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -110,7 +124,7 @@ _NEWRECEIVEDMESSAGEFROMACCOUNTREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=385,
-  serialized_end=443,
+  serialized_end=491,
 )
 
 _NEWRECEIVEDMESSAGEFROMACCOUNTASSISTANTREQUEST.fields_by_name['connected_account_assistant'].message_type = ethos_dot_elint_dot_entities_dot_account__pb2._ACCOUNTCONNECTEDACCOUNTASSISTANT
@@ -141,8 +155,8 @@ _NOTIFYACCOUNTSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=446,
-  serialized_end=772,
+  serialized_start=494,
+  serialized_end=820,
   methods=[
   _descriptor.MethodDescriptor(
     name='NewReceivedMessageFromAccountAssistant',
