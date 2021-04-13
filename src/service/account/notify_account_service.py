@@ -36,7 +36,7 @@ class NotifyAccountService(NotifyAccountServiceServicer):
 
     def NewReceivedMessageFromAccount(self, request, context):
         logging.info("NotifyAccountService:NewReceivedMessageFromAccount")
-        account = get_account_by_id_caller(account_id=request.connecting_account_id)
+        account, _, _ = get_account_by_id_caller(account_id=request.connecting_account_id)
         ios_new_messages_payload = {
             'aps': {
                 'alert': {
