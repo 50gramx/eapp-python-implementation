@@ -151,6 +151,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
 
     def SyncAccountConnections(self, request, context):
         logging.info("ConnectAccountService:SyncAccountConnections")
+        logging.info(f"{type(request)}: {request}")
         try:
             account_country_code = request.access_auth_details.account.account_country_code
             account_mobile_number = request.access_auth_details.account.account_mobile_number
@@ -160,14 +161,14 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     connecting_account = get_account(
                         account_mobile_number=request.connecting_account_mobile.account_mobile_number)
                 except Exception as e:
-                    print(f"Exception:162: {e}")
+                    logging.info(f"Exception:162: {e}")
 
                 try:
                     is_account_connected, is_account_connected_message, connected_account = account_service_caller.connect_account_caller(
                         access_auth_details=request.access_auth_details,
                         connecting_account_id=connecting_account.account_id)
                 except Exception as e:
-                    print(f"Exception:169: {e}")
+                    logging.info(f"Exception:169: {e}")
 
                 try:
                     if is_account_connected:
@@ -183,8 +184,8 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                                                        meta_message=is_account_connected_message)
                         )
                 except Exception as e:
-                    print(f"Exception:185 {e}")
+                    logging.info(f"Exception:185 {e}")
                     return SyncAccountConnectionsResponse()
         except Exception as e:
-            print(f"Exception:189 {e}")
+            logging.info(f"Exception:189 {e}")
             return SyncAccountConnectionsResponse()
