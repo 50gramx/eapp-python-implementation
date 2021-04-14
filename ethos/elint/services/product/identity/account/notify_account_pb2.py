@@ -29,7 +29,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nBethos/elint/services/product/identity/account/notify_account.proto\x12\'elint.services.product.identity.account\x1a\"ethos/elint/entities/account.proto\x1a\"ethos/elint/entities/generic.proto\"\xc7\x01\n-NewReceivedMessageFromAccountAssistantRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12S\n\x1b\x63onnected_account_assistant\x18\x02 \x01(\x0b\x32..elint.entity.AccountConnectedAccountAssistant\x12-\n%account_assistant_received_message_id\x18\x03 \x01(\t\"j\n$NewReceivedMessageFromAccountRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12\x1d\n\x15\x63onnecting_account_id\x18\x02 \x01(\t\x12\x0f\n\x07message\x18\x03 \x01(\t2\xc6\x02\n\x14NotifyAccountService\x12\x9e\x01\n&NewReceivedMessageFromAccountAssistant\x12V.elint.services.product.identity.account.NewReceivedMessageFromAccountAssistantRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x8c\x01\n\x1dNewReceivedMessageFromAccount\x12M.elint.services.product.identity.account.NewReceivedMessageFromAccountRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x62\x06proto3'
+  serialized_pb=b'\nBethos/elint/services/product/identity/account/notify_account.proto\x12\'elint.services.product.identity.account\x1a\"ethos/elint/entities/account.proto\x1a\"ethos/elint/entities/generic.proto\"\xc7\x01\n-NewReceivedMessageFromAccountAssistantRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12S\n\x1b\x63onnected_account_assistant\x18\x02 \x01(\x0b\x32..elint.entity.AccountConnectedAccountAssistant\x12-\n%account_assistant_received_message_id\x18\x03 \x01(\t\"j\n$NewReceivedMessageFromAccountRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12\x1d\n\x15\x63onnecting_account_id\x18\x02 \x01(\t\x12\x0f\n\x07message\x18\x03 \x01(\t\"\xa9\x01\n*AccountConnectedAccountNotificationRequest\x12&\n\x07\x61\x63\x63ount\x18\x01 \x01(\x0b\x32\x15.elint.entity.Account\x12S\n$connecting_account_connected_account\x18\x02 \x01(\x0b\x32%.elint.entity.AccountConnectedAccount2\xe1\x03\n\x14NotifyAccountService\x12\x9e\x01\n&NewReceivedMessageFromAccountAssistant\x12V.elint.services.product.identity.account.NewReceivedMessageFromAccountAssistantRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x8c\x01\n\x1dNewReceivedMessageFromAccount\x12M.elint.services.product.identity.account.NewReceivedMessageFromAccountRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x98\x01\n#AccountConnectedAccountNotification\x12S.elint.services.product.identity.account.AccountConnectedAccountNotificationRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x62\x06proto3'
   ,
   dependencies=[ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,])
 
@@ -127,9 +127,51 @@ _NEWRECEIVEDMESSAGEFROMACCOUNTREQUEST = _descriptor.Descriptor(
   serialized_end=491,
 )
 
+
+_ACCOUNTCONNECTEDACCOUNTNOTIFICATIONREQUEST = _descriptor.Descriptor(
+  name='AccountConnectedAccountNotificationRequest',
+  full_name='elint.services.product.identity.account.AccountConnectedAccountNotificationRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='account', full_name='elint.services.product.identity.account.AccountConnectedAccountNotificationRequest.account', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='connecting_account_connected_account', full_name='elint.services.product.identity.account.AccountConnectedAccountNotificationRequest.connecting_account_connected_account', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=494,
+  serialized_end=663,
+)
+
 _NEWRECEIVEDMESSAGEFROMACCOUNTASSISTANTREQUEST.fields_by_name['connected_account_assistant'].message_type = ethos_dot_elint_dot_entities_dot_account__pb2._ACCOUNTCONNECTEDACCOUNTASSISTANT
+_ACCOUNTCONNECTEDACCOUNTNOTIFICATIONREQUEST.fields_by_name['account'].message_type = ethos_dot_elint_dot_entities_dot_account__pb2._ACCOUNT
+_ACCOUNTCONNECTEDACCOUNTNOTIFICATIONREQUEST.fields_by_name['connecting_account_connected_account'].message_type = ethos_dot_elint_dot_entities_dot_account__pb2._ACCOUNTCONNECTEDACCOUNT
 DESCRIPTOR.message_types_by_name['NewReceivedMessageFromAccountAssistantRequest'] = _NEWRECEIVEDMESSAGEFROMACCOUNTASSISTANTREQUEST
 DESCRIPTOR.message_types_by_name['NewReceivedMessageFromAccountRequest'] = _NEWRECEIVEDMESSAGEFROMACCOUNTREQUEST
+DESCRIPTOR.message_types_by_name['AccountConnectedAccountNotificationRequest'] = _ACCOUNTCONNECTEDACCOUNTNOTIFICATIONREQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 NewReceivedMessageFromAccountAssistantRequest = _reflection.GeneratedProtocolMessageType('NewReceivedMessageFromAccountAssistantRequest', (_message.Message,), {
@@ -146,6 +188,13 @@ NewReceivedMessageFromAccountRequest = _reflection.GeneratedProtocolMessageType(
   })
 _sym_db.RegisterMessage(NewReceivedMessageFromAccountRequest)
 
+AccountConnectedAccountNotificationRequest = _reflection.GeneratedProtocolMessageType('AccountConnectedAccountNotificationRequest', (_message.Message,), {
+  'DESCRIPTOR' : _ACCOUNTCONNECTEDACCOUNTNOTIFICATIONREQUEST,
+  '__module__' : 'ethos.elint.services.product.identity.account.notify_account_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.identity.account.AccountConnectedAccountNotificationRequest)
+  })
+_sym_db.RegisterMessage(AccountConnectedAccountNotificationRequest)
+
 
 
 _NOTIFYACCOUNTSERVICE = _descriptor.ServiceDescriptor(
@@ -155,8 +204,8 @@ _NOTIFYACCOUNTSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=494,
-  serialized_end=820,
+  serialized_start=666,
+  serialized_end=1147,
   methods=[
   _descriptor.MethodDescriptor(
     name='NewReceivedMessageFromAccountAssistant',
@@ -174,6 +223,16 @@ _NOTIFYACCOUNTSERVICE = _descriptor.ServiceDescriptor(
     index=1,
     containing_service=None,
     input_type=_NEWRECEIVEDMESSAGEFROMACCOUNTREQUEST,
+    output_type=ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='AccountConnectedAccountNotification',
+    full_name='elint.services.product.identity.account.NotifyAccountService.AccountConnectedAccountNotification',
+    index=2,
+    containing_service=None,
+    input_type=_ACCOUNTCONNECTEDACCOUNTNOTIFICATIONREQUEST,
     output_type=ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
