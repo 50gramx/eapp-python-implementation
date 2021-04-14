@@ -48,13 +48,13 @@ class NotifyAccountService(NotifyAccountServiceServicer):
             },
             'account_id': request.account_id,
             'service': "NotifyAccountService",
-            'rpc': "ListenForReceivedAccountMessages"
+            'rpc': "NewReceivedMessageFromAccount"
         }
         try:
             apns = ApplePushNotifications()
             apns.notify_account(account_id=request.account_id, payload=ios_new_messages_payload)
             logging.info("DEBUG:: NOTIFICATION SENT")
             return ResponseMeta(meta_done=True, meta_message="Notified successfully!")
-        except:
-            logging.info("DEBUG:: NOTIFICATION NOT SENT")
+        except Exception as e:
+            logging.info(f" notification is not sent, Exception: {e}")
             return ResponseMeta(meta_done=False, meta_message="Couldn't notify account!")
