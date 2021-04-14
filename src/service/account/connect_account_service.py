@@ -156,20 +156,14 @@ class ConnectAccountService(ConnectAccountServiceServicer):
         if access_done is False:
             return SyncAccountConnectionsResponse(response_meta=response_meta)
         else:
-            logging.info(f"{type(request)}: {request}")
             account_mobile_number = request.access_auth_details.account.account_mobile_number
             if request.connecting_account_mobile.account_mobile_number != account_mobile_number:
-                logging.info(
-                    "connecting_account_mobile_number is not same as account_mobile_number: trying to get account")
                 connecting_account = get_account(
                     account_mobile_number=request.connecting_account_mobile.account_mobile_number)
-                logging.info(f"trying to connect account: {connecting_account}")
                 is_account_connected, is_account_connected_message, connected_account = account_service_caller.connect_account_caller(
                     access_auth_details=request.access_auth_details,
                     connecting_account_id=connecting_account.account_id)
-                logging.info("trying to check if account connected")
                 if is_account_connected:
-                    logging.info(f"is_account_connected: {is_account_connected}, returning response:")
                     return SyncAccountConnectionsResponse(
                         connected_account=SyncAccountConnectionsResponse.ConnectedAccount(
                             connected_account=connected_account,
@@ -182,12 +176,10 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                                                    meta_message=is_account_connected_message)
                     )
                 else:
-                    logging.info(f"is_account_connected: {is_account_connected}, returning response:")
                     return SyncAccountConnectionsResponse(
                         response_meta=ResponseMeta(meta_done=is_account_connected,
                                                    meta_message=is_account_connected_message)
                     )
             else:
-                logging.info("connecting account is same as account: return empty response")
                 return SyncAccountConnectionsResponse(
                     response_meta=ResponseMeta(meta_done=False, meta_message="Account Syncing is self account"))
