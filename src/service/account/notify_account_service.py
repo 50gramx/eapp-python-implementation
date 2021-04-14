@@ -58,3 +58,52 @@ class NotifyAccountService(NotifyAccountServiceServicer):
         except Exception as e:
             logging.info(f" notification is not sent, Exception: {e}")
             return ResponseMeta(meta_done=False, meta_message="Couldn't notify account!")
+
+    def AccountConnectedAccountNotification(self, request, context):
+        logging.info("NotifyAccountService:AccountFullyConnectedWithAccount")
+        connecting_account, _, _ = get_account_by_id_caller(
+            account_id=request.connecting_account_connected_account.account_id)
+
+        title = ""
+        body = ""
+        if request.connecting_account_connected_account.account_interested_in_connection:
+            if request.connecting_account_connected_account.connected_account_interested_in_connection:
+                title = f"You're now connected to {connecting_account.account_first_name}"
+                body = f"Start your conversation here"
+        else:
+            if request.connecting_account_connected_account.connected_account_interested_in_connection:
+                title = f"{request.account.account_first_name} is interested in connecting with you"
+                body = f"Connect to start your conversation here"
+
+        if title != "" and body != "":
+            aps = {
+                'alert': {
+                    "title": title,
+                    "body": body,
+                },
+                'sound': "default",
+                'badge': 0,
+            }
+        else:
+            aps = {
+                "content-available": 1,
+                'sound': "default",
+                'badge': 0,
+            }
+        try:
+            ios_payload = {
+                'aps': aps,
+                'account_id': request.account.account_id,
+                'service': "NotifyAccountService",
+                'rpc': "AccountConnectedAccountNotification",
+                "connecting_account_connected_account": request.connecting_account_connected_account.SerializeToString()
+            }
+            apns = ApplePushNotifications()
+            apns.notify_account(account_id=request.account.account_id, payload=ios_payload)
+            logging.info("NotifyAccountService:NewReceivedMessageFromAccountAssistant: "
+                         "notification sent")
+            return ResponseMeta(meta_done=True, meta_message="Notified successfully!")
+        except Exception as e:
+            logging.info(f"NotifyAccountService:NewReceivedMessageFromAccountAssistant: "
+                         f"notification is not sent, Exception: {e}")
+            return ResponseMeta(meta_done=False, meta_message="Couldn't notify account!")
