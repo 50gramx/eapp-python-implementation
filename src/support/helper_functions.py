@@ -108,7 +108,7 @@ def send_otp(country_code, account_mobile_number, verification_code) -> Timestam
     client = Client(twilio_account_sid, twilio_auth_token)
 
     message = client.messages.create(
-        body=f"Welcome aboard @50GRAMX, OTP to access your account is {verification_code}.",
+        body=f"50GRAMX: Your security code is: {verification_code}. It expires in 10 minutes. Don't share this code with anyone.",
         from_='+18182379146',
         to=f"{country_code}{account_mobile_number}"
     )
