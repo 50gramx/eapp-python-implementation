@@ -24,6 +24,7 @@ from ethos.elint.services.product.identity.account.access_account_pb2 import Acc
 from ethos.elint.services.product.identity.account.connect_account_pb2 import ConnectAccountRequest
 from ethos.elint.services.product.identity.account.discover_account_pb2 import GetAccountByIdRequest, \
     IsAccountExistsWithMobileRequest
+from ethos.elint.services.product.identity.account.notify_account_pb2 import AccountConnectedAccountNotificationRequest
 
 
 def validate_account_services_caller(
@@ -55,3 +56,14 @@ def connect_account_caller(access_auth_details: AccountServicesAccessAuthDetails
     response = stub.ConnectAccount(ConnectAccountRequest(
         access_auth_details=access_auth_details, connecting_account_id=connecting_account_id))
     return response.response_meta.meta_done, response.response_meta.meta_message, response.connected_account
+
+
+def account_connected_account_notification_caller(
+        account: account_pb2.Account,
+        connecting_account_connected_account: account_pb2.AccountConnectedAccount) -> (bool, str):
+    stub = ApplicationContext.notify_account_service_stub()
+    response = stub.AccountConnectedAccountNotification(AccountConnectedAccountNotificationRequest(
+        account=account,
+        connecting_account_connected_account=connecting_account_connected_account
+    ))
+    return response.meta_done, response.meta_message
