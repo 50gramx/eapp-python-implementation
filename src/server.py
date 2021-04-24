@@ -37,6 +37,8 @@ from ethos.elint.services.product.identity.account.discover_account_pb2_grpc imp
     add_DiscoverAccountServiceServicer_to_server
 from ethos.elint.services.product.identity.account.notify_account_pb2_grpc import \
     add_NotifyAccountServiceServicer_to_server
+from ethos.elint.services.product.identity.account.pay_in_account_pb2_grpc import \
+    add_PayInAccountServiceServicer_to_server
 from ethos.elint.services.product.identity.account_assistant.access_account_assistant_pb2_grpc import \
     add_AccessAccountAssistantServiceServicer_to_server
 from ethos.elint.services.product.identity.account_assistant.action_account_assistant_pb2_grpc import \
@@ -81,6 +83,9 @@ def run_server(port):
     )
     add_DiscoverAccountServiceServicer_to_server(
         ApplicationContext.get_discover_account_service(), server
+    )
+    add_PayInAccountServiceServicer_to_server(
+        ApplicationContext.get_pay_in_account_service(), server
     )
 
     add_CreateSpaceServiceServicer_to_server(

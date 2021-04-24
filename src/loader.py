@@ -45,6 +45,7 @@ from service.account.connect_account_service import ConnectAccountService
 from service.account.create_account_service import CreateAccountService
 from service.account.discover_account_service import DiscoverAccountService
 from service.account.notify_account_service import NotifyAccountService
+from service.account.pay_in_account_service import PayInAccountService
 from service.account_assistant.access_account_assistant_service import AccessAccountAssistantService
 from service.account_assistant.action_account_assistant_service import ActionAccountAssistantService
 from service.account_assistant.connect_account_assistant_service import ConnectAccountAssistantService
@@ -157,6 +158,8 @@ class Loader(object):
         Registry.register_service('connect_account_service', connect_account_service)
         discover_account_service = DiscoverAccountService()
         Registry.register_service('discover_account_service', discover_account_service)
+        pay_in_account_service = PayInAccountService()
+        Registry.register_service('pay_in_account_service', pay_in_account_service)
 
         access_space_service = AccessSpaceService()
         Registry.register_service('access_space_service', access_space_service)

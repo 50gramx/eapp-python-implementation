@@ -132,6 +132,10 @@ class ApplicationContext(object):
         return Registry.get_service('discover_account_service')
 
     @staticmethod
+    def get_pay_in_account_service():
+        return Registry.get_service('pay_in_account_service')
+
+    @staticmethod
     def get_access_space_service():
         """
         :rtype:
