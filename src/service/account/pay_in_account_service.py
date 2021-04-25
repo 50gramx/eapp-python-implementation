@@ -17,6 +17,7 @@
 #   * from Amit Kumar Khetan.
 #   */
 import json
+import logging
 import os
 
 import stripe
@@ -35,6 +36,7 @@ class PayInAccountService(PayInAccountServiceServicer):
         self.session_scope = self.__class__.__name__
 
     def GetAccountPayInPublishableKey(self, request, context):
+        logging.info("PayInAccountService:GetAccountPayInPublishableKey")
         validation_done, validation_message = validate_account_services_caller(request)
         response_meta = ResponseMeta(meta_done=validation_done, meta_message=validation_message)
         if validation_done is False:
@@ -46,6 +48,7 @@ class PayInAccountService(PayInAccountServiceServicer):
             )
 
     def CreateAccountPayIn(self, request, context):
+        logging.info("PayInAccountService:CreateAccountPayIn")
         validation_done, validation_message = validate_account_services_caller(request)
         response_meta = ResponseMeta(meta_done=validation_done, meta_message=validation_message)
         if validation_done is False:
@@ -53,13 +56,14 @@ class PayInAccountService(PayInAccountServiceServicer):
         else:
             stripe.api_key = os.environ['STRIPE_API_KEY']
             account = stripe.Customer.create(
-                phone=request.account.account_mobile_number,
-                name=request.account.account_first_name + request.account.account_last_name
+                phone=request.account.account_country_code + request.account.account_mobile_number,
+                name=request.account.account_first_name + " " + request.account.account_last_name
             )
             add_new_account_pay_in(account_id=request.account.account_id, account_pay_id=account.id)
             return response_meta
 
     def GetAccountPayInAccessKey(self, request, context):
+        logging.info("PayInAccountService:GetAccountPayInAccessKey")
         validation_done, validation_message = validate_account_services_caller(request)
         response_meta = ResponseMeta(meta_done=validation_done, meta_message=validation_message)
         if validation_done is False:
