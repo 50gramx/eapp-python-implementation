@@ -126,9 +126,15 @@ class Loader(object):
         # ------------------------------------
         conversation_grpc_host = os.environ['EAPP_SERVICE_CONVERSATION_HOST']
         conversation_grpc_port = os.environ['EAPP_SERVICE_CONVERSATION_PORT']
+        conversation_grpc_certificate_file = os.environ[
+            'EAPP_SERVICE_CONVERSATION_COMMON_GRPC_EXTERNAL_CERTIFICATE_FILE']
 
         conversation_host_ip = "{host}:{port}".format(host=conversation_grpc_host, port=conversation_grpc_port)
-        conversation_common_channel = grpc.insecure_channel(conversation_host_ip)
+
+        conversation_ssl_credentials = grpc.ssl_channel_credentials(
+            open(conversation_grpc_certificate_file, 'rb').read())
+        conversation_common_channel = grpc.secure_channel(conversation_host_ip, conversation_ssl_credentials)
+
         conversation_common_channel = grpc.intercept_channel(conversation_common_channel)
         channels.append(conversation_common_channel)
 
