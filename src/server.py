@@ -116,7 +116,17 @@ def run_server(port):
     )
 
     # TODO: Pass down the credentials to secure port
-    server_port = server.add_insecure_port(f"[::]:{PORT}")
+    with open(os.environ['EAPP_SERVICE_IDENTITY_KEY'], 'rb') as f:
+        private_key = f.read()
+
+    with open(os.environ['EAPP_SERVICE_IDENTITY_COMMON_GRPC_EXTERNAL_CERTIFICATE_FILE'], 'rb') as f:
+        certificate_chain = f.read()
+
+    server_creds = grpc.ssl_server_credentials(
+        ((private_key, certificate_chain,),))
+
+    # server_port = server.add_insecure_port(f"[::]:{PORT}")
+    server_port = server.add_secure_port(f"[::]:{PORT}", server_creds)
 
     server.start()
     try:

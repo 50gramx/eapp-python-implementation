@@ -74,16 +74,12 @@ class Loader(object):
         # grpc_secured = os.environ["EAPP_SERVICE_PRODUCT_COMMON_GRPC_EXTERNAL_SECURE"]
         grpc_host = os.environ['EAPP_SERVICE_IDENTITY_HOST']
         grpc_port = os.environ['EAPP_SERVICE_IDENTITY_PORT']
-        # grpc_certificate_file = os.environ['EAPP_SERVICE_PRODUCT_COMMON_GRPC_EXTERNAL_CERTIFICATE_FILE']
+        grpc_certificate_file = os.environ['EAPP_SERVICE_IDENTITY_COMMON_GRPC_EXTERNAL_CERTIFICATE_FILE']
 
         host_ip = "{host}:{port}".format(host=grpc_host, port=grpc_port)
 
-        # if grpc_secured == "true":
-        #     # ssl_credentials = grpc.ssl_channel_credentials(open(grpc_certificate_file, 'rb').read())
-        #     # product_common_channel = grpc.secure_channel(host_ip, ssl_credentials)
-        #     pass
-        # else:
-        identity_common_channel = grpc.insecure_channel(host_ip)
+        ssl_credentials = grpc.ssl_channel_credentials(open(grpc_certificate_file, 'rb').read())
+        identity_common_channel = grpc.secure_channel(host_ip, ssl_credentials)
 
         identity_common_channel = grpc.intercept_channel(identity_common_channel)
         channels.append(identity_common_channel)
