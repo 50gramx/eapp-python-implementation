@@ -44,7 +44,7 @@ class PayInAccountService(PayInAccountServiceServicer):
             return AccountPayInPublishableKey(response_meta=response_meta)
         else:
             return AccountPayInPublishableKey(
-                key=os.environ['STRIPE_API_KEY'],
+                key=os.environ['STRIPE_PUBLISHABLE_API_KEY'],
                 response_meta=response_meta
             )
 
