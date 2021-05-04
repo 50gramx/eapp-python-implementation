@@ -65,6 +65,11 @@ class PayInAccountServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.ListAllCardsResponse.FromString,
                 )
+        self.SaveCard = channel.unary_unary(
+                '/elint.services.product.identity.account.PayInAccountService/SaveCard',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.SaveCardResponse.FromString,
+                )
 
 
 class PayInAccountServiceServicer(object):
@@ -107,6 +112,12 @@ class PayInAccountServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SaveCard(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_PayInAccountServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -139,6 +150,11 @@ def add_PayInAccountServiceServicer_to_server(servicer, server):
                     servicer.ListAllCards,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.ListAllCardsResponse.SerializeToString,
+            ),
+            'SaveCard': grpc.unary_unary_rpc_method_handler(
+                    servicer.SaveCard,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.SaveCardResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -249,5 +265,22 @@ class PayInAccountService(object):
         return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.PayInAccountService/ListAllCards',
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.ListAllCardsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SaveCard(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.PayInAccountService/SaveCard',
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.SaveCardResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

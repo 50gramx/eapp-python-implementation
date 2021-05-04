@@ -50,7 +50,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nBethos/elint/services/product/identity/account/pay_in_account.proto\x12\'elint.services.product.identity.account\x1a\"ethos/elint/entities/account.proto\x1a\"ethos/elint/entities/generic.proto\x1a\x42\x65thos/elint/services/product/identity/account/access_account.proto\"\\\n\x1a\x41\x63\x63ountPayInPublishableKey\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\\\n\x15\x41\x63\x63ountPayInAccessKey\x12\x10\n\x08json_key\x18\x01 \x01(\t\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"$\n\x15\x41\x63\x63ountPayInSecretKey\x12\x0b\n\x03key\x18\x01 \x01(\t\"\xa7\x01\n\x1cGetAccountPayInIntentRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x1f\n\x17prefer_billing_annually\x18\x02 \x01(\x08\"R\n\x1dGetAccountPayInIntentResponse\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\x8e\x01\n\x14ListAllCardsResponse\x12\x43\n\x14\x61\x63\x63ount_pay_in_cards\x18\x01 \x03(\x0b\x32%.elint.entity.AccountPayInCardDetails\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta2\xe4\x07\n\x13PayInAccountService\x12\xb1\x01\n\x1dGetAccountPayInPublishableKey\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x43.elint.services.product.identity.account.AccountPayInPublishableKey\"\x00\x12}\n\x12\x43reateAccountPayIn\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\xa7\x01\n\x18GetAccountPayInAccessKey\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a>.elint.services.product.identity.account.AccountPayInAccessKey\"\x00\x12\xa7\x01\n\x18GetAccountPayInSecretKey\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a>.elint.services.product.identity.account.AccountPayInSecretKey\"\x00\x12\xa8\x01\n\x15GetAccountPayInIntent\x12\x45.elint.services.product.identity.account.GetAccountPayInIntentRequest\x1a\x46.elint.services.product.identity.account.GetAccountPayInIntentResponse\"\x00\x12\x9a\x01\n\x0cListAllCards\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a=.elint.services.product.identity.account.ListAllCardsResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\nBethos/elint/services/product/identity/account/pay_in_account.proto\x12\'elint.services.product.identity.account\x1a\"ethos/elint/entities/account.proto\x1a\"ethos/elint/entities/generic.proto\x1a\x42\x65thos/elint/services/product/identity/account/access_account.proto\"\\\n\x1a\x41\x63\x63ountPayInPublishableKey\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\\\n\x15\x41\x63\x63ountPayInAccessKey\x12\x10\n\x08json_key\x18\x01 \x01(\t\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"$\n\x15\x41\x63\x63ountPayInSecretKey\x12\x0b\n\x03key\x18\x01 \x01(\t\"\xa7\x01\n\x1cGetAccountPayInIntentRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x1f\n\x17prefer_billing_annually\x18\x02 \x01(\x08\"R\n\x1dGetAccountPayInIntentResponse\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\x8e\x01\n\x14ListAllCardsResponse\x12\x43\n\x14\x61\x63\x63ount_pay_in_cards\x18\x01 \x03(\x0b\x32%.elint.entity.AccountPayInCardDetails\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"_\n\x10SaveCardResponse\x12\x18\n\x10save_card_secret\x18\x01 \x01(\t\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta2\xf9\x08\n\x13PayInAccountService\x12\xb1\x01\n\x1dGetAccountPayInPublishableKey\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x43.elint.services.product.identity.account.AccountPayInPublishableKey\"\x00\x12}\n\x12\x43reateAccountPayIn\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\xa7\x01\n\x18GetAccountPayInAccessKey\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a>.elint.services.product.identity.account.AccountPayInAccessKey\"\x00\x12\xa7\x01\n\x18GetAccountPayInSecretKey\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a>.elint.services.product.identity.account.AccountPayInSecretKey\"\x00\x12\xa8\x01\n\x15GetAccountPayInIntent\x12\x45.elint.services.product.identity.account.GetAccountPayInIntentRequest\x1a\x46.elint.services.product.identity.account.GetAccountPayInIntentResponse\"\x00\x12\x9a\x01\n\x0cListAllCards\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a=.elint.services.product.identity.account.ListAllCardsResponse\"\x00\x12\x92\x01\n\x08SaveCard\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x39.elint.services.product.identity.account.SaveCardResponse\"\x00\x62\x06proto3'
   ,
   dependencies=[ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.DESCRIPTOR,])
 
@@ -276,18 +276,59 @@ _LISTALLCARDSRESPONSE = _descriptor.Descriptor(
   serialized_end=874,
 )
 
+
+_SAVECARDRESPONSE = _descriptor.Descriptor(
+  name='SaveCardResponse',
+  full_name='elint.services.product.identity.account.SaveCardResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='save_card_secret', full_name='elint.services.product.identity.account.SaveCardResponse.save_card_secret', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='response_meta', full_name='elint.services.product.identity.account.SaveCardResponse.response_meta', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=876,
+  serialized_end=971,
+)
+
 _ACCOUNTPAYINPUBLISHABLEKEY.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
 _ACCOUNTPAYINACCESSKEY.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
 _GETACCOUNTPAYININTENTREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS
 _GETACCOUNTPAYININTENTRESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
 _LISTALLCARDSRESPONSE.fields_by_name['account_pay_in_cards'].message_type = ethos_dot_elint_dot_entities_dot_account__pb2._ACCOUNTPAYINCARDDETAILS
 _LISTALLCARDSRESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
+_SAVECARDRESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
 DESCRIPTOR.message_types_by_name['AccountPayInPublishableKey'] = _ACCOUNTPAYINPUBLISHABLEKEY
 DESCRIPTOR.message_types_by_name['AccountPayInAccessKey'] = _ACCOUNTPAYINACCESSKEY
 DESCRIPTOR.message_types_by_name['AccountPayInSecretKey'] = _ACCOUNTPAYINSECRETKEY
 DESCRIPTOR.message_types_by_name['GetAccountPayInIntentRequest'] = _GETACCOUNTPAYININTENTREQUEST
 DESCRIPTOR.message_types_by_name['GetAccountPayInIntentResponse'] = _GETACCOUNTPAYININTENTRESPONSE
 DESCRIPTOR.message_types_by_name['ListAllCardsResponse'] = _LISTALLCARDSRESPONSE
+DESCRIPTOR.message_types_by_name['SaveCardResponse'] = _SAVECARDRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 AccountPayInPublishableKey = _reflection.GeneratedProtocolMessageType('AccountPayInPublishableKey', (_message.Message,), {
@@ -332,6 +373,13 @@ ListAllCardsResponse = _reflection.GeneratedProtocolMessageType('ListAllCardsRes
   })
 _sym_db.RegisterMessage(ListAllCardsResponse)
 
+SaveCardResponse = _reflection.GeneratedProtocolMessageType('SaveCardResponse', (_message.Message,), {
+  'DESCRIPTOR' : _SAVECARDRESPONSE,
+  '__module__' : 'ethos.elint.services.product.identity.account.pay_in_account_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.identity.account.SaveCardResponse)
+  })
+_sym_db.RegisterMessage(SaveCardResponse)
+
 
 
 _PAYINACCOUNTSERVICE = _descriptor.ServiceDescriptor(
@@ -341,8 +389,8 @@ _PAYINACCOUNTSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=877,
-  serialized_end=1873,
+  serialized_start=974,
+  serialized_end=2119,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetAccountPayInPublishableKey',
@@ -401,6 +449,16 @@ _PAYINACCOUNTSERVICE = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS,
     output_type=_LISTALLCARDSRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='SaveCard',
+    full_name='elint.services.product.identity.account.PayInAccountService.SaveCard',
+    index=6,
+    containing_service=None,
+    input_type=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS,
+    output_type=_SAVECARDRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

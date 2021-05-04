@@ -25,7 +25,7 @@ import stripe
 from ethos.elint.entities.account_pb2 import AccountPayInCardDetails
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account.pay_in_account_pb2 import AccountPayInPublishableKey, \
-    AccountPayInAccessKey, ListAllCardsResponse
+    AccountPayInAccessKey, ListAllCardsResponse, SaveCardResponse
 from ethos.elint.services.product.identity.account.pay_in_account_pb2_grpc import PayInAccountServiceServicer
 from models.pay_in_models import add_new_account_pay_in, get_account_pay_in_id
 from services_caller.account_service_caller import validate_account_services_caller
@@ -108,5 +108,24 @@ class PayInAccountService(PayInAccountServiceServicer):
                     )
                     for card_data in list_object.data
                 ],
+                response_meta=response_meta
+            )
+
+    def SaveCard(self, request, context):
+        logging.info("PayInAccountService:SaveCard")
+        validation_done, validation_message = validate_account_services_caller(request)
+        response_meta = ResponseMeta(meta_done=validation_done, meta_message=validation_message)
+        if validation_done is False:
+            return SaveCardResponse(response_meta=response_meta)
+        else:
+            stripe.api_key = os.environ['STRIPE_API_KEY']
+            setup_intent = stripe.SetupIntent.create(
+                customer=get_account_pay_in_id(
+                    account_id=request.account.account_id
+                )
+            )
+            client_secret = setup_intent.client_secret
+            return SaveCardResponse(
+                save_card_secret=client_secret,
                 response_meta=response_meta
             )
