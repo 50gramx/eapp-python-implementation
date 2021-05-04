@@ -55,6 +55,16 @@ class PayInAccountServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.AccountPayInSecretKey.FromString,
                 )
+        self.GetAccountPayInIntent = channel.unary_unary(
+                '/elint.services.product.identity.account.PayInAccountService/GetAccountPayInIntent',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.GetAccountPayInIntentRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.GetAccountPayInIntentResponse.FromString,
+                )
+        self.ListAllCards = channel.unary_unary(
+                '/elint.services.product.identity.account.PayInAccountService/ListAllCards',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.ListAllCardsResponse.FromString,
+                )
 
 
 class PayInAccountServiceServicer(object):
@@ -84,6 +94,19 @@ class PayInAccountServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetAccountPayInIntent(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListAllCards(self, request, context):
+        """Payment Methods
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_PayInAccountServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -106,6 +129,16 @@ def add_PayInAccountServiceServicer_to_server(servicer, server):
                     servicer.GetAccountPayInSecretKey,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.AccountPayInSecretKey.SerializeToString,
+            ),
+            'GetAccountPayInIntent': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetAccountPayInIntent,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.GetAccountPayInIntentRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.GetAccountPayInIntentResponse.SerializeToString,
+            ),
+            'ListAllCards': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListAllCards,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.ListAllCardsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -182,5 +215,39 @@ class PayInAccountService(object):
         return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.PayInAccountService/GetAccountPayInSecretKey',
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.AccountPayInSecretKey.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetAccountPayInIntent(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.PayInAccountService/GetAccountPayInIntent',
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.GetAccountPayInIntentRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.GetAccountPayInIntentResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ListAllCards(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.PayInAccountService/ListAllCards',
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.ListAllCardsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

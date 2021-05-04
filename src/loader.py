@@ -30,6 +30,7 @@ from ethos.elint.services.product.identity.account.access_account_pb2_grpc impor
 from ethos.elint.services.product.identity.account.connect_account_pb2_grpc import ConnectAccountServiceStub
 from ethos.elint.services.product.identity.account.discover_account_pb2_grpc import DiscoverAccountServiceStub
 from ethos.elint.services.product.identity.account.notify_account_pb2_grpc import NotifyAccountServiceStub
+from ethos.elint.services.product.identity.account.pay_in_account_pb2_grpc import PayInAccountServiceStub
 from ethos.elint.services.product.identity.account_assistant.access_account_assistant_pb2_grpc import \
     AccessAccountAssistantServiceStub
 from ethos.elint.services.product.identity.account_assistant.connect_account_assistant_pb2_grpc import \
@@ -92,6 +93,8 @@ class Loader(object):
         Registry.register_service('connect_account_service_stub', connect_account_service_stub)
         notify_account_service_stub = NotifyAccountServiceStub(identity_common_channel)
         Registry.register_service('notify_account_service_stub', notify_account_service_stub)
+        pay_in_account_service_stub = PayInAccountServiceStub(identity_common_channel)
+        Registry.register_service('pay_in_account_service_stub', pay_in_account_service_stub)
 
         access_space_service_stub = AccessSpaceServiceStub(identity_common_channel)
         Registry.register_service('access_space_service_stub', access_space_service_stub)

@@ -22,9 +22,10 @@ import os
 
 import stripe
 
+from ethos.elint.entities.account_pb2 import AccountPayInCardDetails
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account.pay_in_account_pb2 import AccountPayInPublishableKey, \
-    AccountPayInAccessKey
+    AccountPayInAccessKey, ListAllCardsResponse
 from ethos.elint.services.product.identity.account.pay_in_account_pb2_grpc import PayInAccountServiceServicer
 from models.pay_in_models import add_new_account_pay_in, get_account_pay_in_id
 from services_caller.account_service_caller import validate_account_services_caller
@@ -77,3 +78,35 @@ class PayInAccountService(PayInAccountServiceServicer):
                 stripe_version=os.environ['STRIPE_API_VERSION']
             )
             return AccountPayInAccessKey(json_key=json.dumps(key), response_meta=response_meta)
+
+    def ListAllCards(self, request, context):
+        logging.info("PayInAccountService:ListAllCards")
+        validation_done, validation_message = validate_account_services_caller(request)
+        response_meta = ResponseMeta(meta_done=validation_done, meta_message=validation_message)
+        if validation_done is False:
+            return ListAllCardsResponse(response_meta=response_meta)
+        else:
+            stripe.api_key = os.environ['STRIPE_API_KEY']
+            list_object = stripe.Customer.list_sources(
+                get_account_pay_in_id(
+                    account_id=request.account.account_id
+                ),
+                object="card",
+                limit=10,
+            )
+            return ListAllCardsResponse(
+                account_pay_in_cards=[
+                    AccountPayInCardDetails(
+                        card_id=card_data.get("id", ""),
+                        brand=card_data.get("brand", ""),
+                        country=card_data.get("country", ""),
+                        expiry_month=card_data.get("exp_month", 0),
+                        expiry_year=card_data.get("exp_year", 0),
+                        fingerprint=card_data.get("fingerprint", ""),
+                        funding=card_data.get("funding", ""),
+                        last_4_digits=card_data.get("last4", "")
+                    )
+                    for card_data in list_object.data
+                ],
+                response_meta=response_meta
+            )

@@ -19,6 +19,7 @@
 
 import logging
 
+from application_context import ApplicationContext
 from ethos.elint.services.product.identity.account.create_account_pb2 import ValidateAccountWithMobileResponse, \
     VerificationAccountResponse, CaptureAccountMetaDetailsResponse
 from ethos.elint.services.product.identity.account.create_account_pb2_grpc import CreateAccountServiceServicer
@@ -132,6 +133,8 @@ class CreateAccountService(CreateAccountServiceServicer):
         )
         # setup account conversation
         _, _ = setup_account_conversations_caller(access_auth_details=account_services_access_auth_details)
+        # setup account pay_in
+        _ = ApplicationContext.pay_in_account_service_stub().CreateAccountPayIn(account_services_access_auth_details)
         # create the response here
         capture_account_meta_details_response = CaptureAccountMetaDetailsResponse(
             account_service_access_auth_details=account_services_access_auth_details,
