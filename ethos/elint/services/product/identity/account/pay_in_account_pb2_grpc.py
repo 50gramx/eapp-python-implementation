@@ -106,7 +106,7 @@ class PayInAccountServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def ListAllCards(self, request, context):
-        """Payment Methods
+        """Payment Method: Card
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')

@@ -49,6 +49,8 @@ from ethos.elint.services.product.identity.account_assistant.create_account_assi
     add_CreateAccountAssistantServiceServicer_to_server
 from ethos.elint.services.product.identity.account_assistant.discover_account_assistant_pb2_grpc import \
     add_DiscoverAccountAssistantServiceServicer_to_server
+from ethos.elint.services.product.identity.machine.discover_machine_pb2_grpc import \
+    add_DiscoverMachineServiceServicer_to_server
 from ethos.elint.services.product.identity.space.access_space_pb2_grpc import add_AccessSpaceServiceServicer_to_server
 from ethos.elint.services.product.identity.space.create_space_pb2_grpc import add_CreateSpaceServiceServicer_to_server
 from loader import Loader
@@ -113,6 +115,10 @@ def run_server(port):
 
     add_NotifyAccountServiceServicer_to_server(
         ApplicationContext.get_notify_account_service(), server
+    )
+
+    add_DiscoverMachineServiceServicer_to_server(
+        ApplicationContext.get_discover_machine_service(), server
     )
 
     # TODO: Pass down the credentials to secure port

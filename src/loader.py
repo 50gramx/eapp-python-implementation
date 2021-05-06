@@ -52,6 +52,7 @@ from service.account_assistant.action_account_assistant_service import ActionAcc
 from service.account_assistant.connect_account_assistant_service import ConnectAccountAssistantService
 from service.account_assistant.create_account_assistant_service import CreateAccountAssistantService
 from service.account_assistant.discover_account_assistant_service import DiscoverAccountAssistantService
+from service.machine.discover_machine_service import DiscoverMachineService
 from service.space.access_space_service import AccessSpaceService
 from service.space.create_space_service import CreateSpaceService
 from support.application.registry import Registry
@@ -170,6 +171,9 @@ class Loader(object):
         Registry.register_service('access_space_service', access_space_service)
         create_space_service = CreateSpaceService()
         Registry.register_service('create_space_service', create_space_service)
+
+        discover_machine_service = DiscoverMachineService()
+        Registry.register_service('discover_machine_service', discover_machine_service)
 
         access_account_assistant_service = AccessAccountAssistantService()
         Registry.register_service('access_account_assistant_service', access_account_assistant_service)

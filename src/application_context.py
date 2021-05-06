@@ -183,5 +183,9 @@ class ApplicationContext(object):
         return Registry.get_service('action_account_assistant_service')
 
     @staticmethod
+    def get_discover_machine_service():
+        return Registry.get_service('discover_machine_service')
+
+    @staticmethod
     def get_notify_account_service():
         return Registry.get_service('notify_account_service')
