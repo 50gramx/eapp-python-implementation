@@ -40,7 +40,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\014elint.entityB\014MachineProtoP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\"ethos/elint/entities/machine.proto\x12\x0c\x65lint.entity\"\xf9\x01\n\x07Machine\x12\x12\n\nmachine_id\x18\x01 \x01(\t\x12:\n\x12machine_class_enum\x18\x02 \x01(\x0e\x32\x1e.elint.entity.MachineClassEnum\x12\x38\n\x11machine_name_enum\x18\x03 \x01(\x0e\x32\x1d.elint.entity.MachineNameEnum\x12\x38\n\x11machine_type_enum\x18\x04 \x01(\x0e\x32\x1d.elint.entity.MachineTypeEnum\x12\x15\n\rcan_be_shared\x18\x05 \x01(\x08\x12\x13\n\x0bhourly_rate\x18\x06 \x01(\x01*\x1f\n\x10MachineClassEnum\x12\x0b\n\x07GENERAL\x10\x00*\x19\n\x0fMachineNameEnum\x12\x06\n\x02X2\x10\x00*a\n\x0fMachineTypeEnum\x12\x08\n\x04NANO\x10\x00\x12\t\n\x05MICRO\x10\x01\x12\t\n\x05SMALL\x10\x02\x12\n\n\x06MEDIUM\x10\x03\x12\t\n\x05LARGE\x10\x04\x12\n\n\x06XLARGE\x10\x05\x12\x0b\n\x07XXLARGE\x10\x06\x42\x1e\n\x0c\x65lint.entityB\x0cMachineProtoP\x01\x62\x06proto3'
+  serialized_pb=b'\n\"ethos/elint/entities/machine.proto\x12\x0c\x65lint.entity\"\xfc\x02\n\x07Machine\x12\x12\n\nmachine_id\x18\x01 \x01(\t\x12:\n\x12machine_class_enum\x18\x02 \x01(\x0e\x32\x1e.elint.entity.MachineClassEnum\x12\x38\n\x11machine_name_enum\x18\x03 \x01(\x0e\x32\x1d.elint.entity.MachineNameEnum\x12\x38\n\x11machine_type_enum\x18\x04 \x01(\x0e\x32\x1d.elint.entity.MachineTypeEnum\x12\x15\n\rcan_be_shared\x18\x05 \x01(\x08\x12\x13\n\x0bhourly_rate\x18\x06 \x01(\x01\x12#\n\x1b\x62\x61seline_performance_factor\x18\x07 \x01(\x05\x12\x1e\n\x16\x62\x61seline_memory_factor\x18\x08 \x01(\x05\x12\x1f\n\x17\x62\x61seline_network_factor\x18\t \x01(\x05\x12\x1b\n\x13machine_description\x18\n \x01(\t*\x1f\n\x10MachineClassEnum\x12\x0b\n\x07GENERAL\x10\x00*\x19\n\x0fMachineNameEnum\x12\x06\n\x02X2\x10\x00*a\n\x0fMachineTypeEnum\x12\x08\n\x04NANO\x10\x00\x12\t\n\x05MICRO\x10\x01\x12\t\n\x05SMALL\x10\x02\x12\n\n\x06MEDIUM\x10\x03\x12\t\n\x05LARGE\x10\x04\x12\n\n\x06XLARGE\x10\x05\x12\x0b\n\x07XXLARGE\x10\x06\x42\x1e\n\x0c\x65lint.entityB\x0cMachineProtoP\x01\x62\x06proto3'
 )
 
 _MACHINECLASSENUM = _descriptor.EnumDescriptor(
@@ -58,8 +58,8 @@ _MACHINECLASSENUM = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=304,
-  serialized_end=335,
+  serialized_start=435,
+  serialized_end=466,
 )
 _sym_db.RegisterEnumDescriptor(_MACHINECLASSENUM)
 
@@ -79,8 +79,8 @@ _MACHINENAMEENUM = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=337,
-  serialized_end=362,
+  serialized_start=468,
+  serialized_end=493,
 )
 _sym_db.RegisterEnumDescriptor(_MACHINENAMEENUM)
 
@@ -130,8 +130,8 @@ _MACHINETYPEENUM = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=364,
-  serialized_end=461,
+  serialized_start=495,
+  serialized_end=592,
 )
 _sym_db.RegisterEnumDescriptor(_MACHINETYPEENUM)
 
@@ -198,6 +198,34 @@ _MACHINE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='baseline_performance_factor', full_name='elint.entity.Machine.baseline_performance_factor', index=6,
+      number=7, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='baseline_memory_factor', full_name='elint.entity.Machine.baseline_memory_factor', index=7,
+      number=8, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='baseline_network_factor', full_name='elint.entity.Machine.baseline_network_factor', index=8,
+      number=9, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='machine_description', full_name='elint.entity.Machine.machine_description', index=9,
+      number=10, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -211,7 +239,7 @@ _MACHINE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=53,
-  serialized_end=302,
+  serialized_end=433,
 )
 
 _MACHINE.fields_by_name['machine_class_enum'].enum_type = _MACHINECLASSENUM
