@@ -60,6 +60,11 @@ class ReceiveAccountMessageServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.SyncAccountConnectedAccountReceivedMessagesRequest.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.SyncAccountConnectedAccountReceivedMessagesResponse.FromString,
                 )
+        self.SyncAccountConnectedAccountAssistantReceivedMessages = channel.unary_stream(
+                '/elint.services.product.conversation.message.account.ReceiveAccountMessageService/SyncAccountConnectedAccountAssistantReceivedMessages',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.SyncAccountConnectedAccountAssistantReceivedMessagesRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.SyncAccountConnectedAccountAssistantReceivedMessagesResponse.FromString,
+                )
         self.ListenForReceivedAccountAssistantMessages = channel.unary_unary(
                 '/elint.services.product.conversation.message.account.ReceiveAccountMessageService/ListenForReceivedAccountAssistantMessages',
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.ListenForReceivedAccountAssistantMessagesRequest.SerializeToString,
@@ -108,7 +113,15 @@ class ReceiveAccountMessageServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def SyncAccountConnectedAccountReceivedMessages(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Syncing RPC's for ConnectedAccount
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SyncAccountConnectedAccountAssistantReceivedMessages(self, request, context):
+        """Syncing RPC's for ConnectedAccountAssistant
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -160,6 +173,11 @@ def add_ReceiveAccountMessageServiceServicer_to_server(servicer, server):
                     servicer.SyncAccountConnectedAccountReceivedMessages,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.SyncAccountConnectedAccountReceivedMessagesRequest.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.SyncAccountConnectedAccountReceivedMessagesResponse.SerializeToString,
+            ),
+            'SyncAccountConnectedAccountAssistantReceivedMessages': grpc.unary_stream_rpc_method_handler(
+                    servicer.SyncAccountConnectedAccountAssistantReceivedMessages,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.SyncAccountConnectedAccountAssistantReceivedMessagesRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.SyncAccountConnectedAccountAssistantReceivedMessagesResponse.SerializeToString,
             ),
             'ListenForReceivedAccountAssistantMessages': grpc.unary_unary_rpc_method_handler(
                     servicer.ListenForReceivedAccountAssistantMessages,
@@ -269,6 +287,23 @@ class ReceiveAccountMessageService(object):
         return grpc.experimental.unary_stream(request, target, '/elint.services.product.conversation.message.account.ReceiveAccountMessageService/SyncAccountConnectedAccountReceivedMessages',
             ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.SyncAccountConnectedAccountReceivedMessagesRequest.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.SyncAccountConnectedAccountReceivedMessagesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SyncAccountConnectedAccountAssistantReceivedMessages(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/elint.services.product.conversation.message.account.ReceiveAccountMessageService/SyncAccountConnectedAccountAssistantReceivedMessages',
+            ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.SyncAccountConnectedAccountAssistantReceivedMessagesRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.SyncAccountConnectedAccountAssistantReceivedMessagesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

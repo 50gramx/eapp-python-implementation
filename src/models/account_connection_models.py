@@ -77,6 +77,18 @@ class AccountConnections:
             session.commit()
         return
 
+    def get_connected_account_assistant(self,
+                                        account_assistant_id: str) -> account_pb2.AccountConnectedAccountAssistant:
+        with DbSession.session_scope() as session:
+            connected_account_assistant = session.query(self.account_assistant_connection_table).filter(
+                self.account_assistant_connection_table.c.account_assistant_id == account_assistant_id
+            ).first()
+            return account_pb2.AccountConnectedAccountAssistant(
+                account_assistant_connection_id=connected_account_assistant.account_assistant_connection_id,
+                account_assistant_id=connected_account_assistant.account_assistant_id,
+                connected_at=format_datetime_to_timestamp(connected_account_assistant.connected_at)
+            )
+
     def get_connected_account_assistants(self) -> [account_pb2.AccountConnectedAccountAssistant]:
         with DbSession.session_scope() as session:
             all_connected_account_assistant = session.query(self.account_assistant_connection_table).all()

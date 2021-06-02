@@ -24,11 +24,13 @@ import phonenumbers
 from ethos.elint.entities.account_pb2 import AccountMobile
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account.connect_account_pb2 import ConnectedAccountAssistants, \
-    ConnectedAccounts, ConnectAccountResponse, ParseAccountMobilesResponse, SyncAccountConnectionsResponse
+    ConnectedAccounts, ConnectAccountResponse, ParseAccountMobilesResponse, SyncAccountConnectionsResponse, \
+    GetAccountSelfConnectedAccountAssistantResponse
 from ethos.elint.services.product.identity.account.connect_account_pb2_grpc import ConnectAccountServiceServicer
 from models.account_connection_models import AccountConnections
 from services_caller import account_assistant_service_caller, account_service_caller
-from services_caller.account_assistant_service_caller import account_assistant_access_token_caller
+from services_caller.account_assistant_service_caller import account_assistant_access_token_caller, \
+    get_account_assistant_by_account_caller
 from services_caller.account_service_caller import validate_account_services_caller, \
     account_connected_account_notification_caller
 from support.db_service import get_account
@@ -39,6 +41,20 @@ class ConnectAccountService(ConnectAccountServiceServicer):
     def __init__(self):
         super(ConnectAccountService, self).__init__()
         self.session_scope = self.__class__.__name__
+
+    def GetAccountSelfConnectedAccountAssistant(self, request, context):
+        logging.info("ConnectAccountService:GetAccountSelfConnectedAccountAssistant")
+        access_done, access_message = validate_account_services_caller(request)
+        meta = ResponseMeta(meta_done=access_done, meta_message=access_message)
+        if access_done is False:
+            return GetAccountSelfConnectedAccountAssistantResponse(response_meta=meta)
+        else:
+            account_connections = AccountConnections(account_id=request.account.account_id)
+            account_assistant_id = get_account_assistant_by_account_caller(account=request.account).account_assistant_id
+            connected_account_assistant = account_connections.get_connected_account_assistant(
+                account_assistant_id=account_assistant_id)
+            return GetAccountSelfConnectedAccountAssistantResponse(
+                connected_account_assistant=connected_account_assistant, response_meta=meta)
 
     def GetAllConnectedAccountAssistants(self, request, context):
         logging.info("ConnectAccountService:GetAllConnectedAccountAssistants")
