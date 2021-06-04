@@ -82,7 +82,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
             connected_account_assistants_with_belonging_entity = ConnectedAssistantsWithBelongingEntity(
                 response_meta=meta
             )
-            logging.info("fetched all connected account assistants")
+            logging.info(f"fetched all connected account assistants: {all_connected_account_assistant}")
 
             # yield all the connected_assistant_with_belonging_account
             logging.info("yield all the connected_assistant_with_belonging_account")
