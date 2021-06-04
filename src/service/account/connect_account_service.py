@@ -72,8 +72,6 @@ class ConnectAccountService(ConnectAccountServiceServicer):
             return ConnectedAssistantsWithBelongingEntity(response_meta=meta)
         else:
             logging.info("access is valid")
-            # declaration of all the stubs
-            discover_account_assistant_service_stub = ApplicationContext.discover_account_assistant_service_stub()
 
             # fetching all the params
             logging.info("fetching all connected account assistants")
@@ -93,7 +91,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     connected_assistant_belongs_to=ConnectedAssistantBelongsTo.ACCOUNT,
                     connected_assistant=connected_assistant_belongs_to.Pack(connected_account_assistant),
                 )
-                account_id = discover_account_assistant_service_stub().GetAccountAssistantMetaByAccountAssistantId(
+                account_id = ApplicationContext.discover_account_assistant_service_stub().GetAccountAssistantMetaByAccountAssistantId(
                     GetAccountAssistantMetaByAccountAssistantIdRequest(
                         access_auth_details=request,
                         account_assistant_id=connected_account_assistant.account_assistant_id
