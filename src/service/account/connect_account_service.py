@@ -163,9 +163,9 @@ class ConnectAccountService(ConnectAccountServiceServicer):
         if access_done is False:
             return ResponseMeta(meta_done=access_done, meta_message=access_message)
         else:
-            account_connections = AccountConnections(account_id=request.account_id)
+            account_connections = AccountConnections(account_id=request.access_auth_details.account.account_id)
             is_account_connection_exists = account_connections.is_account_connection_exists(
-                account_id=request.access_auth_details.account_id)
+                account_id=request.account_id)
             return ResponseMeta(meta_done=is_account_connection_exists, meta_message=access_message)
 
     def IsAccountAssistantConnected(self, request, context):
