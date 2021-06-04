@@ -141,8 +141,8 @@ class ConnectAccountService(ConnectAccountServiceServicer):
             account_connections = AccountConnections(account_id=request.account.account_id)
             self_connected_account_assistant = ApplicationContext.connect_account_service_stub().GetAccountSelfConnectedAccountAssistant(
                 request).connected_account_assistant
-            list_of_connected_account_assistants = account_connections.get_connected_account_assistants().remove(
-                self_connected_account_assistant)
+            list_of_connected_account_assistants = account_connections.get_connected_account_assistants()
+            # TODO: remove(self_connected_account_assistant)
             return ConnectedAccountAssistants(
                 connected_account_assistants=list_of_connected_account_assistants, response_meta=meta)
 
