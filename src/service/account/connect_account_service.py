@@ -20,14 +20,20 @@
 import logging
 
 import phonenumbers
+from google.protobuf.any_pb2 import Any
 
 from application_context import ApplicationContext
 from ethos.elint.entities.account_pb2 import AccountMobile
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account.connect_account_pb2 import ConnectedAccountAssistants, \
     ConnectedAccounts, ConnectAccountResponse, ParseAccountMobilesResponse, SyncAccountConnectionsResponse, \
-    GetAccountSelfConnectedAccountAssistantResponse
+    GetAccountSelfConnectedAccountAssistantResponse, ConnectedAssistantsWithBelongingEntity, \
+    IsAccountConnectionExistsRequest, ConnectedAssistantWithBelongingEntity, ConnectedAssistantBelongsTo
 from ethos.elint.services.product.identity.account.connect_account_pb2_grpc import ConnectAccountServiceServicer
+from ethos.elint.services.product.identity.account.discover_account_pb2 import GetAccountByIdRequest, \
+    GetAccountMetaByAccountIdRequest
+from ethos.elint.services.product.identity.account_assistant.discover_account_assistant_pb2 import \
+    GetAccountAssistantMetaByAccountAssistantIdRequest
 from models.account_connection_models import AccountConnections
 from services_caller import account_assistant_service_caller, account_service_caller
 from services_caller.account_assistant_service_caller import account_assistant_access_token_caller, \
@@ -57,6 +63,66 @@ class ConnectAccountService(ConnectAccountServiceServicer):
             return GetAccountSelfConnectedAccountAssistantResponse(
                 connected_account_assistant=connected_account_assistant, response_meta=meta)
 
+    def GetAllConnectedAssistantsWithBelongingEntity(self, request, context):
+        logging.info("ConnectAccountService:GetAllConnectedAssistants")
+        access_done, access_message = validate_account_services_caller(request)
+        meta = ResponseMeta(meta_done=access_done, meta_message=access_message)
+        if access_done is False:
+            return ConnectedAssistantsWithBelongingEntity(response_meta=meta)
+        else:
+            # declaration of all the stubs
+            connect_account_service_stub = ApplicationContext.connect_account_service_stub()
+            discover_account_service_stub = ApplicationContext.discover_account_service_stub()
+            discover_account_assistant_service_stub = ApplicationContext.discover_account_assistant_service_stub()
+
+            # fetching all the params
+            all_connected_account_assistant = connect_account_service_stub().GetAllConnectedAccountAssistants(
+                request).connected_account_assistants
+            connected_account_assistants_with_belonging_entity = ConnectedAssistantsWithBelongingEntity(
+                response_meta=meta
+            )
+
+            # yield all the connected_assistant_with_belonging_account
+            for connected_account_assistant in all_connected_account_assistant:
+                connected_assistant_belongs_to = Any()
+                connected_assistant_with_belonging_account = ConnectedAssistantWithBelongingEntity(
+                    connected_assistant_belongs_to=ConnectedAssistantBelongsTo.ACCOUNT,
+                    connected_assistant=connected_assistant_belongs_to.Pack(connected_account_assistant),
+                )
+                account_id = discover_account_assistant_service_stub().GetAccountAssistantMetaByAccountAssistantId(
+                    GetAccountAssistantMetaByAccountAssistantIdRequest(
+                        access_auth_details=request,
+                        account_assistant_id=connected_account_assistant.account_assistant_id
+                    )).account_assistant_meta.account_id
+                is_account_connection_exist = connect_account_service_stub().IsAccountConnectionExists(
+                    IsAccountConnectionExistsRequest(
+                        access_auth_details=request,
+                        account_id=None
+                    ))
+                if is_account_connection_exist:
+                    # return account entity
+                    account = discover_account_service_stub().GetAccountById(
+                        GetAccountByIdRequest(account_id=account_id))
+                    belonging_entity = Any()
+                    connected_assistant_with_belonging_account.is_connected_to_belonging_entity = True
+                    connected_assistant_with_belonging_account.belonging_entity = belonging_entity.Pack(account)
+                    connected_account_assistants_with_belonging_entity. \
+                        connected_assistant_with_belonging_entity = connected_assistant_with_belonging_account
+                    yield connected_account_assistants_with_belonging_entity
+                else:
+                    # return account meta entity
+                    account_meta = discover_account_service_stub().GetAccountMetaByAccountId(
+                        GetAccountMetaByAccountIdRequest(
+                            access_auth_details=request,
+                            account_id=account_id))
+                    connected_assistant_with_belonging_account.is_connected_to_belonging_entity = False
+                    belonging_entity = Any()
+                    connected_assistant_with_belonging_account.belonging_entity_meta = belonging_entity.Pack(
+                        account_meta)
+                    connected_account_assistants_with_belonging_entity. \
+                        connected_assistant_with_belonging_entity = connected_assistant_with_belonging_account
+                    yield connected_account_assistants_with_belonging_entity
+
     def GetAllConnectedAccountAssistants(self, request, context):
         logging.info("ConnectAccountService:GetAllConnectedAccountAssistants")
         access_done, access_message = validate_account_services_caller(request)
@@ -73,18 +139,6 @@ class ConnectAccountService(ConnectAccountServiceServicer):
             return ConnectedAccountAssistants(
                 connected_account_assistants=list_of_connected_account_assistants, response_meta=meta)
 
-    def IsAccountAssistantConnected(self, request, context):
-        logging.info("ConnectAccountService:IsAccountAssistantConnected")
-        account_connections = AccountConnections(account_id=request.account_id)
-        account_assistant_connected = account_connections.is_account_assistant_connected(
-            account_assistant_connection_id=request.connected_account_assistant.account_assistant_connection_id,
-            account_assistant_id=request.connected_account_assistant.account_assistant_id
-        )
-        if account_assistant_connected is False:
-            return ResponseMeta(meta_done=account_assistant_connected, meta_message="Account Assistant not connected.")
-        else:
-            return ResponseMeta(meta_done=account_assistant_connected, meta_message="Account Assistant connected.")
-
     def GetAllConnectedAccounts(self, request, context):
         logging.info("ConnectAccountService:GetAllConnectedAccounts")
         access_done, access_message = validate_account_services_caller(request)
@@ -97,6 +151,29 @@ class ConnectAccountService(ConnectAccountServiceServicer):
             return ConnectedAccounts(
                 connected_accounts=list_of_connected_accounts,
                 response_meta=ResponseMeta(meta_done=access_done, meta_message=access_message))
+
+    def IsAccountConnectionExists(self, request, context):
+        logging.info("ConnectAccountService:IsAccountConnectionExists")
+        access_done, access_message = validate_account_services_caller(request.access_auth_details)
+        if access_done is False:
+            return ResponseMeta(meta_done=access_done, meta_message=access_message)
+        else:
+            account_connections = AccountConnections(account_id=request.account_id)
+            is_account_connection_exists = account_connections.is_account_connection_exists(
+                account_id=request.account_id)
+            return ResponseMeta(meta_done=is_account_connection_exists, meta_message=access_message)
+
+    def IsAccountAssistantConnected(self, request, context):
+        logging.info("ConnectAccountService:IsAccountAssistantConnected")
+        account_connections = AccountConnections(account_id=request.account_id)
+        account_assistant_connected = account_connections.is_account_assistant_connected(
+            account_assistant_connection_id=request.connected_account_assistant.account_assistant_connection_id,
+            account_assistant_id=request.connected_account_assistant.account_assistant_id
+        )
+        if account_assistant_connected is False:
+            return ResponseMeta(meta_done=account_assistant_connected, meta_message="Account Assistant not connected.")
+        else:
+            return ResponseMeta(meta_done=account_assistant_connected, meta_message="Account Assistant connected.")
 
     def IsAccountConnected(self, request, context):
         logging.info("ConnectAccountService:IsAccountConnected")
@@ -132,6 +209,41 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     account_mobiles.append(AccountMobile())
                     logging.warning(f"The {mn} did not seem to be a phone number")
             return ParseAccountMobilesResponse(account_mobiles=account_mobiles, response_meta=response_meta)
+
+    def SyncAccountConnections(self, request, context):
+        logging.info("ConnectAccountService:SyncAccountConnections")
+        access_done, access_message = validate_account_services_caller(request.access_auth_details)
+        response_meta = ResponseMeta(meta_done=access_done, meta_message=access_message)
+        if access_done is False:
+            return SyncAccountConnectionsResponse(response_meta=response_meta)
+        else:
+            account_mobile_number = request.access_auth_details.account.account_mobile_number
+            if request.connecting_account_mobile.account_mobile_number != account_mobile_number:
+                connecting_account = get_account(
+                    account_mobile_number=request.connecting_account_mobile.account_mobile_number)
+                is_account_connected, is_account_connected_message, connected_account = account_service_caller.connect_account_caller(
+                    access_auth_details=request.access_auth_details,
+                    connecting_account_id=connecting_account.account_id)
+                if is_account_connected:
+                    return SyncAccountConnectionsResponse(
+                        connected_account=SyncAccountConnectionsResponse.ConnectedAccount(
+                            connected_account=connected_account,
+                            connected_account_mobile=AccountMobile(
+                                account_country_code=request.connecting_account_mobile.account_country_code,
+                                account_mobile_number=request.connecting_account_mobile.account_mobile_number
+                            )
+                        ),
+                        response_meta=ResponseMeta(meta_done=is_account_connected,
+                                                   meta_message=is_account_connected_message)
+                    )
+                else:
+                    return SyncAccountConnectionsResponse(
+                        response_meta=ResponseMeta(meta_done=is_account_connected,
+                                                   meta_message=is_account_connected_message)
+                    )
+            else:
+                return SyncAccountConnectionsResponse(
+                    response_meta=ResponseMeta(meta_done=False, meta_message="Account Syncing is self account"))
 
     def ConnectAccount(self, request, context):
         logging.info("ConnectAccountService:ConnectAccount")
@@ -201,38 +313,3 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     connected_account=connected_account,
                     response_meta=ResponseMeta(meta_done=True, meta_message="Account connected")
                 )
-
-    def SyncAccountConnections(self, request, context):
-        logging.info("ConnectAccountService:SyncAccountConnections")
-        access_done, access_message = validate_account_services_caller(request.access_auth_details)
-        response_meta = ResponseMeta(meta_done=access_done, meta_message=access_message)
-        if access_done is False:
-            return SyncAccountConnectionsResponse(response_meta=response_meta)
-        else:
-            account_mobile_number = request.access_auth_details.account.account_mobile_number
-            if request.connecting_account_mobile.account_mobile_number != account_mobile_number:
-                connecting_account = get_account(
-                    account_mobile_number=request.connecting_account_mobile.account_mobile_number)
-                is_account_connected, is_account_connected_message, connected_account = account_service_caller.connect_account_caller(
-                    access_auth_details=request.access_auth_details,
-                    connecting_account_id=connecting_account.account_id)
-                if is_account_connected:
-                    return SyncAccountConnectionsResponse(
-                        connected_account=SyncAccountConnectionsResponse.ConnectedAccount(
-                            connected_account=connected_account,
-                            connected_account_mobile=AccountMobile(
-                                account_country_code=request.connecting_account_mobile.account_country_code,
-                                account_mobile_number=request.connecting_account_mobile.account_mobile_number
-                            )
-                        ),
-                        response_meta=ResponseMeta(meta_done=is_account_connected,
-                                                   meta_message=is_account_connected_message)
-                    )
-                else:
-                    return SyncAccountConnectionsResponse(
-                        response_meta=ResponseMeta(meta_done=is_account_connected,
-                                                   meta_message=is_account_connected_message)
-                    )
-            else:
-                return SyncAccountConnectionsResponse(
-                    response_meta=ResponseMeta(meta_done=False, meta_message="Account Syncing is self account"))

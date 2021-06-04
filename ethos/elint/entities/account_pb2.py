@@ -42,7 +42,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\014elint.entityB\014AccountProtoP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\"ethos/elint/entities/account.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\"\xc7\x03\n\x07\x41\x63\x63ount\x12\x1c\n\x14\x61\x63\x63ount_analytics_id\x18\x01 \x01(\t\x12\x12\n\naccount_id\x18\x02 \x01(\t\x12!\n\x19\x61\x63\x63ount_personal_email_id\x18\x03 \x01(\t\x12\x1d\n\x15\x61\x63\x63ount_work_email_id\x18\x04 \x01(\t\x12\x1c\n\x14\x61\x63\x63ount_country_code\x18\x05 \x01(\t\x12\x1d\n\x15\x61\x63\x63ount_mobile_number\x18\x06 \x01(\t\x12\x1a\n\x12\x61\x63\x63ount_first_name\x18\x07 \x01(\t\x12\x19\n\x11\x61\x63\x63ount_last_name\x18\x08 \x01(\t\x12\x19\n\x11\x61\x63\x63ount_galaxy_id\x18\t \x01(\t\x12\x34\n\x10\x61\x63\x63ount_birth_at\x18\n \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x33\n\x0e\x61\x63\x63ount_gender\x18\x0b \x01(\x0e\x32\x1b.elint.entity.AccountGender\x12.\n\ncreated_at\x18\x0c \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x1e\n\x16\x61\x63\x63ount_billing_active\x18\r \x01(\t\"\xae\x01\n\x1f\x41\x63\x63ountSpaceKnowledgeAccessMeta\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12,\n$knowledge_space_access_session_token\x18\x02 \x01(\t\x12\x1a\n\x12space_knowledge_id\x18\x03 \x01(\t\x12-\n\taccess_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xd7\x01\n%AccountSpaceKnowledgeDomainAccessMeta\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12,\n$knowledge_space_access_session_token\x18\x02 \x01(\t\x12\x1a\n\x12space_knowledge_id\x18\x03 \x01(\t\x12!\n\x19space_knowledge_domain_id\x18\x04 \x01(\t\x12-\n\taccess_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x83\x02\n)AccountSpaceKnowledgeDomainFileAccessMeta\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12,\n$knowledge_space_access_session_token\x18\x02 \x01(\t\x12\x1a\n\x12space_knowledge_id\x18\x03 \x01(\t\x12!\n\x19space_knowledge_domain_id\x18\x04 \x01(\t\x12&\n\x1espace_knowledge_domain_file_id\x18\x05 \x01(\t\x12-\n\taccess_at\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xdc\x01\n\x17\x41\x63\x63ountConnectedAccount\x12\x1d\n\x15\x61\x63\x63ount_connection_id\x18\x01 \x01(\t\x12\x12\n\naccount_id\x18\x02 \x01(\t\x12(\n account_interested_in_connection\x18\x03 \x01(\x08\x12\x32\n*connected_account_interested_in_connection\x18\x04 \x01(\x08\x12\x30\n\x0c\x63onnected_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x9b\x01\n AccountConnectedAccountAssistant\x12\'\n\x1f\x61\x63\x63ount_assistant_connection_id\x18\x01 \x01(\t\x12\x1c\n\x14\x61\x63\x63ount_assistant_id\x18\x02 \x01(\t\x12\x30\n\x0c\x63onnected_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"f\n\x14\x41\x63\x63ountDeviceDetails\x12\x38\n\x11\x61\x63\x63ount_device_os\x18\x01 \x01(\x0e\x32\x1d.elint.entity.AccountDeviceOS\x12\x14\n\x0c\x64\x65vice_token\x18\x02 \x01(\t\"L\n\rAccountMobile\x12\x1c\n\x14\x61\x63\x63ount_country_code\x18\x01 \x01(\t\x12\x1d\n\x15\x61\x63\x63ount_mobile_number\x18\x02 \x01(\t\"\xb2\x01\n\x17\x41\x63\x63ountPayInCardDetails\x12\x0f\n\x07\x63\x61rd_id\x18\x01 \x01(\t\x12\r\n\x05\x62rand\x18\x02 \x01(\t\x12\x0f\n\x07\x63ountry\x18\x03 \x01(\t\x12\x14\n\x0c\x65xpiry_month\x18\x04 \x01(\x05\x12\x13\n\x0b\x65xpiry_year\x18\x05 \x01(\x05\x12\x13\n\x0b\x66ingerprint\x18\x06 \x01(\t\x12\x0f\n\x07\x66unding\x18\x07 \x01(\t\x12\x15\n\rlast_4_digits\x18\x08 \x01(\t*2\n\rAccountGender\x12\x0b\n\x07UNKNOWN\x10\x00\x12\n\n\x06\x46\x45MALE\x10\x01\x12\x08\n\x04MALE\x10\x02*\'\n\x0f\x41\x63\x63ountDeviceOS\x12\x07\n\x03IOS\x10\x00\x12\x0b\n\x07\x41NDROID\x10\x01*\x1e\n\x12\x41\x63\x63ountPayInMethod\x12\x08\n\x04\x43\x41RD\x10\x00\x42\x1e\n\x0c\x65lint.entityB\x0c\x41\x63\x63ountProtoP\x01P\x00\x62\x06proto3'
+  serialized_pb=b'\n\"ethos/elint/entities/account.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\"\xc7\x03\n\x07\x41\x63\x63ount\x12\x1c\n\x14\x61\x63\x63ount_analytics_id\x18\x01 \x01(\t\x12\x12\n\naccount_id\x18\x02 \x01(\t\x12!\n\x19\x61\x63\x63ount_personal_email_id\x18\x03 \x01(\t\x12\x1d\n\x15\x61\x63\x63ount_work_email_id\x18\x04 \x01(\t\x12\x1c\n\x14\x61\x63\x63ount_country_code\x18\x05 \x01(\t\x12\x1d\n\x15\x61\x63\x63ount_mobile_number\x18\x06 \x01(\t\x12\x1a\n\x12\x61\x63\x63ount_first_name\x18\x07 \x01(\t\x12\x19\n\x11\x61\x63\x63ount_last_name\x18\x08 \x01(\t\x12\x19\n\x11\x61\x63\x63ount_galaxy_id\x18\t \x01(\t\x12\x34\n\x10\x61\x63\x63ount_birth_at\x18\n \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x33\n\x0e\x61\x63\x63ount_gender\x18\x0b \x01(\x0e\x32\x1b.elint.entity.AccountGender\x12.\n\ncreated_at\x18\x0c \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x1e\n\x16\x61\x63\x63ount_billing_active\x18\r \x01(\t\"\xae\x01\n\x1f\x41\x63\x63ountSpaceKnowledgeAccessMeta\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12,\n$knowledge_space_access_session_token\x18\x02 \x01(\t\x12\x1a\n\x12space_knowledge_id\x18\x03 \x01(\t\x12-\n\taccess_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xd7\x01\n%AccountSpaceKnowledgeDomainAccessMeta\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12,\n$knowledge_space_access_session_token\x18\x02 \x01(\t\x12\x1a\n\x12space_knowledge_id\x18\x03 \x01(\t\x12!\n\x19space_knowledge_domain_id\x18\x04 \x01(\t\x12-\n\taccess_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x83\x02\n)AccountSpaceKnowledgeDomainFileAccessMeta\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12,\n$knowledge_space_access_session_token\x18\x02 \x01(\t\x12\x1a\n\x12space_knowledge_id\x18\x03 \x01(\t\x12!\n\x19space_knowledge_domain_id\x18\x04 \x01(\t\x12&\n\x1espace_knowledge_domain_file_id\x18\x05 \x01(\t\x12-\n\taccess_at\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xdc\x01\n\x17\x41\x63\x63ountConnectedAccount\x12\x1d\n\x15\x61\x63\x63ount_connection_id\x18\x01 \x01(\t\x12\x12\n\naccount_id\x18\x02 \x01(\t\x12(\n account_interested_in_connection\x18\x03 \x01(\x08\x12\x32\n*connected_account_interested_in_connection\x18\x04 \x01(\x08\x12\x30\n\x0c\x63onnected_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x9b\x01\n AccountConnectedAccountAssistant\x12\'\n\x1f\x61\x63\x63ount_assistant_connection_id\x18\x01 \x01(\t\x12\x1c\n\x14\x61\x63\x63ount_assistant_id\x18\x02 \x01(\t\x12\x30\n\x0c\x63onnected_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"f\n\x14\x41\x63\x63ountDeviceDetails\x12\x38\n\x11\x61\x63\x63ount_device_os\x18\x01 \x01(\x0e\x32\x1d.elint.entity.AccountDeviceOS\x12\x14\n\x0c\x64\x65vice_token\x18\x02 \x01(\t\"L\n\rAccountMobile\x12\x1c\n\x14\x61\x63\x63ount_country_code\x18\x01 \x01(\t\x12\x1d\n\x15\x61\x63\x63ount_mobile_number\x18\x02 \x01(\t\"\xa8\x01\n\x0b\x41\x63\x63ountMeta\x12\x12\n\naccount_id\x18\x02 \x01(\t\x12\x1a\n\x12\x61\x63\x63ount_first_name\x18\x07 \x01(\t\x12\x19\n\x11\x61\x63\x63ount_last_name\x18\x08 \x01(\t\x12\x19\n\x11\x61\x63\x63ount_galaxy_id\x18\t \x01(\t\x12\x33\n\x0e\x61\x63\x63ount_gender\x18\x0b \x01(\x0e\x32\x1b.elint.entity.AccountGender\"\xb2\x01\n\x17\x41\x63\x63ountPayInCardDetails\x12\x0f\n\x07\x63\x61rd_id\x18\x01 \x01(\t\x12\r\n\x05\x62rand\x18\x02 \x01(\t\x12\x0f\n\x07\x63ountry\x18\x03 \x01(\t\x12\x14\n\x0c\x65xpiry_month\x18\x04 \x01(\x05\x12\x13\n\x0b\x65xpiry_year\x18\x05 \x01(\x05\x12\x13\n\x0b\x66ingerprint\x18\x06 \x01(\t\x12\x0f\n\x07\x66unding\x18\x07 \x01(\t\x12\x15\n\rlast_4_digits\x18\x08 \x01(\t*2\n\rAccountGender\x12\x0b\n\x07UNKNOWN\x10\x00\x12\n\n\x06\x46\x45MALE\x10\x01\x12\x08\n\x04MALE\x10\x02*\'\n\x0f\x41\x63\x63ountDeviceOS\x12\x07\n\x03IOS\x10\x00\x12\x0b\n\x07\x41NDROID\x10\x01*\x1e\n\x12\x41\x63\x63ountPayInMethod\x12\x08\n\x04\x43\x41RD\x10\x00\x42\x1e\n\x0c\x65lint.entityB\x0c\x41\x63\x63ountProtoP\x01P\x00\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,],
   public_dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
@@ -72,8 +72,8 @@ _ACCOUNTGENDER = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1944,
-  serialized_end=1994,
+  serialized_start=2115,
+  serialized_end=2165,
 )
 _sym_db.RegisterEnumDescriptor(_ACCOUNTGENDER)
 
@@ -98,8 +98,8 @@ _ACCOUNTDEVICEOS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1996,
-  serialized_end=2035,
+  serialized_start=2167,
+  serialized_end=2206,
 )
 _sym_db.RegisterEnumDescriptor(_ACCOUNTDEVICEOS)
 
@@ -119,8 +119,8 @@ _ACCOUNTPAYINMETHOD = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2037,
-  serialized_end=2067,
+  serialized_start=2208,
+  serialized_end=2238,
 )
 _sym_db.RegisterEnumDescriptor(_ACCOUNTPAYINMETHOD)
 
@@ -614,6 +614,66 @@ _ACCOUNTMOBILE = _descriptor.Descriptor(
 )
 
 
+_ACCOUNTMETA = _descriptor.Descriptor(
+  name='AccountMeta',
+  full_name='elint.entity.AccountMeta',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='account_id', full_name='elint.entity.AccountMeta.account_id', index=0,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='account_first_name', full_name='elint.entity.AccountMeta.account_first_name', index=1,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='account_last_name', full_name='elint.entity.AccountMeta.account_last_name', index=2,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='account_galaxy_id', full_name='elint.entity.AccountMeta.account_galaxy_id', index=3,
+      number=9, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='account_gender', full_name='elint.entity.AccountMeta.account_gender', index=4,
+      number=11, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1764,
+  serialized_end=1932,
+)
+
+
 _ACCOUNTPAYINCARDDETAILS = _descriptor.Descriptor(
   name='AccountPayInCardDetails',
   full_name='elint.entity.AccountPayInCardDetails',
@@ -690,8 +750,8 @@ _ACCOUNTPAYINCARDDETAILS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1764,
-  serialized_end=1942,
+  serialized_start=1935,
+  serialized_end=2113,
 )
 
 _ACCOUNT.fields_by_name['account_birth_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -703,6 +763,7 @@ _ACCOUNTSPACEKNOWLEDGEDOMAINFILEACCESSMETA.fields_by_name['access_at'].message_t
 _ACCOUNTCONNECTEDACCOUNT.fields_by_name['connected_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _ACCOUNTCONNECTEDACCOUNTASSISTANT.fields_by_name['connected_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _ACCOUNTDEVICEDETAILS.fields_by_name['account_device_os'].enum_type = _ACCOUNTDEVICEOS
+_ACCOUNTMETA.fields_by_name['account_gender'].enum_type = _ACCOUNTGENDER
 DESCRIPTOR.message_types_by_name['Account'] = _ACCOUNT
 DESCRIPTOR.message_types_by_name['AccountSpaceKnowledgeAccessMeta'] = _ACCOUNTSPACEKNOWLEDGEACCESSMETA
 DESCRIPTOR.message_types_by_name['AccountSpaceKnowledgeDomainAccessMeta'] = _ACCOUNTSPACEKNOWLEDGEDOMAINACCESSMETA
@@ -711,6 +772,7 @@ DESCRIPTOR.message_types_by_name['AccountConnectedAccount'] = _ACCOUNTCONNECTEDA
 DESCRIPTOR.message_types_by_name['AccountConnectedAccountAssistant'] = _ACCOUNTCONNECTEDACCOUNTASSISTANT
 DESCRIPTOR.message_types_by_name['AccountDeviceDetails'] = _ACCOUNTDEVICEDETAILS
 DESCRIPTOR.message_types_by_name['AccountMobile'] = _ACCOUNTMOBILE
+DESCRIPTOR.message_types_by_name['AccountMeta'] = _ACCOUNTMETA
 DESCRIPTOR.message_types_by_name['AccountPayInCardDetails'] = _ACCOUNTPAYINCARDDETAILS
 DESCRIPTOR.enum_types_by_name['AccountGender'] = _ACCOUNTGENDER
 DESCRIPTOR.enum_types_by_name['AccountDeviceOS'] = _ACCOUNTDEVICEOS
@@ -772,6 +834,13 @@ AccountMobile = _reflection.GeneratedProtocolMessageType('AccountMobile', (_mess
   # @@protoc_insertion_point(class_scope:elint.entity.AccountMobile)
   })
 _sym_db.RegisterMessage(AccountMobile)
+
+AccountMeta = _reflection.GeneratedProtocolMessageType('AccountMeta', (_message.Message,), {
+  'DESCRIPTOR' : _ACCOUNTMETA,
+  '__module__' : 'ethos.elint.entities.account_pb2'
+  # @@protoc_insertion_point(class_scope:elint.entity.AccountMeta)
+  })
+_sym_db.RegisterMessage(AccountMeta)
 
 AccountPayInCardDetails = _reflection.GeneratedProtocolMessageType('AccountPayInCardDetails', (_message.Message,), {
   'DESCRIPTOR' : _ACCOUNTPAYINCARDDETAILS,

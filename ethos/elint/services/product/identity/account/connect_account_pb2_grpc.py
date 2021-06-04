@@ -41,6 +41,11 @@ class ConnectAccountServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.GetAccountSelfConnectedAccountAssistantResponse.FromString,
                 )
+        self.GetAllConnectedAssistantsWithBelongingEntity = channel.unary_stream(
+                '/elint.services.product.identity.account.ConnectAccountService/GetAllConnectedAssistantsWithBelongingEntity',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ConnectedAssistantsWithBelongingEntity.FromString,
+                )
         self.GetAllConnectedAccountAssistants = channel.unary_unary(
                 '/elint.services.product.identity.account.ConnectAccountService/GetAllConnectedAccountAssistants',
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
@@ -50,6 +55,11 @@ class ConnectAccountServiceStub(object):
                 '/elint.services.product.identity.account.ConnectAccountService/GetAllConnectedAccounts',
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ConnectedAccounts.FromString,
+                )
+        self.IsAccountConnectionExists = channel.unary_unary(
+                '/elint.services.product.identity.account.ConnectAccountService/IsAccountConnectionExists',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.IsAccountConnectionExistsRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
                 )
         self.IsAccountAssistantConnected = channel.unary_unary(
                 '/elint.services.product.identity.account.ConnectAccountService/IsAccountAssistantConnected',
@@ -88,6 +98,12 @@ class ConnectAccountServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetAllConnectedAssistantsWithBelongingEntity(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def GetAllConnectedAccountAssistants(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -95,6 +111,12 @@ class ConnectAccountServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetAllConnectedAccounts(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def IsAccountConnectionExists(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -138,6 +160,11 @@ def add_ConnectAccountServiceServicer_to_server(servicer, server):
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.GetAccountSelfConnectedAccountAssistantResponse.SerializeToString,
             ),
+            'GetAllConnectedAssistantsWithBelongingEntity': grpc.unary_stream_rpc_method_handler(
+                    servicer.GetAllConnectedAssistantsWithBelongingEntity,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ConnectedAssistantsWithBelongingEntity.SerializeToString,
+            ),
             'GetAllConnectedAccountAssistants': grpc.unary_unary_rpc_method_handler(
                     servicer.GetAllConnectedAccountAssistants,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.FromString,
@@ -147,6 +174,11 @@ def add_ConnectAccountServiceServicer_to_server(servicer, server):
                     servicer.GetAllConnectedAccounts,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ConnectedAccounts.SerializeToString,
+            ),
+            'IsAccountConnectionExists': grpc.unary_unary_rpc_method_handler(
+                    servicer.IsAccountConnectionExists,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.IsAccountConnectionExistsRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.SerializeToString,
             ),
             'IsAccountAssistantConnected': grpc.unary_unary_rpc_method_handler(
                     servicer.IsAccountAssistantConnected,
@@ -202,6 +234,23 @@ class ConnectAccountService(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def GetAllConnectedAssistantsWithBelongingEntity(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/elint.services.product.identity.account.ConnectAccountService/GetAllConnectedAssistantsWithBelongingEntity',
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ConnectedAssistantsWithBelongingEntity.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def GetAllConnectedAccountAssistants(request,
             target,
             options=(),
@@ -232,6 +281,23 @@ class ConnectAccountService(object):
         return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.ConnectAccountService/GetAllConnectedAccounts',
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ConnectedAccounts.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def IsAccountConnectionExists(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.ConnectAccountService/IsAccountConnectionExists',
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.IsAccountConnectionExistsRequest.SerializeToString,
+            ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
