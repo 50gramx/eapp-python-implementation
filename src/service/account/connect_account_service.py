@@ -99,7 +99,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     account = ApplicationContext.discover_account_service_stub().GetAccountById(
                         GetAccountByIdRequest(account_id=account_id))
                     logging.info(f"yielding")
-                    yield ConnectedAssistantsWithBelongingEntity(
+                    entity = ConnectedAssistantsWithBelongingEntity(
                         connected_assistant_with_belonging_entity=ConnectedAssistantWithBelongingEntity(
                             connected_assistant_belongs_to=ConnectedAssistantBelongsTo.ACCOUNT,
                             connected_assistant=Any().Pack(connected_account_assistant),
@@ -108,6 +108,8 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                         ),
                         response_meta=meta
                     )
+                    logging.info(entity)
+                    yield entity
                 else:
                     logging.info("return account meta entity")
                     # return account meta entity
