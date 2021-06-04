@@ -101,10 +101,12 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     logging.info(f"yielding")
                     any_account = Any()
                     any_account.Pack(account)
+                    any_connected_account_assistant = Any()
+                    any_connected_account_assistant.Pack(connected_account_assistant)
                     entity = ConnectedAssistantsWithBelongingEntity(
                         connected_assistant_with_belonging_entity=ConnectedAssistantWithBelongingEntity(
                             connected_assistant_belongs_to=ConnectedAssistantBelongsTo.ACCOUNT,
-                            connected_assistant=Any().Pack(connected_account_assistant),
+                            connected_assistant=any_connected_account_assistant,
                             is_connected_to_belonging_entity=True,
                             belonging_entity=any_account
                         ),
@@ -120,12 +122,16 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                             access_auth_details=request,
                             account_id=account_id))
                     logging.info(f"yielding")
+                    any_account_meta = Any()
+                    any_account_meta.Pack(account_meta)
+                    any_connected_account_assistant = Any()
+                    any_connected_account_assistant.Pack(connected_account_assistant)
                     yield ConnectedAssistantsWithBelongingEntity(
                         connected_assistant_with_belonging_entity=ConnectedAssistantWithBelongingEntity(
                             connected_assistant_belongs_to=ConnectedAssistantBelongsTo.ACCOUNT,
-                            connected_assistant=Any().Pack(connected_account_assistant),
+                            connected_assistant=any_connected_account_assistant,
                             is_connected_to_belonging_entity=False,
-                            belonging_entity_meta=Any().Pack(account_meta)
+                            belonging_entity_meta=any_account_meta
                         ),
                         response_meta=meta
                     )
