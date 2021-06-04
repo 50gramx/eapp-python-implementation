@@ -21,6 +21,7 @@ import logging
 
 import phonenumbers
 
+from application_context import ApplicationContext
 from ethos.elint.entities.account_pb2 import AccountMobile
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account.connect_account_pb2 import ConnectedAccountAssistants, \
@@ -64,7 +65,11 @@ class ConnectAccountService(ConnectAccountServiceServicer):
             return ConnectedAccountAssistants(response_meta=meta)
         else:
             account_connections = AccountConnections(account_id=request.account.account_id)
-            list_of_connected_account_assistants = account_connections.get_connected_account_assistants()
+            connect_account_service_stub = ApplicationContext.connect_account_service_stub()
+            self_connected_account_assistant = connect_account_service_stub().GetAccountSelfConnectedAccountAssistant(
+                request).connected_account_assistant
+            list_of_connected_account_assistants = account_connections.get_connected_account_assistants().remove(
+                self_connected_account_assistant)
             return ConnectedAccountAssistants(
                 connected_account_assistants=list_of_connected_account_assistants, response_meta=meta)
 
