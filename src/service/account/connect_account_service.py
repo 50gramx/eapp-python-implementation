@@ -71,12 +71,11 @@ class ConnectAccountService(ConnectAccountServiceServicer):
             return ConnectedAssistantsWithBelongingEntity(response_meta=meta)
         else:
             # declaration of all the stubs
-            connect_account_service_stub = ApplicationContext.connect_account_service_stub()
             discover_account_service_stub = ApplicationContext.discover_account_service_stub()
             discover_account_assistant_service_stub = ApplicationContext.discover_account_assistant_service_stub()
 
             # fetching all the params
-            all_connected_account_assistant = connect_account_service_stub().GetAllConnectedAccountAssistants(
+            all_connected_account_assistant = ApplicationContext.connect_account_service_stub().GetAllConnectedAccountAssistants(
                 request).connected_account_assistants
             connected_account_assistants_with_belonging_entity = ConnectedAssistantsWithBelongingEntity(
                 response_meta=meta
@@ -94,7 +93,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                         access_auth_details=request,
                         account_assistant_id=connected_account_assistant.account_assistant_id
                     )).account_assistant_meta.account_id
-                is_account_connection_exist = connect_account_service_stub().IsAccountConnectionExists(
+                is_account_connection_exist = ApplicationContext.connect_account_service_stub().IsAccountConnectionExists(
                     IsAccountConnectionExistsRequest(
                         access_auth_details=request,
                         account_id=None
