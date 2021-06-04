@@ -77,20 +77,12 @@ class ConnectAccountService(ConnectAccountServiceServicer):
             logging.info("fetching all connected account assistants")
             all_connected_account_assistant = ApplicationContext.connect_account_service_stub().GetAllConnectedAccountAssistants(
                 request).connected_account_assistants
-            connected_account_assistants_with_belonging_entity = ConnectedAssistantsWithBelongingEntity(
-                response_meta=meta
-            )
             logging.info(f"fetched all connected account assistants: {all_connected_account_assistant}")
 
             # yield all the connected_assistant_with_belonging_account
             logging.info("yield all the connected_assistant_with_belonging_account")
             for connected_account_assistant in all_connected_account_assistant:
                 logging.info(f"for connected_account_assistant: {connected_account_assistant}")
-                connected_assistant_belongs_to = Any()
-                connected_assistant_with_belonging_account = ConnectedAssistantWithBelongingEntity(
-                    connected_assistant_belongs_to=ConnectedAssistantBelongsTo.ACCOUNT,
-                    connected_assistant=connected_assistant_belongs_to.Pack(connected_account_assistant),
-                )
                 account_id = ApplicationContext.discover_account_assistant_service_stub().GetAccountAssistantMetaByAccountAssistantId(
                     GetAccountAssistantMetaByAccountAssistantIdRequest(
                         access_auth_details=request,
@@ -106,13 +98,16 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     # return account entity
                     account = ApplicationContext.discover_account_service_stub().GetAccountById(
                         GetAccountByIdRequest(account_id=account_id))
-                    belonging_entity = Any()
-                    connected_assistant_with_belonging_account.is_connected_to_belonging_entity = True
-                    connected_assistant_with_belonging_account.belonging_entity = belonging_entity.Pack(account)
-                    connected_account_assistants_with_belonging_entity. \
-                        connected_assistant_with_belonging_entity = connected_assistant_with_belonging_account
-                    logging.info(f"yielding: {connected_account_assistants_with_belonging_entity}")
-                    yield connected_account_assistants_with_belonging_entity
+                    logging.info(f"yielding")
+                    yield ConnectedAssistantsWithBelongingEntity(
+                        connected_assistant_with_belonging_entity=ConnectedAssistantWithBelongingEntity(
+                            connected_assistant_belongs_to=ConnectedAssistantBelongsTo.ACCOUNT,
+                            connected_assistant=Any().Pack(connected_account_assistant),
+                            is_connected_to_belonging_entity=True,
+                            belonging_entity=Any().Pack(account)
+                        ),
+                        response_meta=meta
+                    )
                 else:
                     logging.info("return account meta entity")
                     # return account meta entity
@@ -120,14 +115,16 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                         GetAccountMetaByAccountIdRequest(
                             access_auth_details=request,
                             account_id=account_id))
-                    connected_assistant_with_belonging_account.is_connected_to_belonging_entity = False
-                    belonging_entity = Any()
-                    connected_assistant_with_belonging_account.belonging_entity_meta = belonging_entity.Pack(
-                        account_meta)
-                    connected_account_assistants_with_belonging_entity. \
-                        connected_assistant_with_belonging_entity = connected_assistant_with_belonging_account
-                    logging.info(f"yielding: {connected_account_assistants_with_belonging_entity}")
-                    yield connected_account_assistants_with_belonging_entity
+                    logging.info(f"yielding")
+                    yield ConnectedAssistantsWithBelongingEntity(
+                        connected_assistant_with_belonging_entity=ConnectedAssistantWithBelongingEntity(
+                            connected_assistant_belongs_to=ConnectedAssistantBelongsTo.ACCOUNT,
+                            connected_assistant=Any().Pack(connected_account_assistant),
+                            is_connected_to_belonging_entity=False,
+                            belonging_entity_meta=Any().Pack(account_meta)
+                        ),
+                        response_meta=meta
+                    )
 
     def GetAllConnectedAccountAssistants(self, request, context):
         logging.info("ConnectAccountService:GetAllConnectedAccountAssistants")
