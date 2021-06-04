@@ -66,23 +66,28 @@ class ConnectAccountService(ConnectAccountServiceServicer):
     def GetAllConnectedAssistantsWithBelongingEntity(self, request, context):
         logging.info("ConnectAccountService:GetAllConnectedAssistantsWithBelongingEntity")
         access_done, access_message = validate_account_services_caller(request)
+        logging.info("validation done")
         meta = ResponseMeta(meta_done=access_done, meta_message=access_message)
         if access_done is False:
             return ConnectedAssistantsWithBelongingEntity(response_meta=meta)
         else:
+            logging.info("access is valid")
             # declaration of all the stubs
             discover_account_assistant_service_stub = ApplicationContext.discover_account_assistant_service_stub()
 
             # fetching all the params
+            logging.info("fetching all connected account assistants")
             all_connected_account_assistant = ApplicationContext.connect_account_service_stub().GetAllConnectedAccountAssistants(
                 request).connected_account_assistants
             connected_account_assistants_with_belonging_entity = ConnectedAssistantsWithBelongingEntity(
                 response_meta=meta
             )
+            logging.info("fetched all connected account assistants")
 
             # yield all the connected_assistant_with_belonging_account
-            logging.debug("yield all the connected_assistant_with_belonging_account")
+            logging.info("yield all the connected_assistant_with_belonging_account")
             for connected_account_assistant in all_connected_account_assistant:
+                logging.info(f"for connected_account_assistant: {connected_account_assistant}")
                 connected_assistant_belongs_to = Any()
                 connected_assistant_with_belonging_account = ConnectedAssistantWithBelongingEntity(
                     connected_assistant_belongs_to=ConnectedAssistantBelongsTo.ACCOUNT,
@@ -99,7 +104,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                         account_id=None
                     ))
                 if is_account_connection_exist:
-                    logging.debug("return account entity")
+                    logging.info("return account entity")
                     # return account entity
                     account = ApplicationContext.discover_account_service_stub().GetAccountById(
                         GetAccountByIdRequest(account_id=account_id))
@@ -108,10 +113,10 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     connected_assistant_with_belonging_account.belonging_entity = belonging_entity.Pack(account)
                     connected_account_assistants_with_belonging_entity. \
                         connected_assistant_with_belonging_entity = connected_assistant_with_belonging_account
-                    logging.debug(f"yielding: {connected_account_assistants_with_belonging_entity}")
+                    logging.info(f"yielding: {connected_account_assistants_with_belonging_entity}")
                     yield connected_account_assistants_with_belonging_entity
                 else:
-                    logging.debug("return account meta entity")
+                    logging.info("return account meta entity")
                     # return account meta entity
                     account_meta = ApplicationContext.discover_account_service_stub().GetAccountMetaByAccountId(
                         GetAccountMetaByAccountIdRequest(
@@ -123,7 +128,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                         account_meta)
                     connected_account_assistants_with_belonging_entity. \
                         connected_assistant_with_belonging_entity = connected_assistant_with_belonging_account
-                    logging.debug(f"yielding: {connected_account_assistants_with_belonging_entity}")
+                    logging.info(f"yielding: {connected_account_assistants_with_belonging_entity}")
                     yield connected_account_assistants_with_belonging_entity
 
     def GetAllConnectedAccountAssistants(self, request, context):
