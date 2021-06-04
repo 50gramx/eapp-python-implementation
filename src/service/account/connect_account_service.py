@@ -64,14 +64,13 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                 connected_account_assistant=connected_account_assistant, response_meta=meta)
 
     def GetAllConnectedAssistantsWithBelongingEntity(self, request, context):
-        logging.info("ConnectAccountService:GetAllConnectedAssistants")
+        logging.info("ConnectAccountService:GetAllConnectedAssistantsWithBelongingEntity")
         access_done, access_message = validate_account_services_caller(request)
         meta = ResponseMeta(meta_done=access_done, meta_message=access_message)
         if access_done is False:
             return ConnectedAssistantsWithBelongingEntity(response_meta=meta)
         else:
             # declaration of all the stubs
-            discover_account_service_stub = ApplicationContext.discover_account_service_stub()
             discover_account_assistant_service_stub = ApplicationContext.discover_account_assistant_service_stub()
 
             # fetching all the params
@@ -100,7 +99,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     ))
                 if is_account_connection_exist:
                     # return account entity
-                    account = discover_account_service_stub().GetAccountById(
+                    account = ApplicationContext.discover_account_service_stub().GetAccountById(
                         GetAccountByIdRequest(account_id=account_id))
                     belonging_entity = Any()
                     connected_assistant_with_belonging_account.is_connected_to_belonging_entity = True
@@ -110,7 +109,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     yield connected_account_assistants_with_belonging_entity
                 else:
                     # return account meta entity
-                    account_meta = discover_account_service_stub().GetAccountMetaByAccountId(
+                    account_meta = ApplicationContext.discover_account_service_stub().GetAccountMetaByAccountId(
                         GetAccountMetaByAccountIdRequest(
                             access_auth_details=request,
                             account_id=account_id))
@@ -130,8 +129,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
             return ConnectedAccountAssistants(response_meta=meta)
         else:
             account_connections = AccountConnections(account_id=request.account.account_id)
-            connect_account_service_stub = ApplicationContext.connect_account_service_stub()
-            self_connected_account_assistant = connect_account_service_stub().GetAccountSelfConnectedAccountAssistant(
+            self_connected_account_assistant = ApplicationContext.connect_account_service_stub().GetAccountSelfConnectedAccountAssistant(
                 request).connected_account_assistant
             list_of_connected_account_assistants = account_connections.get_connected_account_assistants().remove(
                 self_connected_account_assistant)
