@@ -99,12 +99,14 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     account = ApplicationContext.discover_account_service_stub().GetAccountById(
                         GetAccountByIdRequest(account_id=account_id))
                     logging.info(f"yielding")
+                    any_account = Any()
+                    any_account.Pack(account)
                     entity = ConnectedAssistantsWithBelongingEntity(
                         connected_assistant_with_belonging_entity=ConnectedAssistantWithBelongingEntity(
                             connected_assistant_belongs_to=ConnectedAssistantBelongsTo.ACCOUNT,
                             connected_assistant=Any().Pack(connected_account_assistant),
                             is_connected_to_belonging_entity=True,
-                            belonging_entity=Any().Pack(account)
+                            belonging_entity=any_account
                         ),
                         response_meta=meta
                     )
