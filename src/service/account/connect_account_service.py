@@ -97,7 +97,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     logging.info("return account entity")
                     # return account entity
                     account = ApplicationContext.discover_account_service_stub().GetAccountById(
-                        GetAccountByIdRequest(account_id=account_id))
+                        GetAccountByIdRequest(account_id=account_id)).account
                     logging.info(f"yielding")
                     any_account = Any()
                     any_account.Pack(account)
@@ -120,7 +120,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     account_meta = ApplicationContext.discover_account_service_stub().GetAccountMetaByAccountId(
                         GetAccountMetaByAccountIdRequest(
                             access_auth_details=request,
-                            account_id=account_id))
+                            account_id=account_id)).account_meta
                     logging.info(f"yielding")
                     any_account_meta = Any()
                     any_account_meta.Pack(account_meta)
