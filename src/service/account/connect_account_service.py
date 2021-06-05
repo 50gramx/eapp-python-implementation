@@ -88,16 +88,21 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                         access_auth_details=request,
                         account_assistant_id=connected_account_assistant.account_assistant_id
                     )).account_assistant_meta.account_id
+
                 is_account_connection_exist = ApplicationContext.connect_account_service_stub().IsAccountConnectionExists(
                     IsAccountConnectionExistsRequest(
                         access_auth_details=request,
                         account_id=None
                     ))
+                account = ApplicationContext.discover_account_service_stub().GetAccountById(
+                    GetAccountByIdRequest(account_id=account_id)).account
+                account_assistant = ApplicationContext.discover_account_assistant_service_stub().GetAccountAssistantByAccount(
+                    account)
+                any_assistant = Any()
+                any_assistant.Pack(account_assistant)
                 if is_account_connection_exist:
                     logging.info("return account entity")
                     # return account entity
-                    account = ApplicationContext.discover_account_service_stub().GetAccountById(
-                        GetAccountByIdRequest(account_id=account_id)).account
                     logging.info(f"yielding")
                     any_account = Any()
                     any_account.Pack(account)
@@ -107,6 +112,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                         connected_assistant_with_belonging_entity=ConnectedAssistantWithBelongingEntity(
                             connected_assistant_belongs_to=ConnectedAssistantBelongsTo.ACCOUNT,
                             connected_assistant=any_connected_account_assistant,
+                            assistant=any_assistant,
                             is_connected_to_belonging_entity=True,
                             belonging_entity=any_account
                         ),
@@ -130,6 +136,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                         connected_assistant_with_belonging_entity=ConnectedAssistantWithBelongingEntity(
                             connected_assistant_belongs_to=ConnectedAssistantBelongsTo.ACCOUNT,
                             connected_assistant=any_connected_account_assistant,
+                            assistant=any_assistant,
                             is_connected_to_belonging_entity=False,
                             belonging_entity_meta=any_account_meta
                         ),
