@@ -113,7 +113,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     any_connected_entity = Any()
                     connected_account = ApplicationContext.connect_account_service_stub().GetConnectedAccount(
                         GetConnectedAccountRequest(
-                            access_auth_details=request.access_auth_details,
+                            access_auth_details=request,
                             account_id=account_id
                         )).connected_account
                     any_connected_entity.Pack(connected_account)
