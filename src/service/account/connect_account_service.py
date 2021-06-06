@@ -28,7 +28,8 @@ from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account.connect_account_pb2 import ConnectedAccountAssistants, \
     ConnectedAccounts, ConnectAccountResponse, ParseAccountMobilesResponse, SyncAccountConnectionsResponse, \
     GetAccountSelfConnectedAccountAssistantResponse, ConnectedAssistantsWithBelongingEntity, \
-    IsAccountConnectionExistsRequest, ConnectedAssistantWithBelongingEntity, ConnectedAssistantBelongsTo
+    IsAccountConnectionExistsRequest, ConnectedAssistantWithBelongingEntity, ConnectedAssistantBelongsTo, \
+    GetConnectedAccountResponse, GetConnectedAccountRequest
 from ethos.elint.services.product.identity.account.connect_account_pb2_grpc import ConnectAccountServiceServicer
 from ethos.elint.services.product.identity.account.discover_account_pb2 import GetAccountByIdRequest, \
     GetAccountMetaByAccountIdRequest
@@ -65,6 +66,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
 
     def GetAllConnectedAssistantsWithBelongingEntity(self, request, context):
         logging.info("ConnectAccountService:GetAllConnectedAssistantsWithBelongingEntity")
+        # TODO: Remove debugging comments
         access_done, access_message = validate_account_services_caller(request)
         logging.info("validation done")
         meta = ResponseMeta(meta_done=access_done, meta_message=access_message)
@@ -108,12 +110,20 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     any_account.Pack(account)
                     any_connected_account_assistant = Any()
                     any_connected_account_assistant.Pack(connected_account_assistant)
+                    any_connected_entity = Any()
+                    connected_account = ApplicationContext.connect_account_service_stub().GetConnectedAccount(
+                        GetConnectedAccountRequest(
+                            access_auth_details=request.access_auth_details,
+                            account_id=account_id
+                        )).connected_account
+                    any_connected_entity.Pack(connected_account)
                     entity = ConnectedAssistantsWithBelongingEntity(
                         connected_assistant_with_belonging_entity=ConnectedAssistantWithBelongingEntity(
                             connected_assistant_belongs_to=ConnectedAssistantBelongsTo.ACCOUNT,
                             connected_assistant=any_connected_account_assistant,
                             assistant=any_assistant,
                             is_connected_to_belonging_entity=True,
+                            connected_entity=any_connected_entity,
                             belonging_entity=any_account
                         ),
                         response_meta=meta
@@ -170,6 +180,26 @@ class ConnectAccountService(ConnectAccountServiceServicer):
             return ConnectedAccounts(
                 connected_accounts=list_of_connected_accounts,
                 response_meta=ResponseMeta(meta_done=access_done, meta_message=access_message))
+
+    def GetConnectedAccount(self, request, context):
+        logging.info("ConnectAccountService:GetConnectedAccount")
+        access_done, access_message = validate_account_services_caller(request.access_auth_details)
+        if access_done is False:
+            return GetConnectedAccountResponse(
+                response_meta=ResponseMeta(meta_done=access_done, meta_message=access_message))
+        else:
+            is_account_connected = ApplicationContext.connect_account_service_stub().IsAccountConnectionExists(
+                IsAccountConnectionExistsRequest(
+                    access_auth_details=request.access_auth_details, account_id=request.account_id)).meta_done
+            if is_account_connected is False:
+                return GetConnectedAccountResponse(
+                    response_meta=ResponseMeta(meta_done=False, meta_message="Account not connected."))
+            else:
+                account_connections = AccountConnections(account_id=request.access_auth_details.account.account_id)
+                connected_account = account_connections.get_connected_account(account_id=request.account_id)
+                return GetConnectedAccountResponse(
+                    connected_account=connected_account,
+                    response_meta=ResponseMeta(meta_done=True, meta_message="Account connected."))
 
     def IsAccountConnectionExists(self, request, context):
         logging.info("ConnectAccountService:IsAccountConnectionExists")
