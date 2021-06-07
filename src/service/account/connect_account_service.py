@@ -152,6 +152,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                         ),
                         response_meta=meta
                     )
+            return ConnectedAssistantsWithBelongingEntity(response_meta=meta)
 
     def GetAllConnectedAccountAssistants(self, request, context):
         logging.info("ConnectAccountService:GetAllConnectedAccountAssistants")
