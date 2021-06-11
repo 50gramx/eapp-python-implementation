@@ -25,7 +25,6 @@ from ethos.elint.entities.generic_pb2 import TemporaryTokenDetails, ResponseMeta
 from ethos.elint.services.product.identity.account.access_account_pb2 import ValidateAccountResponse, \
     VerifyAccountResponse, ValidateAccountServicesResponse, ReAccountAccessTokenResponse
 from ethos.elint.services.product.identity.account.access_account_pb2_grpc import AccessAccountServiceServicer
-from models.base_models import AccountDevices
 from services_caller.account_service_caller import validate_account_services_caller
 from support.db_service import is_existing_account_mobile, get_account, update_account_devices
 from support.helper_functions import get_random_string, gen_uuid, get_current_timestamp, send_otp, get_future_timestamp, \
@@ -147,6 +146,13 @@ class AccessAccountService(AccessAccountServiceServicer):
 
     def ValidateAccountServices(self, request, context):
         logging.info("AccessAccountService:ValidateAccountServices invoked.")
+        # validate request params
+        if request is None:
+            return ValidateAccountServicesResponse(
+                account_service_access_validation_done=False,
+                account_service_access_validation_message="Invalid Request. This action will be reported."
+            )
+
         account = request.account
         account_services_access_session_token_details = request.account_services_access_session_token_details
         requested_at = request.requested_at
