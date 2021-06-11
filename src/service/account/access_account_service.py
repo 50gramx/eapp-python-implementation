@@ -147,7 +147,7 @@ class AccessAccountService(AccessAccountServiceServicer):
     def ValidateAccountServices(self, request, context):
         logging.info("AccessAccountService:ValidateAccountServices invoked.")
         # validate request params
-        if request is None:
+        if request.account.account_id is None:
             return ValidateAccountServicesResponse(
                 account_service_access_validation_done=False,
                 account_service_access_validation_message="Invalid Request. This action will be reported."
