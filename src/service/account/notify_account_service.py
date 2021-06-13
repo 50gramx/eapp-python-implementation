@@ -77,7 +77,7 @@ class NotifyAccountService(NotifyAccountServiceServicer):
             message_title = f"{account.account_last_name.strip()[0]}, {account.account_first_name}"
             message_body = request.message
             message_data = {
-                'account_id': request.account_id,
+                'account_id': request.connecting_account_id,
                 'service': "NotifyAccountService",
                 'rpc': "NewReceivedMessageFromAccount"
             }
