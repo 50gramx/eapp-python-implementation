@@ -70,6 +70,11 @@ class SendAccountMessageServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.SyncAccountConnectedAccountAssistantSentMessagesRequest.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.SyncAccountConnectedAccountAssistantSentMessagesResponse.FromString,
                 )
+        self.GetLast24ProductNSentMessages = channel.unary_stream(
+                '/elint.services.product.conversation.message.account.SendAccountMessageService/GetLast24ProductNSentMessages',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.GetLast24ProductNSentMessagesRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.GetLast24ProductNSentMessagesResponse.FromString,
+                )
 
 
 class SendAccountMessageServiceServicer(object):
@@ -120,6 +125,13 @@ class SendAccountMessageServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetLast24ProductNSentMessages(self, request, context):
+        """Get Messages
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_SendAccountMessageServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -157,6 +169,11 @@ def add_SendAccountMessageServiceServicer_to_server(servicer, server):
                     servicer.SyncAccountConnectedAccountAssistantSentMessages,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.SyncAccountConnectedAccountAssistantSentMessagesRequest.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.SyncAccountConnectedAccountAssistantSentMessagesResponse.SerializeToString,
+            ),
+            'GetLast24ProductNSentMessages': grpc.unary_stream_rpc_method_handler(
+                    servicer.GetLast24ProductNSentMessages,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.GetLast24ProductNSentMessagesRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.GetLast24ProductNSentMessagesResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -285,5 +302,22 @@ class SendAccountMessageService(object):
         return grpc.experimental.unary_stream(request, target, '/elint.services.product.conversation.message.account.SendAccountMessageService/SyncAccountConnectedAccountAssistantSentMessages',
             ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.SyncAccountConnectedAccountAssistantSentMessagesRequest.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.SyncAccountConnectedAccountAssistantSentMessagesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetLast24ProductNSentMessages(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/elint.services.product.conversation.message.account.SendAccountMessageService/GetLast24ProductNSentMessages',
+            ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.GetLast24ProductNSentMessagesRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_send__account__message__pb2.GetLast24ProductNSentMessagesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -22,6 +22,7 @@
 import grpc
 
 from ethos.elint.entities import generic_pb2 as ethos_dot_elint_dot_entities_dot_generic__pb2
+from ethos.elint.services.product.conversation.message import message_conversation_pb2 as ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_message__conversation__pb2
 from ethos.elint.services.product.identity.account import access_account_pb2 as ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2
 from ethos.elint.services.product.identity.account_assistant import access_account_assistant_pb2 as ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_access__account__assistant__pb2
 
@@ -45,6 +46,16 @@ class MessageConversationServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_access__account__assistant__pb2.AccountAssistantServicesAccessAuthDetails.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
                 )
+        self.GetAccountAndAssistantConversations = channel.unary_stream(
+                '/elint.services.product.conversation.message.MessageConversationService/GetAccountAndAssistantConversations',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_message__conversation__pb2.GetAccountAndAssistantConversationsRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_message__conversation__pb2.GetAccountAndAssistantConversationsResponse.FromString,
+                )
+        self.GetLast24ProductNConversationMessages = channel.unary_stream(
+                '/elint.services.product.conversation.message.MessageConversationService/GetLast24ProductNConversationMessages',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_message__conversation__pb2.GetLast24ProductNConversationMessagesRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_message__conversation__pb2.GetLast24ProductNConversationMessagesResponse.FromString,
+                )
 
 
 class MessageConversationServiceServicer(object):
@@ -62,6 +73,18 @@ class MessageConversationServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetAccountAndAssistantConversations(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetLast24ProductNConversationMessages(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MessageConversationServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -74,6 +97,16 @@ def add_MessageConversationServiceServicer_to_server(servicer, server):
                     servicer.SetupAccountAssistantConversations,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_access__account__assistant__pb2.AccountAssistantServicesAccessAuthDetails.FromString,
                     response_serializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.SerializeToString,
+            ),
+            'GetAccountAndAssistantConversations': grpc.unary_stream_rpc_method_handler(
+                    servicer.GetAccountAndAssistantConversations,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_message__conversation__pb2.GetAccountAndAssistantConversationsRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_message__conversation__pb2.GetAccountAndAssistantConversationsResponse.SerializeToString,
+            ),
+            'GetLast24ProductNConversationMessages': grpc.unary_stream_rpc_method_handler(
+                    servicer.GetLast24ProductNConversationMessages,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_message__conversation__pb2.GetLast24ProductNConversationMessagesRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_message__conversation__pb2.GetLast24ProductNConversationMessagesResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -116,5 +149,39 @@ class MessageConversationService(object):
         return grpc.experimental.unary_unary(request, target, '/elint.services.product.conversation.message.MessageConversationService/SetupAccountAssistantConversations',
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_access__account__assistant__pb2.AccountAssistantServicesAccessAuthDetails.SerializeToString,
             ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetAccountAndAssistantConversations(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/elint.services.product.conversation.message.MessageConversationService/GetAccountAndAssistantConversations',
+            ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_message__conversation__pb2.GetAccountAndAssistantConversationsRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_message__conversation__pb2.GetAccountAndAssistantConversationsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetLast24ProductNConversationMessages(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/elint.services.product.conversation.message.MessageConversationService/GetLast24ProductNConversationMessages',
+            ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_message__conversation__pb2.GetLast24ProductNConversationMessagesRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_message__conversation__pb2.GetLast24ProductNConversationMessagesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

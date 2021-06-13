@@ -18,12 +18,15 @@
 #   */
 
 import logging
+import os
 
 from google.protobuf.text_format import MessageToString
+from pyfcm import FCMNotification
 
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account.notify_account_pb2_grpc import NotifyAccountServiceServicer
 from services_caller.account_service_caller import get_account_by_id_caller
+from support.db_service import get_account_device_token
 from support.notifications.apple_push_notifications import ApplePushNotifications
 
 
@@ -56,22 +59,36 @@ class NotifyAccountService(NotifyAccountServiceServicer):
     def NewReceivedMessageFromAccount(self, request, context):
         logging.info("NotifyAccountService:NewReceivedMessageFromAccount")
         account, _, _ = get_account_by_id_caller(account_id=request.connecting_account_id)
-        ios_new_messages_payload = {
-            'aps': {
-                'alert': {
-                    "title": f"{account.account_first_name} {account.account_last_name}",
-                    "body": f"{request.message}",
-                },
-                'sound': "default",
-                'badge': 0,
-            },
-            'account_id': request.account_id,
-            'service': "NotifyAccountService",
-            'rpc': "NewReceivedMessageFromAccount"
-        }
+        # ios_new_messages_payload = {
+        #     'aps': {
+        #         'alert': {
+        #             "title": f"{account.account_first_name} {account.account_last_name}",
+        #             "body": f"{request.message}",
+        #         },
+        #         'sound': "default",
+        #         'badge': 0,
+        #     },
+        #     'account_id': request.account_id,
+        #     'service': "NotifyAccountService",
+        #     'rpc': "NewReceivedMessageFromAccount"
+        # }
         try:
-            apns = ApplePushNotifications()
-            apns.notify_account(account_id=request.account_id, payload=ios_new_messages_payload)
+            # apns = ApplePushNotifications()
+            message_title = f"{account.account_last_name.strip()[0]}, {account.account_first_name}"
+            message_body = request.message
+            message_data = {
+                'account_id': request.account_id,
+                'service': "NotifyAccountService",
+                'rpc': "NewReceivedMessageFromAccount"
+            }
+            push_service = FCMNotification(api_key=os.environ['FCM_API_KEY'])
+            push_result = push_service.notify_single_device(
+                registration_id=get_account_device_token(account_id=request.account_id),
+                message_title=message_title,
+                message_body=message_body,
+                data_message=message_data
+            )
+            # apns.notify_account(account_id=request.account_id, payload=ios_new_messages_payload)
             logging.info("DEBUG:: NOTIFICATION SENT")
             return ResponseMeta(meta_done=True, meta_message="Notified successfully!")
         except Exception as e:
