@@ -86,7 +86,7 @@ class NotifyAccountService(NotifyAccountServiceServicer):
                 registration_id=get_account_device_token(account_id=request.account_id),
                 message_title=message_title,
                 message_body=message_body,
-                data_message=message_data
+                data_message=message_data, sound='Default'
             )
             # apns.notify_account(account_id=request.account_id, payload=ios_new_messages_payload)
             logging.info("DEBUG:: NOTIFICATION SENT")
