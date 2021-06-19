@@ -46,7 +46,10 @@ class AccessAccountService(AccessAccountServiceServicer):
         requested_at = request.requested_at
 
         # check account existence
-        account_country_code = "+" + str(phonenumbers.parse(account_mobile_number, "IN").country_code)
+        if request.account_mobile_country_code == "":
+            account_country_code = "+" + str(phonenumbers.parse(account_mobile_number, "IN").country_code)
+        else:
+            account_country_code = request.account_mobile_country_code
         account_exists_with_mobile = is_existing_account_mobile(account_country_code, account_mobile_number)
 
         # take action

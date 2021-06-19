@@ -115,3 +115,4 @@ class AccountAssistantNameCode(Base):
 
     account_assistant_name = Column(String(255), primary_key=True)
     account_assistant_name_code = Column(Integer(), primary_key=True)
+    account_id = Column(String(255), primary_key=True)
