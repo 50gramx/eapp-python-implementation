@@ -176,7 +176,7 @@ def get_galaxy(with_galaxy_id: str) -> galaxy_pb2.Galaxy:
 def get_our_galaxy() -> galaxy_pb2.Galaxy:
     with DbSession.session_scope() as session:
         galaxy = session.query(Galaxy).filter(
-            Galaxy.galaxy_name == "Public Galaxy"
+            Galaxy.galaxy_name == "Open Galaxy"
         ).first()
         galaxy_id = galaxy.galaxy_id
         galaxy_name = galaxy.galaxy_name
