@@ -14,3 +14,4 @@ phonenumbers==8.12.19
 redis
 stripe
 pyfcm
+google-api-python-client==2.12.0
