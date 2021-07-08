@@ -305,7 +305,7 @@ class PayInAccountService(PayInAccountServiceServicer):
                             days=1)
                         expiry_iso_string = format_datetime_to_iso_string(expiry_datetime)
                         _ = stripe.Customer.modify(
-                            customer=customer_id,
+                            customer_id,
                             metadata=
                             {
                                 "open_galaxy_tier": request.open_galaxy_tier_enum,
