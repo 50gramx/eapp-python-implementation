@@ -111,16 +111,23 @@ class CreateAccountService(CreateAccountServiceServicer):
             account_galaxy_id=account_galaxy_id, account_gender=request.account_gender,
             account_birth_at=format_timestamp_to_datetime(request.account_birth_at),
             account_created_at=format_timestamp_to_datetime(request.requested_at), account_billing_active=False)
+        # add the new account device details
+        try:
+            new_account_devices = AccountDevices(
+                account_id=account_id,
+                account_device_os=request.account_device_details.account_device_os,
+                account_device_token=request.account_device_details.device_token,
+                account_device_token_accessed_at=format_timestamp_to_datetime(request.requested_at)
+            )
+            add_new_account_devices(new_account_devices)
+        except Exception as e:
+            logging.warning(f"CreateAccountService:CaptureAccountMetaDetails:DeviceException: {e}")
+            return CaptureAccountMetaDetailsResponse(
+                account_creation_done=False,
+                account_creation_message="Your device is already registered with another account. Trying to sign in?"
+            )
         # add the new account to db
         add_new_account(new_account)
-        # add the new account device details
-        new_account_devices = AccountDevices(
-            account_id=account_id,
-            account_device_os=request.account_device_details.account_device_os,
-            account_device_token=request.account_device_details.device_token,
-            account_device_token_accessed_at=format_timestamp_to_datetime(request.requested_at)
-        )
-        add_new_account_devices(new_account_devices)
         # setup account connections tables
         AccountConnections(account_id=account_id).setup_account_connections()
         # create the response params here
