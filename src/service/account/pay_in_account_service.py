@@ -19,8 +19,8 @@
 import datetime
 import json
 import logging
-import os
 import math
+import os
 
 import stripe
 from google.oauth2 import service_account
@@ -308,18 +308,18 @@ class PayInAccountService(PayInAccountServiceServicer):
                             customer=customer_id,
                             metadata=
                             {
-                                "open_galaxy_tier": request.open_galaxy_tier,
+                                "open_galaxy_tier": request.open_galaxy_tier_enum,
                                 "closed_domain_launch_per_month": self.open_galaxy_tier_plans.get(
-                                    request.open_galaxy_tier).get("closed_domain_launch_per_month"),
+                                    request.open_galaxy_tier_enum).get("closed_domain_launch_per_month"),
                                 "closed_domain_page_learning_per_month": self.open_galaxy_tier_plans.get(
-                                    request.open_galaxy_tier).get("closed_domain_page_learning_per_month"),
+                                    request.open_galaxy_tier_enum).get("closed_domain_page_learning_per_month"),
                                 "closed_domain_learning_speed_x": self.open_galaxy_tier_plans.get(
-                                    request.open_galaxy_tier).get("closed_domain_learning_speed_x"),
+                                    request.open_galaxy_tier_enum).get("closed_domain_learning_speed_x"),
                                 "daily_tier_limits_expiry_iso_string": expiry_iso_string,
                                 "open_inference_per_day": self.open_galaxy_tier_plans.get(
-                                    request.open_galaxy_tier).get("open_inference_per_day"),
+                                    request.open_galaxy_tier_enum).get("open_inference_per_day"),
                                 "closed_inference_per_day": self.open_galaxy_tier_plans.get(
-                                    request.open_galaxy_tier).get("closed_inference_per_day"),
+                                    request.open_galaxy_tier_enum).get("closed_inference_per_day"),
                             },
                         )
                         logging.info("Subscribed successfully.")
