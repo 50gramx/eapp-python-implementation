@@ -48,7 +48,8 @@ class PayInAccountService(PayInAccountServiceServicer):
         self.ethoscoin_price_inr = 1.49
         self.open_galaxy_tier_plans = {
             0: {
-                "price_api": "price_1JAVQkF89FbkqSMdPfnZ0rKB",
+                # "price_api": "price_1JAVQkF89FbkqSMdPfnZ0rKB",
+                "price_api": "price_1J9dgOF89FbkqSMd2ircLWjC",
                 "ethoscoin": 0,
                 "play_store_subscription_id": "50gramx.space.tier.starter",
                 "closed_domain_launch_per_month": 1,
