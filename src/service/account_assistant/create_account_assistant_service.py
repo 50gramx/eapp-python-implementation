@@ -85,5 +85,7 @@ class CreateAccountAssistantService(CreateAccountAssistantServiceServicer):
         else:
             return GetAccountAssistantNameCodeResponse(
                 account_assistant_name_code=get_account_assistant_name_code(
-                    account_assistant_name=request.account_assistant_name),
+                    account_assistant_name=request.account_assistant_name,
+                    account_id=request.access_auth_details.account.account_id
+                ),
                 response_meta=response_meta)

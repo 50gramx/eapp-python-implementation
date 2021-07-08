@@ -60,7 +60,7 @@ def is_existing_account_mobile(account_country_code: str, account_mobile_number:
         return account_exists
 
 
-def get_account_assistant_name_code(account_assistant_name: str) -> int:
+def get_account_assistant_name_code(account_assistant_name: str, account_id: str) -> int:
     account_assistant_name = account_assistant_name.lower()
     with DbSession.session_scope() as session:
         account_assistant_name_code = session.query(AccountAssistantNameCode).filter(
@@ -71,7 +71,7 @@ def get_account_assistant_name_code(account_assistant_name: str) -> int:
         else:
             new_name_code = 1
         session.add(AccountAssistantNameCode(account_assistant_name=account_assistant_name,
-                                             account_assistant_name_code=new_name_code))
+                                             account_assistant_name_code=new_name_code, account_id=account_id))
         session.commit()
         return new_name_code
 
