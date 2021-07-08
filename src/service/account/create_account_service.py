@@ -27,7 +27,8 @@ from models.account_connection_models import AccountConnections
 from models.base_models import Account, AccountDevices
 from services_caller.account_assistant_service_caller import create_account_assistant_caller
 from services_caller.message_conversation_service_caller import setup_account_conversations_caller
-from support.db_service import is_existing_account_mobile, add_new_account, get_our_galaxy, add_new_account_devices
+from support.db_service import is_existing_account_mobile, add_new_account, get_our_galaxy, add_new_account_devices, \
+    check_existing_account_device
 from support.helper_functions import gen_uuid, format_timestamp_to_datetime, generate_verification_code_token, \
     verify_verification_code_token
 from support.session_manager import create_account_creation_auth_details, \
@@ -103,6 +104,14 @@ class CreateAccountService(CreateAccountServiceServicer):
         account_analytics_id = gen_uuid()
         account_id = gen_uuid()
         account_galaxy_id = get_our_galaxy().galaxy_id
+
+        # before adding account, check if the device is already registered
+        if check_existing_account_device(account_device_token=request.account_device_details.device_token):
+            return CaptureAccountMetaDetailsResponse(
+                account_creation_done=False,
+                account_creation_message="Your device is already registered with another account. Trying to sign in?"
+            )
+
         new_account = Account(
             account_analytics_id=account_analytics_id, account_id=account_id,
             account_country_code=request.account_creation_auth_details.account_mobile_country_code,
@@ -111,6 +120,9 @@ class CreateAccountService(CreateAccountServiceServicer):
             account_galaxy_id=account_galaxy_id, account_gender=request.account_gender,
             account_birth_at=format_timestamp_to_datetime(request.account_birth_at),
             account_created_at=format_timestamp_to_datetime(request.requested_at), account_billing_active=False)
+        # add the new account to db
+        add_new_account(new_account)
+
         # add the new account device details
         try:
             new_account_devices = AccountDevices(
@@ -126,8 +138,7 @@ class CreateAccountService(CreateAccountServiceServicer):
                 account_creation_done=False,
                 account_creation_message="Your device is already registered with another account. Trying to sign in?"
             )
-        # add the new account to db
-        add_new_account(new_account)
+
         # setup account connections tables
         AccountConnections(account_id=account_id).setup_account_connections()
         # create the response params here

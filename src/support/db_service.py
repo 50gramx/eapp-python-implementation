@@ -110,6 +110,14 @@ def update_account_devices(account_id: str, account_device_os: int, account_devi
     return
 
 
+def check_existing_account_device(account_device_token: str) -> bool:
+    with DbSession.session_scope() as session:
+        q = session.query(AccountDevices).filter(
+            AccountDevices.account_device_token == account_device_token
+        )
+        return session.query(q.exists()).scalar()
+
+
 def add_new_entity(entity) -> None:
     """
     Adds a new record in the database table of specified entity
