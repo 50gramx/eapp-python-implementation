@@ -225,7 +225,7 @@ def get_account(account_id: str = None, account_mobile_number: str = None) -> ac
             account_birth_at=format_datetime_to_timestamp(account.account_birth_at),
             account_gender=account_pb2.AccountGender.Name(int(account.account_gender)),
             created_at=format_datetime_to_timestamp(account.account_created_at),
-            account_billing_active=str(account.account_billing_active)
+            account_billing_active=account.account_billing_active
         )
     return account_obj
 
