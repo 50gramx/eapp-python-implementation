@@ -24,6 +24,13 @@ class ApplicationContext(object):
 
     # ----------  Stubs ---------
     @staticmethod
+    def create_account_service_stub():
+        """
+        :rtype: ethos.elint.services.product.identity.account.create_account_pb2_grpc
+        """
+        return Registry.get_service('create_account_service_stub')
+
+    @staticmethod
     def access_account_service_stub():
         """
         :rtype: ethos.elint.services.product.identity.account.access_account_pb2_grpc

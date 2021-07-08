@@ -215,6 +215,9 @@ class PayInAccountService(PayInAccountServiceServicer):
                 response_meta=response_meta
             )
 
+    # ------------------------------------
+    # EthosCoin
+    # ------------------------------------
     def AccountEthosCoinBalance(self, request, context):
         logging.info("PayInAccountService:AccountEthosCoinBalance")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -276,6 +279,9 @@ class PayInAccountService(PayInAccountServiceServicer):
             except:
                 return ResponseMeta(meta_done=False, meta_message="Something went wrong.")
 
+    # ------------------------------------
+    # Play Store Subscriptions
+    # ------------------------------------
     def CreateAccountOpenGalaxyTierSubscription(self, request, context):
         logging.info("PayInAccountService:CreateAccountOpenGalaxyTierSubscription")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -370,6 +376,7 @@ class PayInAccountService(PayInAccountServiceServicer):
                     open_galaxy_tier_enum=request.open_galaxy_tier_enum
                 )
             )
+            _ = ApplicationContext.create_account_service_stub().ActivateAccountBilling(request.access_auth_details)
             return ResponseMeta(meta_done=True, meta_message="Successfully subscribed.")
 
     def VerifyAccountOpenGalaxyPlayStoreSubscriptionCharge(self, request, context):
@@ -398,6 +405,10 @@ class PayInAccountService(PayInAccountServiceServicer):
                     return ResponseMeta(meta_done=False, meta_message="Subscription Expiry time is less than 27 days")
             except HttpError as http_error:
                 return ResponseMeta(meta_done=False, meta_message=http_error.error_details)
+
+    # ------------------------------------
+    # EthosCoin Tier Benefits
+    # ------------------------------------
 
     # call this at the first access of the day to
     # todo: later on at check to subscription status if necessary

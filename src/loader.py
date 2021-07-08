@@ -88,6 +88,8 @@ class Loader(object):
 
         access_account_service_stub = AccessAccountServiceStub(identity_common_channel)
         Registry.register_service('access_account_service_stub', access_account_service_stub)
+        create_account_service_stub = AccessAccountServiceStub(identity_common_channel)
+        Registry.register_service('create_account_service_stub', create_account_service_stub)
         discover_account_service_stub = DiscoverAccountServiceStub(identity_common_channel)
         Registry.register_service('discover_account_service_stub', discover_account_service_stub)
         connect_account_service_stub = ConnectAccountServiceStub(identity_common_channel)
