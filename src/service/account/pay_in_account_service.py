@@ -223,7 +223,7 @@ class PayInAccountService(PayInAccountServiceServicer):
             if len(list_balance_transactions) > 0:
                 last_transaction = list_balance_transactions[0]
                 ending_balance = last_transaction.get("ending_balance", 0)
-                ethoscoin_balance = (ending_balance / 100) * -1
+                ethoscoin_balance = ((ending_balance / 100) * -1) / self.ethoscoin_price_inr
                 if ethoscoin_balance > 0:
                     return AccountEthosCoinBalanceResponse(response_meta=response_meta, balance=ethoscoin_balance)
                 elif ethoscoin_balance == 0:
@@ -285,6 +285,7 @@ class PayInAccountService(PayInAccountServiceServicer):
             if ethoscoin_balance_response.balance >= 0:
                 if ethoscoin_balance_response.balance < self.open_galaxy_tier_plans.get(
                         request.open_galaxy_tier_enum).get("ethoscoin"):
+                    logging.info("Subscription failed due to insufficient EthosCoin Balance.")
                     return ResponseMeta(
                         meta_done=False, meta_message="Subscription failed due to insufficient EthosCoin Balance.")
                 else:
@@ -316,12 +317,15 @@ class PayInAccountService(PayInAccountServiceServicer):
                                     request.open_galaxy_tier).get("closed_inference_per_day"),
                             },
                         )
+                        logging.info("Subscribed successfully.")
                         return ResponseMeta(meta_done=True, meta_message="Subscribed successfully.")
                     except Exception as e:
+                        logging.info("Subscription failed due to processing issue. Please contact developer.")
                         return ResponseMeta(
                             meta_done=False,
                             meta_message="Subscription failed due to processing issue. Please contact developer.")
             else:
+                logging.info("Subscription failed due to negative EthosCoin Balance. Please clear your dues.")
                 return ResponseMeta(
                     meta_done=False,
                     meta_message="Subscription failed due to negative EthosCoin Balance. Please clear your dues."
