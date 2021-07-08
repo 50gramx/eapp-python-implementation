@@ -20,6 +20,7 @@ import datetime
 import json
 import logging
 import os
+import math
 
 import stripe
 from google.oauth2 import service_account
@@ -255,7 +256,7 @@ class PayInAccountService(PayInAccountServiceServicer):
             return ResponseMeta(meta_done=validation_done, meta_message=validation_message)
         else:
             customer_id = get_account_pay_in_id(account_id=request.access_auth_details.account.account_id)
-            amount = -1 * self.ethoscoin_price_inr * request.add_ethoscoin
+            amount = math.ceil(-1 * self.ethoscoin_price_inr * request.add_ethoscoin * 100)
             try:
                 stripe.Customer.create_balance_transaction(
                     customer_id,
