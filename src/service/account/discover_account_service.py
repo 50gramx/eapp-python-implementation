@@ -26,7 +26,7 @@ from ethos.elint.services.product.identity.account.discover_account_pb2 import G
 from ethos.elint.services.product.identity.account.discover_account_pb2_grpc import DiscoverAccountServiceServicer
 from services_caller.account_assistant_service_caller import get_account_assistant_by_account_caller
 from services_caller.account_service_caller import validate_account_services_caller
-from support.db_service import get_account, is_existing_account_mobile
+from support.db_service import get_account, is_existing_account_mobile, is_account_billing_active
 
 
 class DiscoverAccountService(DiscoverAccountServiceServicer):
@@ -92,3 +92,15 @@ class DiscoverAccountService(DiscoverAccountServiceServicer):
                     ),
                     response_meta=response_meta
                 )
+
+    def IsAccountBillingActive(self, request, context):
+        logging.info("DiscoverAccountService:IsAccountBillingActive")
+        validation_done, validation_message = validate_account_services_caller(request)
+        response_meta = ResponseMeta(meta_done=validation_done, meta_message=validation_message)
+        if validation_done is False:
+            return response_meta
+        else:
+            return ResponseMeta(
+                meta_done=is_account_billing_active(account_id=request.account.account_id),
+                meta_message="Please check the meta_done for boolean billing status"
+            )

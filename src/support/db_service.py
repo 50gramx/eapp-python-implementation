@@ -298,3 +298,37 @@ def get_account_device_token(account_id: str) -> str:
             AccountDevices.account_id == account_id
         ).first()
         return account_device.account_device_token
+
+
+def is_account_billing_active(account_id: str) -> bool:
+    with DbSession.session_scope() as session:
+        account = session.query(Account).filter(
+            Account.account_id == account_id
+        ).first()
+        return account.account_billing_active
+
+
+def activate_account_billing(account_id: str) -> bool:
+    try:
+        with DbSession.session_scope() as session:
+            account = session.query(Account).filter(
+                Account.account_id == account_id
+            ).first()
+            account.account_billing_active = True
+            session.commit()
+        return True
+    except:  # todo: catch them all!
+        return False
+
+
+def deactivate_account_billing(account_id: str) -> bool:
+    try:
+        with DbSession.session_scope() as session:
+            account = session.query(Account).filter(
+                Account.account_id == account_id
+            ).first()
+            account.account_billing_active = False
+            session.commit()
+        return True
+    except:  # todo: catch them all!
+        return False

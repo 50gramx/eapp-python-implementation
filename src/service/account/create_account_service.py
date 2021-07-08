@@ -20,15 +20,17 @@
 import logging
 
 from application_context import ApplicationContext
+from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account.create_account_pb2 import ValidateAccountWithMobileResponse, \
     VerificationAccountResponse, CaptureAccountMetaDetailsResponse
 from ethos.elint.services.product.identity.account.create_account_pb2_grpc import CreateAccountServiceServicer
 from models.account_connection_models import AccountConnections
 from models.base_models import Account, AccountDevices
 from services_caller.account_assistant_service_caller import create_account_assistant_caller
+from services_caller.account_service_caller import validate_account_services_caller
 from services_caller.message_conversation_service_caller import setup_account_conversations_caller
 from support.db_service import is_existing_account_mobile, add_new_account, get_our_galaxy, add_new_account_devices, \
-    check_existing_account_device
+    check_existing_account_device, activate_account_billing, deactivate_account_billing
 from support.helper_functions import gen_uuid, format_timestamp_to_datetime, generate_verification_code_token, \
     verify_verification_code_token
 from support.session_manager import create_account_creation_auth_details, \
@@ -165,3 +167,55 @@ class CreateAccountService(CreateAccountServiceServicer):
             account_assistant_name=request.account_assistant_name
         )
         return capture_account_meta_details_response
+
+    def ActivateAccountBilling(self, request, context):
+        logging.info("CreateAccountService:ActivateAccountBilling")
+        validation_done, validation_message = validate_account_services_caller(request)
+        response_meta = ResponseMeta(meta_done=validation_done, meta_message=validation_message)
+        if validation_done is False:
+            return response_meta
+        else:
+            billing_active = ApplicationContext.discover_account_assistant_service_stub().IsAccountBillingActive(
+                request).meta_done
+            if billing_active:
+                return ResponseMeta(
+                    meta_done=False, meta_message="Account billing is already active. This incident will be reported."
+                )
+            else:
+                is_activated = activate_account_billing(account_id=request.account.account_id)
+                if is_activated:
+                    return ResponseMeta(
+                        meta_done=True,
+                        meta_message="Account billing status is active."
+                    )
+                else:
+                    return ResponseMeta(
+                        meta_done=False,
+                        meta_message="Something went wrong on our end. Please contact the developer."
+                    )
+
+    def DeactivateAccountBilling(self, request, context):
+        logging.info("CreateAccountService:DeactivateAccountBilling")
+        validation_done, validation_message = validate_account_services_caller(request)
+        response_meta = ResponseMeta(meta_done=validation_done, meta_message=validation_message)
+        if validation_done is False:
+            return response_meta
+        else:
+            billing_active = ApplicationContext.discover_account_assistant_service_stub().IsAccountBillingActive(
+                request).meta_done
+            if billing_active is False:
+                return ResponseMeta(
+                    meta_done=False, meta_message="Account billing is already inactive. This incident will be reported."
+                )
+            else:
+                is_deactivated = deactivate_account_billing(account_id=request.account.account_id)
+                if is_deactivated:
+                    return ResponseMeta(
+                        meta_done=True,
+                        meta_message="Account billing status is inactive."
+                    )
+                else:
+                    return ResponseMeta(
+                        meta_done=False,
+                        meta_message="Something went wrong on our end. Please contact the developer."
+                    )

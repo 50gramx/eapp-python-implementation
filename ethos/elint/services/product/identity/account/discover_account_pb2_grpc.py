@@ -66,6 +66,11 @@ class DiscoverAccountServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.AreAccountsExistingWithMobileRequest.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.AreAccountsExistingWithMobileResponse.FromString,
                 )
+        self.IsAccountBillingActive = channel.unary_unary(
+                '/elint.services.product.identity.account.DiscoverAccountService/IsAccountBillingActive',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
+                )
 
 
 class DiscoverAccountServiceServicer(object):
@@ -107,6 +112,12 @@ class DiscoverAccountServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def IsAccountBillingActive(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_DiscoverAccountServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -139,6 +150,11 @@ def add_DiscoverAccountServiceServicer_to_server(servicer, server):
                     servicer.AreAccountsExistingWithMobile,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.AreAccountsExistingWithMobileRequest.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.AreAccountsExistingWithMobileResponse.SerializeToString,
+            ),
+            'IsAccountBillingActive': grpc.unary_unary_rpc_method_handler(
+                    servicer.IsAccountBillingActive,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.FromString,
+                    response_serializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -249,5 +265,22 @@ class DiscoverAccountService(object):
         return grpc.experimental.unary_stream(request, target, '/elint.services.product.identity.account.DiscoverAccountService/AreAccountsExistingWithMobile',
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.AreAccountsExistingWithMobileRequest.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_discover__account__pb2.AreAccountsExistingWithMobileResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def IsAccountBillingActive(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.DiscoverAccountService/IsAccountBillingActive',
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
+            ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
