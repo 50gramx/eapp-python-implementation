@@ -292,13 +292,15 @@ class PayInAccountService(PayInAccountServiceServicer):
                     return ResponseMeta(
                         meta_done=False, meta_message="Subscription failed due to insufficient EthosCoin Balance.")
                 else:
+                    logging.info("creating subscription")
+                    metadata = stripe.Subscription.create(
+                        customer=customer_id,
+                        items=[
+                            {"price": self.open_galaxy_tier_plans.get(request.open_galaxy_tier).get("price_api")},
+                        ],
+                    )
+                    logging.info(f"subscription metadata: {metadata}")
                     try:
-                        stripe.Subscription.create(
-                            customer=customer_id,
-                            items=[
-                                {"price": self.open_galaxy_tier_plans.get(request.open_galaxy_tier).get("price_api")},
-                            ],
-                        )
                         expiry_datetime = format_timestamp_to_datetime(get_current_timestamp()) + datetime.timedelta(
                             days=1)
                         expiry_iso_string = format_datetime_to_iso_string(expiry_datetime)
