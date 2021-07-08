@@ -58,7 +58,8 @@ class PayInAccountService(PayInAccountServiceServicer):
                 "closed_inference_per_day": 2
             },
             1: {
-                "price_api": "price_1JAVSVF89FbkqSMd43p6lENq",
+                # "price_api": "price_1JAVSVF89FbkqSMd43p6lENq",
+                "price_api": "price_1JAoehF89FbkqSMdWTZbz8WJ",
                 "ethoscoin": 287.919463,
                 "play_store_subscription_id": "50gramx.space.tier.basic",
                 "closed_domain_launch_per_month": 2,
@@ -68,7 +69,8 @@ class PayInAccountService(PayInAccountServiceServicer):
                 "closed_inference_per_day": 8
             },
             2: {
-                "price_api": "price_1JAVTGF89FbkqSMd7RyCtbRd",
+                # "price_api": "price_1JAVTGF89FbkqSMd7RyCtbRd",
+                "price_api": "price_1JAofBF89FbkqSMdHHtho5lc",
                 "ethoscoin": 1150.33557,
                 "play_store_subscription_id": "50gramx.space.tier.standard",
                 "closed_domain_launch_per_month": 4,
@@ -78,7 +80,8 @@ class PayInAccountService(PayInAccountServiceServicer):
                 "closed_inference_per_day": 32
             },
             4: {
-                "price_api": "price_1JAVU9F89FbkqSMd60ftIwgN",
+                # "price_api": "price_1JAVU9F89FbkqSMd60ftIwgN",
+                "price_api": "price_1JAofZF89FbkqSMdCPdEY4C1",
                 "ethoscoin": 4602.01342,
                 "play_store_subscription_id": "50gramx.space.tier.professional",
                 "closed_domain_launch_per_month": 8,
