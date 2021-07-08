@@ -373,6 +373,9 @@ class PayInAccountService(PayInAccountServiceServicer):
             return ResponseMeta(meta_done=validation_done, meta_message=validation_message)
         else:
             try:
+                logging.info(f"tier plans: {self.open_galaxy_tier_plans.get(request.open_galaxy_tier_enum)}")
+                logging.info(f"play_store_subscription_id: "
+                             f"{self.open_galaxy_tier_plans.get(request.open_galaxy_tier_enum).get('play_store_subscription_id')}")
                 play_store_subscription_details = self.play_service_account_services.purchases().subscriptions().get(
                     packageName=self.play_store_package_name,
                     subscriptionId=self.open_galaxy_tier_plans.get(request.open_galaxy_tier_enum).get(
