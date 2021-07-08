@@ -79,7 +79,7 @@ class PayInAccountService(PayInAccountServiceServicer):
                 "open_inference_per_day": 8,
                 "closed_inference_per_day": 32
             },
-            4: {
+            3: {
                 # "price_api": "price_1JAVU9F89FbkqSMd60ftIwgN",
                 "price_api": "price_1JAofZF89FbkqSMdCPdEY4C1",
                 "ethoscoin": 4602.01342,
