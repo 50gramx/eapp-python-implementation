@@ -296,7 +296,7 @@ class PayInAccountService(PayInAccountServiceServicer):
                     metadata = stripe.Subscription.create(
                         customer=customer_id,
                         items=[
-                            {"price": self.open_galaxy_tier_plans.get(request.open_galaxy_tier).get("price_api")},
+                            {"price": self.open_galaxy_tier_plans.get(request.open_galaxy_tier_enum).get("price_api")},
                         ],
                     )
                     logging.info(f"subscription metadata: {metadata}")
