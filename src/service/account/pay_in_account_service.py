@@ -370,7 +370,8 @@ class PayInAccountService(PayInAccountServiceServicer):
             try:
                 play_store_subscription_details = self.play_service_account_services.purchases().subscriptions().get(
                     packageName=self.play_store_package_name,
-                    subscriptionId=self.open_galaxy_tier_plans.get(request.open_galaxy_tier_enum),
+                    subscriptionId=self.open_galaxy_tier_plans.get(request.open_galaxy_tier_enum).get(
+                        "play_store_subscription_id"),
                     token=request.google_play_purchase_token
                 ).execute()
                 # TODO: Check based on purchase states
