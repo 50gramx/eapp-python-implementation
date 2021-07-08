@@ -256,7 +256,7 @@ class PayInAccountService(PayInAccountServiceServicer):
             return ResponseMeta(meta_done=validation_done, meta_message=validation_message)
         else:
             customer_id = get_account_pay_in_id(account_id=request.access_auth_details.account.account_id)
-            amount = math.ceil(-1 * self.ethoscoin_price_inr * request.add_ethoscoin * 100)
+            amount = math.ceil(self.ethoscoin_price_inr * request.add_ethoscoin * 100) * -1
             try:
                 stripe.Customer.create_balance_transaction(
                     customer_id,
