@@ -175,7 +175,7 @@ class CreateAccountService(CreateAccountServiceServicer):
         if validation_done is False:
             return response_meta
         else:
-            billing_active = ApplicationContext.discover_account_assistant_service_stub().IsAccountBillingActive(
+            billing_active = ApplicationContext.discover_account_service_stub().IsAccountBillingActive(
                 request).meta_done
             if billing_active:
                 return ResponseMeta(
@@ -201,7 +201,7 @@ class CreateAccountService(CreateAccountServiceServicer):
         if validation_done is False:
             return response_meta
         else:
-            billing_active = ApplicationContext.discover_account_assistant_service_stub().IsAccountBillingActive(
+            billing_active = ApplicationContext.discover_account_service_stub().IsAccountBillingActive(
                 request).meta_done
             if billing_active is False:
                 return ResponseMeta(
