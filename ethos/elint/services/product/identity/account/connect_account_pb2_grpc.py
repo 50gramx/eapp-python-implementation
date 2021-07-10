@@ -81,6 +81,11 @@ class ConnectAccountServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ParseAccountMobilesRequest.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ParseAccountMobilesResponse.FromString,
                 )
+        self.ParseStreamingAccountMobiles = channel.stream_stream(
+                '/elint.services.product.identity.account.ConnectAccountService/ParseStreamingAccountMobiles',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ParseStreamingAccountMobilesRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ParseStreamingAccountMobilesResponse.FromString,
+                )
         self.SyncAccountConnections = channel.unary_unary(
                 '/elint.services.product.identity.account.ConnectAccountService/SyncAccountConnections',
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.SyncAccountConnectionsRequest.SerializeToString,
@@ -151,6 +156,12 @@ class ConnectAccountServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ParseStreamingAccountMobiles(self, request_iterator, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def SyncAccountConnections(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -210,6 +221,11 @@ def add_ConnectAccountServiceServicer_to_server(servicer, server):
                     servicer.ParseAccountMobiles,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ParseAccountMobilesRequest.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ParseAccountMobilesResponse.SerializeToString,
+            ),
+            'ParseStreamingAccountMobiles': grpc.stream_stream_rpc_method_handler(
+                    servicer.ParseStreamingAccountMobiles,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ParseStreamingAccountMobilesRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ParseStreamingAccountMobilesResponse.SerializeToString,
             ),
             'SyncAccountConnections': grpc.unary_unary_rpc_method_handler(
                     servicer.SyncAccountConnections,
@@ -382,6 +398,23 @@ class ConnectAccountService(object):
         return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.ConnectAccountService/ParseAccountMobiles',
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ParseAccountMobilesRequest.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ParseAccountMobilesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ParseStreamingAccountMobiles(request_iterator,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.stream_stream(request_iterator, target, '/elint.services.product.identity.account.ConnectAccountService/ParseStreamingAccountMobiles',
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ParseStreamingAccountMobilesRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_connect__account__pb2.ParseStreamingAccountMobilesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

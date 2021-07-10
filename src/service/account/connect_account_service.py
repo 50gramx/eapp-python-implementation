@@ -29,7 +29,7 @@ from ethos.elint.services.product.identity.account.connect_account_pb2 import Co
     ConnectedAccounts, ConnectAccountResponse, ParseAccountMobilesResponse, SyncAccountConnectionsResponse, \
     GetAccountSelfConnectedAccountAssistantResponse, ConnectedAssistantsWithBelongingEntity, \
     IsAccountConnectionExistsRequest, ConnectedAssistantWithBelongingEntity, ConnectedAssistantBelongsTo, \
-    GetConnectedAccountResponse, GetConnectedAccountRequest
+    GetConnectedAccountResponse, GetConnectedAccountRequest, ParseStreamingAccountMobilesResponse
 from ethos.elint.services.product.identity.account.connect_account_pb2_grpc import ConnectAccountServiceServicer
 from ethos.elint.services.product.identity.account.discover_account_pb2 import GetAccountByIdRequest, \
     GetAccountMetaByAccountIdRequest
@@ -259,6 +259,25 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     account_mobiles.append(AccountMobile())
                     logging.warning(f"The {mn} did not seem to be a phone number")
             return ParseAccountMobilesResponse(account_mobiles=account_mobiles, response_meta=response_meta)
+
+    def ParseStreamingAccountMobiles(self, request_iterator, context):
+        logging.info("ConnectAccountService:ParseStreamingAccountMobiles")
+        origin_country_code = "+91"
+        origin_region_code = phonenumbers.region_code_for_country_code(
+            int(origin_country_code.replace('+', '')))
+        for request in request_iterator:
+            account_mobiles = []
+            for mn in request.connecting_account_mobile_numbers:
+                try:
+                    parsed_mn = phonenumbers.parse(mn, origin_region_code)
+                    account_mobiles.append(AccountMobile(
+                        account_country_code="+" + str(parsed_mn.country_code),
+                        account_mobile_number=str(parsed_mn.national_number)
+                    ))
+                except phonenumbers.phonenumberutil.NumberParseException:
+                    account_mobiles.append(AccountMobile())
+                    logging.warning(f"The {mn} did not seem to be a phone number")
+            yield ParseStreamingAccountMobilesResponse(account_mobiles=account_mobiles)
 
     def SyncAccountConnections(self, request, context):
         logging.info("ConnectAccountService:SyncAccountConnections")
