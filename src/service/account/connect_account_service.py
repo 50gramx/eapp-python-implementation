@@ -267,8 +267,8 @@ class ConnectAccountService(ConnectAccountServiceServicer):
             int(origin_country_code.replace('+', '')))
         for request in request_iterator:
             account_mobiles = []
+            logging.info(f"connecting_account_mobile_numbers: {request.connecting_account_mobile_numbers}")
             for mn in request.connecting_account_mobile_numbers:
-                logging.info(f"connecting_account_mobile_numbers: {request.connecting_account_mobile_numbers}")
                 try:
                     parsed_mn = phonenumbers.parse(mn, origin_region_code)
                     account_mobiles.append(AccountMobile(
