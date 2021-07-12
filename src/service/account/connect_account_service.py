@@ -275,10 +275,10 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                         account_country_code="+" + str(parsed_mn.country_code),
                         account_mobile_number=str(parsed_mn.national_number)
                     ))
-                    logging.info(f"parsed_mn: {parsed_mn}")
                 except phonenumbers.phonenumberutil.NumberParseException:
                     account_mobiles.append(AccountMobile())
                     logging.warning(f"The {mn} did not seem to be a phone number")
+            logging.info(f"account_mobiles: {account_mobiles}")
             yield ParseStreamingAccountMobilesResponse(account_mobiles=account_mobiles)
 
     def SyncAccountConnections(self, request, context):
