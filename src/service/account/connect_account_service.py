@@ -268,12 +268,14 @@ class ConnectAccountService(ConnectAccountServiceServicer):
         for request in request_iterator:
             account_mobiles = []
             for mn in request.connecting_account_mobile_numbers:
+                logging.info(f"connecting_account_mobile_numbers: {request.connecting_account_mobile_numbers}")
                 try:
                     parsed_mn = phonenumbers.parse(mn, origin_region_code)
                     account_mobiles.append(AccountMobile(
                         account_country_code="+" + str(parsed_mn.country_code),
                         account_mobile_number=str(parsed_mn.national_number)
                     ))
+                    logging.info(f"parsed_mn: {parsed_mn}")
                 except phonenumbers.phonenumberutil.NumberParseException:
                     account_mobiles.append(AccountMobile())
                     logging.warning(f"The {mn} did not seem to be a phone number")
