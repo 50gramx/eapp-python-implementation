@@ -19,9 +19,15 @@
 
 import argparse
 import contextlib
-import logging
 import os
 from concurrent import futures
+
+import logging
+import math
+import multiprocessing
+import time
+import socket
+import sys
 
 import grpc
 
@@ -55,14 +61,22 @@ from ethos.elint.services.product.identity.space.access_space_pb2_grpc import ad
 from ethos.elint.services.product.identity.space.create_space_pb2_grpc import add_CreateSpaceServiceServicer_to_server
 from loader import Loader
 
+_LOGGER = logging.getLogger(__name__)
+
+_ONE_DAY = datetime.timedelta(days=1)
+_PROCESS_COUNT = multiprocessing.cpu_count()
+_THREAD_CONCURRENCY = _PROCESS_COUNT
+
 PORT = os.environ.get('EAPP_SERVICE_IDENTITY_PORT', None)
 if PORT is None:
     logging.error("PORT NOT FOUND!")
 
 max_workers = int(os.environ['EA_SERVICE_IDENTITY_GRPC_MAX_WORKERS'])
 
-_LOGGER = logging.getLogger(__name__)
-_LOGGER.setLevel(logging.INFO)
+
+#
+# _LOGGER = logging.getLogger(__name__)
+# _LOGGER.setLevel(logging.INFO)
 
 
 @contextlib.contextmanager
@@ -141,21 +155,134 @@ def run_server(port):
         server.stop()
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--port',
-                        nargs='?',
-                        type=int,
-                        default=50502,
-                        help='the listening port')
-    args = parser.parse_args()
+def _wait_forever(server):
+    try:
+        while True:
+            time.sleep(_ONE_DAY.total_seconds())
+    except KeyboardInterrupt:
+        server.stop(None)
 
-    with run_server(args.port) as (server, port):
-        logging.info(f'\tEthosApp Identity Server is listening at port {port}')
-        server.wait_for_termination()
+
+def _run_server(bind_address):
+    """Start a server in a subprocess."""
+    _LOGGER.info('Starting new server.')
+    options = (('grpc.so_reuseport', 1),)
+
+    # Initiate the DbSession
+    db_session.DbSession.init_db_session()
+
+    # Bind ThreadPoolExecutor and Services to server
+    server = grpc.server(futures.ThreadPoolExecutor(
+        max_workers=_THREAD_CONCURRENCY, ),
+        options=options)
+    #
+    # server = grpc.server(
+    #     futures.ThreadPoolExecutor(max_workers=max_workers)
+    # )
+
+    add_CreateAccountServiceServicer_to_server(
+        ApplicationContext.get_create_account_service(), server
+    )
+    add_AccessAccountServiceServicer_to_server(
+        ApplicationContext.get_access_account_service(), server
+    )
+    add_ConnectAccountServiceServicer_to_server(
+        ApplicationContext.get_connect_account_service(), server
+    )
+    add_DiscoverAccountServiceServicer_to_server(
+        ApplicationContext.get_discover_account_service(), server
+    )
+    add_PayInAccountServiceServicer_to_server(
+        ApplicationContext.get_pay_in_account_service(), server
+    )
+
+    add_CreateSpaceServiceServicer_to_server(
+        ApplicationContext.get_create_space_service(), server
+    )
+    add_AccessSpaceServiceServicer_to_server(
+        ApplicationContext.get_access_space_service(), server
+    )
+
+    add_CreateAccountAssistantServiceServicer_to_server(
+        ApplicationContext.get_create_account_assistant_service(), server
+    )
+    add_AccessAccountAssistantServiceServicer_to_server(
+        ApplicationContext.get_access_account_assistant_service(), server
+    )
+    add_ConnectAccountAssistantServiceServicer_to_server(
+        ApplicationContext.get_connect_account_assistant_service(), server
+    )
+    add_DiscoverAccountAssistantServiceServicer_to_server(
+        ApplicationContext.get_discover_account_assistant_service(), server
+    )
+    add_ActionAccountAssistantServiceServicer_to_server(
+        ApplicationContext.get_action_account_assistant_service(), server
+    )
+
+    add_NotifyAccountServiceServicer_to_server(
+        ApplicationContext.get_notify_account_service(), server
+    )
+
+    add_DiscoverMachineServiceServicer_to_server(
+        ApplicationContext.get_discover_machine_service(), server
+    )
+
+    server.add_insecure_port(bind_address)
+    server.start()
+    _wait_forever(server)
+
+
+@contextlib.contextmanager
+def _reserve_port():
+    """Find and reserve a port for all subprocesses to use."""
+    sock = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
+    if sock.getsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT) == 0:
+        raise RuntimeError("Failed to set SO_REUSEPORT.")
+    sock.bind(('', 0))
+    try:
+        yield sock.getsockname()[1]
+    finally:
+        sock.close()
+
+
+def main():
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument('--port',
+    #                     nargs='?',
+    #                     type=int,
+    #                     default=50502,
+    #                     help='the listening port')
+    # args = parser.parse_args()
+    #
+    # with run_server(args.port) as (server, port):
+    #     logging.info(f'\tEthosApp Identity Server is listening at port {port}')
+    #     server.wait_for_termination()
+
+    with _reserve_port() as port:
+        bind_address = 'localhost:{}'.format(port)
+        _LOGGER.info("Binding to '%s'", bind_address)
+        sys.stdout.flush()
+        workers = []
+        for _ in range(_PROCESS_COUNT):
+            # NOTE: It is imperative that the worker subprocesses be forked before
+            # any gRPC servers start up. See
+            # https://github.com/grpc/grpc/issues/16001 for more details.
+            worker = multiprocessing.Process(target=_run_server,
+                                             args=(bind_address,))
+            worker.start()
+            workers.append(worker)
+        for worker in workers:
+            worker.join()
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO)
+    handler = logging.StreamHandler(sys.stdout)
+    formatter = logging.Formatter('[PID %(process)d] %(message)s')
+    handler.setFormatter(formatter)
+    _LOGGER.addHandler(handler)
+    _LOGGER.setLevel(logging.INFO)
+    # logging.basicConfig(level=logging.INFO)
     Loader.init_identity_context('')
     main()
+    # main()
