@@ -48,10 +48,10 @@ class PayInAccountService(PayInAccountServiceServicer):
         self.ethoscoin_price_inr = 1.49
         self.open_galaxy_tier_plans = {
             0: {
-                # "price_api": "price_1JAVQkF89FbkqSMdPfnZ0rKB",
-                "price_api": "price_1J9dgOF89FbkqSMd2ircLWjC",
-                "ethoscoin": 0,
-                "play_store_subscription_id": "50gramx.space.tier.starter",
+                "price_api": "price_1JAVQkF89FbkqSMdPfnZ0rKB",
+                # "price_api": "price_1J9dgOF89FbkqSMd2ircLWjC",
+                "ethoscoin": 71.8120805,
+                "play_store_subscription_id": "50gramx.subscribe.tier.free",
                 "closed_domain_launch_per_month": 1,
                 "closed_domain_page_learning_per_month": 5,
                 "closed_domain_learning_speed_x": 1,
@@ -59,8 +59,8 @@ class PayInAccountService(PayInAccountServiceServicer):
                 "closed_inference_per_day": 2
             },
             1: {
-                # "price_api": "price_1JAVSVF89FbkqSMd43p6lENq",
-                "price_api": "price_1JAoehF89FbkqSMdWTZbz8WJ",
+                "price_api": "price_1JAVSVF89FbkqSMd43p6lENq",
+                # "price_api": "price_1JAoehF89FbkqSMdWTZbz8WJ",
                 "ethoscoin": 287.919463,
                 "play_store_subscription_id": "50gramx.space.tier.basic",
                 "closed_domain_launch_per_month": 2,
@@ -70,8 +70,8 @@ class PayInAccountService(PayInAccountServiceServicer):
                 "closed_inference_per_day": 8
             },
             2: {
-                # "price_api": "price_1JAVTGF89FbkqSMd7RyCtbRd",
-                "price_api": "price_1JAofBF89FbkqSMdHHtho5lc",
+                "price_api": "price_1JAVTGF89FbkqSMd7RyCtbRd",
+                # "price_api": "price_1JAofBF89FbkqSMdHHtho5lc",
                 "ethoscoin": 1150.33557,
                 "play_store_subscription_id": "50gramx.space.tier.standard",
                 "closed_domain_launch_per_month": 4,
@@ -81,8 +81,8 @@ class PayInAccountService(PayInAccountServiceServicer):
                 "closed_inference_per_day": 32
             },
             3: {
-                # "price_api": "price_1JAVU9F89FbkqSMd60ftIwgN",
-                "price_api": "price_1JAofZF89FbkqSMdCPdEY4C1",
+                "price_api": "price_1JAVU9F89FbkqSMd60ftIwgN",
+                # "price_api": "price_1JAofZF89FbkqSMdCPdEY4C1",
                 "ethoscoin": 4602.01342,
                 "play_store_subscription_id": "50gramx.space.tier.professional",
                 "closed_domain_launch_per_month": 8,
