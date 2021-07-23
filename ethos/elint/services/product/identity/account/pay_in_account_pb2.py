@@ -44,6 +44,7 @@ try:
 except AttributeError:
   google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_generic__pb2.google.protobuf.timestamp_pb2
 from ethos.elint.services.product.identity.account import access_account_pb2 as ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2
+from ethos.elint.services.product.knowledge.space_knowledge import access_space_knowledge_pb2 as ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_access__space__knowledge__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -52,9 +53,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nBethos/elint/services/product/identity/account/pay_in_account.proto\x12\'elint.services.product.identity.account\x1a\"ethos/elint/entities/account.proto\x1a!ethos/elint/entities/galaxy.proto\x1a\"ethos/elint/entities/generic.proto\x1a\x42\x65thos/elint/services/product/identity/account/access_account.proto\"\\\n\x1a\x41\x63\x63ountPayInPublishableKey\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\\\n\x15\x41\x63\x63ountPayInAccessKey\x12\x10\n\x08json_key\x18\x01 \x01(\t\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"$\n\x15\x41\x63\x63ountPayInSecretKey\x12\x0b\n\x03key\x18\x01 \x01(\t\"\xa7\x01\n\x1cGetAccountPayInIntentRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x1f\n\x17prefer_billing_annually\x18\x02 \x01(\x08\"R\n\x1dGetAccountPayInIntentResponse\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\x8e\x01\n\x14ListAllCardsResponse\x12\x43\n\x14\x61\x63\x63ount_pay_in_cards\x18\x01 \x03(\x0b\x32%.elint.entity.AccountPayInCardDetails\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"_\n\x10SaveCardResponse\x12\x18\n\x10save_card_secret\x18\x01 \x01(\t\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"e\n\x1f\x41\x63\x63ountEthosCoinBalanceResponse\x12\x31\n\rresponse_meta\x18\x01 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\x12\x0f\n\x07\x62\x61lance\x18\x02 \x01(\x01\"\xbb\x02\n$CreditAccountEthosCoinBalanceRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x15\n\radd_ethoscoin\x18\x02 \x01(\x01\x12\x18\n\x10\x61\x63\x63ount_currency\x18\x03 \x01(\t\x12\"\n\x1aplay_store_subscription_id\x18\x04 \x01(\t\x12\"\n\x1agoogle_play_purchase_token\x18\x05 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x06 \x01(\t\x12\x1d\n\x15play_store_product_id\x18\x07 \x01(\t\"\xd9\x01\n.CreateAccountOpenGalaxyTierSubscriptionRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12?\n\x15open_galaxy_tier_enum\x18\x02 \x01(\x0e\x32 .elint.entity.OpenGalaxyTierEnum\"\x88\x02\n9VerifyAccountOpenGalaxyPlayStoreSubscriptionChargeRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12?\n\x15open_galaxy_tier_enum\x18\x02 \x01(\x0e\x32 .elint.entity.OpenGalaxyTierEnum\x12\"\n\x1agoogle_play_purchase_token\x18\x03 \x01(\t\"\x83\x02\n4ConfirmAccountOpenGalaxyPlayStoreSubscriptionRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12?\n\x15open_galaxy_tier_enum\x18\x02 \x01(\x0e\x32 .elint.entity.OpenGalaxyTierEnum\x12\"\n\x1agoogle_play_purchase_token\x18\x03 \x01(\t\"\x93\x02\n-ConfirmAccountEthosCoinBalanceAdditionRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12V\n\x13\x61\x64\x64_ethos_coin_enum\x18\x02 \x01(\x0e\x32\x39.elint.services.product.identity.account.AddEthosCoinEnum\x12\"\n\x1agoogle_play_purchase_token\x18\x03 \x01(\t\"\x92\x02\n,VerifyAccountEthosCoinBalanceAdditionRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12V\n\x13\x61\x64\x64_ethos_coin_enum\x18\x02 \x01(\x0e\x32\x39.elint.services.product.identity.account.AddEthosCoinEnum\x12\"\n\x1agoogle_play_purchase_token\x18\x03 \x01(\t*\xb6\x01\n\x10\x41\x64\x64\x45thosCoinEnum\x12\x15\n\x11\x41\x44\x44_100_ETHOSCOIN\x10\x00\x12\x15\n\x11\x41\x44\x44_200_ETHOSCOIN\x10\x01\x12\x15\n\x11\x41\x44\x44_400_ETHOSCOIN\x10\x02\x12\x15\n\x11\x41\x44\x44_800_ETHOSCOIN\x10\x03\x12\x16\n\x12\x41\x44\x44_1600_ETHOSCOIN\x10\x04\x12\x16\n\x12\x41\x44\x44_3200_ETHOSCOIN\x10\x05\x12\x16\n\x12\x41\x44\x44_6400_ETHOSCOIN\x10\x06\x32\xae\x18\n\x13PayInAccountService\x12\xb1\x01\n\x1dGetAccountPayInPublishableKey\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x43.elint.services.product.identity.account.AccountPayInPublishableKey\"\x00\x12}\n\x12\x43reateAccountPayIn\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\xa7\x01\n\x18GetAccountPayInAccessKey\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a>.elint.services.product.identity.account.AccountPayInAccessKey\"\x00\x12\xa7\x01\n\x18GetAccountPayInSecretKey\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a>.elint.services.product.identity.account.AccountPayInSecretKey\"\x00\x12\xa8\x01\n\x15GetAccountPayInIntent\x12\x45.elint.services.product.identity.account.GetAccountPayInIntentRequest\x1a\x46.elint.services.product.identity.account.GetAccountPayInIntentResponse\"\x00\x12\x9a\x01\n\x0cListAllCards\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a=.elint.services.product.identity.account.ListAllCardsResponse\"\x00\x12\x92\x01\n\x08SaveCard\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x39.elint.services.product.identity.account.SaveCardResponse\"\x00\x12\xb0\x01\n\x17\x41\x63\x63ountEthosCoinBalance\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1aH.elint.services.product.identity.account.AccountEthosCoinBalanceResponse\"\x00\x12\x8c\x01\n\x1d\x43reditAccountEthosCoinBalance\x12M.elint.services.product.identity.account.CreditAccountEthosCoinBalanceRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\xa0\x01\n\'CreateAccountOpenGalaxyTierSubscription\x12W.elint.services.product.identity.account.CreateAccountOpenGalaxyTierSubscriptionRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\xb6\x01\n2VerifyAccountOpenGalaxyPlayStoreSubscriptionCharge\x12\x62.elint.services.product.identity.account.VerifyAccountOpenGalaxyPlayStoreSubscriptionChargeRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\xac\x01\n-ConfirmAccountOpenGalaxyPlayStoreSubscription\x12].elint.services.product.identity.account.ConfirmAccountOpenGalaxyPlayStoreSubscriptionRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x9c\x01\n%VerifyAccountEthosCoinBalanceAddition\x12U.elint.services.product.identity.account.VerifyAccountEthosCoinBalanceAdditionRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x9e\x01\n&ConfirmAccountEthosCoinBalanceAddition\x12V.elint.services.product.identity.account.ConfirmAccountEthosCoinBalanceAdditionRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x97\x01\n,UpdateAccountRemainingOpenGalaxyTierBenefits\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x9f\x01\n4IsTierBenefitsRemainingForClosedDomainLaunchPerMonth\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\xa5\x01\n:IsTierBenefitsRemainingForClosedDomainPageLearningPerMonth\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\xa0\x01\n5IsTierBenefitsRemainingForClosedDomainInferencePerDay\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x9e\x01\n3IsTierBenefitsRemainingForOpenDomainInferencePerDay\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x1a.elint.entity.ResponseMeta\"\x00\x62\x06proto3'
+  serialized_pb=b'\nBethos/elint/services/product/identity/account/pay_in_account.proto\x12\'elint.services.product.identity.account\x1a\"ethos/elint/entities/account.proto\x1a!ethos/elint/entities/galaxy.proto\x1a\"ethos/elint/entities/generic.proto\x1a\x42\x65thos/elint/services/product/identity/account/access_account.proto\x1aSethos/elint/services/product/knowledge/space_knowledge/access_space_knowledge.proto\"\\\n\x1a\x41\x63\x63ountPayInPublishableKey\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\\\n\x15\x41\x63\x63ountPayInAccessKey\x12\x10\n\x08json_key\x18\x01 \x01(\t\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"$\n\x15\x41\x63\x63ountPayInSecretKey\x12\x0b\n\x03key\x18\x01 \x01(\t\"\xa7\x01\n\x1cGetAccountPayInIntentRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x1f\n\x17prefer_billing_annually\x18\x02 \x01(\x08\"R\n\x1dGetAccountPayInIntentResponse\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\x8e\x01\n\x14ListAllCardsResponse\x12\x43\n\x14\x61\x63\x63ount_pay_in_cards\x18\x01 \x03(\x0b\x32%.elint.entity.AccountPayInCardDetails\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"_\n\x10SaveCardResponse\x12\x18\n\x10save_card_secret\x18\x01 \x01(\t\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"e\n\x1f\x41\x63\x63ountEthosCoinBalanceResponse\x12\x31\n\rresponse_meta\x18\x01 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\x12\x0f\n\x07\x62\x61lance\x18\x02 \x01(\x01\"\xbb\x02\n$CreditAccountEthosCoinBalanceRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x15\n\radd_ethoscoin\x18\x02 \x01(\x01\x12\x18\n\x10\x61\x63\x63ount_currency\x18\x03 \x01(\t\x12\"\n\x1aplay_store_subscription_id\x18\x04 \x01(\t\x12\"\n\x1agoogle_play_purchase_token\x18\x05 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x06 \x01(\t\x12\x1d\n\x15play_store_product_id\x18\x07 \x01(\t\"\xd9\x01\n.CreateAccountOpenGalaxyTierSubscriptionRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12?\n\x15open_galaxy_tier_enum\x18\x02 \x01(\x0e\x32 .elint.entity.OpenGalaxyTierEnum\"\x88\x02\n9VerifyAccountOpenGalaxyPlayStoreSubscriptionChargeRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12?\n\x15open_galaxy_tier_enum\x18\x02 \x01(\x0e\x32 .elint.entity.OpenGalaxyTierEnum\x12\"\n\x1agoogle_play_purchase_token\x18\x03 \x01(\t\"\x83\x02\n4ConfirmAccountOpenGalaxyPlayStoreSubscriptionRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12?\n\x15open_galaxy_tier_enum\x18\x02 \x01(\x0e\x32 .elint.entity.OpenGalaxyTierEnum\x12\"\n\x1agoogle_play_purchase_token\x18\x03 \x01(\t\"\x93\x02\n-ConfirmAccountEthosCoinBalanceAdditionRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12V\n\x13\x61\x64\x64_ethos_coin_enum\x18\x02 \x01(\x0e\x32\x39.elint.services.product.identity.account.AddEthosCoinEnum\x12\"\n\x1agoogle_play_purchase_token\x18\x03 \x01(\t\"\x92\x02\n,VerifyAccountEthosCoinBalanceAdditionRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12V\n\x13\x61\x64\x64_ethos_coin_enum\x18\x02 \x01(\x0e\x32\x39.elint.services.product.identity.account.AddEthosCoinEnum\x12\"\n\x1agoogle_play_purchase_token\x18\x03 \x01(\t*\xb6\x01\n\x10\x41\x64\x64\x45thosCoinEnum\x12\x15\n\x11\x41\x44\x44_100_ETHOSCOIN\x10\x00\x12\x15\n\x11\x41\x44\x44_200_ETHOSCOIN\x10\x01\x12\x15\n\x11\x41\x44\x44_400_ETHOSCOIN\x10\x02\x12\x15\n\x11\x41\x44\x44_800_ETHOSCOIN\x10\x03\x12\x16\n\x12\x41\x44\x44_1600_ETHOSCOIN\x10\x04\x12\x16\n\x12\x41\x44\x44_3200_ETHOSCOIN\x10\x05\x12\x16\n\x12\x41\x44\x44_6400_ETHOSCOIN\x10\x06\x32\xbd\x19\n\x13PayInAccountService\x12\xb1\x01\n\x1dGetAccountPayInPublishableKey\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x43.elint.services.product.identity.account.AccountPayInPublishableKey\"\x00\x12}\n\x12\x43reateAccountPayIn\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\xa7\x01\n\x18GetAccountPayInAccessKey\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a>.elint.services.product.identity.account.AccountPayInAccessKey\"\x00\x12\xa7\x01\n\x18GetAccountPayInSecretKey\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a>.elint.services.product.identity.account.AccountPayInSecretKey\"\x00\x12\xa8\x01\n\x15GetAccountPayInIntent\x12\x45.elint.services.product.identity.account.GetAccountPayInIntentRequest\x1a\x46.elint.services.product.identity.account.GetAccountPayInIntentResponse\"\x00\x12\x9a\x01\n\x0cListAllCards\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a=.elint.services.product.identity.account.ListAllCardsResponse\"\x00\x12\x92\x01\n\x08SaveCard\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x39.elint.services.product.identity.account.SaveCardResponse\"\x00\x12\xb0\x01\n\x17\x41\x63\x63ountEthosCoinBalance\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1aH.elint.services.product.identity.account.AccountEthosCoinBalanceResponse\"\x00\x12\x8c\x01\n\x1d\x43reditAccountEthosCoinBalance\x12M.elint.services.product.identity.account.CreditAccountEthosCoinBalanceRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\xa0\x01\n\'CreateAccountOpenGalaxyTierSubscription\x12W.elint.services.product.identity.account.CreateAccountOpenGalaxyTierSubscriptionRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\xb6\x01\n2VerifyAccountOpenGalaxyPlayStoreSubscriptionCharge\x12\x62.elint.services.product.identity.account.VerifyAccountOpenGalaxyPlayStoreSubscriptionChargeRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\xac\x01\n-ConfirmAccountOpenGalaxyPlayStoreSubscription\x12].elint.services.product.identity.account.ConfirmAccountOpenGalaxyPlayStoreSubscriptionRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x9c\x01\n%VerifyAccountEthosCoinBalanceAddition\x12U.elint.services.product.identity.account.VerifyAccountEthosCoinBalanceAdditionRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x9e\x01\n&ConfirmAccountEthosCoinBalanceAddition\x12V.elint.services.product.identity.account.ConfirmAccountEthosCoinBalanceAdditionRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x97\x01\n,UpdateAccountRemainingOpenGalaxyTierBenefits\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x9f\x01\n4IsTierBenefitsRemainingForClosedDomainLaunchPerMonth\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\xa5\x01\n:IsTierBenefitsRemainingForClosedDomainPageLearningPerMonth\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\xa0\x01\n5IsTierBenefitsRemainingForClosedDomainInferencePerDay\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x9e\x01\n3IsTierBenefitsRemainingForOpenDomainInferencePerDay\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x8c\x01\n\x1b\x43hargeForClosedDomainLaunch\x12O.elint.services.product.knowledge.space.SpaceKnowledgeServicesAccessAuthDetails\x1a\x1a.elint.entity.ResponseMeta\"\x00\x62\x06proto3'
   ,
-  dependencies=[ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_galaxy__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.DESCRIPTOR,])
+  dependencies=[ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_galaxy__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_access__space__knowledge__pb2.DESCRIPTOR,])
 
 _ADDETHOSCOINENUM = _descriptor.EnumDescriptor(
   name='AddEthosCoinEnum',
@@ -101,8 +102,8 @@ _ADDETHOSCOINENUM = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2734,
-  serialized_end=2916,
+  serialized_start=2819,
+  serialized_end=3001,
 )
 _sym_db.RegisterEnumDescriptor(_ADDETHOSCOINENUM)
 
@@ -151,8 +152,8 @@ _ACCOUNTPAYINPUBLISHABLEKEY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=286,
-  serialized_end=378,
+  serialized_start=371,
+  serialized_end=463,
 )
 
 
@@ -190,8 +191,8 @@ _ACCOUNTPAYINACCESSKEY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=380,
-  serialized_end=472,
+  serialized_start=465,
+  serialized_end=557,
 )
 
 
@@ -222,8 +223,8 @@ _ACCOUNTPAYINSECRETKEY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=474,
-  serialized_end=510,
+  serialized_start=559,
+  serialized_end=595,
 )
 
 
@@ -261,8 +262,8 @@ _GETACCOUNTPAYININTENTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=513,
-  serialized_end=680,
+  serialized_start=598,
+  serialized_end=765,
 )
 
 
@@ -293,8 +294,8 @@ _GETACCOUNTPAYININTENTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=682,
-  serialized_end=764,
+  serialized_start=767,
+  serialized_end=849,
 )
 
 
@@ -332,8 +333,8 @@ _LISTALLCARDSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=767,
-  serialized_end=909,
+  serialized_start=852,
+  serialized_end=994,
 )
 
 
@@ -371,8 +372,8 @@ _SAVECARDRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=911,
-  serialized_end=1006,
+  serialized_start=996,
+  serialized_end=1091,
 )
 
 
@@ -410,8 +411,8 @@ _ACCOUNTETHOSCOINBALANCERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1008,
-  serialized_end=1109,
+  serialized_start=1093,
+  serialized_end=1194,
 )
 
 
@@ -484,8 +485,8 @@ _CREDITACCOUNTETHOSCOINBALANCEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1112,
-  serialized_end=1427,
+  serialized_start=1197,
+  serialized_end=1512,
 )
 
 
@@ -523,8 +524,8 @@ _CREATEACCOUNTOPENGALAXYTIERSUBSCRIPTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1430,
-  serialized_end=1647,
+  serialized_start=1515,
+  serialized_end=1732,
 )
 
 
@@ -569,8 +570,8 @@ _VERIFYACCOUNTOPENGALAXYPLAYSTORESUBSCRIPTIONCHARGEREQUEST = _descriptor.Descrip
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1650,
-  serialized_end=1914,
+  serialized_start=1735,
+  serialized_end=1999,
 )
 
 
@@ -615,8 +616,8 @@ _CONFIRMACCOUNTOPENGALAXYPLAYSTORESUBSCRIPTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1917,
-  serialized_end=2176,
+  serialized_start=2002,
+  serialized_end=2261,
 )
 
 
@@ -661,8 +662,8 @@ _CONFIRMACCOUNTETHOSCOINBALANCEADDITIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2179,
-  serialized_end=2454,
+  serialized_start=2264,
+  serialized_end=2539,
 )
 
 
@@ -707,8 +708,8 @@ _VERIFYACCOUNTETHOSCOINBALANCEADDITIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2457,
-  serialized_end=2731,
+  serialized_start=2542,
+  serialized_end=2816,
 )
 
 _ACCOUNTPAYINPUBLISHABLEKEY.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
@@ -854,8 +855,8 @@ _PAYINACCOUNTSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=2919,
-  serialized_end=6037,
+  serialized_start=3004,
+  serialized_end=6265,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetAccountPayInPublishableKey',
@@ -1043,6 +1044,16 @@ _PAYINACCOUNTSERVICE = _descriptor.ServiceDescriptor(
     index=18,
     containing_service=None,
     input_type=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS,
+    output_type=ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='ChargeForClosedDomainLaunch',
+    full_name='elint.services.product.identity.account.PayInAccountService.ChargeForClosedDomainLaunch',
+    index=19,
+    containing_service=None,
+    input_type=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_access__space__knowledge__pb2._SPACEKNOWLEDGESERVICESACCESSAUTHDETAILS,
     output_type=ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,

@@ -42,6 +42,8 @@ from ethos.elint.services.product.identity.account_assistant.discover_account_as
     DiscoverAccountAssistantServiceStub
 from ethos.elint.services.product.identity.space.access_space_pb2_grpc import AccessSpaceServiceStub
 from ethos.elint.services.product.identity.space.create_space_pb2_grpc import CreateSpaceServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge.access_space_knowledge_pb2_grpc import \
+    AccessSpaceKnowledgeServiceStub
 from service.account.access_account_service import AccessAccountService
 from service.account.connect_account_service import ConnectAccountService
 from service.account.create_account_service import CreateAccountService
@@ -159,6 +161,28 @@ class Loader(object):
         Registry.register_service('send_account_assistant_message_service_stub',
                                   send_account_assistant_message_service_stub)
 
+        # ------------------------------------
+        # KNOWLEDGE STUBS
+        # ------------------------------------
+        knowledge_grpc_host = os.environ['EAPP_SERVICE_KNOWLEDGE_HOST']
+        knowledge_grpc_port = os.environ['EAPP_SERVICE_KNOWLEDGE_PORT']
+        knowledge_grpc_certificate_file = os.environ[
+            'EAPP_SERVICE_KNOWLEDGE_COMMON_GRPC_EXTERNAL_CERTIFICATE_FILE']
+
+        knowledge_host_ip = "{host}:{port}".format(host=knowledge_grpc_host, port=knowledge_grpc_port)
+
+        knowledge_ssl_credentials = grpc.ssl_channel_credentials(
+            open(knowledge_grpc_certificate_file, 'rb').read())
+        knowledge_common_channel = grpc.secure_channel(knowledge_host_ip, knowledge_ssl_credentials)
+
+        knowledge_common_channel = grpc.intercept_channel(knowledge_common_channel)
+        channels.append(knowledge_common_channel)
+
+        # knowledge stubs
+        access_space_knowledge_service_stub = AccessSpaceKnowledgeServiceStub(knowledge_common_channel)
+        Registry.register_service('access_space_knowledge_service_stub', access_space_knowledge_service_stub)
+
+        # adding channels to registry
         Registry.register_service('grpc_channels', channels)
         return
 

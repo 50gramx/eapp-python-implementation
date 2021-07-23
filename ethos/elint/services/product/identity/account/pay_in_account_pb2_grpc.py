@@ -24,6 +24,7 @@ import grpc
 from ethos.elint.entities import generic_pb2 as ethos_dot_elint_dot_entities_dot_generic__pb2
 from ethos.elint.services.product.identity.account import access_account_pb2 as ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2
 from ethos.elint.services.product.identity.account import pay_in_account_pb2 as ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2
+from ethos.elint.services.product.knowledge.space_knowledge import access_space_knowledge_pb2 as ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_access__space__knowledge__pb2
 
 
 class PayInAccountServiceStub(object):
@@ -128,6 +129,11 @@ class PayInAccountServiceStub(object):
         self.IsTierBenefitsRemainingForOpenDomainInferencePerDay = channel.unary_unary(
                 '/elint.services.product.identity.account.PayInAccountService/IsTierBenefitsRemainingForOpenDomainInferencePerDay',
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
+                )
+        self.ChargeForClosedDomainLaunch = channel.unary_unary(
+                '/elint.services.product.identity.account.PayInAccountService/ChargeForClosedDomainLaunch',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_access__space__knowledge__pb2.SpaceKnowledgeServicesAccessAuthDetails.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
                 )
 
@@ -254,6 +260,12 @@ class PayInAccountServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ChargeForClosedDomainLaunch(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_PayInAccountServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -350,6 +362,11 @@ def add_PayInAccountServiceServicer_to_server(servicer, server):
             'IsTierBenefitsRemainingForOpenDomainInferencePerDay': grpc.unary_unary_rpc_method_handler(
                     servicer.IsTierBenefitsRemainingForOpenDomainInferencePerDay,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.FromString,
+                    response_serializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.SerializeToString,
+            ),
+            'ChargeForClosedDomainLaunch': grpc.unary_unary_rpc_method_handler(
+                    servicer.ChargeForClosedDomainLaunch,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_access__space__knowledge__pb2.SpaceKnowledgeServicesAccessAuthDetails.FromString,
                     response_serializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.SerializeToString,
             ),
     }
@@ -681,6 +698,23 @@ class PayInAccountService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.PayInAccountService/IsTierBenefitsRemainingForOpenDomainInferencePerDay',
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
+            ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ChargeForClosedDomainLaunch(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.PayInAccountService/ChargeForClosedDomainLaunch',
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge_dot_access__space__knowledge__pb2.SpaceKnowledgeServicesAccessAuthDetails.SerializeToString,
             ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

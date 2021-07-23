@@ -116,6 +116,13 @@ class ApplicationContext(object):
     def send_account_assistant_message_service_stub():
         return Registry.get_service('send_account_assistant_message_service_stub')
 
+    # --------------------------------
+    # Knowledge Stubs
+    # --------------------------------
+    @staticmethod
+    def access_space_knowledge_service_stub():
+        return Registry.get_service('access_space_knowledge_service_stub')
+
     # ----------  Services ---------
     @staticmethod
     def get_create_account_service():

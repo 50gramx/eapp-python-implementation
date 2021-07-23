@@ -46,7 +46,7 @@ class PayInAccountService(PayInAccountServiceServicer):
     def __init__(self):
         super(PayInAccountService, self).__init__()
         stripe.api_key = os.environ['STRIPE_API_KEY']
-        self.ethoscoin_price_inr = 1.49
+        self.ethoscoin_price_inr = 1.520408163  # EthosCoin Price With Stripe Taxes
         self.open_galaxy_tier_plans = {
             0: {
                 "price_api": "price_1JAVQkF89FbkqSMdPfnZ0rKB",
@@ -128,6 +128,40 @@ class PayInAccountService(PayInAccountServiceServicer):
             os.environ['PLAY_STORE_DEVELOPER_ACCOUNT_SERVICES_KEY_PATH'])
         self.play_service_account_services = build("androidpublisher", "v3",
                                                    credentials=self.service_account_credentials)
+        self.account_ethoscoin_charges = {
+            "closed_domain_launch": {
+                "ethoscoin": 50,
+                "price_api": "price_1JGLZlF89FbkqSMdtD7FQvyX",
+            },
+            "closed_domain_page_learning": {
+                "tier": {
+                    0: {
+                        "price_api": "price_1JGLe3F89FbkqSMdyWnKVtSs",
+                        "ethoscoin": 0.5033557047,
+                    },
+                    1: {
+                        "price_api": "price_1JGLe3F89FbkqSMdFoa5Dm5Q",
+                        "ethoscoin": 0.4026845638,
+                    },
+                    2: {
+                        "price_api": "price_1JGLe3F89FbkqSMdvGgXji27",
+                        "ethoscoin": 0.3355704698,
+                    },
+                    3: {
+                        "price_api": "price_1JGLe3F89FbkqSMdm7PYzvEl",
+                        "ethoscoin": 0.1677852349,
+                    },
+                }
+            },
+            "closed_inference": {
+                "ethoscoin": 3.355704698,
+                "price_api": "price_1JGLmbF89FbkqSMdDraiM01R"
+            },
+            "open_inference": {
+                "ethoscoin": 6.711409396,
+                "price_api": "price_1JGMHWF89FbkqSMdPhj6jeqB"
+            },
+        }
         self.session_scope = self.__class__.__name__
 
     def GetAccountPayInPublishableKey(self, request, context):
@@ -416,9 +450,7 @@ class PayInAccountService(PayInAccountServiceServicer):
             except HttpError as http_error:
                 return ResponseMeta(meta_done=False, meta_message=http_error.error_details)
 
-    # ------------------------------------
     # Add EthosCoin Balance
-    # ------------------------------------
     def ConfirmAccountEthosCoinBalanceAddition(self, request, context):
         logging.info("PayInAccountService:ConfirmAccountEthosCoinBalanceAddition")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -596,3 +628,83 @@ class PayInAccountService(PayInAccountServiceServicer):
     #         productId=self.add_ethoscoin_slabs.get(request.add_ethoscoin_enum),
     #         token=purchase_token
     #     ).execute()
+
+    # Account EthosCoin Charges
+    def ChargeForClosedDomainLaunch(self, request, context):
+        logging.info("PayInAccountService:ChargeForClosedDomainLaunch")
+        validation_response = ApplicationContext.access_space_knowledge_service_stub().ValidateSpaceKnowledgeServices(
+            request)
+        if validation_response.space_knowledge_services_access_validation_done is False:
+            return ResponseMeta(meta_done=False,
+                                meta_message=validation_response.space_knowledge_services_access_validation_message)
+        else:
+            # Get the space from space knowledge services access auth details
+            space = request.space_knowledge.space
+            if space.space_entity_type != 0:
+                return ResponseMeta(
+                    meta_done=False,
+                    meta_message="Launch Domain requested by unauthorised entity. This action will be reported.")
+            else:
+                account_id = space.space_admin_id
+                customer_id = get_account_pay_in_id(account_id=account_id)
+                # check if free with tier limits
+                tier_closed_domain_launch_per_month = int(stripe.Customer.retrieve(
+                    customer_id).metadata.closed_domain_launch_per_month)
+                if tier_closed_domain_launch_per_month > 0:
+                    # reduce the tier limit for closed knowledge domain launch
+                    _ = stripe.Customer.modify(
+                        customer_id,
+                        metadata=
+                        {
+                            "closed_domain_launch_per_month": tier_closed_domain_launch_per_month - 1,
+                        },
+                    )
+                    # credit the ethoscoin for one domain launch
+                    credit_amount = math.ceil(
+                        self.ethoscoin_price_inr * self.account_ethoscoin_charges.get("closed_domain_launch").get(
+                            "ethoscoin") * 100) * -1
+                    stripe.Customer.create_balance_transaction(
+                        customer_id,
+                        amount=credit_amount,
+                        currency="INR",
+                        description="Credits for Closed Knowledge Domain Launch with Tier Benefits"
+                    )
+                    # charge for the closed knowledge domain launch
+                    invoice_item = stripe.InvoiceItem.create(
+                        customer=customer_id,
+                        price=self.account_ethoscoin_charges.get("closed_domain_launch").get("price_api"))
+                    invoice_item.auto_advance = True,
+                    invoice_item.charge_automatically = True
+                    invoice = stripe.Invoice.create(customer=customer_id)
+                    finalized_invoice = stripe.Invoice.finalize_invoice(invoice.id)
+                    return ResponseMeta(
+                        meta_done=True,
+                        meta_message="Successfully Invoiced for Closed Knowledge Domain Launch with Tier Benefits")
+                else:
+                    # check for the available balance
+                    list_balance_transactions = stripe.Customer.list_balance_transactions(
+                        get_account_pay_in_id(request.account.account_id), limit=1).get("data", None)
+                    if len(list_balance_transactions) > 0:
+                        last_transaction = list_balance_transactions[0]
+                        ending_balance = last_transaction.get("ending_balance", 0)
+                        ethoscoin_balance = ((ending_balance / 100) * -1) / self.ethoscoin_price_inr
+                        # check for available balance is more than equal to required balance
+                        if ethoscoin_balance >= self.account_ethoscoin_charges.get("closed_domain_launch").get(
+                                "ethoscoin"):
+                            # charge for the closed knowledge domain launch
+                            invoice_item = stripe.InvoiceItem.create(
+                                customer=customer_id,
+                                price=self.account_ethoscoin_charges.get("closed_domain_launch").get("price_api"))
+                            invoice_item.auto_advance = True,
+                            invoice_item.charge_automatically = True
+                            invoice = stripe.Invoice.create(customer=customer_id)
+                            finalized_invoice = stripe.Invoice.finalize_invoice(invoice.id)
+                            return ResponseMeta(
+                                meta_done=True,
+                                meta_message="Successfully charged for Closed Knowledge Domain Launch")
+                        else:
+                            return ResponseMeta(
+                                meta_done=False,
+                                meta_message="Insufficient EthosCoin Balance. Please add EthosCoin to launch Domain.")
+                    else:
+                        return ResponseMeta(meta_done=False, meta_message="No EthosCoin transactions found.")
