@@ -511,8 +511,8 @@ class PayInAccountService(PayInAccountServiceServicer):
             return ResponseMeta(meta_done=validation_done, meta_message=validation_message)
         else:
             customer_id = get_account_pay_in_id(account_id=request.account.account_id)
-            closed_domain_launch_per_month = stripe.Customer.retrieve(
-                customer_id).metadata.closed_domain_launch_per_month
+            closed_domain_launch_per_month = int(stripe.Customer.retrieve(
+                customer_id).metadata.closed_domain_launch_per_month)
             if closed_domain_launch_per_month > 0:
                 return ResponseMeta(
                     meta_done=True,
@@ -531,8 +531,8 @@ class PayInAccountService(PayInAccountServiceServicer):
             return ResponseMeta(meta_done=validation_done, meta_message=validation_message)
         else:
             customer_id = get_account_pay_in_id(account_id=request.account.account_id)
-            closed_domain_page_learning_per_month = stripe.Customer.retrieve(
-                customer_id).metadata.closed_domain_page_learning_per_month
+            closed_domain_page_learning_per_month = int(stripe.Customer.retrieve(
+                customer_id).metadata.closed_domain_page_learning_per_month)
             if closed_domain_page_learning_per_month > 0:
                 return ResponseMeta(
                     meta_done=True,
@@ -552,8 +552,8 @@ class PayInAccountService(PayInAccountServiceServicer):
             return ResponseMeta(meta_done=validation_done, meta_message=validation_message)
         else:
             customer_id = get_account_pay_in_id(account_id=request.account.account_id)
-            closed_inference_per_day = stripe.Customer.retrieve(
-                customer_id).metadata.closed_inference_per_day
+            closed_inference_per_day = int(stripe.Customer.retrieve(
+                customer_id).metadata.closed_inference_per_day)
             if closed_inference_per_day > 0:
                 return ResponseMeta(
                     meta_done=True,
@@ -572,8 +572,8 @@ class PayInAccountService(PayInAccountServiceServicer):
             return ResponseMeta(meta_done=validation_done, meta_message=validation_message)
         else:
             customer_id = get_account_pay_in_id(account_id=request.account.account_id)
-            open_inference_per_day = stripe.Customer.retrieve(
-                customer_id).metadata.open_inference_per_day
+            open_inference_per_day = int(stripe.Customer.retrieve(
+                customer_id).metadata.open_inference_per_day)
             if open_inference_per_day > 0:
                 return ResponseMeta(
                     meta_done=True,
