@@ -33,7 +33,8 @@ from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account.pay_in_account_pb2 import AccountPayInPublishableKey, \
     AccountPayInAccessKey, ListAllCardsResponse, SaveCardResponse, AccountEthosCoinBalanceResponse, \
     CreditAccountEthosCoinBalanceRequest, \
-    VerifyAccountOpenGalaxyPlayStoreSubscriptionChargeRequest, CreateAccountOpenGalaxyTierSubscriptionRequest
+    VerifyAccountOpenGalaxyPlayStoreSubscriptionChargeRequest, CreateAccountOpenGalaxyTierSubscriptionRequest, \
+    VerifyAccountEthosCoinBalanceAdditionRequest
 from ethos.elint.services.product.identity.account.pay_in_account_pb2_grpc import PayInAccountServiceServicer
 from models.pay_in_models import add_new_account_pay_in, get_account_pay_in_id
 from services_caller.account_service_caller import validate_account_services_caller
@@ -112,6 +113,14 @@ class PayInAccountService(PayInAccountServiceServicer):
             4: {
                 "ethoscoin": 1600,
                 "play_store_product_id": "50gramx.add.ethoscoin.1600",
+            },
+            5: {
+                "ethoscoin": 3200,
+                "play_store_product_id": "50gramx.add.ethoscoin.3200",
+            },
+            6: {
+                "ethoscoin": 6400,
+                "play_store_product_id": "50gramx.add.ethoscoin.6400",
             },
         }
         self.play_store_package_name = "com.fiftygramx.ethosai"
@@ -271,7 +280,8 @@ class PayInAccountService(PayInAccountServiceServicer):
                     currency=request.account_currency,
                     metadata={
                         "play_store_subscription_id": request.play_store_subscription_id,
-                        "google_play_purchase_token": request.google_play_purchase_token
+                        "google_play_purchase_token": request.google_play_purchase_token,
+                        "play_store_product_id": request.play_store_product_id,
                     },
                     description=request.description
                 )
@@ -407,8 +417,59 @@ class PayInAccountService(PayInAccountServiceServicer):
                 return ResponseMeta(meta_done=False, meta_message=http_error.error_details)
 
     # ------------------------------------
-    # EthosCoin Tier Benefits
+    # Add EthosCoin Balance
     # ------------------------------------
+    def ConfirmAccountEthosCoinBalanceAddition(self, request, context):
+        logging.info("PayInAccountService:ConfirmAccountEthosCoinBalanceAddition")
+        validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
+        if validation_done is False:
+            return ResponseMeta(meta_done=validation_done, meta_message=validation_message)
+        else:
+            verify_response = ApplicationContext.pay_in_account_service_stub(
+            ).VerifyAccountEthosCoinBalanceAddition(
+                VerifyAccountEthosCoinBalanceAdditionRequest(
+                    access_auth_details=request.access_auth_details,
+                    add_ethos_coin_enum=request.add_ethos_coin_enum,
+                    google_play_purchase_token=request.google_play_purchase_token
+                ))
+            if verify_response.meta_done is False:
+                return ResponseMeta(meta_done=False, meta_message=verify_response.meta_message)
+            add_ethoscoin = self.add_ethoscoin_slabs[request.add_ethos_coin_enum].get("ethoscoin")
+            _ = ApplicationContext.pay_in_account_service_stub().CreditAccountEthosCoinBalance(
+                CreditAccountEthosCoinBalanceRequest(
+                    access_auth_details=request.access_auth_details,
+                    add_ethoscoin=add_ethoscoin,
+                    account_currency="INR",
+                    google_play_purchase_token=request.google_play_purchase_token,
+                    description=f"Added {add_ethoscoin} EthosCoin on Play Store",
+                    play_store_product_id=self.add_ethoscoin_slabs[request.add_ethos_coin_enum].get(
+                        "play_store_product_id")
+                ))
+            return ResponseMeta(meta_done=True, meta_message="Successfully subscribed.")
+
+    def VerifyAccountEthosCoinBalanceAddition(self, request, context):
+        logging.info("PayInAccountService:VerifyAccountEthosCoinBalanceAddition")
+        validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
+        if validation_done is False:
+            return ResponseMeta(meta_done=validation_done, meta_message=validation_message)
+        else:
+            try:
+                play_store_purchase_details = self.play_service_account_services.purchases().products().get(
+                    packageName=self.play_store_package_name,
+                    productId=self.add_ethoscoin_slabs.get(request.add_ethos_coin_enum).get("play_store_product_id"),
+                    token=request.google_play_purchase_token
+                ).execute()
+                logging.info(f"play_store_purchase_details: {play_store_purchase_details}")
+                play_store_purchase_state = int(play_store_purchase_details.get('purchaseState'))
+                # https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.products#ProductPurchase
+                if play_store_purchase_state == 0:  # PURCHASED
+                    return ResponseMeta(meta_done=True, meta_message="Successfully Added EthosCoin.")
+                elif play_store_purchase_state == 1:  # CANCELLED
+                    return ResponseMeta(meta_done=False, meta_message="Cancelled Adding EthosCoin.")
+                elif play_store_purchase_state == 2:  # PENDING
+                    return ResponseMeta(meta_done=False, meta_message="Purchase Pending.")
+            except HttpError as http_error:
+                return ResponseMeta(meta_done=False, meta_message=http_error.error_details)
 
     # call this at the first access of the day to
     # todo: later on at check to subscription status if necessary

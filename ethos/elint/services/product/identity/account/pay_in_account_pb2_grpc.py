@@ -95,6 +95,16 @@ class PayInAccountServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.ConfirmAccountOpenGalaxyPlayStoreSubscriptionRequest.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
                 )
+        self.VerifyAccountEthosCoinBalanceAddition = channel.unary_unary(
+                '/elint.services.product.identity.account.PayInAccountService/VerifyAccountEthosCoinBalanceAddition',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.VerifyAccountEthosCoinBalanceAdditionRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
+                )
+        self.ConfirmAccountEthosCoinBalanceAddition = channel.unary_unary(
+                '/elint.services.product.identity.account.PayInAccountService/ConfirmAccountEthosCoinBalanceAddition',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.ConfirmAccountEthosCoinBalanceAdditionRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
+                )
         self.UpdateAccountRemainingOpenGalaxyTierBenefits = channel.unary_unary(
                 '/elint.services.product.identity.account.PayInAccountService/UpdateAccountRemainingOpenGalaxyTierBenefits',
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
@@ -200,6 +210,19 @@ class PayInAccountServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def VerifyAccountEthosCoinBalanceAddition(self, request, context):
+        """Play Store Add EthosCoin
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ConfirmAccountEthosCoinBalanceAddition(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def UpdateAccountRemainingOpenGalaxyTierBenefits(self, request, context):
         """Open Galaxy Tier Benefits
         """
@@ -292,6 +315,16 @@ def add_PayInAccountServiceServicer_to_server(servicer, server):
             'ConfirmAccountOpenGalaxyPlayStoreSubscription': grpc.unary_unary_rpc_method_handler(
                     servicer.ConfirmAccountOpenGalaxyPlayStoreSubscription,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.ConfirmAccountOpenGalaxyPlayStoreSubscriptionRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.SerializeToString,
+            ),
+            'VerifyAccountEthosCoinBalanceAddition': grpc.unary_unary_rpc_method_handler(
+                    servicer.VerifyAccountEthosCoinBalanceAddition,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.VerifyAccountEthosCoinBalanceAdditionRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.SerializeToString,
+            ),
+            'ConfirmAccountEthosCoinBalanceAddition': grpc.unary_unary_rpc_method_handler(
+                    servicer.ConfirmAccountEthosCoinBalanceAddition,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.ConfirmAccountEthosCoinBalanceAdditionRequest.FromString,
                     response_serializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.SerializeToString,
             ),
             'UpdateAccountRemainingOpenGalaxyTierBenefits': grpc.unary_unary_rpc_method_handler(
@@ -529,6 +562,40 @@ class PayInAccountService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.PayInAccountService/ConfirmAccountOpenGalaxyPlayStoreSubscription',
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.ConfirmAccountOpenGalaxyPlayStoreSubscriptionRequest.SerializeToString,
+            ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def VerifyAccountEthosCoinBalanceAddition(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.PayInAccountService/VerifyAccountEthosCoinBalanceAddition',
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.VerifyAccountEthosCoinBalanceAdditionRequest.SerializeToString,
+            ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ConfirmAccountEthosCoinBalanceAddition(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.PayInAccountService/ConfirmAccountEthosCoinBalanceAddition',
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_pay__in__account__pb2.ConfirmAccountEthosCoinBalanceAdditionRequest.SerializeToString,
             ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

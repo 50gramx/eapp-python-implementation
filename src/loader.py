@@ -74,7 +74,6 @@ class Loader(object):
         # ------------------------------------
         # IDENTITY STUBS
         # ------------------------------------
-        # grpc_secured = os.environ["EAPP_SERVICE_PRODUCT_COMMON_GRPC_EXTERNAL_SECURE"]
         grpc_host = os.environ['EAPP_SERVICE_IDENTITY_HOST']
         grpc_port = os.environ['EAPP_SERVICE_IDENTITY_PORT']
         grpc_certificate_file = os.environ['EAPP_SERVICE_IDENTITY_COMMON_GRPC_EXTERNAL_CERTIFICATE_FILE']
