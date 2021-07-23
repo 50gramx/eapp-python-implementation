@@ -683,7 +683,7 @@ class PayInAccountService(PayInAccountServiceServicer):
                 else:
                     # check for the available balance
                     list_balance_transactions = stripe.Customer.list_balance_transactions(
-                        get_account_pay_in_id(request.account.account_id), limit=1).get("data", None)
+                        get_account_pay_in_id(account_id), limit=1).get("data", None)
                     if len(list_balance_transactions) > 0:
                         last_transaction = list_balance_transactions[0]
                         ending_balance = last_transaction.get("ending_balance", 0)
