@@ -445,7 +445,7 @@ class PayInAccountService(PayInAccountServiceServicer):
                     play_store_product_id=self.add_ethoscoin_slabs[request.add_ethos_coin_enum].get(
                         "play_store_product_id")
                 ))
-            return ResponseMeta(meta_done=True, meta_message="Successfully subscribed.")
+            return ResponseMeta(meta_done=True, meta_message=f"Successfully Added {add_ethoscoin} EthosCoin.")
 
     def VerifyAccountEthosCoinBalanceAddition(self, request, context):
         logging.info("PayInAccountService:VerifyAccountEthosCoinBalanceAddition")
