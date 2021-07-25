@@ -66,6 +66,16 @@ class DiscoverSpaceKnowledgeDomainServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.IsMessageContextInDomainRequest.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.IsMessageContextInDomainResponse.FromString,
                 )
+        self.GetFileCount = channel.unary_unary(
+                '/elint.services.product.knowledge.domain.DiscoverSpaceKnowledgeDomainService/GetFileCount',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainServicesAccessAuthDetails.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.FileCountResponse.FromString,
+                )
+        self.GetPageCount = channel.unary_unary(
+                '/elint.services.product.knowledge.domain.DiscoverSpaceKnowledgeDomainService/GetPageCount',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainServicesAccessAuthDetails.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.PageCountResponse.FromString,
+                )
 
 
 class DiscoverSpaceKnowledgeDomainServiceServicer(object):
@@ -108,6 +118,19 @@ class DiscoverSpaceKnowledgeDomainServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetFileCount(self, request, context):
+        """Count
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetPageCount(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_DiscoverSpaceKnowledgeDomainServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -140,6 +163,16 @@ def add_DiscoverSpaceKnowledgeDomainServiceServicer_to_server(servicer, server):
                     servicer.IsMessageContextInDomain,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.IsMessageContextInDomainRequest.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.IsMessageContextInDomainResponse.SerializeToString,
+            ),
+            'GetFileCount': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetFileCount,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainServicesAccessAuthDetails.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.FileCountResponse.SerializeToString,
+            ),
+            'GetPageCount': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetPageCount,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainServicesAccessAuthDetails.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.PageCountResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -251,5 +284,39 @@ class DiscoverSpaceKnowledgeDomainService(object):
         return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.domain.DiscoverSpaceKnowledgeDomainService/IsMessageContextInDomain',
             ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.IsMessageContextInDomainRequest.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.IsMessageContextInDomainResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetFileCount(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.domain.DiscoverSpaceKnowledgeDomainService/GetFileCount',
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainServicesAccessAuthDetails.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.FileCountResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetPageCount(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.knowledge.domain.DiscoverSpaceKnowledgeDomainService/GetPageCount',
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.SpaceKnowledgeDomainServicesAccessAuthDetails.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_discover__space__knowledge__domain__pb2.PageCountResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

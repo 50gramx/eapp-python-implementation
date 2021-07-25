@@ -30,27 +30,45 @@ from support.db_service import get_account_device_token
 from support.notifications.apple_push_notifications import ApplePushNotifications
 
 
+# TODO: ADD APP SOUNDS
+
 class NotifyAccountService(NotifyAccountServiceServicer):
     def __init__(self):
         super(NotifyAccountService, self).__init__()
         self.session_scope = self.__class__.__name__
+        self.fcm_push_service = FCMNotification(api_key=os.environ['FCM_API_KEY'])
 
     def NewReceivedMessageFromAccountAssistant(self, request, context):
         logging.info("NotifyAccountService:NewReceivedMessageFromAccountAssistant")
-        ios_new_messages_payload = {
-            'aps': {
-                'alert': "You've received new messages from account assistants",
-                'sound': "default",
-                'badge': 0,
-            },
+        # ios_new_messages_payload = {
+        #     'aps': {
+        #         'alert': "You've received new messages from account assistants",
+        #         'sound': "default",
+        #         'badge': 0,
+        #     },
+        #     'account_id': request.account_id,
+        #     'connected_account_assistant': MessageToString(request.connected_account_assistant, as_one_line=True),
+        #     'account_assistant_received_message_id': request.account_assistant_received_message_id
+        # }
+        message_title = f"You've received new messages from account assistants"
+        message_body = request.message
+        message_data = {
             'account_id': request.account_id,
+            'service': "NotifyAccountService",
+            'rpc': "NewReceivedMessageFromAccount",
             'connected_account_assistant': MessageToString(request.connected_account_assistant, as_one_line=True),
             'account_assistant_received_message_id': request.account_assistant_received_message_id
         }
         try:
-            apns = ApplePushNotifications()
-            apns.notify_account(account_id=request.account_id, payload=ios_new_messages_payload)
-            logging.info("DEBUG:: NOTIFICATION SENT")
+            # apns = ApplePushNotifications()
+            # apns.notify_account(account_id=request.account_id, payload=ios_new_messages_payload)
+            push_result = self.fcm_push_service.notify_single_device(
+                registration_id=get_account_device_token(account_id=request.account_id),
+                message_title=message_title,
+                message_body=message_body,
+                data_message=message_data, sound='Default'
+            )
+            logging.info(f"DEBUG:: NOTIFICATION SENT: {push_result}")
             return ResponseMeta(meta_done=True, meta_message="Notified successfully!")
         except:
             logging.info("DEBUG:: NOTIFICATION NOT SENT")
@@ -81,15 +99,15 @@ class NotifyAccountService(NotifyAccountServiceServicer):
                 'service': "NotifyAccountService",
                 'rpc': "NewReceivedMessageFromAccount"
             }
-            push_service = FCMNotification(api_key=os.environ['FCM_API_KEY'])
-            push_result = push_service.notify_single_device(
+
+            push_result = self.fcm_push_service.notify_single_device(
                 registration_id=get_account_device_token(account_id=request.account_id),
                 message_title=message_title,
                 message_body=message_body,
                 data_message=message_data, sound='Default'
             )
             # apns.notify_account(account_id=request.account_id, payload=ios_new_messages_payload)
-            logging.info("DEBUG:: NOTIFICATION SENT")
+            logging.info(f"DEBUG:: NOTIFICATION SENT: {push_result}")
             return ResponseMeta(meta_done=True, meta_message="Notified successfully!")
         except Exception as e:
             logging.info(f" notification is not sent, Exception: {e}")

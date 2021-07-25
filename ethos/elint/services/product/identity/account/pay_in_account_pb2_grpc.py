@@ -261,7 +261,8 @@ class PayInAccountServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def ChargeForClosedDomainLaunch(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Charge
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')

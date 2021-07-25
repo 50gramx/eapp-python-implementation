@@ -50,7 +50,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n@ethos/elint/services/product/action/space_knowledge_action.proto\x12-elint.services.product.action.space.knowledge\x1aVethos/elint/services/product/identity/account_assistant/access_account_assistant.proto\x1a\"ethos/elint/entities/generic.proto\x1a\x31\x65thos/elint/entities/space_knowledge_domain.proto\"\xa0\x01\n\x12\x41skQuestionRequest\x12y\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32\\.elint.services.product.identity.account.assistant.AccountAssistantServicesAccessAuthDetails\x12\x0f\n\x07message\x18\x02 \x01(\t\"\xac\x01\n\x13\x41skQuestionResponse\x12\x62\n\x16\x64omains_ranked_answers\x18\x01 \x03(\x0b\x32\x42.elint.services.product.action.space.knowledge.DomainRankedAnswers\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\x8d\x01\n\x13\x44omainRankedAnswers\x12\x42\n\x16space_knowledge_domain\x18\x01 \x01(\x0b\x32\".elint.entity.SpaceKnowledgeDomain\x12\x32\n\x0eranked_answers\x18\x02 \x03(\x0b\x32\x1a.elint.entity.RankedAnswer2\xb6\x01\n\x1bSpaceKnowledgeActionService\x12\x96\x01\n\x0b\x41skQuestion\x12\x41.elint.services.product.action.space.knowledge.AskQuestionRequest\x1a\x42.elint.services.product.action.space.knowledge.AskQuestionResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\n@ethos/elint/services/product/action/space_knowledge_action.proto\x12-elint.services.product.action.space.knowledge\x1aVethos/elint/services/product/identity/account_assistant/access_account_assistant.proto\x1a\"ethos/elint/entities/generic.proto\x1a\x31\x65thos/elint/entities/space_knowledge_domain.proto\"\x83\x02\n\x12\x41skQuestionRequest\x12y\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32\\.elint.services.product.identity.account.assistant.AccountAssistantServicesAccessAuthDetails\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x1d\n\x15\x61sk_particular_domain\x18\x03 \x01(\x08\x12\x42\n\x16space_knowledge_domain\x18\x04 \x01(\x0b\x32\".elint.entity.SpaceKnowledgeDomain\"\xac\x01\n\x13\x41skQuestionResponse\x12\x62\n\x16\x64omains_ranked_answers\x18\x01 \x03(\x0b\x32\x42.elint.services.product.action.space.knowledge.DomainRankedAnswers\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\x8d\x01\n\x13\x44omainRankedAnswers\x12\x42\n\x16space_knowledge_domain\x18\x01 \x01(\x0b\x32\".elint.entity.SpaceKnowledgeDomain\x12\x32\n\x0eranked_answers\x18\x02 \x03(\x0b\x32\x1a.elint.entity.RankedAnswer2\xb6\x01\n\x1bSpaceKnowledgeActionService\x12\x96\x01\n\x0b\x41skQuestion\x12\x41.elint.services.product.action.space.knowledge.AskQuestionRequest\x1a\x42.elint.services.product.action.space.knowledge.AskQuestionResponse\"\x00\x62\x06proto3'
   ,
   dependencies=[ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_access__account__assistant__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2.DESCRIPTOR,])
 
@@ -79,6 +79,20 @@ _ASKQUESTIONREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='ask_particular_domain', full_name='elint.services.product.action.space.knowledge.AskQuestionRequest.ask_particular_domain', index=2,
+      number=3, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='space_knowledge_domain', full_name='elint.services.product.action.space.knowledge.AskQuestionRequest.space_knowledge_domain', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -92,7 +106,7 @@ _ASKQUESTIONREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=291,
-  serialized_end=451,
+  serialized_end=550,
 )
 
 
@@ -130,8 +144,8 @@ _ASKQUESTIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=454,
-  serialized_end=626,
+  serialized_start=553,
+  serialized_end=725,
 )
 
 
@@ -169,11 +183,12 @@ _DOMAINRANKEDANSWERS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=629,
-  serialized_end=770,
+  serialized_start=728,
+  serialized_end=869,
 )
 
 _ASKQUESTIONREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_access__account__assistant__pb2._ACCOUNTASSISTANTSERVICESACCESSAUTHDETAILS
+_ASKQUESTIONREQUEST.fields_by_name['space_knowledge_domain'].message_type = ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2._SPACEKNOWLEDGEDOMAIN
 _ASKQUESTIONRESPONSE.fields_by_name['domains_ranked_answers'].message_type = _DOMAINRANKEDANSWERS
 _ASKQUESTIONRESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
 _DOMAINRANKEDANSWERS.fields_by_name['space_knowledge_domain'].message_type = ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2._SPACEKNOWLEDGEDOMAIN
@@ -213,8 +228,8 @@ _SPACEKNOWLEDGEACTIONSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=773,
-  serialized_end=955,
+  serialized_start=872,
+  serialized_end=1054,
   methods=[
   _descriptor.MethodDescriptor(
     name='AskQuestion',

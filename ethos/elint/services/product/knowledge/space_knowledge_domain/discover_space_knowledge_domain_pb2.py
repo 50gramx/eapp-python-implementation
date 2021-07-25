@@ -56,7 +56,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\ncethos/elint/services/product/knowledge/space_knowledge_domain/discover_space_knowledge_domain.proto\x12\'elint.services.product.knowledge.domain\x1a\"ethos/elint/entities/account.proto\x1a\"ethos/elint/entities/generic.proto\x1a\x31\x65thos/elint/entities/space_knowledge_domain.proto\x1a\x36\x65thos/elint/entities/space_knowledge_domain_file.proto\x1a\x61\x65thos/elint/services/product/knowledge/space_knowledge_domain/access_space_knowledge_domain.proto\"R\n\x19GetAllDomainFilesResponse\x12\x35\n\x05\x66iles\x18\x01 \x03(\x0b\x32&.elint.entity.SpaceKnowledgeDomainFile\"\xba\x01\n\x15GetBestAnswersRequest\x12s\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32V.elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails\x12\x1a\n\x12\x62\x65st_answers_count\x18\x02 \x01(\x05\x12\x10\n\x08question\x18\x03 \x01(\t\"\x7f\n\x16GetBestAnswersResponse\x12\x32\n\x0eranked_answers\x18\x01 \x03(\x0b\x32\x1a.elint.entity.RankedAnswer\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xaa\x01\n\"RetrieveMessageContextPagesRequest\x12s\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32V.elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails\x12\x0f\n\x07message\x18\x02 \x01(\t\"\xa4\x01\n#RetrieveMessageContextPagesResponse\x12J\n\x0c\x63ontext_page\x18\x01 \x03(\x0b\x32\x34.elint.services.product.knowledge.domain.ContextPage\x12\x31\n\rresponse_meta\x18\x03 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xa7\x01\n\x1fIsMessageContextInDomainRequest\x12s\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32V.elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails\x12\x0f\n\x07message\x18\x02 \x01(\t\"\x97\x01\n IsMessageContextInDomainResponse\x12!\n\x19message_context_in_domain\x18\x01 \x01(\x08\x12\x1d\n\x15message_context_score\x18\x02 \x01(\x05\x12\x31\n\rresponse_meta\x18\x03 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\x1c\n\x1aGetInferredDomainsResponse\"E\n\x0b\x43ontextPage\x12\x11\n\tpage_rank\x18\x01 \x01(\x05\x12\x0f\n\x07page_id\x18\x02 \x01(\t\x12\x12\n\npage_score\x18\x03 \x01(\x05\x32\xb0\x08\n#DiscoverSpaceKnowledgeDomainService\x12\xb1\x01\n\x11GetAllDomainFiles\x12V.elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails\x1a\x42.elint.services.product.knowledge.domain.GetAllDomainFilesResponse\"\x00\x12\x90\x01\n\x10GetUpdatedDomain\x12V.elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails\x1a\".elint.entity.SpaceKnowledgeDomain\"\x00\x12\x93\x01\n\x0eGetBestAnswers\x12>.elint.services.product.knowledge.domain.GetBestAnswersRequest\x1a?.elint.services.product.knowledge.domain.GetBestAnswersResponse\"\x00\x12\xba\x01\n\x1bRetrieveMessageContextPages\x12K.elint.services.product.knowledge.domain.RetrieveMessageContextPagesRequest\x1aL.elint.services.product.knowledge.domain.RetrieveMessageContextPagesResponse\"\x00\x12\xba\x01\n\x1bRetrieveMessageContextParas\x12K.elint.services.product.knowledge.domain.RetrieveMessageContextPagesRequest\x1aL.elint.services.product.knowledge.domain.RetrieveMessageContextPagesResponse\"\x00\x12\xb1\x01\n\x18IsMessageContextInDomain\x12H.elint.services.product.knowledge.domain.IsMessageContextInDomainRequest\x1aI.elint.services.product.knowledge.domain.IsMessageContextInDomainResponse\"\x00\x62\x06proto3'
+  serialized_pb=b'\ncethos/elint/services/product/knowledge/space_knowledge_domain/discover_space_knowledge_domain.proto\x12\'elint.services.product.knowledge.domain\x1a\"ethos/elint/entities/account.proto\x1a\"ethos/elint/entities/generic.proto\x1a\x31\x65thos/elint/entities/space_knowledge_domain.proto\x1a\x36\x65thos/elint/entities/space_knowledge_domain_file.proto\x1a\x61\x65thos/elint/services/product/knowledge/space_knowledge_domain/access_space_knowledge_domain.proto\"R\n\x19GetAllDomainFilesResponse\x12\x35\n\x05\x66iles\x18\x01 \x03(\x0b\x32&.elint.entity.SpaceKnowledgeDomainFile\"\xba\x01\n\x15GetBestAnswersRequest\x12s\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32V.elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails\x12\x1a\n\x12\x62\x65st_answers_count\x18\x02 \x01(\x05\x12\x10\n\x08question\x18\x03 \x01(\t\"\x7f\n\x16GetBestAnswersResponse\x12\x32\n\x0eranked_answers\x18\x01 \x03(\x0b\x32\x1a.elint.entity.RankedAnswer\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xaa\x01\n\"RetrieveMessageContextPagesRequest\x12s\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32V.elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails\x12\x0f\n\x07message\x18\x02 \x01(\t\"\xa4\x01\n#RetrieveMessageContextPagesResponse\x12J\n\x0c\x63ontext_page\x18\x01 \x03(\x0b\x32\x34.elint.services.product.knowledge.domain.ContextPage\x12\x31\n\rresponse_meta\x18\x03 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xa7\x01\n\x1fIsMessageContextInDomainRequest\x12s\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32V.elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails\x12\x0f\n\x07message\x18\x02 \x01(\t\"\x97\x01\n IsMessageContextInDomainResponse\x12!\n\x19message_context_in_domain\x18\x01 \x01(\x08\x12\x1d\n\x15message_context_score\x18\x02 \x01(\x05\x12\x31\n\rresponse_meta\x18\x03 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\x1c\n\x1aGetInferredDomainsResponse\"Z\n\x11\x46ileCountResponse\x12\x12\n\nfile_count\x18\x01 \x01(\x05\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"Z\n\x11PageCountResponse\x12\x12\n\npage_count\x18\x01 \x01(\x05\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"E\n\x0b\x43ontextPage\x12\x11\n\tpage_rank\x18\x01 \x01(\x05\x12\x0f\n\x07page_id\x18\x02 \x01(\t\x12\x12\n\npage_score\x18\x03 \x01(\x05\x32\xfe\n\n#DiscoverSpaceKnowledgeDomainService\x12\xb1\x01\n\x11GetAllDomainFiles\x12V.elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails\x1a\x42.elint.services.product.knowledge.domain.GetAllDomainFilesResponse\"\x00\x12\x90\x01\n\x10GetUpdatedDomain\x12V.elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails\x1a\".elint.entity.SpaceKnowledgeDomain\"\x00\x12\x93\x01\n\x0eGetBestAnswers\x12>.elint.services.product.knowledge.domain.GetBestAnswersRequest\x1a?.elint.services.product.knowledge.domain.GetBestAnswersResponse\"\x00\x12\xba\x01\n\x1bRetrieveMessageContextPages\x12K.elint.services.product.knowledge.domain.RetrieveMessageContextPagesRequest\x1aL.elint.services.product.knowledge.domain.RetrieveMessageContextPagesResponse\"\x00\x12\xba\x01\n\x1bRetrieveMessageContextParas\x12K.elint.services.product.knowledge.domain.RetrieveMessageContextPagesRequest\x1aL.elint.services.product.knowledge.domain.RetrieveMessageContextPagesResponse\"\x00\x12\xb1\x01\n\x18IsMessageContextInDomain\x12H.elint.services.product.knowledge.domain.IsMessageContextInDomainRequest\x1aI.elint.services.product.knowledge.domain.IsMessageContextInDomainResponse\"\x00\x12\xa4\x01\n\x0cGetFileCount\x12V.elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails\x1a:.elint.services.product.knowledge.domain.FileCountResponse\"\x00\x12\xa4\x01\n\x0cGetPageCount\x12V.elint.services.product.knowledge.domain.SpaceKnowledgeDomainServicesAccessAuthDetails\x1a:.elint.services.product.knowledge.domain.PageCountResponse\"\x00\x62\x06proto3'
   ,
   dependencies=[ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_space__knowledge__domain__file__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2.DESCRIPTOR,])
 
@@ -368,6 +368,84 @@ _GETINFERREDDOMAINSRESPONSE = _descriptor.Descriptor(
 )
 
 
+_FILECOUNTRESPONSE = _descriptor.Descriptor(
+  name='FileCountResponse',
+  full_name='elint.services.product.knowledge.domain.FileCountResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='file_count', full_name='elint.services.product.knowledge.domain.FileCountResponse.file_count', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='response_meta', full_name='elint.services.product.knowledge.domain.FileCountResponse.response_meta', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1518,
+  serialized_end=1608,
+)
+
+
+_PAGECOUNTRESPONSE = _descriptor.Descriptor(
+  name='PageCountResponse',
+  full_name='elint.services.product.knowledge.domain.PageCountResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='page_count', full_name='elint.services.product.knowledge.domain.PageCountResponse.page_count', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='response_meta', full_name='elint.services.product.knowledge.domain.PageCountResponse.response_meta', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1610,
+  serialized_end=1700,
+)
+
+
 _CONTEXTPAGE = _descriptor.Descriptor(
   name='ContextPage',
   full_name='elint.services.product.knowledge.domain.ContextPage',
@@ -409,8 +487,8 @@ _CONTEXTPAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1518,
-  serialized_end=1587,
+  serialized_start=1702,
+  serialized_end=1771,
 )
 
 _GETALLDOMAINFILESRESPONSE.fields_by_name['files'].message_type = ethos_dot_elint_dot_entities_dot_space__knowledge__domain__file__pb2._SPACEKNOWLEDGEDOMAINFILE
@@ -422,6 +500,8 @@ _RETRIEVEMESSAGECONTEXTPAGESRESPONSE.fields_by_name['context_page'].message_type
 _RETRIEVEMESSAGECONTEXTPAGESRESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
 _ISMESSAGECONTEXTINDOMAINREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2._SPACEKNOWLEDGEDOMAINSERVICESACCESSAUTHDETAILS
 _ISMESSAGECONTEXTINDOMAINRESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
+_FILECOUNTRESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
+_PAGECOUNTRESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
 DESCRIPTOR.message_types_by_name['GetAllDomainFilesResponse'] = _GETALLDOMAINFILESRESPONSE
 DESCRIPTOR.message_types_by_name['GetBestAnswersRequest'] = _GETBESTANSWERSREQUEST
 DESCRIPTOR.message_types_by_name['GetBestAnswersResponse'] = _GETBESTANSWERSRESPONSE
@@ -430,6 +510,8 @@ DESCRIPTOR.message_types_by_name['RetrieveMessageContextPagesResponse'] = _RETRI
 DESCRIPTOR.message_types_by_name['IsMessageContextInDomainRequest'] = _ISMESSAGECONTEXTINDOMAINREQUEST
 DESCRIPTOR.message_types_by_name['IsMessageContextInDomainResponse'] = _ISMESSAGECONTEXTINDOMAINRESPONSE
 DESCRIPTOR.message_types_by_name['GetInferredDomainsResponse'] = _GETINFERREDDOMAINSRESPONSE
+DESCRIPTOR.message_types_by_name['FileCountResponse'] = _FILECOUNTRESPONSE
+DESCRIPTOR.message_types_by_name['PageCountResponse'] = _PAGECOUNTRESPONSE
 DESCRIPTOR.message_types_by_name['ContextPage'] = _CONTEXTPAGE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -489,6 +571,20 @@ GetInferredDomainsResponse = _reflection.GeneratedProtocolMessageType('GetInferr
   })
 _sym_db.RegisterMessage(GetInferredDomainsResponse)
 
+FileCountResponse = _reflection.GeneratedProtocolMessageType('FileCountResponse', (_message.Message,), {
+  'DESCRIPTOR' : _FILECOUNTRESPONSE,
+  '__module__' : 'ethos.elint.services.product.knowledge.space_knowledge_domain.discover_space_knowledge_domain_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.knowledge.domain.FileCountResponse)
+  })
+_sym_db.RegisterMessage(FileCountResponse)
+
+PageCountResponse = _reflection.GeneratedProtocolMessageType('PageCountResponse', (_message.Message,), {
+  'DESCRIPTOR' : _PAGECOUNTRESPONSE,
+  '__module__' : 'ethos.elint.services.product.knowledge.space_knowledge_domain.discover_space_knowledge_domain_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.knowledge.domain.PageCountResponse)
+  })
+_sym_db.RegisterMessage(PageCountResponse)
+
 ContextPage = _reflection.GeneratedProtocolMessageType('ContextPage', (_message.Message,), {
   'DESCRIPTOR' : _CONTEXTPAGE,
   '__module__' : 'ethos.elint.services.product.knowledge.space_knowledge_domain.discover_space_knowledge_domain_pb2'
@@ -505,8 +601,8 @@ _DISCOVERSPACEKNOWLEDGEDOMAINSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1590,
-  serialized_end=2662,
+  serialized_start=1774,
+  serialized_end=3180,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetAllDomainFiles',
@@ -565,6 +661,26 @@ _DISCOVERSPACEKNOWLEDGEDOMAINSERVICE = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_ISMESSAGECONTEXTINDOMAINREQUEST,
     output_type=_ISMESSAGECONTEXTINDOMAINRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetFileCount',
+    full_name='elint.services.product.knowledge.domain.DiscoverSpaceKnowledgeDomainService.GetFileCount',
+    index=6,
+    containing_service=None,
+    input_type=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2._SPACEKNOWLEDGEDOMAINSERVICESACCESSAUTHDETAILS,
+    output_type=_FILECOUNTRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetPageCount',
+    full_name='elint.services.product.knowledge.domain.DiscoverSpaceKnowledgeDomainService.GetPageCount',
+    index=7,
+    containing_service=None,
+    input_type=ethos_dot_elint_dot_services_dot_product_dot_knowledge_dot_space__knowledge__domain_dot_access__space__knowledge__domain__pb2._SPACEKNOWLEDGEDOMAINSERVICESACCESSAUTHDETAILS,
+    output_type=_PAGECOUNTRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

@@ -46,6 +46,11 @@ try:
   google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_space__knowledge__pb2.google_dot_protobuf_dot_timestamp__pb2
 except AttributeError:
   google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_space__knowledge__pb2.google.protobuf.timestamp_pb2
+from ethos.elint.entities import space_knowledge_domain_pb2 as ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2
+try:
+  google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2.google_dot_protobuf_dot_timestamp__pb2
+except AttributeError:
+  google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2.google.protobuf.timestamp_pb2
 from ethos.elint.entities import generic_pb2 as ethos_dot_elint_dot_entities_dot_generic__pb2
 try:
   google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_generic__pb2.google_dot_protobuf_dot_timestamp__pb2
@@ -60,9 +65,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nVethos/elint/services/product/identity/account_assistant/action_account_assistant.proto\x12\x31\x65lint.services.product.identity.account.assistant\x1a\"ethos/elint/entities/account.proto\x1a,ethos/elint/entities/account_assistant.proto\x1a*ethos/elint/entities/space_knowledge.proto\x1a\"ethos/elint/entities/generic.proto\x1aVethos/elint/services/product/identity/account_assistant/access_account_assistant.proto\"\xb7\x02\n\x1a\x41\x63tOnAccountMessageRequest\x12y\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32\\.elint.services.product.identity.account.assistant.AccountAssistantServicesAccessAuthDetails\x12I\n\x11\x63onnected_account\x18\x02 \x01(\x0b\x32..elint.entity.AccountAssistantConnectedAccount\x12\x42\n\x16space_knowledge_action\x18\x03 \x01(\x0e\x32\".elint.entity.SpaceKnowledgeAction\x12\x0f\n\x07message\x18\x04 \x01(\t2\xa4\x01\n\x1d\x41\x63tionAccountAssistantService\x12\x82\x01\n\x13\x41\x63tOnAccountMessage\x12M.elint.services.product.identity.account.assistant.ActOnAccountMessageRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x62\x06proto3'
+  serialized_pb=b'\nVethos/elint/services/product/identity/account_assistant/action_account_assistant.proto\x12\x31\x65lint.services.product.identity.account.assistant\x1a\"ethos/elint/entities/account.proto\x1a,ethos/elint/entities/account_assistant.proto\x1a*ethos/elint/entities/space_knowledge.proto\x1a\x31\x65thos/elint/entities/space_knowledge_domain.proto\x1a\"ethos/elint/entities/generic.proto\x1aVethos/elint/services/product/identity/account_assistant/access_account_assistant.proto\"\x9d\x03\n\x1a\x41\x63tOnAccountMessageRequest\x12y\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32\\.elint.services.product.identity.account.assistant.AccountAssistantServicesAccessAuthDetails\x12I\n\x11\x63onnected_account\x18\x02 \x01(\x0b\x32..elint.entity.AccountAssistantConnectedAccount\x12\x42\n\x16space_knowledge_action\x18\x03 \x01(\x0e\x32\".elint.entity.SpaceKnowledgeAction\x12\x0f\n\x07message\x18\x04 \x01(\t\x12 \n\x18\x61\x63t_on_particular_domain\x18\x05 \x01(\x08\x12\x42\n\x16space_knowledge_domain\x18\x06 \x01(\x0b\x32\".elint.entity.SpaceKnowledgeDomain2\xa4\x01\n\x1d\x41\x63tionAccountAssistantService\x12\x82\x01\n\x13\x41\x63tOnAccountMessage\x12M.elint.services.product.identity.account.assistant.ActOnAccountMessageRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x62\x06proto3'
   ,
-  dependencies=[ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_account__assistant__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_space__knowledge__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_access__account__assistant__pb2.DESCRIPTOR,])
+  dependencies=[ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_account__assistant__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_space__knowledge__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_access__account__assistant__pb2.DESCRIPTOR,])
 
 
 
@@ -103,6 +108,20 @@ _ACTONACCOUNTMESSAGEREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='act_on_particular_domain', full_name='elint.services.product.identity.account.assistant.ActOnAccountMessageRequest.act_on_particular_domain', index=4,
+      number=5, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='space_knowledge_domain', full_name='elint.services.product.identity.account.assistant.ActOnAccountMessageRequest.space_knowledge_domain', index=5,
+      number=6, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -115,13 +134,14 @@ _ACTONACCOUNTMESSAGEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=392,
-  serialized_end=703,
+  serialized_start=443,
+  serialized_end=856,
 )
 
 _ACTONACCOUNTMESSAGEREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account__assistant_dot_access__account__assistant__pb2._ACCOUNTASSISTANTSERVICESACCESSAUTHDETAILS
 _ACTONACCOUNTMESSAGEREQUEST.fields_by_name['connected_account'].message_type = ethos_dot_elint_dot_entities_dot_account__assistant__pb2._ACCOUNTASSISTANTCONNECTEDACCOUNT
 _ACTONACCOUNTMESSAGEREQUEST.fields_by_name['space_knowledge_action'].enum_type = ethos_dot_elint_dot_entities_dot_space__knowledge__pb2._SPACEKNOWLEDGEACTION
+_ACTONACCOUNTMESSAGEREQUEST.fields_by_name['space_knowledge_domain'].message_type = ethos_dot_elint_dot_entities_dot_space__knowledge__domain__pb2._SPACEKNOWLEDGEDOMAIN
 DESCRIPTOR.message_types_by_name['ActOnAccountMessageRequest'] = _ACTONACCOUNTMESSAGEREQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -141,8 +161,8 @@ _ACTIONACCOUNTASSISTANTSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=706,
-  serialized_end=870,
+  serialized_start=859,
+  serialized_end=1023,
   methods=[
   _descriptor.MethodDescriptor(
     name='ActOnAccountMessage',
