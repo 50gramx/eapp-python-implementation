@@ -49,7 +49,7 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
                 else:
                     _, _, domains_ranked_answers = ask_question(access_auth_details=request.access_auth_details,
                                                                 message=request.message, ask_particular_domain=False,
-                                                                space_knowledge_domain=SpaceKnowledgeDomain)
+                                                                space_knowledge_domain=SpaceKnowledgeDomain())
                 for domain_ranked_answer in domains_ranked_answers:
                     print(
                         f"{'-' * 20}{domain_ranked_answer.space_knowledge_domain.space_knowledge_domain_name}{'-' * 20}")
