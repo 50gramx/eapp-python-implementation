@@ -125,10 +125,11 @@ class Loader(object):
 
         action_host_ip = "{host}:{port}".format(host=action_grpc_host, port=action_grpc_port)
 
-        action_ssl_credentials = grpc.ssl_channel_credentials(
-            open(action_grpc_certificate_file, 'rb').read())
-        action_common_channel = grpc.secure_channel(action_host_ip, action_ssl_credentials)
+        # action_ssl_credentials = grpc.ssl_channel_credentials(
+        #     open(action_grpc_certificate_file, 'rb').read())
+        # action_common_channel = grpc.secure_channel(action_host_ip, action_ssl_credentials)
 
+        action_common_channel = grpc.insecure_channel(action_host_ip)
         action_common_channel = grpc.intercept_channel(action_common_channel)
         channels.append(action_common_channel)
 
