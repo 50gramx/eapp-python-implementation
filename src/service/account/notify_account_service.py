@@ -55,7 +55,7 @@ class NotifyAccountService(NotifyAccountServiceServicer):
         message_data = {
             'account_id': request.account_id,
             'service': "NotifyAccountService",
-            'rpc': "NewReceivedMessageFromAccount",
+            'rpc': "NewReceivedMessageFromAccountAssistant",
             'connected_account_assistant': MessageToString(request.connected_account_assistant, as_one_line=True),
             'account_assistant_received_message_id': request.account_assistant_received_message_id
         }
