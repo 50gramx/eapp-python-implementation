@@ -50,8 +50,8 @@ class NotifyAccountService(NotifyAccountServiceServicer):
         #     'connected_account_assistant': MessageToString(request.connected_account_assistant, as_one_line=True),
         #     'account_assistant_received_message_id': request.account_assistant_received_message_id
         # }
-        message_title = f"You've received new messages from account assistants"
-        message_body = request.message
+        message_title = f"You've received new messages from account assistant"
+        message_body = "Tap to check out"
         message_data = {
             'account_id': request.account_id,
             'service': "NotifyAccountService",
