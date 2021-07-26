@@ -20,7 +20,6 @@
 import logging
 import os
 
-from google.protobuf.text_format import MessageToString
 from pyfcm import FCMNotification
 
 from ethos.elint.entities.generic_pb2 import ResponseMeta
@@ -56,7 +55,7 @@ class NotifyAccountService(NotifyAccountServiceServicer):
             'account_id': request.account_id,
             'service': "NotifyAccountService",
             'rpc': "NewReceivedMessageFromAccountAssistant",
-            'connected_account_assistant': MessageToString(request.connected_account_assistant, as_one_line=True),
+            'account_assistant_id': request.connected_account_assistant.account_assistant_id,
             'account_assistant_received_message_id': request.account_assistant_received_message_id
         }
         try:
