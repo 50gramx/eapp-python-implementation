@@ -258,7 +258,7 @@ def main():
     #     server.wait_for_termination()
 
     with _reserve_port() as port:
-        bind_address = 'localhost:{}'.format(port)
+        bind_address = f"[::]:{PORT}"
         _LOGGER.info("Binding to '%s'", bind_address)
         sys.stdout.flush()
         workers = []
