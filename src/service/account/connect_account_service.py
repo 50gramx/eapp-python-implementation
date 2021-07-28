@@ -400,8 +400,9 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                 connecting_account_connections = AccountConnections(account_id=request.connected_account.account_id)
                 if request.connected_account.account_interested_in_connection:
                     # Toggle to not interested
-                    account_connections.update_account_interest_in_connection(account_id=request.connecting_account_id,
-                                                                              is_interested=False)
+                    account_connections.update_account_interest_in_connection(
+                        account_id=request.connected_account.account_id,
+                        is_interested=False)
                     connecting_account_connections.update_connected_account_interest_in_connection(
                         account_id=request.access_auth_details.account.account_id, is_interested=False)
                     return response_meta
