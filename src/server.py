@@ -225,7 +225,18 @@ def _run_server(bind_address):
         ApplicationContext.get_discover_machine_service(), server
     )
 
-    server.add_insecure_port(bind_address)
+    with open(os.environ['EAPP_SERVICE_IDENTITY_KEY'], 'rb') as f:
+        private_key = f.read()
+
+    with open(os.environ['EAPP_SERVICE_IDENTITY_COMMON_GRPC_EXTERNAL_CERTIFICATE_FILE'], 'rb') as f:
+        certificate_chain = f.read()
+
+    server_creds = grpc.ssl_server_credentials(
+        ((private_key, certificate_chain,),))
+
+    # server_port = server.add_insecure_port(f"[::]:{PORT}")
+    server_port = server.add_secure_port(bind_address, server_creds)
+
     server.start()
     _wait_forever(server)
 
@@ -237,7 +248,7 @@ def _reserve_port():
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
     if sock.getsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT) == 0:
         raise RuntimeError("Failed to set SO_REUSEPORT.")
-    sock.bind(('', 0))
+    sock.bind(('', 50501))
     try:
         yield sock.getsockname()[1]
     finally:
@@ -258,7 +269,7 @@ def main():
     #     server.wait_for_termination()
 
     with _reserve_port() as port:
-        bind_address = f"[::]:{PORT}"
+        bind_address = f"[::]:{port}"
         _LOGGER.info("Binding to '%s'", bind_address)
         sys.stdout.flush()
         workers = []
