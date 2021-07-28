@@ -382,3 +382,33 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     connected_account=connected_account,
                     response_meta=ResponseMeta(meta_done=True, meta_message="Account connected")
                 )
+
+    def ToggleAccountConnectAccountInterest(self, request, context):
+        logging.info("ConnectAccountService:ToggleAccountConnectAccountInterest")
+        access_done, access_message = validate_account_services_caller(request.access_auth_details)
+        response_meta = ResponseMeta(meta_done=access_done, meta_message=access_message)
+        if access_done is False:
+            return response_meta
+        else:
+            account_connections = AccountConnections(account_id=request.access_auth_details.account.account_id)
+            is_account_connection_exists = account_connections.is_account_connection_exists(
+                account_id=request.connected_account.account_id)
+            if is_account_connection_exists is False:
+                return ResponseMeta(meta_done=False,
+                                    meta_message="Account not connected. This action will be reported.")
+            else:
+                connecting_account_connections = AccountConnections(account_id=request.connected_account.account_id)
+                if request.connected_account.account_interested_in_connection:
+                    # Toggle to not interested
+                    account_connections.update_account_interest_in_connection(account_id=request.connecting_account_id,
+                                                                              is_interested=False)
+                    connecting_account_connections.update_connected_account_interest_in_connection(
+                        account_id=request.access_auth_details.account.account_id, is_interested=False)
+                    return response_meta
+                else:
+                    # Toggle to interested
+                    account_connections.update_account_interest_in_connection(account_id=request.connecting_account_id,
+                                                                              is_interested=False)
+                    connecting_account_connections.update_connected_account_interest_in_connection(
+                        account_id=request.access_auth_details.account.account_id, is_interested=False)
+                    return response_meta

@@ -80,6 +80,11 @@ class ReceiveAccountMessageServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.ListenForReceivedAccountSpeedMessagesResponse.FromString,
                 )
+        self.ListenForReceivedAccountAssistantSpeedMessages = channel.unary_stream(
+                '/elint.services.product.conversation.message.account.ReceiveAccountMessageService/ListenForReceivedAccountAssistantSpeedMessages',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.ListenForReceivedAccountAssistantSpeedMessagesResponse.FromString,
+                )
         self.GetLast24ProductNReceivedMessages = channel.unary_stream(
                 '/elint.services.product.conversation.message.account.ReceiveAccountMessageService/GetLast24ProductNReceivedMessages',
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.GetLast24ProductNReceivedMessagesRequest.SerializeToString,
@@ -161,6 +166,12 @@ class ReceiveAccountMessageServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ListenForReceivedAccountAssistantSpeedMessages(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def GetLast24ProductNReceivedMessages(self, request, context):
         """Get Messages
         """
@@ -228,6 +239,11 @@ def add_ReceiveAccountMessageServiceServicer_to_server(servicer, server):
                     servicer.ListenForReceivedAccountSpeedMessages,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.ListenForReceivedAccountSpeedMessagesResponse.SerializeToString,
+            ),
+            'ListenForReceivedAccountAssistantSpeedMessages': grpc.unary_stream_rpc_method_handler(
+                    servicer.ListenForReceivedAccountAssistantSpeedMessages,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.ListenForReceivedAccountAssistantSpeedMessagesResponse.SerializeToString,
             ),
             'GetLast24ProductNReceivedMessages': grpc.unary_stream_rpc_method_handler(
                     servicer.GetLast24ProductNReceivedMessages,
@@ -405,6 +421,23 @@ class ReceiveAccountMessageService(object):
         return grpc.experimental.unary_stream(request, target, '/elint.services.product.conversation.message.account.ReceiveAccountMessageService/ListenForReceivedAccountSpeedMessages',
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.ListenForReceivedAccountSpeedMessagesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ListenForReceivedAccountAssistantSpeedMessages(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/elint.services.product.conversation.message.account.ReceiveAccountMessageService/ListenForReceivedAccountAssistantSpeedMessages',
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.ListenForReceivedAccountAssistantSpeedMessagesResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

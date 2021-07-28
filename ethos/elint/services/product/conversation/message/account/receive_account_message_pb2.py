@@ -58,7 +58,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nWethos/elint/services/product/conversation/message/account/receive_account_message.proto\x12\x33\x65lint.services.product.conversation.message.account\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x19google/protobuf/any.proto\x1a,ethos/elint/entities/account_assistant.proto\x1a\"ethos/elint/entities/account.proto\x1a\"ethos/elint/entities/generic.proto\x1a\x42\x65thos/elint/services/product/identity/account/access_account.proto\"\xf4\x01\n\x1bMessageFromAccountAssistant\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12S\n\x1b\x63onnected_account_assistant\x18\x02 \x01(\x0b\x32..elint.entity.AccountConnectedAccountAssistant\x12\x0f\n\x07message\x18\x03 \x01(\t\x12,\n\x0emessage_source\x18\x04 \x03(\x0b\x32\x14.google.protobuf.Any\x12-\n%account_assistant_received_message_id\x18\x05 \x01(\t\"k\n#MessageFromAccountAssistantReceived\x12\x13\n\x0bis_received\x18\x01 \x01(\x08\x12/\n\x0breceived_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xa0\x01\n\x12MessageFromAccount\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12@\n\x11\x63onnected_account\x18\x02 \x01(\x0b\x32%.elint.entity.AccountConnectedAccount\x12\x0f\n\x07message\x18\x03 \x01(\t\x12#\n\x1b\x61\x63\x63ount_received_message_id\x18\x04 \x01(\t\"b\n\x1aMessageFromAccountReceived\x12\x13\n\x0bis_received\x18\x01 \x01(\x08\x12/\n\x0breceived_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xc7\x01\n#SyncAccountReceivedMessagesResponse\x12m\n\x18\x61\x63\x63ount_received_message\x18\x01 \x01(\x0b\x32K.elint.services.product.conversation.message.account.AccountReceivedMessage\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xde\x01\n2SyncAccountConnectedAccountReceivedMessagesRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12@\n\x11\x63onnected_account\x18\x02 \x01(\x0b\x32%.elint.entity.AccountConnectedAccount\"\xee\x01\n3SyncAccountConnectedAccountReceivedMessagesResponse\x12m\n\x18\x61\x63\x63ount_received_message\x18\x01 \x01(\x0b\x32K.elint.services.product.conversation.message.account.AccountReceivedMessage\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\x12\x15\n\rsync_progress\x18\x03 \x01(\x01\"\xfa\x01\n;SyncAccountConnectedAccountAssistantReceivedMessagesRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12S\n\x1b\x63onnected_account_assistant\x18\x02 \x01(\x0b\x32..elint.entity.AccountConnectedAccountAssistant\"\x8b\x02\n<SyncAccountConnectedAccountAssistantReceivedMessagesResponse\x12\x80\x01\n\"account_assistant_received_message\x18\x01 \x01(\x0b\x32T.elint.services.product.conversation.message.account.AccountAssistantReceivedMessage\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\x12\x15\n\rsync_progress\x18\x03 \x01(\x01\"\x9e\x02\n0ListenForReceivedAccountAssistantMessagesRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12S\n\x1b\x63onnected_account_assistant\x18\x02 \x01(\x0b\x32..elint.entity.AccountConnectedAccountAssistant\x12-\n%account_assistant_received_message_id\x18\x03 \x01(\t\"\xc5\x01\n1ListenForReceivedAccountAssistantMessagesResponse\x12,\n\x0emessage_source\x18\x03 \x03(\x0b\x32\x14.google.protobuf.Any\x12/\n\x0breceived_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x31\n\rresponse_meta\x18\x05 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\x91\x01\n\'ListenForReceivedAccountMessagesRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\"\xc5\x01\n(ListenForReceivedAccountMessagesResponse\x12\x66\n\x15messages_from_account\x18\x01 \x03(\x0b\x32G.elint.services.product.conversation.message.account.MessageFromAccount\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xca\x01\n-ListenForReceivedAccountSpeedMessagesResponse\x12\x66\n\x15messages_from_account\x18\x01 \x01(\x0b\x32G.elint.services.product.conversation.message.account.MessageFromAccount\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xf6\x02\n(GetLast24ProductNReceivedMessagesRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x11\n\tproduct_n\x18\x02 \x01(\x05\x12\x38\n\x13message_entity_enum\x18\x03 \x01(\x0e\x32\x1b.elint.entity.MessageEntity\x12S\n\x1b\x63onnected_account_assistant\x18\x04 \x01(\x0b\x32..elint.entity.AccountConnectedAccountAssistant\x12@\n\x11\x63onnected_account\x18\x05 \x01(\x0b\x32%.elint.entity.AccountConnectedAccount\"\xed\x02\n)GetLast24ProductNReceivedMessagesResponse\x12\x31\n\rresponse_meta\x18\x01 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\x12o\n\x18\x61\x63\x63ount_received_message\x18\x02 \x01(\x0b\x32K.elint.services.product.conversation.message.account.AccountReceivedMessageH\x00\x12\x82\x01\n\"account_assistant_received_message\x18\x03 \x01(\x0b\x32T.elint.services.product.conversation.message.account.AccountAssistantReceivedMessageH\x00\x42\x17\n\x15received_message_from\"\xab\x03\n\x1f\x41\x63\x63ountAssistantReceivedMessage\x12-\n%account_assistant_received_message_id\x18\x01 \x01(\t\x12\x1c\n\x14\x61\x63\x63ount_assistant_id\x18\x02 \x01(\t\x12\'\n\x1f\x61\x63\x63ount_assistant_connection_id\x18\x03 \x01(\t\x12\x0f\n\x07message\x18\x04 \x01(\t\x12\x1f\n\x17message_source_space_id\x18\x05 \x01(\t\x12$\n\x1cmessage_source_space_type_id\x18\x06 \x01(\t\x12&\n\x1emessage_source_space_domain_id\x18\x07 \x01(\t\x12*\n\"message_source_space_domain_action\x18\x08 \x01(\x05\x12\x35\n-message_source_space_domain_action_context_id\x18\t \x01(\t\x12/\n\x0breceived_at\x18\n \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xb2\x01\n\x16\x41\x63\x63ountReceivedMessage\x12#\n\x1b\x61\x63\x63ount_received_message_id\x18\x01 \x01(\t\x12\x12\n\naccount_id\x18\x02 \x01(\t\x12\x1d\n\x15\x61\x63\x63ount_connection_id\x18\x03 \x01(\t\x12\x0f\n\x07message\x18\x04 \x01(\t\x12/\n\x0breceived_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x82\x01\n$AccountReceivedMessagesCountResponse\x12\'\n\x1f\x61\x63\x63ount_received_messages_count\x18\x01 \x01(\x05\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\x95\x01\n-AccountAssistantReceivedMessagesCountResponse\x12\x31\n)account_assistant_received_messages_count\x18\x01 \x01(\x05\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta2\xc0\x15\n\x1cReceiveAccountMessageService\x12\xd2\x01\n\"ReceiveMessageFromAccountAssistant\x12P.elint.services.product.conversation.message.account.MessageFromAccountAssistant\x1aX.elint.services.product.conversation.message.account.MessageFromAccountAssistantReceived\"\x00\x12\xb7\x01\n\x19ReceiveMessageFromAccount\x12G.elint.services.product.conversation.message.account.MessageFromAccount\x1aO.elint.services.product.conversation.message.account.MessageFromAccountReceived\"\x00\x12\xcb\x01\n$SyncAccountAssistantReceivedMessages\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1aT.elint.services.product.conversation.message.account.AccountAssistantReceivedMessage\"\x00\x30\x01\x12\xc6\x01\n\x1bSyncAccountReceivedMessages\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1aX.elint.services.product.conversation.message.account.SyncAccountReceivedMessagesResponse\"\x00\x30\x01\x12\x84\x02\n+SyncAccountConnectedAccountReceivedMessages\x12g.elint.services.product.conversation.message.account.SyncAccountConnectedAccountReceivedMessagesRequest\x1ah.elint.services.product.conversation.message.account.SyncAccountConnectedAccountReceivedMessagesResponse\"\x00\x30\x01\x12\x9f\x02\n4SyncAccountConnectedAccountAssistantReceivedMessages\x12p.elint.services.product.conversation.message.account.SyncAccountConnectedAccountAssistantReceivedMessagesRequest\x1aq.elint.services.product.conversation.message.account.SyncAccountConnectedAccountAssistantReceivedMessagesResponse\"\x00\x30\x01\x12\xfc\x01\n)ListenForReceivedAccountAssistantMessages\x12\x65.elint.services.product.conversation.message.account.ListenForReceivedAccountAssistantMessagesRequest\x1a\x66.elint.services.product.conversation.message.account.ListenForReceivedAccountAssistantMessagesResponse\"\x00\x12\xe1\x01\n ListenForReceivedAccountMessages\x12\\.elint.services.product.conversation.message.account.ListenForReceivedAccountMessagesRequest\x1a].elint.services.product.conversation.message.account.ListenForReceivedAccountMessagesResponse\"\x00\x12\xda\x01\n%ListenForReceivedAccountSpeedMessages\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x62.elint.services.product.conversation.message.account.ListenForReceivedAccountSpeedMessagesResponse\"\x00\x30\x01\x12\xe6\x01\n!GetLast24ProductNReceivedMessages\x12].elint.services.product.conversation.message.account.GetLast24ProductNReceivedMessagesRequest\x1a^.elint.services.product.conversation.message.account.GetLast24ProductNReceivedMessagesResponse\"\x00\x30\x01\x12\xc9\x01\n\x1fGetAccountReceivedMessagesCount\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1aY.elint.services.product.conversation.message.account.AccountReceivedMessagesCountResponse\"\x00\x12\xdb\x01\n(GetAccountAssistantReceivedMessagesCount\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x62.elint.services.product.conversation.message.account.AccountAssistantReceivedMessagesCountResponse\"\x00P\x00\x62\x06proto3'
+  serialized_pb=b'\nWethos/elint/services/product/conversation/message/account/receive_account_message.proto\x12\x33\x65lint.services.product.conversation.message.account\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x19google/protobuf/any.proto\x1a,ethos/elint/entities/account_assistant.proto\x1a\"ethos/elint/entities/account.proto\x1a\"ethos/elint/entities/generic.proto\x1a\x42\x65thos/elint/services/product/identity/account/access_account.proto\"\xf4\x01\n\x1bMessageFromAccountAssistant\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12S\n\x1b\x63onnected_account_assistant\x18\x02 \x01(\x0b\x32..elint.entity.AccountConnectedAccountAssistant\x12\x0f\n\x07message\x18\x03 \x01(\t\x12,\n\x0emessage_source\x18\x04 \x03(\x0b\x32\x14.google.protobuf.Any\x12-\n%account_assistant_received_message_id\x18\x05 \x01(\t\"k\n#MessageFromAccountAssistantReceived\x12\x13\n\x0bis_received\x18\x01 \x01(\x08\x12/\n\x0breceived_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xa0\x01\n\x12MessageFromAccount\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12@\n\x11\x63onnected_account\x18\x02 \x01(\x0b\x32%.elint.entity.AccountConnectedAccount\x12\x0f\n\x07message\x18\x03 \x01(\t\x12#\n\x1b\x61\x63\x63ount_received_message_id\x18\x04 \x01(\t\"b\n\x1aMessageFromAccountReceived\x12\x13\n\x0bis_received\x18\x01 \x01(\x08\x12/\n\x0breceived_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xc7\x01\n#SyncAccountReceivedMessagesResponse\x12m\n\x18\x61\x63\x63ount_received_message\x18\x01 \x01(\x0b\x32K.elint.services.product.conversation.message.account.AccountReceivedMessage\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xde\x01\n2SyncAccountConnectedAccountReceivedMessagesRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12@\n\x11\x63onnected_account\x18\x02 \x01(\x0b\x32%.elint.entity.AccountConnectedAccount\"\xee\x01\n3SyncAccountConnectedAccountReceivedMessagesResponse\x12m\n\x18\x61\x63\x63ount_received_message\x18\x01 \x01(\x0b\x32K.elint.services.product.conversation.message.account.AccountReceivedMessage\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\x12\x15\n\rsync_progress\x18\x03 \x01(\x01\"\xfa\x01\n;SyncAccountConnectedAccountAssistantReceivedMessagesRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12S\n\x1b\x63onnected_account_assistant\x18\x02 \x01(\x0b\x32..elint.entity.AccountConnectedAccountAssistant\"\x8b\x02\n<SyncAccountConnectedAccountAssistantReceivedMessagesResponse\x12\x80\x01\n\"account_assistant_received_message\x18\x01 \x01(\x0b\x32T.elint.services.product.conversation.message.account.AccountAssistantReceivedMessage\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\x12\x15\n\rsync_progress\x18\x03 \x01(\x01\"\x9e\x02\n0ListenForReceivedAccountAssistantMessagesRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12S\n\x1b\x63onnected_account_assistant\x18\x02 \x01(\x0b\x32..elint.entity.AccountConnectedAccountAssistant\x12-\n%account_assistant_received_message_id\x18\x03 \x01(\t\"\xc5\x01\n1ListenForReceivedAccountAssistantMessagesResponse\x12,\n\x0emessage_source\x18\x03 \x03(\x0b\x32\x14.google.protobuf.Any\x12/\n\x0breceived_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x31\n\rresponse_meta\x18\x05 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\x91\x01\n\'ListenForReceivedAccountMessagesRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\"\xc5\x01\n(ListenForReceivedAccountMessagesResponse\x12\x66\n\x15messages_from_account\x18\x01 \x03(\x0b\x32G.elint.services.product.conversation.message.account.MessageFromAccount\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xca\x01\n-ListenForReceivedAccountSpeedMessagesResponse\x12\x66\n\x15messages_from_account\x18\x01 \x01(\x0b\x32G.elint.services.product.conversation.message.account.MessageFromAccount\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xe5\x01\n6ListenForReceivedAccountAssistantSpeedMessagesResponse\x12x\n\x1emessage_from_account_assistant\x18\x01 \x01(\x0b\x32P.elint.services.product.conversation.message.account.MessageFromAccountAssistant\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xf6\x02\n(GetLast24ProductNReceivedMessagesRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x11\n\tproduct_n\x18\x02 \x01(\x05\x12\x38\n\x13message_entity_enum\x18\x03 \x01(\x0e\x32\x1b.elint.entity.MessageEntity\x12S\n\x1b\x63onnected_account_assistant\x18\x04 \x01(\x0b\x32..elint.entity.AccountConnectedAccountAssistant\x12@\n\x11\x63onnected_account\x18\x05 \x01(\x0b\x32%.elint.entity.AccountConnectedAccount\"\xed\x02\n)GetLast24ProductNReceivedMessagesResponse\x12\x31\n\rresponse_meta\x18\x01 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\x12o\n\x18\x61\x63\x63ount_received_message\x18\x02 \x01(\x0b\x32K.elint.services.product.conversation.message.account.AccountReceivedMessageH\x00\x12\x82\x01\n\"account_assistant_received_message\x18\x03 \x01(\x0b\x32T.elint.services.product.conversation.message.account.AccountAssistantReceivedMessageH\x00\x42\x17\n\x15received_message_from\"\xab\x03\n\x1f\x41\x63\x63ountAssistantReceivedMessage\x12-\n%account_assistant_received_message_id\x18\x01 \x01(\t\x12\x1c\n\x14\x61\x63\x63ount_assistant_id\x18\x02 \x01(\t\x12\'\n\x1f\x61\x63\x63ount_assistant_connection_id\x18\x03 \x01(\t\x12\x0f\n\x07message\x18\x04 \x01(\t\x12\x1f\n\x17message_source_space_id\x18\x05 \x01(\t\x12$\n\x1cmessage_source_space_type_id\x18\x06 \x01(\t\x12&\n\x1emessage_source_space_domain_id\x18\x07 \x01(\t\x12*\n\"message_source_space_domain_action\x18\x08 \x01(\x05\x12\x35\n-message_source_space_domain_action_context_id\x18\t \x01(\t\x12/\n\x0breceived_at\x18\n \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xb2\x01\n\x16\x41\x63\x63ountReceivedMessage\x12#\n\x1b\x61\x63\x63ount_received_message_id\x18\x01 \x01(\t\x12\x12\n\naccount_id\x18\x02 \x01(\t\x12\x1d\n\x15\x61\x63\x63ount_connection_id\x18\x03 \x01(\t\x12\x0f\n\x07message\x18\x04 \x01(\t\x12/\n\x0breceived_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x82\x01\n$AccountReceivedMessagesCountResponse\x12\'\n\x1f\x61\x63\x63ount_received_messages_count\x18\x01 \x01(\x05\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\x95\x01\n-AccountAssistantReceivedMessagesCountResponse\x12\x31\n)account_assistant_received_messages_count\x18\x01 \x01(\x05\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta2\xaf\x17\n\x1cReceiveAccountMessageService\x12\xd2\x01\n\"ReceiveMessageFromAccountAssistant\x12P.elint.services.product.conversation.message.account.MessageFromAccountAssistant\x1aX.elint.services.product.conversation.message.account.MessageFromAccountAssistantReceived\"\x00\x12\xb7\x01\n\x19ReceiveMessageFromAccount\x12G.elint.services.product.conversation.message.account.MessageFromAccount\x1aO.elint.services.product.conversation.message.account.MessageFromAccountReceived\"\x00\x12\xcb\x01\n$SyncAccountAssistantReceivedMessages\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1aT.elint.services.product.conversation.message.account.AccountAssistantReceivedMessage\"\x00\x30\x01\x12\xc6\x01\n\x1bSyncAccountReceivedMessages\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1aX.elint.services.product.conversation.message.account.SyncAccountReceivedMessagesResponse\"\x00\x30\x01\x12\x84\x02\n+SyncAccountConnectedAccountReceivedMessages\x12g.elint.services.product.conversation.message.account.SyncAccountConnectedAccountReceivedMessagesRequest\x1ah.elint.services.product.conversation.message.account.SyncAccountConnectedAccountReceivedMessagesResponse\"\x00\x30\x01\x12\x9f\x02\n4SyncAccountConnectedAccountAssistantReceivedMessages\x12p.elint.services.product.conversation.message.account.SyncAccountConnectedAccountAssistantReceivedMessagesRequest\x1aq.elint.services.product.conversation.message.account.SyncAccountConnectedAccountAssistantReceivedMessagesResponse\"\x00\x30\x01\x12\xfc\x01\n)ListenForReceivedAccountAssistantMessages\x12\x65.elint.services.product.conversation.message.account.ListenForReceivedAccountAssistantMessagesRequest\x1a\x66.elint.services.product.conversation.message.account.ListenForReceivedAccountAssistantMessagesResponse\"\x00\x12\xe1\x01\n ListenForReceivedAccountMessages\x12\\.elint.services.product.conversation.message.account.ListenForReceivedAccountMessagesRequest\x1a].elint.services.product.conversation.message.account.ListenForReceivedAccountMessagesResponse\"\x00\x12\xda\x01\n%ListenForReceivedAccountSpeedMessages\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x62.elint.services.product.conversation.message.account.ListenForReceivedAccountSpeedMessagesResponse\"\x00\x30\x01\x12\xec\x01\n.ListenForReceivedAccountAssistantSpeedMessages\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1ak.elint.services.product.conversation.message.account.ListenForReceivedAccountAssistantSpeedMessagesResponse\"\x00\x30\x01\x12\xe6\x01\n!GetLast24ProductNReceivedMessages\x12].elint.services.product.conversation.message.account.GetLast24ProductNReceivedMessagesRequest\x1a^.elint.services.product.conversation.message.account.GetLast24ProductNReceivedMessagesResponse\"\x00\x30\x01\x12\xc9\x01\n\x1fGetAccountReceivedMessagesCount\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1aY.elint.services.product.conversation.message.account.AccountReceivedMessagesCountResponse\"\x00\x12\xdb\x01\n(GetAccountAssistantReceivedMessagesCount\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x62.elint.services.product.conversation.message.account.AccountAssistantReceivedMessagesCountResponse\"\x00P\x00\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,google_dot_protobuf_dot_any__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_account__assistant__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.DESCRIPTOR,],
   public_dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
@@ -668,6 +668,45 @@ _LISTENFORRECEIVEDACCOUNTSPEEDMESSAGESRESPONSE = _descriptor.Descriptor(
 )
 
 
+_LISTENFORRECEIVEDACCOUNTASSISTANTSPEEDMESSAGESRESPONSE = _descriptor.Descriptor(
+  name='ListenForReceivedAccountAssistantSpeedMessagesResponse',
+  full_name='elint.services.product.conversation.message.account.ListenForReceivedAccountAssistantSpeedMessagesResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='message_from_account_assistant', full_name='elint.services.product.conversation.message.account.ListenForReceivedAccountAssistantSpeedMessagesResponse.message_from_account_assistant', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='response_meta', full_name='elint.services.product.conversation.message.account.ListenForReceivedAccountAssistantSpeedMessagesResponse.response_meta', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3243,
+  serialized_end=3472,
+)
+
+
 _GETLAST24PRODUCTNRECEIVEDMESSAGESREQUEST = _descriptor.Descriptor(
   name='GetLast24ProductNReceivedMessagesRequest',
   full_name='elint.services.product.conversation.message.account.GetLast24ProductNReceivedMessagesRequest',
@@ -723,8 +762,8 @@ _GETLAST24PRODUCTNRECEIVEDMESSAGESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3243,
-  serialized_end=3617,
+  serialized_start=3475,
+  serialized_end=3849,
 )
 
 
@@ -774,8 +813,8 @@ _GETLAST24PRODUCTNRECEIVEDMESSAGESRESPONSE = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=3620,
-  serialized_end=3985,
+  serialized_start=3852,
+  serialized_end=4217,
 )
 
 
@@ -869,8 +908,8 @@ _ACCOUNTASSISTANTRECEIVEDMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3988,
-  serialized_end=4415,
+  serialized_start=4220,
+  serialized_end=4647,
 )
 
 
@@ -929,8 +968,8 @@ _ACCOUNTRECEIVEDMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4418,
-  serialized_end=4596,
+  serialized_start=4650,
+  serialized_end=4828,
 )
 
 
@@ -968,8 +1007,8 @@ _ACCOUNTRECEIVEDMESSAGESCOUNTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4599,
-  serialized_end=4729,
+  serialized_start=4831,
+  serialized_end=4961,
 )
 
 
@@ -1007,8 +1046,8 @@ _ACCOUNTASSISTANTRECEIVEDMESSAGESCOUNTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4732,
-  serialized_end=4881,
+  serialized_start=4964,
+  serialized_end=5113,
 )
 
 _MESSAGEFROMACCOUNTASSISTANT.fields_by_name['connected_account_assistant'].message_type = ethos_dot_elint_dot_entities_dot_account__pb2._ACCOUNTCONNECTEDACCOUNTASSISTANT
@@ -1036,6 +1075,8 @@ _LISTENFORRECEIVEDACCOUNTMESSAGESRESPONSE.fields_by_name['messages_from_account'
 _LISTENFORRECEIVEDACCOUNTMESSAGESRESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
 _LISTENFORRECEIVEDACCOUNTSPEEDMESSAGESRESPONSE.fields_by_name['messages_from_account'].message_type = _MESSAGEFROMACCOUNT
 _LISTENFORRECEIVEDACCOUNTSPEEDMESSAGESRESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
+_LISTENFORRECEIVEDACCOUNTASSISTANTSPEEDMESSAGESRESPONSE.fields_by_name['message_from_account_assistant'].message_type = _MESSAGEFROMACCOUNTASSISTANT
+_LISTENFORRECEIVEDACCOUNTASSISTANTSPEEDMESSAGESRESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
 _GETLAST24PRODUCTNRECEIVEDMESSAGESREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS
 _GETLAST24PRODUCTNRECEIVEDMESSAGESREQUEST.fields_by_name['message_entity_enum'].enum_type = ethos_dot_elint_dot_entities_dot_account__pb2._MESSAGEENTITY
 _GETLAST24PRODUCTNRECEIVEDMESSAGESREQUEST.fields_by_name['connected_account_assistant'].message_type = ethos_dot_elint_dot_entities_dot_account__pb2._ACCOUNTCONNECTEDACCOUNTASSISTANT
@@ -1067,6 +1108,7 @@ DESCRIPTOR.message_types_by_name['ListenForReceivedAccountAssistantMessagesRespo
 DESCRIPTOR.message_types_by_name['ListenForReceivedAccountMessagesRequest'] = _LISTENFORRECEIVEDACCOUNTMESSAGESREQUEST
 DESCRIPTOR.message_types_by_name['ListenForReceivedAccountMessagesResponse'] = _LISTENFORRECEIVEDACCOUNTMESSAGESRESPONSE
 DESCRIPTOR.message_types_by_name['ListenForReceivedAccountSpeedMessagesResponse'] = _LISTENFORRECEIVEDACCOUNTSPEEDMESSAGESRESPONSE
+DESCRIPTOR.message_types_by_name['ListenForReceivedAccountAssistantSpeedMessagesResponse'] = _LISTENFORRECEIVEDACCOUNTASSISTANTSPEEDMESSAGESRESPONSE
 DESCRIPTOR.message_types_by_name['GetLast24ProductNReceivedMessagesRequest'] = _GETLAST24PRODUCTNRECEIVEDMESSAGESREQUEST
 DESCRIPTOR.message_types_by_name['GetLast24ProductNReceivedMessagesResponse'] = _GETLAST24PRODUCTNRECEIVEDMESSAGESRESPONSE
 DESCRIPTOR.message_types_by_name['AccountAssistantReceivedMessage'] = _ACCOUNTASSISTANTRECEIVEDMESSAGE
@@ -1173,6 +1215,13 @@ ListenForReceivedAccountSpeedMessagesResponse = _reflection.GeneratedProtocolMes
   })
 _sym_db.RegisterMessage(ListenForReceivedAccountSpeedMessagesResponse)
 
+ListenForReceivedAccountAssistantSpeedMessagesResponse = _reflection.GeneratedProtocolMessageType('ListenForReceivedAccountAssistantSpeedMessagesResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTENFORRECEIVEDACCOUNTASSISTANTSPEEDMESSAGESRESPONSE,
+  '__module__' : 'ethos.elint.services.product.conversation.message.account.receive_account_message_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.conversation.message.account.ListenForReceivedAccountAssistantSpeedMessagesResponse)
+  })
+_sym_db.RegisterMessage(ListenForReceivedAccountAssistantSpeedMessagesResponse)
+
 GetLast24ProductNReceivedMessagesRequest = _reflection.GeneratedProtocolMessageType('GetLast24ProductNReceivedMessagesRequest', (_message.Message,), {
   'DESCRIPTOR' : _GETLAST24PRODUCTNRECEIVEDMESSAGESREQUEST,
   '__module__' : 'ethos.elint.services.product.conversation.message.account.receive_account_message_pb2'
@@ -1224,8 +1273,8 @@ _RECEIVEACCOUNTMESSAGESERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=4884,
-  serialized_end=7636,
+  serialized_start=5116,
+  serialized_end=8107,
   methods=[
   _descriptor.MethodDescriptor(
     name='ReceiveMessageFromAccountAssistant',
@@ -1318,9 +1367,19 @@ _RECEIVEACCOUNTMESSAGESERVICE = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
+    name='ListenForReceivedAccountAssistantSpeedMessages',
+    full_name='elint.services.product.conversation.message.account.ReceiveAccountMessageService.ListenForReceivedAccountAssistantSpeedMessages',
+    index=9,
+    containing_service=None,
+    input_type=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS,
+    output_type=_LISTENFORRECEIVEDACCOUNTASSISTANTSPEEDMESSAGESRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
     name='GetLast24ProductNReceivedMessages',
     full_name='elint.services.product.conversation.message.account.ReceiveAccountMessageService.GetLast24ProductNReceivedMessages',
-    index=9,
+    index=10,
     containing_service=None,
     input_type=_GETLAST24PRODUCTNRECEIVEDMESSAGESREQUEST,
     output_type=_GETLAST24PRODUCTNRECEIVEDMESSAGESRESPONSE,
@@ -1330,7 +1389,7 @@ _RECEIVEACCOUNTMESSAGESERVICE = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='GetAccountReceivedMessagesCount',
     full_name='elint.services.product.conversation.message.account.ReceiveAccountMessageService.GetAccountReceivedMessagesCount',
-    index=10,
+    index=11,
     containing_service=None,
     input_type=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS,
     output_type=_ACCOUNTRECEIVEDMESSAGESCOUNTRESPONSE,
@@ -1340,7 +1399,7 @@ _RECEIVEACCOUNTMESSAGESERVICE = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='GetAccountAssistantReceivedMessagesCount',
     full_name='elint.services.product.conversation.message.account.ReceiveAccountMessageService.GetAccountAssistantReceivedMessagesCount',
-    index=11,
+    index=12,
     containing_service=None,
     input_type=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS,
     output_type=_ACCOUNTASSISTANTRECEIVEDMESSAGESCOUNTRESPONSE,
