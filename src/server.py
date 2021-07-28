@@ -163,7 +163,7 @@ def _wait_forever(server):
 
 def _run_server(bind_address):
     """Start a server in a subprocess."""
-    _LOGGER.info('Starting new server.')
+    logging.info('Starting new server.')
     options = (('grpc.so_reuseport', 1),)
 
     # Initiate the DbSession
@@ -238,7 +238,7 @@ def _run_server(bind_address):
     server_port = server.add_secure_port(bind_address, server_creds)
 
     server.start()
-    _LOGGER.info(f"Started a new server at {bind_address}")
+    logging.info(f"Started a new server at {bind_address}")
     _wait_forever(server)
 
 
@@ -271,7 +271,7 @@ def main():
 
     with _reserve_port() as port:
         bind_address = f"[::]:{port}"
-        _LOGGER.info("Binding to '%s'", bind_address)
+        logging.info("Binding to '%s'", bind_address)
         sys.stdout.flush()
         workers = []
         for _ in range(_PROCESS_COUNT):
@@ -287,12 +287,12 @@ def main():
 
 
 if __name__ == '__main__':
-    handler = logging.StreamHandler(sys.stdout)
-    formatter = logging.Formatter('[PID %(process)d] %(message)s')
-    handler.setFormatter(formatter)
-    _LOGGER.addHandler(handler)
-    _LOGGER.setLevel(logging.INFO)
-    # logging.basicConfig(level=logging.INFO)
+    # handler = logging.StreamHandler(sys.stdout)
+    # formatter = logging.Formatter('[PID %(process)d] %(message)s')
+    # handler.setFormatter(formatter)
+    # _LOGGER.addHandler(handler)
+    # _LOGGER.setLevel(logging.INFO)
+    logging.basicConfig(level=logging.INFO)  # warn: testing this
     Loader.init_identity_context('')
     main()
     # main()
