@@ -408,8 +408,9 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     return response_meta
                 else:
                     # Toggle to interested
-                    account_connections.update_account_interest_in_connection(account_id=request.connecting_account_id,
-                                                                              is_interested=False)
+                    account_connections.update_account_interest_in_connection(
+                        account_id=request.connected_account.account_id,
+                        is_interested=False)
                     connecting_account_connections.update_connected_account_interest_in_connection(
                         account_id=request.access_auth_details.account.account_id, is_interested=False)
                     return response_meta
