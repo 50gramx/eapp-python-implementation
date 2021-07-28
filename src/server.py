@@ -238,6 +238,7 @@ def _run_server(bind_address):
     server_port = server.add_secure_port(bind_address, server_creds)
 
     server.start()
+    logging.info(f"Started a new server at {bind_address}")
     _wait_forever(server)
 
 
