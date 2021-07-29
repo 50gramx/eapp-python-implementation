@@ -274,6 +274,19 @@ def get_account_assistant(account: account_pb2.Account) -> account_assistant_pb2
         )
 
 
+def get_account_assistant_by_id(account_assistant_id: str) -> account_assistant_pb2.AccountAssistant:
+    with DbSession.session_scope() as session:
+        account_assistant = session.query(AccountAssistant).filter(
+            AccountAssistant.account_assistant_id == account_assistant_id
+        ).first()
+        account = get_account(account_id=account_assistant.account_id)
+        return format_account_assistant_to_entity(
+            account=account,
+            account_assistant=account_assistant,
+            session=session
+        )
+
+
 def get_account_assistant_meta(account_id: str = None, account_assistant_id: str = None) -> AccountAssistantMeta:
     with DbSession.session_scope() as session:
         if account_id is not None:

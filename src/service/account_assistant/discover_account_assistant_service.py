@@ -21,11 +21,12 @@ import logging
 
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account_assistant.discover_account_assistant_pb2 import \
-    GetAccountAssistantMetaByAccountIdResponse, GetAccountAssistantMetaByAccountAssistantIdResponse
+    GetAccountAssistantMetaByAccountIdResponse, GetAccountAssistantMetaByAccountAssistantIdResponse, \
+    GetAccountAssistantByIdResponse
 from ethos.elint.services.product.identity.account_assistant.discover_account_assistant_pb2_grpc import \
     DiscoverAccountAssistantServiceServicer
 from services_caller.account_service_caller import validate_account_services_caller
-from support.db_service import get_account_assistant, get_account_assistant_meta
+from support.db_service import get_account_assistant, get_account_assistant_meta, get_account_assistant_by_id
 
 
 class DiscoverAccountAssistantService(DiscoverAccountAssistantServiceServicer):
@@ -64,3 +65,13 @@ class DiscoverAccountAssistantService(DiscoverAccountAssistantServiceServicer):
                 account_assistant_meta=account_assistant_meta,
                 response_meta=response_meta
             )
+
+    def GetAccountAssistantById(self, request, context):
+        logging.info("DiscoverAccountAssistantService:GetAccountAssistantById")
+        validation_done, validate_message = validate_account_services_caller(request.access_auth_details)
+        response_meta = ResponseMeta(meta_done=validation_done, meta_message=validate_message)
+        if validation_done is False:
+            return GetAccountAssistantByIdResponse(response_meta=response_meta)
+        else:
+            account_assistant = get_account_assistant_by_id(account_assistant_id=request.account_assistant_id)
+            return GetAccountAssistantByIdResponse(account_assistant=account_assistant, response_meta=response_meta)
