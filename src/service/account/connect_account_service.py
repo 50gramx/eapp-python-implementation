@@ -29,7 +29,8 @@ from ethos.elint.services.product.identity.account.connect_account_pb2 import Co
     ConnectedAccounts, ConnectAccountResponse, ParseAccountMobilesResponse, SyncAccountConnectionsResponse, \
     GetAccountSelfConnectedAccountAssistantResponse, ConnectedAssistantsWithBelongingEntity, \
     IsAccountConnectionExistsRequest, ConnectedAssistantWithBelongingEntity, ConnectedAssistantBelongsTo, \
-    GetConnectedAccountResponse, GetConnectedAccountRequest, ParseStreamingAccountMobilesResponse
+    GetConnectedAccountResponse, GetConnectedAccountRequest, ParseStreamingAccountMobilesResponse, \
+    GetConnectedAccountAssistantResponse, IsAccountAssistantConnectionExistsRequest
 from ethos.elint.services.product.identity.account.connect_account_pb2_grpc import ConnectAccountServiceServicer
 from ethos.elint.services.product.identity.account.discover_account_pb2 import GetAccountByIdRequest, \
     GetAccountMetaByAccountIdRequest
@@ -202,6 +203,28 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     connected_account=connected_account,
                     response_meta=ResponseMeta(meta_done=True, meta_message="Account connected."))
 
+    def GetConnectedAccountAssistant(self, request, context):
+        logging.info("ConnectAccountService:GetConnectedAccountAssistant")
+        access_done, access_message = validate_account_services_caller(request.access_auth_details)
+        if access_done is False:
+            return GetConnectedAccountAssistantResponse(
+                response_meta=ResponseMeta(meta_done=access_done, meta_message=access_message))
+        else:
+            is_account_assistant_connected = ApplicationContext.connect_account_service_stub().IsAccountAssistantConnectionExists(
+                IsAccountAssistantConnectionExistsRequest(
+                    access_auth_details=request.access_auth_details,
+                    account_assistant_id=request.account_assistant_id)).meta_done
+            if is_account_assistant_connected is False:
+                return GetConnectedAccountAssistantResponse(
+                    response_meta=ResponseMeta(meta_done=False, meta_message="Account Assistant not connected."))
+            else:
+                account_connections = AccountConnections(account_id=request.access_auth_details.account.account_id)
+                connected_account_assistant = account_connections.get_connected_account_assistant(
+                    account_assistant_id=request.account_assistant_id)
+                return GetConnectedAccountAssistantResponse(
+                    connected_account_assistant=connected_account_assistant,
+                    response_meta=ResponseMeta(meta_done=True, meta_message="Account Assistant connected."))
+
     def IsAccountConnectionExists(self, request, context):
         logging.info("ConnectAccountService:IsAccountConnectionExists")
         access_done, access_message = validate_account_services_caller(request.access_auth_details)
@@ -212,6 +235,17 @@ class ConnectAccountService(ConnectAccountServiceServicer):
             is_account_connection_exists = account_connections.is_account_connection_exists(
                 account_id=request.account_id)
             return ResponseMeta(meta_done=is_account_connection_exists, meta_message=access_message)
+
+    def IsAccountAssistantConnectionExists(self, request, context):
+        logging.info("ConnectAccountService:IsAccountAssistantConnectionExists")
+        access_done, access_message = validate_account_services_caller(request.access_auth_details)
+        if access_done is False:
+            return ResponseMeta(meta_done=access_done, meta_message=access_message)
+        else:
+            account_connections = AccountConnections(account_id=request.access_auth_details.account.account_id)
+            is_account_assistant_connection_exists = account_connections.is_account_assistant_connection_exists(
+                account_assistant_id=request.account_assistant_id)
+            return ResponseMeta(meta_done=is_account_assistant_connection_exists, meta_message=access_message)
 
     def IsAccountAssistantConnected(self, request, context):
         logging.info("ConnectAccountService:IsAccountAssistantConnected")

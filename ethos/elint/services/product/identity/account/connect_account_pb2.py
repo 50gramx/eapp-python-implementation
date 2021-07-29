@@ -57,7 +57,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nCethos/elint/services/product/identity/account/connect_account.proto\x12\'elint.services.product.identity.account\x1a\x19google/protobuf/any.proto\x1a\"ethos/elint/entities/account.proto\x1a,ethos/elint/entities/account_assistant.proto\x1a\"ethos/elint/entities/generic.proto\x1a\x42\x65thos/elint/services/product/identity/account/access_account.proto\"\xb0\x03\n%ConnectedAssistantWithBelongingEntity\x12l\n\x1e\x63onnected_assistant_belongs_to\x18\x01 \x01(\x0e\x32\x44.elint.services.product.identity.account.ConnectedAssistantBelongsTo\x12\x31\n\x13\x63onnected_assistant\x18\x02 \x01(\x0b\x32\x14.google.protobuf.Any\x12\'\n\tassistant\x18\x03 \x01(\x0b\x32\x14.google.protobuf.Any\x12(\n is_connected_to_belonging_entity\x18\x04 \x01(\x08\x12.\n\x10\x63onnected_entity\x18\x05 \x01(\x0b\x32\x14.google.protobuf.Any\x12\x33\n\x15\x62\x65longing_entity_meta\x18\x06 \x01(\x0b\x32\x14.google.protobuf.Any\x12.\n\x10\x62\x65longing_entity\x18\x07 \x01(\x0b\x32\x14.google.protobuf.Any\"\xb9\x01\n/GetAccountSelfConnectedAccountAssistantResponse\x12S\n\x1b\x63onnected_account_assistant\x18\x01 \x01(\x0b\x32..elint.entity.AccountConnectedAccountAssistant\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xdf\x01\n&ConnectedAssistantsWithBelongingEntity\x12\x81\x01\n)connected_assistant_with_belonging_entity\x18\x01 \x01(\x0b\x32N.elint.services.product.identity.account.ConnectedAssistantWithBelongingEntity\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xa5\x01\n\x1a\x43onnectedAccountAssistants\x12T\n\x1c\x63onnected_account_assistants\x18\x01 \x03(\x0b\x32..elint.entity.AccountConnectedAccountAssistant\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\x89\x01\n\x11\x43onnectedAccounts\x12\x41\n\x12\x63onnected_accounts\x18\x01 \x03(\x0b\x32%.elint.entity.AccountConnectedAccount\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\x98\x01\n\x1aGetConnectedAccountRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x12\n\naccount_id\x18\x02 \x01(\t\"\x92\x01\n\x1bGetConnectedAccountResponse\x12@\n\x11\x63onnected_account\x18\x01 \x01(\x0b\x32%.elint.entity.AccountConnectedAccount\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\x9e\x01\n IsAccountConnectionExistsRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x12\n\naccount_id\x18\x02 \x01(\t\"\x8d\x01\n\"IsAccountAssistantConnectedRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12S\n\x1b\x63onnected_account_assistant\x18\x02 \x01(\x0b\x32..elint.entity.AccountConnectedAccountAssistant\"q\n\x19IsAccountConnectedRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12@\n\x11\x63onnected_account\x18\x02 \x01(\x0b\x32%.elint.entity.AccountConnectedAccount\"\xaf\x01\n\x1aParseAccountMobilesRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12)\n!connecting_account_mobile_numbers\x18\x02 \x03(\t\"\x86\x01\n\x1bParseAccountMobilesResponse\x12\x34\n\x0f\x61\x63\x63ount_mobiles\x18\x01 \x03(\x0b\x32\x1b.elint.entity.AccountMobile\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"P\n#ParseStreamingAccountMobilesRequest\x12)\n!connecting_account_mobile_numbers\x18\x02 \x03(\t\"\\\n$ParseStreamingAccountMobilesResponse\x12\x34\n\x0f\x61\x63\x63ount_mobiles\x18\x01 \x03(\x0b\x32\x1b.elint.entity.AccountMobile\"\xc7\x01\n\x1dSyncAccountConnectionsRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12>\n\x19\x63onnecting_account_mobile\x18\x02 \x01(\x0b\x32\x1b.elint.entity.AccountMobile\"\xde\x02\n\x1eSyncAccountConnectionsResponse\x12s\n\x11\x63onnected_account\x18\x01 \x01(\x0b\x32X.elint.services.product.identity.account.SyncAccountConnectionsResponse.ConnectedAccount\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\x1a\x93\x01\n\x10\x43onnectedAccount\x12@\n\x11\x63onnected_account\x18\x01 \x01(\x0b\x32%.elint.entity.AccountConnectedAccount\x12=\n\x18\x63onnected_account_mobile\x18\x02 \x01(\x0b\x32\x1b.elint.entity.AccountMobile\"\x9e\x01\n\x15\x43onnectAccountRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x1d\n\x15\x63onnecting_account_id\x18\x02 \x01(\t\"\x8d\x01\n\x16\x43onnectAccountResponse\x12@\n\x11\x63onnected_account\x18\x01 \x01(\x0b\x32%.elint.entity.AccountConnectedAccount\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xd6\x01\n*ToggleAccountConnectAccountInterestRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12@\n\x11\x63onnected_account\x18\x02 \x01(\x0b\x32%.elint.entity.AccountConnectedAccount*<\n\x1b\x43onnectedAssistantBelongsTo\x12\x0b\n\x07\x41\x43\x43OUNT\x10\x00\x12\x10\n\x0cORGANIZATION\x10\x01\x32\x8e\x11\n\x15\x43onnectAccountService\x12\xd0\x01\n\'GetAccountSelfConnectedAccountAssistant\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1aX.elint.services.product.identity.account.GetAccountSelfConnectedAccountAssistantResponse\"\x00\x12\xce\x01\n,GetAllConnectedAssistantsWithBelongingEntity\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1aO.elint.services.product.identity.account.ConnectedAssistantsWithBelongingEntity\"\x00\x30\x01\x12\xb4\x01\n GetAllConnectedAccountAssistants\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x43.elint.services.product.identity.account.ConnectedAccountAssistants\"\x00\x12\xa2\x01\n\x17GetAllConnectedAccounts\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a:.elint.services.product.identity.account.ConnectedAccounts\"\x00\x12\xa2\x01\n\x13GetConnectedAccount\x12\x43.elint.services.product.identity.account.GetConnectedAccountRequest\x1a\x44.elint.services.product.identity.account.GetConnectedAccountResponse\"\x00\x12\x84\x01\n\x19IsAccountConnectionExists\x12I.elint.services.product.identity.account.IsAccountConnectionExistsRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x88\x01\n\x1bIsAccountAssistantConnected\x12K.elint.services.product.identity.account.IsAccountAssistantConnectedRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12v\n\x12IsAccountConnected\x12\x42.elint.services.product.identity.account.IsAccountConnectedRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\xa2\x01\n\x13ParseAccountMobiles\x12\x43.elint.services.product.identity.account.ParseAccountMobilesRequest\x1a\x44.elint.services.product.identity.account.ParseAccountMobilesResponse\"\x00\x12\xc1\x01\n\x1cParseStreamingAccountMobiles\x12L.elint.services.product.identity.account.ParseStreamingAccountMobilesRequest\x1aM.elint.services.product.identity.account.ParseStreamingAccountMobilesResponse\"\x00(\x01\x30\x01\x12\xab\x01\n\x16SyncAccountConnections\x12\x46.elint.services.product.identity.account.SyncAccountConnectionsRequest\x1aG.elint.services.product.identity.account.SyncAccountConnectionsResponse\"\x00\x12\x93\x01\n\x0e\x43onnectAccount\x12>.elint.services.product.identity.account.ConnectAccountRequest\x1a?.elint.services.product.identity.account.ConnectAccountResponse\"\x00\x12\x98\x01\n#ToggleAccountConnectAccountInterest\x12S.elint.services.product.identity.account.ToggleAccountConnectAccountInterestRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x62\x06proto3'
+  serialized_pb=b'\nCethos/elint/services/product/identity/account/connect_account.proto\x12\'elint.services.product.identity.account\x1a\x19google/protobuf/any.proto\x1a\"ethos/elint/entities/account.proto\x1a,ethos/elint/entities/account_assistant.proto\x1a\"ethos/elint/entities/generic.proto\x1a\x42\x65thos/elint/services/product/identity/account/access_account.proto\"\xb0\x03\n%ConnectedAssistantWithBelongingEntity\x12l\n\x1e\x63onnected_assistant_belongs_to\x18\x01 \x01(\x0e\x32\x44.elint.services.product.identity.account.ConnectedAssistantBelongsTo\x12\x31\n\x13\x63onnected_assistant\x18\x02 \x01(\x0b\x32\x14.google.protobuf.Any\x12\'\n\tassistant\x18\x03 \x01(\x0b\x32\x14.google.protobuf.Any\x12(\n is_connected_to_belonging_entity\x18\x04 \x01(\x08\x12.\n\x10\x63onnected_entity\x18\x05 \x01(\x0b\x32\x14.google.protobuf.Any\x12\x33\n\x15\x62\x65longing_entity_meta\x18\x06 \x01(\x0b\x32\x14.google.protobuf.Any\x12.\n\x10\x62\x65longing_entity\x18\x07 \x01(\x0b\x32\x14.google.protobuf.Any\"\xb9\x01\n/GetAccountSelfConnectedAccountAssistantResponse\x12S\n\x1b\x63onnected_account_assistant\x18\x01 \x01(\x0b\x32..elint.entity.AccountConnectedAccountAssistant\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xdf\x01\n&ConnectedAssistantsWithBelongingEntity\x12\x81\x01\n)connected_assistant_with_belonging_entity\x18\x01 \x01(\x0b\x32N.elint.services.product.identity.account.ConnectedAssistantWithBelongingEntity\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xa5\x01\n\x1a\x43onnectedAccountAssistants\x12T\n\x1c\x63onnected_account_assistants\x18\x01 \x03(\x0b\x32..elint.entity.AccountConnectedAccountAssistant\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\x89\x01\n\x11\x43onnectedAccounts\x12\x41\n\x12\x63onnected_accounts\x18\x01 \x03(\x0b\x32%.elint.entity.AccountConnectedAccount\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\x98\x01\n\x1aGetConnectedAccountRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x12\n\naccount_id\x18\x02 \x01(\t\"\x92\x01\n\x1bGetConnectedAccountResponse\x12@\n\x11\x63onnected_account\x18\x01 \x01(\x0b\x32%.elint.entity.AccountConnectedAccount\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xab\x01\n#GetConnectedAccountAssistantRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x1c\n\x14\x61\x63\x63ount_assistant_id\x18\x02 \x01(\t\"\xae\x01\n$GetConnectedAccountAssistantResponse\x12S\n\x1b\x63onnected_account_assistant\x18\x01 \x01(\x0b\x32..elint.entity.AccountConnectedAccountAssistant\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\x9e\x01\n IsAccountConnectionExistsRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x12\n\naccount_id\x18\x02 \x01(\t\"\xb1\x01\n)IsAccountAssistantConnectionExistsRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x1c\n\x14\x61\x63\x63ount_assistant_id\x18\x02 \x01(\t\"\x8d\x01\n\"IsAccountAssistantConnectedRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12S\n\x1b\x63onnected_account_assistant\x18\x02 \x01(\x0b\x32..elint.entity.AccountConnectedAccountAssistant\"q\n\x19IsAccountConnectedRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12@\n\x11\x63onnected_account\x18\x02 \x01(\x0b\x32%.elint.entity.AccountConnectedAccount\"\xaf\x01\n\x1aParseAccountMobilesRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12)\n!connecting_account_mobile_numbers\x18\x02 \x03(\t\"\x86\x01\n\x1bParseAccountMobilesResponse\x12\x34\n\x0f\x61\x63\x63ount_mobiles\x18\x01 \x03(\x0b\x32\x1b.elint.entity.AccountMobile\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"P\n#ParseStreamingAccountMobilesRequest\x12)\n!connecting_account_mobile_numbers\x18\x02 \x03(\t\"\\\n$ParseStreamingAccountMobilesResponse\x12\x34\n\x0f\x61\x63\x63ount_mobiles\x18\x01 \x03(\x0b\x32\x1b.elint.entity.AccountMobile\"\xc7\x01\n\x1dSyncAccountConnectionsRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12>\n\x19\x63onnecting_account_mobile\x18\x02 \x01(\x0b\x32\x1b.elint.entity.AccountMobile\"\xde\x02\n\x1eSyncAccountConnectionsResponse\x12s\n\x11\x63onnected_account\x18\x01 \x01(\x0b\x32X.elint.services.product.identity.account.SyncAccountConnectionsResponse.ConnectedAccount\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\x1a\x93\x01\n\x10\x43onnectedAccount\x12@\n\x11\x63onnected_account\x18\x01 \x01(\x0b\x32%.elint.entity.AccountConnectedAccount\x12=\n\x18\x63onnected_account_mobile\x18\x02 \x01(\x0b\x32\x1b.elint.entity.AccountMobile\"\x9e\x01\n\x15\x43onnectAccountRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x1d\n\x15\x63onnecting_account_id\x18\x02 \x01(\t\"\x8d\x01\n\x16\x43onnectAccountResponse\x12@\n\x11\x63onnected_account\x18\x01 \x01(\x0b\x32%.elint.entity.AccountConnectedAccount\x12\x31\n\rresponse_meta\x18\x02 \x01(\x0b\x32\x1a.elint.entity.ResponseMeta\"\xd6\x01\n*ToggleAccountConnectAccountInterestRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12@\n\x11\x63onnected_account\x18\x02 \x01(\x0b\x32%.elint.entity.AccountConnectedAccount*<\n\x1b\x43onnectedAssistantBelongsTo\x12\x0b\n\x07\x41\x43\x43OUNT\x10\x00\x12\x10\n\x0cORGANIZATION\x10\x01\x32\xe7\x13\n\x15\x43onnectAccountService\x12\xd0\x01\n\'GetAccountSelfConnectedAccountAssistant\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1aX.elint.services.product.identity.account.GetAccountSelfConnectedAccountAssistantResponse\"\x00\x12\xce\x01\n,GetAllConnectedAssistantsWithBelongingEntity\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1aO.elint.services.product.identity.account.ConnectedAssistantsWithBelongingEntity\"\x00\x30\x01\x12\xb4\x01\n GetAllConnectedAccountAssistants\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a\x43.elint.services.product.identity.account.ConnectedAccountAssistants\"\x00\x12\xa2\x01\n\x17GetAllConnectedAccounts\x12I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x1a:.elint.services.product.identity.account.ConnectedAccounts\"\x00\x12\xa2\x01\n\x13GetConnectedAccount\x12\x43.elint.services.product.identity.account.GetConnectedAccountRequest\x1a\x44.elint.services.product.identity.account.GetConnectedAccountResponse\"\x00\x12\xbd\x01\n\x1cGetConnectedAccountAssistant\x12L.elint.services.product.identity.account.GetConnectedAccountAssistantRequest\x1aM.elint.services.product.identity.account.GetConnectedAccountAssistantResponse\"\x00\x12\x84\x01\n\x19IsAccountConnectionExists\x12I.elint.services.product.identity.account.IsAccountConnectionExistsRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x96\x01\n\"IsAccountAssistantConnectionExists\x12R.elint.services.product.identity.account.IsAccountAssistantConnectionExistsRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x88\x01\n\x1bIsAccountAssistantConnected\x12K.elint.services.product.identity.account.IsAccountAssistantConnectedRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12v\n\x12IsAccountConnected\x12\x42.elint.services.product.identity.account.IsAccountConnectedRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\xa2\x01\n\x13ParseAccountMobiles\x12\x43.elint.services.product.identity.account.ParseAccountMobilesRequest\x1a\x44.elint.services.product.identity.account.ParseAccountMobilesResponse\"\x00\x12\xc1\x01\n\x1cParseStreamingAccountMobiles\x12L.elint.services.product.identity.account.ParseStreamingAccountMobilesRequest\x1aM.elint.services.product.identity.account.ParseStreamingAccountMobilesResponse\"\x00(\x01\x30\x01\x12\xab\x01\n\x16SyncAccountConnections\x12\x46.elint.services.product.identity.account.SyncAccountConnectionsRequest\x1aG.elint.services.product.identity.account.SyncAccountConnectionsResponse\"\x00\x12\x93\x01\n\x0e\x43onnectAccount\x12>.elint.services.product.identity.account.ConnectAccountRequest\x1a?.elint.services.product.identity.account.ConnectAccountResponse\"\x00\x12\x98\x01\n#ToggleAccountConnectAccountInterest\x12S.elint.services.product.identity.account.ToggleAccountConnectAccountInterestRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_any__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_account__assistant__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.DESCRIPTOR,])
 
@@ -81,8 +81,8 @@ _CONNECTEDASSISTANTBELONGSTO = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=3774,
-  serialized_end=3834,
+  serialized_start=4305,
+  serialized_end=4365,
 )
 _sym_db.RegisterEnumDescriptor(_CONNECTEDASSISTANTBELONGSTO)
 
@@ -400,6 +400,84 @@ _GETCONNECTEDACCOUNTRESPONSE = _descriptor.Descriptor(
 )
 
 
+_GETCONNECTEDACCOUNTASSISTANTREQUEST = _descriptor.Descriptor(
+  name='GetConnectedAccountAssistantRequest',
+  full_name='elint.services.product.identity.account.GetConnectedAccountAssistantRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='access_auth_details', full_name='elint.services.product.identity.account.GetConnectedAccountAssistantRequest.access_auth_details', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='account_assistant_id', full_name='elint.services.product.identity.account.GetConnectedAccountAssistantRequest.account_assistant_id', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1787,
+  serialized_end=1958,
+)
+
+
+_GETCONNECTEDACCOUNTASSISTANTRESPONSE = _descriptor.Descriptor(
+  name='GetConnectedAccountAssistantResponse',
+  full_name='elint.services.product.identity.account.GetConnectedAccountAssistantResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='connected_account_assistant', full_name='elint.services.product.identity.account.GetConnectedAccountAssistantResponse.connected_account_assistant', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='response_meta', full_name='elint.services.product.identity.account.GetConnectedAccountAssistantResponse.response_meta', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1961,
+  serialized_end=2135,
+)
+
+
 _ISACCOUNTCONNECTIONEXISTSREQUEST = _descriptor.Descriptor(
   name='IsAccountConnectionExistsRequest',
   full_name='elint.services.product.identity.account.IsAccountConnectionExistsRequest',
@@ -434,8 +512,47 @@ _ISACCOUNTCONNECTIONEXISTSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1787,
-  serialized_end=1945,
+  serialized_start=2138,
+  serialized_end=2296,
+)
+
+
+_ISACCOUNTASSISTANTCONNECTIONEXISTSREQUEST = _descriptor.Descriptor(
+  name='IsAccountAssistantConnectionExistsRequest',
+  full_name='elint.services.product.identity.account.IsAccountAssistantConnectionExistsRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='access_auth_details', full_name='elint.services.product.identity.account.IsAccountAssistantConnectionExistsRequest.access_auth_details', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='account_assistant_id', full_name='elint.services.product.identity.account.IsAccountAssistantConnectionExistsRequest.account_assistant_id', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2299,
+  serialized_end=2476,
 )
 
 
@@ -473,8 +590,8 @@ _ISACCOUNTASSISTANTCONNECTEDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1948,
-  serialized_end=2089,
+  serialized_start=2479,
+  serialized_end=2620,
 )
 
 
@@ -512,8 +629,8 @@ _ISACCOUNTCONNECTEDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2091,
-  serialized_end=2204,
+  serialized_start=2622,
+  serialized_end=2735,
 )
 
 
@@ -551,8 +668,8 @@ _PARSEACCOUNTMOBILESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2207,
-  serialized_end=2382,
+  serialized_start=2738,
+  serialized_end=2913,
 )
 
 
@@ -590,8 +707,8 @@ _PARSEACCOUNTMOBILESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2385,
-  serialized_end=2519,
+  serialized_start=2916,
+  serialized_end=3050,
 )
 
 
@@ -622,8 +739,8 @@ _PARSESTREAMINGACCOUNTMOBILESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2521,
-  serialized_end=2601,
+  serialized_start=3052,
+  serialized_end=3132,
 )
 
 
@@ -654,8 +771,8 @@ _PARSESTREAMINGACCOUNTMOBILESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2603,
-  serialized_end=2695,
+  serialized_start=3134,
+  serialized_end=3226,
 )
 
 
@@ -693,8 +810,8 @@ _SYNCACCOUNTCONNECTIONSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2698,
-  serialized_end=2897,
+  serialized_start=3229,
+  serialized_end=3428,
 )
 
 
@@ -732,8 +849,8 @@ _SYNCACCOUNTCONNECTIONSRESPONSE_CONNECTEDACCOUNT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3103,
-  serialized_end=3250,
+  serialized_start=3634,
+  serialized_end=3781,
 )
 
 _SYNCACCOUNTCONNECTIONSRESPONSE = _descriptor.Descriptor(
@@ -770,8 +887,8 @@ _SYNCACCOUNTCONNECTIONSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2900,
-  serialized_end=3250,
+  serialized_start=3431,
+  serialized_end=3781,
 )
 
 
@@ -809,8 +926,8 @@ _CONNECTACCOUNTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3253,
-  serialized_end=3411,
+  serialized_start=3784,
+  serialized_end=3942,
 )
 
 
@@ -848,8 +965,8 @@ _CONNECTACCOUNTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3414,
-  serialized_end=3555,
+  serialized_start=3945,
+  serialized_end=4086,
 )
 
 
@@ -887,8 +1004,8 @@ _TOGGLEACCOUNTCONNECTACCOUNTINTERESTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3558,
-  serialized_end=3772,
+  serialized_start=4089,
+  serialized_end=4303,
 )
 
 _CONNECTEDASSISTANTWITHBELONGINGENTITY.fields_by_name['connected_assistant_belongs_to'].enum_type = _CONNECTEDASSISTANTBELONGSTO
@@ -908,7 +1025,11 @@ _CONNECTEDACCOUNTS.fields_by_name['response_meta'].message_type = ethos_dot_elin
 _GETCONNECTEDACCOUNTREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS
 _GETCONNECTEDACCOUNTRESPONSE.fields_by_name['connected_account'].message_type = ethos_dot_elint_dot_entities_dot_account__pb2._ACCOUNTCONNECTEDACCOUNT
 _GETCONNECTEDACCOUNTRESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
+_GETCONNECTEDACCOUNTASSISTANTREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS
+_GETCONNECTEDACCOUNTASSISTANTRESPONSE.fields_by_name['connected_account_assistant'].message_type = ethos_dot_elint_dot_entities_dot_account__pb2._ACCOUNTCONNECTEDACCOUNTASSISTANT
+_GETCONNECTEDACCOUNTASSISTANTRESPONSE.fields_by_name['response_meta'].message_type = ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA
 _ISACCOUNTCONNECTIONEXISTSREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS
+_ISACCOUNTASSISTANTCONNECTIONEXISTSREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS
 _ISACCOUNTASSISTANTCONNECTEDREQUEST.fields_by_name['connected_account_assistant'].message_type = ethos_dot_elint_dot_entities_dot_account__pb2._ACCOUNTCONNECTEDACCOUNTASSISTANT
 _ISACCOUNTCONNECTEDREQUEST.fields_by_name['connected_account'].message_type = ethos_dot_elint_dot_entities_dot_account__pb2._ACCOUNTCONNECTEDACCOUNT
 _PARSEACCOUNTMOBILESREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS
@@ -934,7 +1055,10 @@ DESCRIPTOR.message_types_by_name['ConnectedAccountAssistants'] = _CONNECTEDACCOU
 DESCRIPTOR.message_types_by_name['ConnectedAccounts'] = _CONNECTEDACCOUNTS
 DESCRIPTOR.message_types_by_name['GetConnectedAccountRequest'] = _GETCONNECTEDACCOUNTREQUEST
 DESCRIPTOR.message_types_by_name['GetConnectedAccountResponse'] = _GETCONNECTEDACCOUNTRESPONSE
+DESCRIPTOR.message_types_by_name['GetConnectedAccountAssistantRequest'] = _GETCONNECTEDACCOUNTASSISTANTREQUEST
+DESCRIPTOR.message_types_by_name['GetConnectedAccountAssistantResponse'] = _GETCONNECTEDACCOUNTASSISTANTRESPONSE
 DESCRIPTOR.message_types_by_name['IsAccountConnectionExistsRequest'] = _ISACCOUNTCONNECTIONEXISTSREQUEST
+DESCRIPTOR.message_types_by_name['IsAccountAssistantConnectionExistsRequest'] = _ISACCOUNTASSISTANTCONNECTIONEXISTSREQUEST
 DESCRIPTOR.message_types_by_name['IsAccountAssistantConnectedRequest'] = _ISACCOUNTASSISTANTCONNECTEDREQUEST
 DESCRIPTOR.message_types_by_name['IsAccountConnectedRequest'] = _ISACCOUNTCONNECTEDREQUEST
 DESCRIPTOR.message_types_by_name['ParseAccountMobilesRequest'] = _PARSEACCOUNTMOBILESREQUEST
@@ -998,12 +1122,33 @@ GetConnectedAccountResponse = _reflection.GeneratedProtocolMessageType('GetConne
   })
 _sym_db.RegisterMessage(GetConnectedAccountResponse)
 
+GetConnectedAccountAssistantRequest = _reflection.GeneratedProtocolMessageType('GetConnectedAccountAssistantRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETCONNECTEDACCOUNTASSISTANTREQUEST,
+  '__module__' : 'ethos.elint.services.product.identity.account.connect_account_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.identity.account.GetConnectedAccountAssistantRequest)
+  })
+_sym_db.RegisterMessage(GetConnectedAccountAssistantRequest)
+
+GetConnectedAccountAssistantResponse = _reflection.GeneratedProtocolMessageType('GetConnectedAccountAssistantResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETCONNECTEDACCOUNTASSISTANTRESPONSE,
+  '__module__' : 'ethos.elint.services.product.identity.account.connect_account_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.identity.account.GetConnectedAccountAssistantResponse)
+  })
+_sym_db.RegisterMessage(GetConnectedAccountAssistantResponse)
+
 IsAccountConnectionExistsRequest = _reflection.GeneratedProtocolMessageType('IsAccountConnectionExistsRequest', (_message.Message,), {
   'DESCRIPTOR' : _ISACCOUNTCONNECTIONEXISTSREQUEST,
   '__module__' : 'ethos.elint.services.product.identity.account.connect_account_pb2'
   # @@protoc_insertion_point(class_scope:elint.services.product.identity.account.IsAccountConnectionExistsRequest)
   })
 _sym_db.RegisterMessage(IsAccountConnectionExistsRequest)
+
+IsAccountAssistantConnectionExistsRequest = _reflection.GeneratedProtocolMessageType('IsAccountAssistantConnectionExistsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _ISACCOUNTASSISTANTCONNECTIONEXISTSREQUEST,
+  '__module__' : 'ethos.elint.services.product.identity.account.connect_account_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.identity.account.IsAccountAssistantConnectionExistsRequest)
+  })
+_sym_db.RegisterMessage(IsAccountAssistantConnectionExistsRequest)
 
 IsAccountAssistantConnectedRequest = _reflection.GeneratedProtocolMessageType('IsAccountAssistantConnectedRequest', (_message.Message,), {
   'DESCRIPTOR' : _ISACCOUNTASSISTANTCONNECTEDREQUEST,
@@ -1099,8 +1244,8 @@ _CONNECTACCOUNTSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=3837,
-  serialized_end=6027,
+  serialized_start=4368,
+  serialized_end=6903,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetAccountSelfConnectedAccountAssistant',
@@ -1153,9 +1298,19 @@ _CONNECTACCOUNTSERVICE = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
+    name='GetConnectedAccountAssistant',
+    full_name='elint.services.product.identity.account.ConnectAccountService.GetConnectedAccountAssistant',
+    index=5,
+    containing_service=None,
+    input_type=_GETCONNECTEDACCOUNTASSISTANTREQUEST,
+    output_type=_GETCONNECTEDACCOUNTASSISTANTRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
     name='IsAccountConnectionExists',
     full_name='elint.services.product.identity.account.ConnectAccountService.IsAccountConnectionExists',
-    index=5,
+    index=6,
     containing_service=None,
     input_type=_ISACCOUNTCONNECTIONEXISTSREQUEST,
     output_type=ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA,
@@ -1163,9 +1318,19 @@ _CONNECTACCOUNTSERVICE = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
+    name='IsAccountAssistantConnectionExists',
+    full_name='elint.services.product.identity.account.ConnectAccountService.IsAccountAssistantConnectionExists',
+    index=7,
+    containing_service=None,
+    input_type=_ISACCOUNTASSISTANTCONNECTIONEXISTSREQUEST,
+    output_type=ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
     name='IsAccountAssistantConnected',
     full_name='elint.services.product.identity.account.ConnectAccountService.IsAccountAssistantConnected',
-    index=6,
+    index=8,
     containing_service=None,
     input_type=_ISACCOUNTASSISTANTCONNECTEDREQUEST,
     output_type=ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA,
@@ -1175,7 +1340,7 @@ _CONNECTACCOUNTSERVICE = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='IsAccountConnected',
     full_name='elint.services.product.identity.account.ConnectAccountService.IsAccountConnected',
-    index=7,
+    index=9,
     containing_service=None,
     input_type=_ISACCOUNTCONNECTEDREQUEST,
     output_type=ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA,
@@ -1185,7 +1350,7 @@ _CONNECTACCOUNTSERVICE = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='ParseAccountMobiles',
     full_name='elint.services.product.identity.account.ConnectAccountService.ParseAccountMobiles',
-    index=8,
+    index=10,
     containing_service=None,
     input_type=_PARSEACCOUNTMOBILESREQUEST,
     output_type=_PARSEACCOUNTMOBILESRESPONSE,
@@ -1195,7 +1360,7 @@ _CONNECTACCOUNTSERVICE = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='ParseStreamingAccountMobiles',
     full_name='elint.services.product.identity.account.ConnectAccountService.ParseStreamingAccountMobiles',
-    index=9,
+    index=11,
     containing_service=None,
     input_type=_PARSESTREAMINGACCOUNTMOBILESREQUEST,
     output_type=_PARSESTREAMINGACCOUNTMOBILESRESPONSE,
@@ -1205,7 +1370,7 @@ _CONNECTACCOUNTSERVICE = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='SyncAccountConnections',
     full_name='elint.services.product.identity.account.ConnectAccountService.SyncAccountConnections',
-    index=10,
+    index=12,
     containing_service=None,
     input_type=_SYNCACCOUNTCONNECTIONSREQUEST,
     output_type=_SYNCACCOUNTCONNECTIONSRESPONSE,
@@ -1215,7 +1380,7 @@ _CONNECTACCOUNTSERVICE = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='ConnectAccount',
     full_name='elint.services.product.identity.account.ConnectAccountService.ConnectAccount',
-    index=11,
+    index=13,
     containing_service=None,
     input_type=_CONNECTACCOUNTREQUEST,
     output_type=_CONNECTACCOUNTRESPONSE,
@@ -1225,7 +1390,7 @@ _CONNECTACCOUNTSERVICE = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='ToggleAccountConnectAccountInterest',
     full_name='elint.services.product.identity.account.ConnectAccountService.ToggleAccountConnectAccountInterest',
-    index=12,
+    index=14,
     containing_service=None,
     input_type=_TOGGLEACCOUNTCONNECTACCOUNTINTERESTREQUEST,
     output_type=ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA,

@@ -107,6 +107,14 @@ class AccountConnections:
             account_assistant_connected = session.query(statement.exists()).scalar()
             return account_assistant_connected
 
+    def is_account_assistant_connection_exists(self, account_assistant_id: str) -> bool:
+        with DbSession.session_scope() as session:
+            statement = session.query(self.account_connection_table).filter(
+                self.account_assistant_connection_table.c.account_assistant_id == account_assistant_id
+            )
+            account_assistant_connection_exists = session.query(statement.exists()).scalar()
+            return account_assistant_connection_exists
+
     # Account Connection
     def get_account_connection_model(self):
         class AccountConnection(AccountConnectionModels):
