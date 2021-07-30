@@ -253,6 +253,7 @@ def _reserve_port():
     try:
         yield sock.getsockname()[1]
     finally:
+        logging.info("----------------------- Closing Socket at finally -----------------------")
         sock.close()
 
 
