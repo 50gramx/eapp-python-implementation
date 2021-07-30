@@ -64,12 +64,13 @@ _LOGGER = logging.getLogger(__name__)
 _ONE_DAY = datetime.timedelta(days=1)
 _PROCESS_COUNT = multiprocessing.cpu_count()
 _THREAD_CONCURRENCY = _PROCESS_COUNT
+_MAX_WORKERS = int(os.environ['EA_SERVICE_IDENTITY_GRPC_MAX_WORKERS'])
 
 PORT = os.environ.get('EAPP_SERVICE_IDENTITY_PORT', None)
 if PORT is None:
     logging.error("PORT NOT FOUND!")
 
-max_workers = int(os.environ['EA_SERVICE_IDENTITY_GRPC_MAX_WORKERS'])
+max_workers = _MAX_WORKERS
 
 
 #
@@ -171,7 +172,7 @@ def _run_server(bind_address):
 
     # Bind ThreadPoolExecutor and Services to server
     server = grpc.server(futures.ThreadPoolExecutor(
-        max_workers=_THREAD_CONCURRENCY, ),
+        max_workers=_MAX_WORKERS, ),
         options=options)
     #
     # server = grpc.server(
