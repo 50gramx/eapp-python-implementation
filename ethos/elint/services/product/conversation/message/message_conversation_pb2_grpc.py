@@ -51,7 +51,7 @@ class MessageConversationServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_message__conversation__pb2.GetAccountAndAssistantConversationsRequest.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_message__conversation__pb2.GetAccountAndAssistantConversationsResponse.FromString,
                 )
-        self.GetLast24ProductNConversationMessages = channel.unary_stream(
+        self.GetLast24ProductNConversationMessages = channel.unary_unary(
                 '/elint.services.product.conversation.message.MessageConversationService/GetLast24ProductNConversationMessages',
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_message__conversation__pb2.GetLast24ProductNConversationMessagesRequest.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_message__conversation__pb2.GetLast24ProductNConversationMessagesResponse.FromString,
@@ -160,7 +160,7 @@ def add_MessageConversationServiceServicer_to_server(servicer, server):
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_message__conversation__pb2.GetAccountAndAssistantConversationsRequest.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_message__conversation__pb2.GetAccountAndAssistantConversationsResponse.SerializeToString,
             ),
-            'GetLast24ProductNConversationMessages': grpc.unary_stream_rpc_method_handler(
+            'GetLast24ProductNConversationMessages': grpc.unary_unary_rpc_method_handler(
                     servicer.GetLast24ProductNConversationMessages,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_message__conversation__pb2.GetLast24ProductNConversationMessagesRequest.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_message__conversation__pb2.GetLast24ProductNConversationMessagesResponse.SerializeToString,
@@ -262,7 +262,7 @@ class MessageConversationService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/elint.services.product.conversation.message.MessageConversationService/GetLast24ProductNConversationMessages',
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.conversation.message.MessageConversationService/GetLast24ProductNConversationMessages',
             ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_message__conversation__pb2.GetLast24ProductNConversationMessagesRequest.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_message__conversation__pb2.GetLast24ProductNConversationMessagesResponse.FromString,
             options, channel_credentials,

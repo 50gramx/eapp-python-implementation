@@ -50,6 +50,11 @@ class NotifyAccountServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_notify__account__pb2.AccountConnectedAccountNotificationRequest.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
                 )
+        self.UpdateAccountDeviceDetails = channel.unary_unary(
+                '/elint.services.product.identity.account.NotifyAccountService/UpdateAccountDeviceDetails',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_notify__account__pb2.UpdateAccountDeviceDetailsRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
+                )
 
 
 class NotifyAccountServiceServicer(object):
@@ -74,6 +79,12 @@ class NotifyAccountServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def UpdateAccountDeviceDetails(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_NotifyAccountServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -90,6 +101,11 @@ def add_NotifyAccountServiceServicer_to_server(servicer, server):
             'AccountConnectedAccountNotification': grpc.unary_unary_rpc_method_handler(
                     servicer.AccountConnectedAccountNotification,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_notify__account__pb2.AccountConnectedAccountNotificationRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.SerializeToString,
+            ),
+            'UpdateAccountDeviceDetails': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateAccountDeviceDetails,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_notify__account__pb2.UpdateAccountDeviceDetailsRequest.FromString,
                     response_serializer=ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.SerializeToString,
             ),
     }
@@ -150,6 +166,23 @@ class NotifyAccountService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.NotifyAccountService/AccountConnectedAccountNotification',
             ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_notify__account__pb2.AccountConnectedAccountNotificationRequest.SerializeToString,
+            ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UpdateAccountDeviceDetails(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.account.NotifyAccountService/UpdateAccountDeviceDetails',
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_notify__account__pb2.UpdateAccountDeviceDetailsRequest.SerializeToString,
             ethos_dot_elint_dot_entities_dot_generic__pb2.ResponseMeta.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

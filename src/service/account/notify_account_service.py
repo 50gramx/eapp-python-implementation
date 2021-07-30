@@ -24,8 +24,9 @@ from pyfcm import FCMNotification
 
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account.notify_account_pb2_grpc import NotifyAccountServiceServicer
-from services_caller.account_service_caller import get_account_by_id_caller
-from support.db_service import get_account_device_token
+from services_caller.account_service_caller import get_account_by_id_caller, validate_account_services_caller
+from support.db_service import get_account_device_token, update_account_devices
+from support.helper_functions import format_timestamp_to_datetime
 from support.notifications.apple_push_notifications import ApplePushNotifications
 
 
@@ -160,3 +161,18 @@ class NotifyAccountService(NotifyAccountServiceServicer):
             logging.info(f"NotifyAccountService:NewReceivedMessageFromAccountAssistant: "
                          f"notification is not sent, Exception: {e}")
             return ResponseMeta(meta_done=False, meta_message="Couldn't notify account!")
+
+    def UpdateAccountDeviceDetails(self, request, context):
+        logging.info("NotifyAccountService:AccountFullyConnectedWithAccount")
+        validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
+        response_meta = ResponseMeta(meta_done=validation_done, meta_message=validation_message)
+        if validation_done is False:
+            return response_meta
+        else:
+            update_account_devices(
+                account_id=request.access_auth_details.account.account_id,
+                account_device_os=request.account_device_details.account_device_os,
+                account_device_token=request.account_device_details.device_token,
+                account_device_token_accessed_at=format_timestamp_to_datetime(request.access_auth_details.requested_at)
+            )
+            return response_meta

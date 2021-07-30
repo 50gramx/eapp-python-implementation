@@ -85,7 +85,7 @@ class ReceiveAccountMessageServiceStub(object):
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.ListenForReceivedAccountAssistantSpeedMessagesResponse.FromString,
                 )
-        self.GetLast24ProductNReceivedMessages = channel.unary_stream(
+        self.GetLast24ProductNReceivedMessages = channel.unary_unary(
                 '/elint.services.product.conversation.message.account.ReceiveAccountMessageService/GetLast24ProductNReceivedMessages',
                 request_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.GetLast24ProductNReceivedMessagesRequest.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.GetLast24ProductNReceivedMessagesResponse.FromString,
@@ -291,7 +291,7 @@ def add_ReceiveAccountMessageServiceServicer_to_server(servicer, server):
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.AccountServicesAccessAuthDetails.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.ListenForReceivedAccountAssistantSpeedMessagesResponse.SerializeToString,
             ),
-            'GetLast24ProductNReceivedMessages': grpc.unary_stream_rpc_method_handler(
+            'GetLast24ProductNReceivedMessages': grpc.unary_unary_rpc_method_handler(
                     servicer.GetLast24ProductNReceivedMessages,
                     request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.GetLast24ProductNReceivedMessagesRequest.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.GetLast24ProductNReceivedMessagesResponse.SerializeToString,
@@ -518,7 +518,7 @@ class ReceiveAccountMessageService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/elint.services.product.conversation.message.account.ReceiveAccountMessageService/GetLast24ProductNReceivedMessages',
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.conversation.message.account.ReceiveAccountMessageService/GetLast24ProductNReceivedMessages',
             ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.GetLast24ProductNReceivedMessagesRequest.SerializeToString,
             ethos_dot_elint_dot_services_dot_product_dot_conversation_dot_message_dot_account_dot_receive__account__message__pb2.GetLast24ProductNReceivedMessagesResponse.FromString,
             options, channel_credentials,
