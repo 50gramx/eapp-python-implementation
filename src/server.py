@@ -164,11 +164,8 @@ def _wait_forever(server):
 
 def _run_server(bind_address):
     """Start a server in a subprocess."""
-    logging.info('Starting new server.')
+    logging.info(f'Starting new server at {bind_address}')
     options = (('grpc.so_reuseport', 1),)
-
-    # Initiate the DbSession
-    db_session.DbSession.init_db_session()
 
     # Bind ThreadPoolExecutor and Services to server
     server = grpc.server(futures.ThreadPoolExecutor(
@@ -178,6 +175,15 @@ def _run_server(bind_address):
     # server = grpc.server(
     #     futures.ThreadPoolExecutor(max_workers=max_workers)
     # )
+    logging.info(f'gRPC Server Created at {bind_address}')
+
+    # Initiate the DbSession
+    db_session.DbSession.init_db_session()
+    logging.info(f'DbSession started at {bind_address}')
+
+    # Load Context
+    Loader.init_identity_context('')
+    logging.info(f'Identity context loaded at {bind_address}')
 
     add_CreateAccountServiceServicer_to_server(
         ApplicationContext.get_create_account_service(), server
@@ -252,6 +258,7 @@ def _reserve_port():
         raise RuntimeError("Failed to set SO_REUSEPORT.")
     sock.bind(('', 50501))
     try:
+        logging.info(f"----------------------- Yielding Socket {sock.getsockname()[1]} -----------------------")
         yield sock.getsockname()[1]
     finally:
         logging.info("----------------------- Closing Socket at finally -----------------------")
@@ -282,6 +289,7 @@ def main():
             # https://github.com/grpc/grpc/issues/16001 for more details.
             worker = multiprocessing.Process(target=_run_server,
                                              args=(bind_address,))
+            logging.info("Binding done, Starting worker...")
             worker.start()
             workers.append(worker)
         for worker in workers:
@@ -295,6 +303,5 @@ if __name__ == '__main__':
     # _LOGGER.addHandler(handler)
     # _LOGGER.setLevel(logging.INFO)
     logging.basicConfig(level=logging.INFO)  # warn: testing this
-    Loader.init_identity_context('')
     main()
     # main()
