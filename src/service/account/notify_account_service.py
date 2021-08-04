@@ -66,7 +66,7 @@ class NotifyAccountService(NotifyAccountServiceServicer):
                 registration_id=get_account_device_token(account_id=request.account_id),
                 message_title=message_title,
                 message_body=message_body,
-                data_message=message_data, sound='Default'
+                data_message=message_data, sound='insight.mp3'
             )
             logging.info(f"DEBUG:: NOTIFICATION SENT: {push_result}")
             return ResponseMeta(meta_done=True, meta_message="Notified successfully!")
@@ -92,7 +92,7 @@ class NotifyAccountService(NotifyAccountServiceServicer):
         # }
         try:
             # apns = ApplePushNotifications()
-            message_title = f"{account.account_last_name.strip()[0]}, {account.account_first_name}"
+            message_title = f"{account.account_first_name} {account.account_last_name.strip()}"
             message_body = request.message
             message_data = {
                 'account_id': request.connecting_account_id,
@@ -104,7 +104,7 @@ class NotifyAccountService(NotifyAccountServiceServicer):
                 registration_id=get_account_device_token(account_id=request.account_id),
                 message_title=message_title,
                 message_body=message_body,
-                data_message=message_data, sound='Default'
+                data_message=message_data, sound='done-for-you.mp3'
             )
             # apns.notify_account(account_id=request.account_id, payload=ios_new_messages_payload)
             logging.info(f"DEBUG:: NOTIFICATION SENT: {push_result}")
