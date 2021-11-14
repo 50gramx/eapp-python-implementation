@@ -34,7 +34,7 @@ class ContextAccountServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GetAccountMessageContext = channel.unary_unary(
+        self.GetAccountMessageContext = channel.stream_stream(
                 '/elint.services.cognitive.assist.context.account.ContextAccountService/GetAccountMessageContext',
                 request_serializer=ethos_dot_elint_dot_services_dot_cognitive_dot_assist_dot_context_dot_context__account__pb2.AccountMessage.SerializeToString,
                 response_deserializer=ethos_dot_elint_dot_services_dot_cognitive_dot_assist_dot_context_dot_context__account__pb2.AccountMessageContext.FromString,
@@ -45,7 +45,7 @@ class ContextAccountServiceServicer(object):
     """Service Definitions
     """
 
-    def GetAccountMessageContext(self, request, context):
+    def GetAccountMessageContext(self, request_iterator, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -54,7 +54,7 @@ class ContextAccountServiceServicer(object):
 
 def add_ContextAccountServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetAccountMessageContext': grpc.unary_unary_rpc_method_handler(
+            'GetAccountMessageContext': grpc.stream_stream_rpc_method_handler(
                     servicer.GetAccountMessageContext,
                     request_deserializer=ethos_dot_elint_dot_services_dot_cognitive_dot_assist_dot_context_dot_context__account__pb2.AccountMessage.FromString,
                     response_serializer=ethos_dot_elint_dot_services_dot_cognitive_dot_assist_dot_context_dot_context__account__pb2.AccountMessageContext.SerializeToString,
@@ -71,7 +71,7 @@ class ContextAccountService(object):
     """
 
     @staticmethod
-    def GetAccountMessageContext(request,
+    def GetAccountMessageContext(request_iterator,
             target,
             options=(),
             channel_credentials=None,
@@ -81,7 +81,7 @@ class ContextAccountService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/elint.services.cognitive.assist.context.account.ContextAccountService/GetAccountMessageContext',
+        return grpc.experimental.stream_stream(request_iterator, target, '/elint.services.cognitive.assist.context.account.ContextAccountService/GetAccountMessageContext',
             ethos_dot_elint_dot_services_dot_cognitive_dot_assist_dot_context_dot_context__account__pb2.AccountMessage.SerializeToString,
             ethos_dot_elint_dot_services_dot_cognitive_dot_assist_dot_context_dot_context__account__pb2.AccountMessageContext.FromString,
             options, channel_credentials,
