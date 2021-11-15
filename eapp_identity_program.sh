@@ -20,5 +20,5 @@
 #  */
 #
 
-source eapp-identity.dev.env
-python3 src/server.py
+. /app/eapp-identity.dev.env
+python3 /app/src/server.py
