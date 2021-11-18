@@ -63,11 +63,14 @@ def is_existing_account_mobile(account_country_code: str, account_mobile_number:
 def get_account_assistant_name_code(account_assistant_name: str, account_id: str) -> int:
     account_assistant_name = account_assistant_name.lower()
     with DbSession.session_scope() as session:
+        # get all the AccountAssistantNameCode which has same name as the user requested
         account_assistant_name_code = session.query(AccountAssistantNameCode).filter(
             AccountAssistantNameCode.account_assistant_name == account_assistant_name
         ).all()
         if len(account_assistant_name_code) > 0:
+            # there exists a assistant name as the user requested
             new_name_code = len(account_assistant_name_code) + 1
+            # TODO(amit): add limiter till 50
         else:
             new_name_code = 1
         session.add(AccountAssistantNameCode(account_assistant_name=account_assistant_name,
