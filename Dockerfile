@@ -1,6 +1,6 @@
 # Dockerfile
 FROM python:3.7-stretch
-EXPOSE 5001
+EXPOSE 50501
 RUN apt-get update -y
 RUN apt-get install -y python-pip python-dev build-essential
 COPY . /app
