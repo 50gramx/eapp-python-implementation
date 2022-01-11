@@ -88,9 +88,9 @@ def run_server(port):
     logging.info(f'Identity context loaded')
 
     options = (
-        ('grpc.max_connection_idle_ms', 15000),
-        ('grpc.max_connection_age_ms', 5000),
-        ('grpc.max_connection_age_grace_ms', 10000),
+        # ('grpc.max_connection_idle_ms', 15000),
+        # ('grpc.max_connection_age_ms', 5000),
+        # ('grpc.max_connection_age_grace_ms', 10000),
         ('grpc.client_idle_timeout_ms', 3000),
     )
 
