@@ -69,6 +69,12 @@ PORT = os.environ.get('EAPP_SERVICE_IDENTITY_PORT', None)
 if PORT is None:
     logging.error("PORT NOT FOUND!")
 
+GRPC_MAX_CONNECTION_IDLE_MS = os.environ.get('EAPP_SERVICE_IDENTITY_GRPC_MAX_CONNECTION_IDLE_MS', None)
+if GRPC_MAX_CONNECTION_IDLE_MS is None:
+    GRPC_MAX_CONNECTION_IDLE_MS = 15000
+else:
+    GRPC_MAX_CONNECTION_IDLE_MS = int(GRPC_MAX_CONNECTION_IDLE_MS)
+
 max_workers = _MAX_WORKERS
 
 
@@ -88,7 +94,7 @@ def run_server(port):
     logging.info(f'Identity context loaded')
 
     options = (
-        ('grpc.max_connection_idle_ms', 15000),
+        ('grpc.max_connection_idle_ms', GRPC_MAX_CONNECTION_IDLE_MS),
         # ('grpc.max_connection_age_ms', 5000),
         # ('grpc.max_connection_age_grace_ms', 10000),
         # ('grpc.client_idle_timeout_ms', 3000),
