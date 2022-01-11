@@ -87,9 +87,12 @@ def run_server(port):
     Loader.init_identity_context('')
     logging.info(f'Identity context loaded')
 
+    options = (('grpc.max_connection_age_grace_ms', 120000),)
+
     # Bind ThreadPoolExecutor and Services to server
     server = grpc.server(
-        futures.ThreadPoolExecutor(max_workers=max_workers)
+        futures.ThreadPoolExecutor(max_workers=max_workers),
+        options=options
     )
 
     add_CreateAccountServiceServicer_to_server(
