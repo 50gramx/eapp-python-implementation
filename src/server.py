@@ -81,6 +81,12 @@ max_workers = _MAX_WORKERS
 def run_server(port):
     # Initiate the DbSession
     db_session.DbSession.init_db_session()
+    logging.info(f'DbSession started')
+
+    # Load Context
+    Loader.init_identity_context('')
+    logging.info(f'Identity context loaded')
+
     # Bind ThreadPoolExecutor and Services to server
     server = grpc.server(
         futures.ThreadPoolExecutor(max_workers=max_workers)
