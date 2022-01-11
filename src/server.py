@@ -23,7 +23,6 @@ import logging
 import multiprocessing
 import os
 import socket
-import sys
 import time
 from concurrent import futures
 
@@ -266,34 +265,26 @@ def _reserve_port():
 
 
 def main():
-    # parser = argparse.ArgumentParser()
-    # parser.add_argument('--port',
-    #                     nargs='?',
-    #                     type=int,
-    #                     default=50502,
-    #                     help='the listening port')
-    # args = parser.parse_args()
+    with run_server(PORT) as (server, port):
+        logging.info(f'\tEthosApp Identity Server is listening at port {port}')
+        server.wait_for_termination()
     #
-    # with run_server(args.port) as (server, port):
-    #     logging.info(f'\tEthosApp Identity Server is listening at port {port}')
-    #     server.wait_for_termination()
-
-    with _reserve_port() as port:
-        bind_address = f"[::]:{port}"
-        logging.info("Binding to '%s'", bind_address)
-        sys.stdout.flush()
-        workers = []
-        for _ in range(_PROCESS_COUNT):
-            # NOTE: It is imperative that the worker subprocesses be forked before
-            # any gRPC servers start up. See
-            # https://github.com/grpc/grpc/issues/16001 for more details.
-            worker = multiprocessing.Process(target=_run_server,
-                                             args=(bind_address,))
-            logging.info("Binding done, Starting worker...")
-            worker.start()
-            workers.append(worker)
-        for worker in workers:
-            worker.join()
+    # with _reserve_port() as port:
+    #     bind_address = f"[::]:{port}"
+    #     logging.info("Binding to '%s'", bind_address)
+    #     sys.stdout.flush()
+    #     workers = []
+    #     for _ in range(_PROCESS_COUNT):
+    #         # NOTE: It is imperative that the worker subprocesses be forked before
+    #         # any gRPC servers start up. See
+    #         # https://github.com/grpc/grpc/issues/16001 for more details.
+    #         worker = multiprocessing.Process(target=_run_server,
+    #                                          args=(bind_address,))
+    #         logging.info("Binding done, Starting worker...")
+    #         worker.start()
+    #         workers.append(worker)
+    #     for worker in workers:
+    #         worker.join()
 
 
 if __name__ == '__main__':
