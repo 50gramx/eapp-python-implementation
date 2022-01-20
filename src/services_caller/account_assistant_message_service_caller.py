@@ -28,12 +28,20 @@ from ethos.elint.services.product.identity.account_assistant.access_account_assi
 
 
 def send_message_to_account(access_auth_details: AccountAssistantServicesAccessAuthDetails,
-                            connected_account: AccountAssistantConnectedAccount, message: str, message_source: [Any]):
+                            connected_account: AccountAssistantConnectedAccount, message: str,
+                            message_source_space_id: str, message_source_space_type_id: str,
+                            message_source_space_domain_id: str, message_source_space_domain_action: int,
+                            message_source_space_domain_action_context_id: str, message_source: [Any]):
     stub = ApplicationContext.send_account_assistant_message_service_stub()
     response = stub.SendMessageToAccount(MessageForAccount(
         access_auth_details=access_auth_details,
         connected_account=connected_account,
         message=message,
+        message_source_space_id=message_source_space_id,
+        message_source_space_type_id=message_source_space_type_id,
+        message_source_space_domain_id=message_source_space_domain_id,
+        message_source_space_domain_action=message_source_space_domain_action,
+        message_source_space_domain_action_context_id=message_source_space_domain_action_context_id,
         message_source=message_source
     ))
     return response
