@@ -23,6 +23,8 @@ from google.protobuf.any_pb2 import Any
 
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.entities.space_knowledge_domain_pb2 import SpaceKnowledgeDomain
+from ethos.elint.entities.space_knowledge_pb2 import SpaceKnowledgeAction
+from ethos.elint.services.product.action.space_knowledge_action_pb2 import DomainRankedAnswers
 from ethos.elint.services.product.identity.account_assistant.action_account_assistant_pb2_grpc import \
     ActionAccountAssistantServiceServicer
 from services_caller.account_assistant_message_service_caller import send_message_to_account
@@ -56,6 +58,7 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
                     for ranked_answer in domain_ranked_answer.ranked_answers:
                         print(f"\t>{ranked_answer.para_rank}>>>{ranked_answer.answer}")
                 message_sources = []
+                msg, space_id, space_type_id, domain_id, context_id = self.resolve_best_answer(domains_ranked_answers)
                 for domain_ranked_answer in domains_ranked_answers:
                     message_source = Any()
                     message_source.Pack(domain_ranked_answer)
@@ -63,12 +66,43 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
                 response = send_message_to_account(
                     access_auth_details=request.access_auth_details,
                     connected_account=request.connected_account,
-                    message="",
+                    message=msg,
+                    message_source_space_id=space_id,
+                    message_source_space_type_id=space_type_id,
+                    message_source_space_domain_id=domain_id,
+                    message_source_space_domain_action=SpaceKnowledgeAction.ASK_QUESTION,
+                    message_source_space_domain_action_context_id=context_id,
                     message_source=message_sources
                 )
                 return ResponseMeta(meta_done=validation_done, meta_message=validation_message)
             else:
                 return ResponseMeta(meta_done=False, meta_message="Invalid Action Requested.")
+
+    @staticmethod
+    def resolve_best_answer(domains_ranked_answers: [DomainRankedAnswers]) -> (str, str, str, str, str):
+        """ returns params for the first best answer for the first found domain else empty tuple"""
+        message = "I couldn't find any answers in any page in the space."
+        message_source_space_knowledge_domain = None
+        source_ranked_answer = ""
+        for domain_ranked_answer in domains_ranked_answers:
+            for ranked_answer in domain_ranked_answer.ranked_answers:
+                message = ranked_answer.answer
+                source_ranked_answer = ranked_answer
+                message_source_space_knowledge_domain = domain_ranked_answer.space_knowledge_domain
+                break
+        if message_source_space_knowledge_domain is None:
+            message_source_space_id = ""
+            message_source_space_type_id = ""
+            message_source_space_domain_id = ""
+            message_source_space_domain_action_context_id = ""
+        else:
+            message_source_space_id = message_source_space_knowledge_domain.space_knowledge.space.space_id
+            message_source_space_type_id = message_source_space_knowledge_domain.space_knowledge.space_knowledge_id
+            message_source_space_domain_id = message_source_space_knowledge_domain.space_knowledge_domain_id
+            message_source_space_domain_action_context_id = source_ranked_answer.context_id
+        return (
+            message, message_source_space_id, message_source_space_type_id, message_source_space_domain_id,
+            message_source_space_domain_action_context_id)
 
 # find the action
 # send the request to particular action
