@@ -26,6 +26,8 @@ from ethos.elint.services.product.identity.account_assistant.access_account_assi
 from ethos.elint.services.product.identity.account_assistant.connect_account_assistant_pb2 import ConnectAccountRequest
 from ethos.elint.services.product.identity.account_assistant.create_account_assistant_pb2 import \
     GetAccountAssistantNameCodeRequest, CreateAccountAssistantRequest
+from ethos.elint.services.product.identity.account_assistant.discover_account_assistant_pb2 import \
+    GetAccountAssistantNameCodeByIdRequest
 
 
 def account_assistant_access_token_caller(
@@ -107,3 +109,4 @@ def get_account_assistant_name_code_by_id(account_assistant_id: str) -> (int, st
             account_assistant_id=account_assistant_id
         )
     )
+    return response.account_assistant_name_code, response.account_assistant_name
