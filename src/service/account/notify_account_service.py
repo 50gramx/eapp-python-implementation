@@ -24,6 +24,7 @@ from pyfcm import FCMNotification
 
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account.notify_account_pb2_grpc import NotifyAccountServiceServicer
+from services_caller.account_assistant_service_caller import get_account_assistant_name_code_by_id
 from services_caller.account_service_caller import get_account_by_id_caller, validate_account_services_caller
 from support.db_service import get_account_device_token, update_account_devices
 from support.helper_functions import format_timestamp_to_datetime
@@ -40,6 +41,8 @@ class NotifyAccountService(NotifyAccountServiceServicer):
 
     def NewReceivedMessageFromAccountAssistant(self, request, context):
         logging.info("NotifyAccountService:NewReceivedMessageFromAccountAssistant")
+        assistant_name_code, assistant_name = get_account_assistant_name_code_by_id(
+            account_assistant_id=request.connecting_account_assistant_id)
         # ios_new_messages_payload = {
         #     'aps': {
         #         'alert': "You've received new messages from account assistants",
@@ -50,14 +53,12 @@ class NotifyAccountService(NotifyAccountServiceServicer):
         #     'connected_account_assistant': MessageToString(request.connected_account_assistant, as_one_line=True),
         #     'account_assistant_received_message_id': request.account_assistant_received_message_id
         # }
-        message_title = f"You've received new messages from account assistant"
-        message_body = "Tap to check out"
+        message_title = f"#{assistant_name_code} {assistant_name}"
+        message_body = f"{request.message}"
         message_data = {
             'account_id': request.account_id,
             'service': "NotifyAccountService",
             'rpc': "NewReceivedMessageFromAccountAssistant",
-            'account_assistant_id': request.connected_account_assistant.account_assistant_id,
-            'account_assistant_received_message_id': request.account_assistant_received_message_id
         }
         try:
             # apns = ApplePushNotifications()
