@@ -30,7 +30,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nBethos/elint/services/product/identity/account/notify_account.proto\x12\'elint.services.product.identity.account\x1a\"ethos/elint/entities/account.proto\x1a\"ethos/elint/entities/generic.proto\x1a\x42\x65thos/elint/services/product/identity/account/access_account.proto\"\xc7\x01\n-NewReceivedMessageFromAccountAssistantRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12S\n\x1b\x63onnected_account_assistant\x18\x02 \x01(\x0b\x32..elint.entity.AccountConnectedAccountAssistant\x12-\n%account_assistant_received_message_id\x18\x03 \x01(\t\"j\n$NewReceivedMessageFromAccountRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12\x1d\n\x15\x63onnecting_account_id\x18\x02 \x01(\t\x12\x0f\n\x07message\x18\x03 \x01(\t\"\xa9\x01\n*AccountConnectedAccountNotificationRequest\x12&\n\x07\x61\x63\x63ount\x18\x01 \x01(\x0b\x32\x15.elint.entity.Account\x12S\n$connecting_account_connected_account\x18\x02 \x01(\x0b\x32%.elint.entity.AccountConnectedAccount\"\xcf\x01\n!UpdateAccountDeviceDetailsRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x42\n\x16\x61\x63\x63ount_device_details\x18\x02 \x01(\x0b\x32\".elint.entity.AccountDeviceDetails2\xea\x04\n\x14NotifyAccountService\x12\x9e\x01\n&NewReceivedMessageFromAccountAssistant\x12V.elint.services.product.identity.account.NewReceivedMessageFromAccountAssistantRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x8c\x01\n\x1dNewReceivedMessageFromAccount\x12M.elint.services.product.identity.account.NewReceivedMessageFromAccountRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x98\x01\n#AccountConnectedAccountNotification\x12S.elint.services.product.identity.account.AccountConnectedAccountNotificationRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x86\x01\n\x1aUpdateAccountDeviceDetails\x12J.elint.services.product.identity.account.UpdateAccountDeviceDetailsRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x62\x06proto3'
+  serialized_pb=b'\nBethos/elint/services/product/identity/account/notify_account.proto\x12\'elint.services.product.identity.account\x1a\"ethos/elint/entities/account.proto\x1a\"ethos/elint/entities/generic.proto\x1a\x42\x65thos/elint/services/product/identity/account/access_account.proto\"}\n-NewReceivedMessageFromAccountAssistantRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12\'\n\x1f\x63onnecting_account_assistant_id\x18\x02 \x01(\t\x12\x0f\n\x07message\x18\x03 \x01(\t\"j\n$NewReceivedMessageFromAccountRequest\x12\x12\n\naccount_id\x18\x01 \x01(\t\x12\x1d\n\x15\x63onnecting_account_id\x18\x02 \x01(\t\x12\x0f\n\x07message\x18\x03 \x01(\t\"\xa9\x01\n*AccountConnectedAccountNotificationRequest\x12&\n\x07\x61\x63\x63ount\x18\x01 \x01(\x0b\x32\x15.elint.entity.Account\x12S\n$connecting_account_connected_account\x18\x02 \x01(\x0b\x32%.elint.entity.AccountConnectedAccount\"\xcf\x01\n!UpdateAccountDeviceDetailsRequest\x12\x66\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32I.elint.services.product.identity.account.AccountServicesAccessAuthDetails\x12\x42\n\x16\x61\x63\x63ount_device_details\x18\x02 \x01(\x0b\x32\".elint.entity.AccountDeviceDetails2\xea\x04\n\x14NotifyAccountService\x12\x9e\x01\n&NewReceivedMessageFromAccountAssistant\x12V.elint.services.product.identity.account.NewReceivedMessageFromAccountAssistantRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x8c\x01\n\x1dNewReceivedMessageFromAccount\x12M.elint.services.product.identity.account.NewReceivedMessageFromAccountRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x98\x01\n#AccountConnectedAccountNotification\x12S.elint.services.product.identity.account.AccountConnectedAccountNotificationRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x12\x86\x01\n\x1aUpdateAccountDeviceDetails\x12J.elint.services.product.identity.account.UpdateAccountDeviceDetailsRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x62\x06proto3'
   ,
   dependencies=[ethos_dot_elint_dot_entities_dot_account__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2.DESCRIPTOR,])
 
@@ -53,14 +53,14 @@ _NEWRECEIVEDMESSAGEFROMACCOUNTASSISTANTREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='connected_account_assistant', full_name='elint.services.product.identity.account.NewReceivedMessageFromAccountAssistantRequest.connected_account_assistant', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      name='connecting_account_assistant_id', full_name='elint.services.product.identity.account.NewReceivedMessageFromAccountAssistantRequest.connecting_account_assistant_id', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='account_assistant_received_message_id', full_name='elint.services.product.identity.account.NewReceivedMessageFromAccountAssistantRequest.account_assistant_received_message_id', index=2,
+      name='message', full_name='elint.services.product.identity.account.NewReceivedMessageFromAccountAssistantRequest.message', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -78,8 +78,8 @@ _NEWRECEIVEDMESSAGEFROMACCOUNTASSISTANTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=252,
-  serialized_end=451,
+  serialized_start=251,
+  serialized_end=376,
 )
 
 
@@ -124,8 +124,8 @@ _NEWRECEIVEDMESSAGEFROMACCOUNTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=453,
-  serialized_end=559,
+  serialized_start=378,
+  serialized_end=484,
 )
 
 
@@ -163,8 +163,8 @@ _ACCOUNTCONNECTEDACCOUNTNOTIFICATIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=562,
-  serialized_end=731,
+  serialized_start=487,
+  serialized_end=656,
 )
 
 
@@ -202,11 +202,10 @@ _UPDATEACCOUNTDEVICEDETAILSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=734,
-  serialized_end=941,
+  serialized_start=659,
+  serialized_end=866,
 )
 
-_NEWRECEIVEDMESSAGEFROMACCOUNTASSISTANTREQUEST.fields_by_name['connected_account_assistant'].message_type = ethos_dot_elint_dot_entities_dot_account__pb2._ACCOUNTCONNECTEDACCOUNTASSISTANT
 _ACCOUNTCONNECTEDACCOUNTNOTIFICATIONREQUEST.fields_by_name['account'].message_type = ethos_dot_elint_dot_entities_dot_account__pb2._ACCOUNT
 _ACCOUNTCONNECTEDACCOUNTNOTIFICATIONREQUEST.fields_by_name['connecting_account_connected_account'].message_type = ethos_dot_elint_dot_entities_dot_account__pb2._ACCOUNTCONNECTEDACCOUNT
 _UPDATEACCOUNTDEVICEDETAILSREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_account_dot_access__account__pb2._ACCOUNTSERVICESACCESSAUTHDETAILS
@@ -254,8 +253,8 @@ _NOTIFYACCOUNTSERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=944,
-  serialized_end=1562,
+  serialized_start=869,
+  serialized_end=1487,
   methods=[
   _descriptor.MethodDescriptor(
     name='NewReceivedMessageFromAccountAssistant',
