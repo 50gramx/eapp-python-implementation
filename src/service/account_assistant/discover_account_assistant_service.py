@@ -22,7 +22,7 @@ import logging
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account_assistant.discover_account_assistant_pb2 import \
     GetAccountAssistantMetaByAccountIdResponse, GetAccountAssistantMetaByAccountAssistantIdResponse, \
-    GetAccountAssistantByIdResponse
+    GetAccountAssistantByIdResponse, GetAccountAssistantNameCodeByIdResponse
 from ethos.elint.services.product.identity.account_assistant.discover_account_assistant_pb2_grpc import \
     DiscoverAccountAssistantServiceServicer
 from services_caller.account_service_caller import validate_account_services_caller
@@ -75,3 +75,11 @@ class DiscoverAccountAssistantService(DiscoverAccountAssistantServiceServicer):
         else:
             account_assistant = get_account_assistant_by_id(account_assistant_id=request.account_assistant_id)
             return GetAccountAssistantByIdResponse(account_assistant=account_assistant, response_meta=response_meta)
+
+    def GetAccountAssistantNameCodeById(self, request, context):
+        logging.info("DiscoverAccountAssistantService:GetAccountAssistantNameCodeById")
+        account_assistant = get_account_assistant_by_id(account_assistant_id=request.account_assistant_id)
+        return GetAccountAssistantNameCodeByIdResponse(
+            account_assistant_name_code=account_assistant.account_assistant_name_code,
+            account_assistant_name=account_assistant.account_assistant_name
+        )
