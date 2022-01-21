@@ -98,3 +98,12 @@ def connect_account_caller(access_auth_details: AccountAssistantServicesAccessAu
             connecting_account_id=connecting_account_id)
     )
     return response.response_meta.meta_done, response.response_meta.meta_message, response.connected_account
+
+
+def get_account_assistant_name_code_by_id(account_assistant_id: str) -> (int, str):
+    stub = ApplicationContext.discover_account_assistant_service_stub()
+    response = stub.GetAccountAssistantNameCodeById(
+        GetAccountAssistantNameCodeByIdRequest(
+            account_assistant_id=account_assistant_id
+        )
+    )
