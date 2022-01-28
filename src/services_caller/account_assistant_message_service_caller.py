@@ -17,8 +17,6 @@
 #   * from Amit Kumar Khetan.
 #   */
 
-from google.protobuf.any_pb2 import Any
-
 from application_context import ApplicationContext
 from ethos.elint.entities.account_assistant_pb2 import AccountAssistantConnectedAccount
 from ethos.elint.services.product.conversation.message.account_assistant.send_account_assistant_message_pb2 import \
@@ -31,7 +29,7 @@ def send_message_to_account(access_auth_details: AccountAssistantServicesAccessA
                             connected_account: AccountAssistantConnectedAccount, message: str,
                             message_source_space_id: str, message_source_space_type_id: str,
                             message_source_space_domain_id: str, message_source_space_domain_action: int,
-                            message_source_space_domain_action_context_id: str, message_source: [Any]):
+                            message_source_space_domain_action_context_id: str, message_source):
     stub = ApplicationContext.send_account_assistant_message_service_stub()
     response = stub.SendMessageToAccount(MessageForAccount(
         access_auth_details=access_auth_details,
