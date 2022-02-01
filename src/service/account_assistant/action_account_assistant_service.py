@@ -63,6 +63,7 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
                     message_source = Any()
                     message_source.Pack(domain_ranked_answer)
                     message_sources.append(message_source)
+                logging.info(f"type(message_sources):{type(message_sources)}")
                 response = send_message_to_account(
                     access_auth_details=request.access_auth_details,
                     connected_account=request.connected_account,
