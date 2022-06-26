@@ -19,6 +19,7 @@
 
 import logging
 
+from access.account_assistant.service_authentication import AccessAccountAssistantServicesAuthentication
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account_assistant.access_account_assistant_pb2 import \
     AccountAssistantAccessTokenResponse, ValidateAccessMeta
@@ -27,7 +28,7 @@ from ethos.elint.services.product.identity.account_assistant.access_account_assi
 from services_caller.account_assistant_service_caller import get_account_assistant_by_account_caller
 from services_caller.account_service_caller import validate_account_services_caller, get_account_by_id_caller
 from support.db_service import get_account_assistant
-from support.session_manager import is_persistent_session_valid, create_account_assistant_services_access_auth_details
+from support.session_manager import is_persistent_session_valid
 
 
 class AccessAccountAssistantService(AccessAccountAssistantServiceServicer):
@@ -42,13 +43,11 @@ class AccessAccountAssistantService(AccessAccountAssistantServiceServicer):
         if validation_done is False:
             return AccountAssistantAccessTokenResponse(meta=response_meta)
         else:
-            account_assistant = get_account_assistant(account=request.account)
-            access_auth_details = create_account_assistant_services_access_auth_details(
-                session_scope=self.session_scope,
-                account_assistant=account_assistant
-            )
             return AccountAssistantAccessTokenResponse(
-                account_assistant_services_access_auth_details=access_auth_details,
+                account_assistant_services_access_auth_details=AccessAccountAssistantServicesAuthentication(
+                    session_scope=self.session_scope,
+                    account_assistant=get_account_assistant(account=request.account)
+                ).create_authentication_details(),
                 meta=response_meta
             )
 
@@ -61,12 +60,11 @@ class AccessAccountAssistantService(AccessAccountAssistantServiceServicer):
                 meta_done=False,
                 meta_message="Connecting account is not the master account of the assistant"))
         else:
-            access_auth_details = create_account_assistant_services_access_auth_details(
-                session_scope=self.session_scope,
-                account_assistant=account_assistant
-            )
             return AccountAssistantAccessTokenResponse(
-                account_assistant_services_access_auth_details=access_auth_details,
+                account_assistant_services_access_auth_details=AccessAccountAssistantServicesAuthentication(
+                    session_scope=self.session_scope,
+                    account_assistant=account_assistant
+                ).create_authentication_details(),
                 meta=ResponseMeta(
                     meta_done=True,
                     meta_message="Access given.")

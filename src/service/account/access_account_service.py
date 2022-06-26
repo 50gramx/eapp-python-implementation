@@ -21,6 +21,8 @@ import logging
 
 import phonenumbers
 
+from access.account.authentication import AccessAccountAuthentication
+from access.account.services_authentication import AccessAccountServicesAuthentication
 from ethos.elint.entities.generic_pb2 import TemporaryTokenDetails, ResponseMeta
 from ethos.elint.services.product.identity.account.access_account_pb2 import ValidateAccountResponse, \
     VerifyAccountResponse, ValidateAccountServicesResponse, ReAccountAccessTokenResponse
@@ -30,8 +32,8 @@ from support.db_service import is_existing_account_mobile, get_account, update_a
 from support.helper_functions import get_random_string, gen_uuid, get_current_timestamp, send_otp, get_future_timestamp, \
     format_timestamp_to_datetime
 from support.redis_service import set_kv, get_kv
-from support.session_manager import create_account_access_auth_details, update_persistent_session_last_requested_at, \
-    is_persistent_session_valid, create_account_services_access_auth_details
+from support.session_manager import update_persistent_session_last_requested_at, \
+    is_persistent_session_valid
 
 
 class AccessAccountService(AccessAccountServiceServicer):
@@ -70,10 +72,11 @@ class AccessAccountService(AccessAccountServiceServicer):
             )
             # create response
             validate_account_response = ValidateAccountResponse(
-                account_access_auth_details=create_account_access_auth_details(
-                    account_mobile_number=account_mobile_number,
-                    session_scope=self.session_scope
-                ),
+                account_access_auth_details=AccessAccountAuthentication(
+                    session_scope=self.session_scope,
+                    account_mobile_country_code=request.account_mobile_country_code,
+                    account_mobile_number=account_mobile_number
+                ).create_authentication_details(),
                 account_exists=account_exists_with_mobile,
                 verification_code_token_details=verification_code_token_details,
                 code_sent_at=code_sent_at,
@@ -110,8 +113,6 @@ class AccessAccountService(AccessAccountServiceServicer):
                 verification_message = "Account successfully verified."
                 # access account id
                 account = get_account(account_mobile_number=account_access_auth_details.account_mobile_number)
-                account_service_access_auth_details = create_account_services_access_auth_details(
-                    account_id=account.account_id, session_scope=self.session_scope)
                 # update account devices
                 update_account_devices(
                     account_id=account.account_id,
@@ -120,7 +121,10 @@ class AccessAccountService(AccessAccountServiceServicer):
                     account_device_token_accessed_at=format_timestamp_to_datetime(requested_at)
                 )
                 verify_account_response = VerifyAccountResponse(
-                    account_service_access_auth_details=account_service_access_auth_details,
+                    account_service_access_auth_details=AccessAccountServicesAuthentication(
+                        session_scope=self.session_scope,
+                        account_id=account.account_id
+                    ).create_authentication_details(),
                     verification_done=verification_done,
                     verification_message=verification_message
                 )
@@ -135,9 +139,11 @@ class AccessAccountService(AccessAccountServiceServicer):
         else:
             # resend the code and return the status
             new_verification_code = get_random_string(4)
-            country_code = "+91"
-            account_mobile_number = account_access_auth_details.account_mobile_number
-            code_sent_at = send_otp(country_code, account_mobile_number, new_verification_code)
+            # TODO: Store the new verification code to cache
+            code_sent_at = send_otp(
+                country_code="+91",
+                account_mobile_number=account_access_auth_details.account_mobile_number,
+                verification_code=new_verification_code)
             # create the response here
             verification_done = False
             verification_message = "Code resent. Please verify to continue."
@@ -156,32 +162,25 @@ class AccessAccountService(AccessAccountServiceServicer):
                 account_service_access_validation_message="Invalid Request. This action will be reported."
             )
 
-        account = request.account
-        account_services_access_session_token_details = request.account_services_access_session_token_details
-        requested_at = request.requested_at
-
+        account_id = request.account.account_id
         # validate the account
-        if get_account(account_id=account.account_id).account_id != account.account_id:
-            account_service_access_validation_done = False
-            account_service_access_validation_message = "Requesting account is not legit. This action will be reported."
+        if get_account(account_id=account_id).account_id != account_id:
             # create the response here
-            validate_account_service_response = ValidateAccountServicesResponse(
-                account_service_access_validation_done=account_service_access_validation_done,
-                account_service_access_validation_message=account_service_access_validation_message
+            return ValidateAccountServicesResponse(
+                account_service_access_validation_done=False,
+                account_service_access_validation_message="Requesting account is not legit. This action will be reported."
             )
-            return validate_account_service_response
         else:
             # validate the session
             session_valid, session_valid_message = is_persistent_session_valid(
-                account_services_access_session_token_details.session_token,
-                account.account_id,
+                request.account_services_access_session_token_details.session_token,
+                account_id,
                 self.session_scope
             )
-            validate_account_service_response = ValidateAccountServicesResponse(
+            return ValidateAccountServicesResponse(
                 account_service_access_validation_done=session_valid,
                 account_service_access_validation_message=session_valid_message
             )
-            return validate_account_service_response
 
     def ReAccountAccessToken(self, request, context):
         logging.info("AccessAccountService:ReAccountAccessToken")
@@ -190,12 +189,11 @@ class AccessAccountService(AccessAccountServiceServicer):
         meta = ResponseMeta(meta_done=validation_done, meta_message=validation_message)
         if validation_done is False:
             if validation_message == "Session has expired. Retrieve a new session.":
-                # create a new account services access auth details
-                new_access_auth_details = create_account_services_access_auth_details(
-                    account_id=request.account_service_access_auth_details.account.account_id,
-                    session_scope=self.session_scope)
                 return ReAccountAccessTokenResponse(
-                    account_service_access_auth_details=new_access_auth_details,
+                    account_service_access_auth_details=AccessAccountServicesAuthentication(
+                        session_scope=self.session_scope,
+                        account_id=request.account_service_access_auth_details.account.account_id
+                    ).create_authentication_details(),
                     response_meta=ResponseMeta(meta_done=True, meta_message="New Session retrieved."))
             else:
                 # Not authorised access, do not create one

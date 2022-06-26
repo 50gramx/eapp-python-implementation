@@ -16,7 +16,9 @@
 #   * is strictly forbidden unless prior written permission is obtained
 #   * from Amit Kumar Khetan.
 #   */
+import logging
 
+from access.space.service_authentication import AccessSpaceServicesAuthentication
 from application_context import ApplicationContext
 from ethos.elint.entities.space_pb2 import SpaceAccessibilityType, SpaceIsolationType
 from ethos.elint.services.product.identity.space.access_space_pb2 import SpaceAccessTokenResponse, \
@@ -26,7 +28,7 @@ from ethos.elint.services.product.identity.space.create_space_pb2 import CreateA
 from services_caller.account_assistant_service_caller import validate_account_assistant_services_caller
 from services_caller.account_service_caller import validate_account_services_caller
 from support.db_service import get_space
-from support.session_manager import create_space_services_access_auth_details, is_persistent_session_valid
+from support.session_manager import is_persistent_session_valid
 
 
 class AccessSpaceService(AccessSpaceServiceServicer):
@@ -35,7 +37,7 @@ class AccessSpaceService(AccessSpaceServiceServicer):
         self.session_scope = self.__class__.__name__
 
     def SpaceAccessToken(self, request, context):
-        print("AccessSpaceService:SpaceAccessToken invoked.")
+        logging.info("AccessSpaceService:SpaceAccessToken invoked.")
         validation_done, validation_message = validate_account_services_caller(access_auth_details=request)
 
         if validation_done is False:
@@ -53,18 +55,17 @@ class AccessSpaceService(AccessSpaceServiceServicer):
                         space_isolation_type=SpaceIsolationType.Value('NOT_ISOLATED'),
                         requested_at=request.requested_at))
                 space = create_account_space_response.space
-            access_auth_details = create_space_services_access_auth_details(
-                session_scope=self.session_scope,
-                space=space
-            )
             return SpaceAccessTokenResponse(
-                space_services_access_auth_details=access_auth_details,
+                space_services_access_auth_details=AccessSpaceServicesAuthentication(
+                    session_scope=self.session_scope,
+                    space=space
+                ).create_authentication_details(),
                 space_services_access_done=validation_done,
                 space_services_access_message=validation_message
             )
 
     def ValidateSpaceServices(self, request, context):
-        print("AccessSpaceService:ValidateSpaceServices invoked.")
+        logging.info("AccessSpaceService:ValidateSpaceServices invoked.")
         space = request.space
         space_services_access_session_token_details = request.space_services_access_session_token_details
         requested_at = request.requested_at
@@ -94,7 +95,7 @@ class AccessSpaceService(AccessSpaceServiceServicer):
             return validate_space_services_response
 
     def AssistSpaceAccessToken(self, request, context):
-        print("AccessSpaceService:AssistSpaceAccessToken invoked.")
+        logging.info("AccessSpaceService:AssistSpaceAccessToken invoked.")
         validation_done, validation_message = validate_account_assistant_services_caller(access_auth_details=request)
         if validation_done is False:
             return SpaceAccessTokenResponse(
@@ -102,13 +103,11 @@ class AccessSpaceService(AccessSpaceServiceServicer):
                 space_services_access_message=validation_message
             )
         else:
-            space = get_space(with_account_id=request.account_assistant.account.account_id)
-            access_auth_details = create_space_services_access_auth_details(
-                session_scope=self.session_scope,
-                space=space
-            )
             return SpaceAccessTokenResponse(
-                space_services_access_auth_details=access_auth_details,
+                space_services_access_auth_details=AccessSpaceServicesAuthentication(
+                    session_scope=self.session_scope,
+                    space=get_space(with_account_id=request.account_assistant.account.account_id)
+                ).create_authentication_details(),
                 space_services_access_done=validation_done,
                 space_services_access_message=validation_message
             )

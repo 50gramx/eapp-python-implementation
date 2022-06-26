@@ -19,6 +19,8 @@
 
 import logging
 
+from access.account.authentication import AccessAccountAuthentication
+from access.account.services_authentication import AccessAccountServicesAuthentication
 from application_context import ApplicationContext
 from ethos.elint.entities.galaxy_pb2 import OpenGalaxyTierEnum
 from ethos.elint.entities.generic_pb2 import ResponseMeta
@@ -36,8 +38,7 @@ from support.db_service import is_existing_account_mobile, add_new_account, get_
     check_existing_account_device, activate_account_billing, deactivate_account_billing
 from support.helper_functions import gen_uuid, format_timestamp_to_datetime, generate_verification_code_token, \
     verify_verification_code_token
-from support.session_manager import create_account_creation_auth_details, \
-    update_persistent_session_last_requested_at, create_account_services_access_auth_details
+from support.session_manager import update_persistent_session_last_requested_at
 
 
 class CreateAccountService(CreateAccountServiceServicer):
@@ -56,11 +57,11 @@ class CreateAccountService(CreateAccountServiceServicer):
                 account_mobile_country_code=request.account_mobile_country_code,
                 account_mobile_number=request.account_mobile_number)
             return ValidateAccountWithMobileResponse(
-                account_creation_auth_details=create_account_creation_auth_details(
+                account_creation_auth_details=AccessAccountAuthentication(
+                    session_scope=self.session_scope,
                     account_mobile_country_code=request.account_mobile_country_code,
                     account_mobile_number=request.account_mobile_number,
-                    session_scope=self.session_scope
-                ),
+                ).create_creation_authentication_details(),
                 account_exists_with_mobile=account_exists_with_mobile,
                 verification_code_token_details=verification_code_token_details, code_sent_at=code_sent_at,
                 validate_account_with_mobile_done=True,
@@ -150,10 +151,10 @@ class CreateAccountService(CreateAccountServiceServicer):
         account_creation_done = True
         account_creation_message = "Account successfully created. Thanks."
         # create account_service_access_auth_details
-        account_services_access_auth_details = create_account_services_access_auth_details(
-            account_id=account_id,
-            session_scope=self.session_scope
-        )
+        account_services_access_auth_details = AccessAccountServicesAuthentication(
+            session_scope=self.session_scope,
+            account_id=account_id
+        ).create_authentication_details()
         # setup account conversation
         _, _ = setup_account_conversations_caller(access_auth_details=account_services_access_auth_details)
         # setup account pay_in
