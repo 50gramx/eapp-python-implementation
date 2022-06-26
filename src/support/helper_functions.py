@@ -45,21 +45,24 @@ def validate_email_dns(email_id: str, check_mx: bool = True, verify: bool = Fals
         return True
 
 
-def mail(from_email: str, to_email: str, subject: str, html_content: str) -> bool:
+def mail(from_email: str, to_email: str, subject: str, html_content: str = "",
+         plain_text_content: str = "") -> Timestamp:
     if validate_email(from_email) and validate_email(to_email):
         if len(subject) < 200:
             message = Mail(
                 from_email=from_email,
                 to_emails=to_email,
                 subject=subject,
-                html_content=html_content
+                html_content=html_content,
+                plain_text_content=plain_text_content
             )
     try:
         client = SendGridAPIClient(sendgrid_api_key)
         client.send(message)
-        return True
+        return get_current_timestamp()
     except Exception as e:
-        return False
+        ts = Timestamp()
+        return ts
 
 
 def get_random_string(length) -> str:

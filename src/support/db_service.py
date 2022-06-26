@@ -20,11 +20,13 @@
 from datetime import datetime
 
 from db_session import DbSession
-from ethos.elint.entities import account_pb2, galaxy_pb2, universe_pb2, space_pb2, account_assistant_pb2
+from ethos.elint.entities import account_pb2, galaxy_pb2, universe_pb2, space_pb2, account_assistant_pb2, \
+    community_pb2
 from ethos.elint.entities.account_assistant_pb2 import AccountAssistantMeta
+from ethos.elint.entities.community_collaborator_pb2 import CollaboratorName
 from ethos.elint.entities.space_pb2 import SpaceAccessibilityType, SpaceIsolationType, SpaceEntityType
 from models.base_models import Account, Space, Galaxy, Universe, AccountAssistant, AccountDevices, \
-    AccountAssistantNameCode
+    AccountAssistantNameCode, CoreCollaborator
 from support.format_proto_entities import format_account_assistant_to_entity
 from support.helper_functions import gen_uuid, get_current_timestamp, \
     format_timestamp_to_datetime, format_datetime_to_timestamp
@@ -214,6 +216,7 @@ def get_account(account_id: str = None, account_mobile_number: str = None) -> ac
             account = session.query(Account).filter(
                 Account.account_mobile_number == account_mobile_number
             ).first()
+        # TODO: check if account exists
         # create the account obj here wrt proto contract
         account_obj = account_pb2.Account(
             account_analytics_id=account.account_analytics_id,
@@ -348,3 +351,43 @@ def deactivate_account_billing(account_id: str) -> bool:
         return True
     except:  # todo: catch them all!
         return False
+
+
+def is_existing_core_collaborator(collaborator_first_name: str, collaborator_last_name: str,
+                                  collaborator_community_code: int) -> bool:
+    """
+    check for the existence of account_mobile_number in account table as a account_mobile_number
+    :param collaborator_first_name:
+    :param collaborator_last_name:
+    :param collaborator_community_code:
+    :return:
+    """
+    with DbSession.session_scope() as session:
+        q = session.query(CoreCollaborator.user_name).filter(
+            CoreCollaborator.collaborator_first_name == collaborator_first_name,
+            CoreCollaborator.collaborator_last_name == collaborator_last_name,
+            CoreCollaborator.collaborator_community_code == collaborator_community_code,
+        )
+        core_developer_exists = session.query(q.exists()).scalar()
+        return core_developer_exists
+
+
+def get_core_collaborator(collaborator_first_name: str, collaborator_last_name: str,
+                          collaborator_community_code: int) -> community_pb2.CommunityCollaborator:
+    with DbSession.session_scope() as session:
+        core_collaborator = session.query(CoreCollaborator).filter(
+            CoreCollaborator.collaborator_first_name == collaborator_first_name,
+            CoreCollaborator.collaborator_last_name == collaborator_last_name,
+            CoreCollaborator.collaborator_community_code == collaborator_community_code,
+        ).first()
+        collaborator_name = CollaboratorName(
+            first_name=core_collaborator.collaborator_first_name,
+            last_name=core_collaborator.collaborator_last_name,
+        )
+        # TODO: update with contact
+        core_collaborator_obj = community_pb2.CommunityCollaborator(
+            collaborator_name=collaborator_name,
+            community_domain_code=core_collaborator.collaborator_community_code,
+            is_core_collaborator=True
+        )
+    return core_collaborator_obj
