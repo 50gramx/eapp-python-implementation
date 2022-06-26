@@ -22,6 +22,10 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
+"""
+50GRAMX Chains
+"""
+
 
 class Account(Base):
     __tablename__ = 'account'
@@ -116,3 +120,11 @@ class AccountAssistantNameCode(Base):
     account_assistant_name = Column(String(255), primary_key=True)
     account_assistant_name_code = Column(Integer(), primary_key=True)
     account_id = Column(String(255), primary_key=True)
+
+
+class CoreCollaborator(Base):
+    __tablename__ = "core_collaborator"
+
+    collaborator_first_name = Column(String(255), primary_key=True)
+    collaborator_last_name = Column(String(255), primary_key=True)
+    collaborator_community_code = Column(Integer(), primary_key=True)
