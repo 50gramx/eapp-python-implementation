@@ -2,11 +2,12 @@ import logging
 
 from access.core_collaborator.authentication import AccessCommunityCollaboratorAuthentication
 from access.multiverse.service_authentication import AccessMultiverseServicesAuthentication
+from application_context import ApplicationContext
 from ethos.elint.entities.generic_pb2 import ResponseMeta, TemporaryTokenDetails
 from ethos.elint.services.product.identity.multiverse.access_multiverse_pb2 import ValidateCoreCollaboratorResponse, \
     VerifyCoreCollaboratorResponse
 from ethos.elint.services.product.identity.multiverse.access_multiverse_pb2_grpc import AccessMultiverseServiceServicer
-from support.db_service import is_existing_core_collaborator
+# from support.db_service import is_existing_core_collaborator
 from support.helper_functions import get_random_string, gen_uuid, get_current_timestamp, get_future_timestamp, mail
 from support.redis_service import set_kv, get_kv
 from support.session_manager import update_persistent_session_last_requested_at, \
@@ -20,19 +21,12 @@ class AccessMultiverseService(AccessMultiverseServiceServicer):
 
     def ValidateCoreCollaborator(self, request, context):
         logging.info("AccessMultiverseService:ValidateCoreCollaborator")
-        # fetch request params
-        f_name = request.core_collaborator.collaborator_name.first_name
-        l_name = request.core_collaborator.collaborator_name.last_name
-        c_code = request.core_collaborator.community_domain_code
-        # check if exists
-        core_collaborator_exists = is_existing_core_collaborator(
-            collaborator_first_name=f_name,
-            collaborator_last_name=l_name,
-            collaborator_community_code=c_code
-        )
-        if not core_collaborator_exists:
+        # load from application context & pass the existing request and return based on the response
+        community_collaborator_chain_services_stub = ApplicationContext.community_collaborator_chain_services_stub()
+        if not community_collaborator_chain_services_stub.IsExistingCoreCollaborator(
+                request.core_collaborator).meta_done:
             return ValidateCoreCollaboratorResponse(
-                core_collaborator_exists=core_collaborator_exists,
+                core_collaborator_exists=False,
                 response_meta=ResponseMeta(
                     meta_done=False,
                     meta_message="Core Collaborator doesn't exists."
@@ -44,6 +38,10 @@ class AccessMultiverseService(AccessMultiverseServiceServicer):
             code_token = gen_uuid()
             code_generated_at = get_current_timestamp()
             # send the code to email
+            f_name = request.core_collaborator.collaborator_name.first_name
+            l_name = request.core_collaborator.collaborator_name.last_name
+            c_code = request.core_collaborator.community_domain_code
+            # --------------------------------
             message = f"50GRAMX: Your security code is: {verification_code}. " \
                       f"It expires in 10 minutes. Don't share this code with anyone."
             code_sent_at = mail(from_email="no-reply-identity-multiverse@50gramx.com",
@@ -58,7 +56,7 @@ class AccessMultiverseService(AccessMultiverseServiceServicer):
                     session_scope=self.session_scope,
                     core_collaborator_name_code=f"{f_name}.{l_name}.{c_code}"
                 ).create_core_collaborator_authentication_details(),
-                core_collaborator_exists=core_collaborator_exists,
+                core_collaborator_exists=True,
                 verification_code_token_details=TemporaryTokenDetails(
                     token=code_token,
                     generated_at=code_generated_at,
