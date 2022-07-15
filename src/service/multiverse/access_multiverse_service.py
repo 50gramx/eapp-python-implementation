@@ -7,7 +7,6 @@ from ethos.elint.entities.generic_pb2 import ResponseMeta, TemporaryTokenDetails
 from ethos.elint.services.product.identity.multiverse.access_multiverse_pb2 import ValidateCoreCollaboratorResponse, \
     VerifyCoreCollaboratorResponse
 from ethos.elint.services.product.identity.multiverse.access_multiverse_pb2_grpc import AccessMultiverseServiceServicer
-# from support.db_service import is_existing_core_collaborator
 from support.helper_functions import get_random_string, gen_uuid, get_current_timestamp, get_future_timestamp, mail
 from support.redis_service import set_kv, get_kv
 from support.session_manager import update_persistent_session_last_requested_at, \
