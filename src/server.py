@@ -19,14 +19,14 @@
 
 import contextlib
 import datetime
+import grpc
 import logging
 import multiprocessing
 import os
 import socket
+import sys
 import time
 from concurrent import futures
-
-import grpc
 
 import db_session
 from application_context import ApplicationContext
@@ -90,7 +90,7 @@ def run_server(port):
     logging.info(f'DbSession started')
 
     # Load Context
-    Loader.init_identity_context('')
+    Loader.init_multiverse_identity_context()
     logging.info(f'Identity context loaded')
 
     options = (
@@ -106,52 +106,18 @@ def run_server(port):
         options=options
     )
 
-    add_CreateAccountServiceServicer_to_server(
-        ApplicationContext.get_create_account_service(), server
-    )
-    add_AccessAccountServiceServicer_to_server(
-        ApplicationContext.get_access_account_service(), server
-    )
-    add_ConnectAccountServiceServicer_to_server(
-        ApplicationContext.get_connect_account_service(), server
-    )
-    add_DiscoverAccountServiceServicer_to_server(
-        ApplicationContext.get_discover_account_service(), server
-    )
-    add_PayInAccountServiceServicer_to_server(
-        ApplicationContext.get_pay_in_account_service(), server
-    )
+    identity_layer = int(os.environ.get("EAPP_SERVICE_IDENTITY_LAYER", "0"))
+    if identity_layer == 0:
+        pass
+    elif identity_layer == 1:
+        pass
+    elif identity_layer == 2:
+        pass
 
-    add_CreateSpaceServiceServicer_to_server(
-        ApplicationContext.get_create_space_service(), server
-    )
-    add_AccessSpaceServiceServicer_to_server(
-        ApplicationContext.get_access_space_service(), server
-    )
-
-    add_CreateAccountAssistantServiceServicer_to_server(
-        ApplicationContext.get_create_account_assistant_service(), server
-    )
-    add_AccessAccountAssistantServiceServicer_to_server(
-        ApplicationContext.get_access_account_assistant_service(), server
-    )
-    add_ConnectAccountAssistantServiceServicer_to_server(
-        ApplicationContext.get_connect_account_assistant_service(), server
-    )
-    add_DiscoverAccountAssistantServiceServicer_to_server(
-        ApplicationContext.get_discover_account_assistant_service(), server
-    )
-    add_ActionAccountAssistantServiceServicer_to_server(
-        ApplicationContext.get_action_account_assistant_service(), server
-    )
-
-    add_NotifyAccountServiceServicer_to_server(
-        ApplicationContext.get_notify_account_service(), server
-    )
-
-    add_DiscoverMachineServiceServicer_to_server(
-        ApplicationContext.get_discover_machine_service(), server
-    )
+    __add_account_servicer_to_server(server)
+    __add_space_servicer_to_server(server)
+    __add_account_assistant_servicer_to_server(server)
+    __add_machine_servicer_to_server(server)
 
     # TODO: Pass down the credentials to secure port
     with open(os.environ['EAPP_SERVICE_IDENTITY_KEY'], 'rb') as f:
@@ -181,6 +147,64 @@ def _wait_forever(server):
         server.stop(None)
 
 
+def __add_account_servicer_to_server(server):
+    add_CreateAccountServiceServicer_to_server(
+        ApplicationContext.get_create_account_service(), server
+    )
+    add_AccessAccountServiceServicer_to_server(
+        ApplicationContext.get_access_account_service(), server
+    )
+    add_ConnectAccountServiceServicer_to_server(
+        ApplicationContext.get_connect_account_service(), server
+    )
+    add_DiscoverAccountServiceServicer_to_server(
+        ApplicationContext.get_discover_account_service(), server
+    )
+    add_PayInAccountServiceServicer_to_server(
+        ApplicationContext.get_pay_in_account_service(), server
+    )
+    add_NotifyAccountServiceServicer_to_server(
+        ApplicationContext.get_notify_account_service(), server
+    )
+    return
+
+
+def __add_space_servicer_to_server(server):
+    add_CreateSpaceServiceServicer_to_server(
+        ApplicationContext.get_create_space_service(), server
+    )
+    add_AccessSpaceServiceServicer_to_server(
+        ApplicationContext.get_access_space_service(), server
+    )
+    return
+
+
+def __add_machine_servicer_to_server(server):
+    add_DiscoverMachineServiceServicer_to_server(
+        ApplicationContext.get_discover_machine_service(), server
+    )
+    return
+
+
+def __add_account_assistant_servicer_to_server(server):
+    add_CreateAccountAssistantServiceServicer_to_server(
+        ApplicationContext.get_create_account_assistant_service(), server
+    )
+    add_AccessAccountAssistantServiceServicer_to_server(
+        ApplicationContext.get_access_account_assistant_service(), server
+    )
+    add_ConnectAccountAssistantServiceServicer_to_server(
+        ApplicationContext.get_connect_account_assistant_service(), server
+    )
+    add_DiscoverAccountAssistantServiceServicer_to_server(
+        ApplicationContext.get_discover_account_assistant_service(), server
+    )
+    add_ActionAccountAssistantServiceServicer_to_server(
+        ApplicationContext.get_action_account_assistant_service(), server
+    )
+    return
+
+
 def _run_server(bind_address):
     """Start a server in a subprocess."""
     logging.info(f'Starting new server at {bind_address}')
@@ -201,55 +225,13 @@ def _run_server(bind_address):
     logging.info(f'DbSession started at {bind_address}')
 
     # Load Context
-    Loader.init_identity_context('')
+    Loader.init_multiverse_identity_context()
     logging.info(f'Identity context loaded at {bind_address}')
 
-    add_CreateAccountServiceServicer_to_server(
-        ApplicationContext.get_create_account_service(), server
-    )
-    add_AccessAccountServiceServicer_to_server(
-        ApplicationContext.get_access_account_service(), server
-    )
-    add_ConnectAccountServiceServicer_to_server(
-        ApplicationContext.get_connect_account_service(), server
-    )
-    add_DiscoverAccountServiceServicer_to_server(
-        ApplicationContext.get_discover_account_service(), server
-    )
-    add_PayInAccountServiceServicer_to_server(
-        ApplicationContext.get_pay_in_account_service(), server
-    )
-
-    add_CreateSpaceServiceServicer_to_server(
-        ApplicationContext.get_create_space_service(), server
-    )
-    add_AccessSpaceServiceServicer_to_server(
-        ApplicationContext.get_access_space_service(), server
-    )
-
-    add_CreateAccountAssistantServiceServicer_to_server(
-        ApplicationContext.get_create_account_assistant_service(), server
-    )
-    add_AccessAccountAssistantServiceServicer_to_server(
-        ApplicationContext.get_access_account_assistant_service(), server
-    )
-    add_ConnectAccountAssistantServiceServicer_to_server(
-        ApplicationContext.get_connect_account_assistant_service(), server
-    )
-    add_DiscoverAccountAssistantServiceServicer_to_server(
-        ApplicationContext.get_discover_account_assistant_service(), server
-    )
-    add_ActionAccountAssistantServiceServicer_to_server(
-        ApplicationContext.get_action_account_assistant_service(), server
-    )
-
-    add_NotifyAccountServiceServicer_to_server(
-        ApplicationContext.get_notify_account_service(), server
-    )
-
-    add_DiscoverMachineServiceServicer_to_server(
-        ApplicationContext.get_discover_machine_service(), server
-    )
+    __add_account_servicer_to_server(server)
+    __add_space_servicer_to_server(server)
+    __add_account_assistant_servicer_to_server(server)
+    __add_machine_servicer_to_server(server)
 
     with open(os.environ['EAPP_SERVICE_IDENTITY_KEY'], 'rb') as f:
         private_key = f.read()
