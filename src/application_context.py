@@ -22,6 +22,15 @@ from support.application.registry import Registry
 
 class ApplicationContext(object):
 
+    # ----------  Chain Stubs ---------
+    @staticmethod
+    def universe_chain_services_stub():
+        return Registry.get_service('universe_chain_services_stub')
+
+    @staticmethod
+    def community_collaborator_chain_services_stub():
+        return Registry.get_service('community_collaborator_chain_services_stub')
+
     # ----------  Stubs ---------
     @staticmethod
     def create_account_service_stub():
