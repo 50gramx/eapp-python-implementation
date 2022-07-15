@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\014elint.entityB\rUniverseProtoP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n#ethos/elint/entities/universe.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\"\xa4\x01\n\x08Universe\x12\x13\n\x0buniverse_id\x18\x01 \x01(\t\x12/\n\x0b\x62ig_bang_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x15\n\runiverse_name\x18\x03 \x01(\t\x12\x1c\n\x14universe_description\x18\x04 \x01(\t\x12\x1d\n\x15universe_dialing_code\x18\x05 \x01(\tB\x1f\n\x0c\x65lint.entityB\rUniverseProtoP\x01P\x00\x62\x06proto3'
+  serialized_pb=b'\n#ethos/elint/entities/universe.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\"\xf4\x01\n\x08Universe\x12\x13\n\x0buniverse_id\x18\x01 \x01(\t\x12/\n\x0b\x62ig_bang_at\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x15\n\runiverse_name\x18\x03 \x01(\t\x12\x1c\n\x14universe_description\x18\x04 \x01(\t\x12S\n\x1euniverse_recognized_as_country\x18\x05 \x01(\x0b\x32).elint.entity.UniverseRecognizedAsCountryH\x00\x42\x18\n\x16universe_recognized_as\";\n\x1bUniverseRecognizedAsCountry\x12\x1c\n\x14\x63ountry_dialing_code\x18\x01 \x01(\tB\x1f\n\x0c\x65lint.entityB\rUniverseProtoP\x01P\x00\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,],
   public_dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
@@ -66,8 +66,45 @@ _UNIVERSE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='universe_dialing_code', full_name='elint.entity.Universe.universe_dialing_code', index=4,
-      number=5, type=9, cpp_type=9, label=1,
+      name='universe_recognized_as_country', full_name='elint.entity.Universe.universe_recognized_as_country', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+    _descriptor.OneofDescriptor(
+      name='universe_recognized_as', full_name='elint.entity.Universe.universe_recognized_as',
+      index=0, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+  ],
+  serialized_start=87,
+  serialized_end=331,
+)
+
+
+_UNIVERSERECOGNIZEDASCOUNTRY = _descriptor.Descriptor(
+  name='UniverseRecognizedAsCountry',
+  full_name='elint.entity.UniverseRecognizedAsCountry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='country_dialing_code', full_name='elint.entity.UniverseRecognizedAsCountry.country_dialing_code', index=0,
+      number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -84,12 +121,17 @@ _UNIVERSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=87,
-  serialized_end=251,
+  serialized_start=333,
+  serialized_end=392,
 )
 
 _UNIVERSE.fields_by_name['big_bang_at'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_UNIVERSE.fields_by_name['universe_recognized_as_country'].message_type = _UNIVERSERECOGNIZEDASCOUNTRY
+_UNIVERSE.oneofs_by_name['universe_recognized_as'].fields.append(
+  _UNIVERSE.fields_by_name['universe_recognized_as_country'])
+_UNIVERSE.fields_by_name['universe_recognized_as_country'].containing_oneof = _UNIVERSE.oneofs_by_name['universe_recognized_as']
 DESCRIPTOR.message_types_by_name['Universe'] = _UNIVERSE
+DESCRIPTOR.message_types_by_name['UniverseRecognizedAsCountry'] = _UNIVERSERECOGNIZEDASCOUNTRY
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Universe = _reflection.GeneratedProtocolMessageType('Universe', (_message.Message,), {
@@ -98,6 +140,13 @@ Universe = _reflection.GeneratedProtocolMessageType('Universe', (_message.Messag
   # @@protoc_insertion_point(class_scope:elint.entity.Universe)
   })
 _sym_db.RegisterMessage(Universe)
+
+UniverseRecognizedAsCountry = _reflection.GeneratedProtocolMessageType('UniverseRecognizedAsCountry', (_message.Message,), {
+  'DESCRIPTOR' : _UNIVERSERECOGNIZEDASCOUNTRY,
+  '__module__' : 'ethos.elint.entities.universe_pb2'
+  # @@protoc_insertion_point(class_scope:elint.entity.UniverseRecognizedAsCountry)
+  })
+_sym_db.RegisterMessage(UniverseRecognizedAsCountry)
 
 
 DESCRIPTOR._options = None

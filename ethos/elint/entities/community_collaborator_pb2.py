@@ -26,7 +26,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n\014elint.entityB\032CommunityCollaboratorProtoP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n1ethos/elint/entities/community_collaborator.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\x1a$ethos/elint/entities/community.proto\"9\n\x10\x43ollaboratorName\x12\x12\n\nfirst_name\x18\x01 \x01(\t\x12\x11\n\tlast_name\x18\x02 \x01(\t\"J\n\x13\x43ollaboratorContact\x12\x33\n\x0fpersonal_mobile\x18\x01 \x01(\x0b\x32\x1a.elint.entity.MobileNumber\"<\n\x0cMobileNumber\x12\x14\n\x0c\x64ialing_code\x18\x01 \x01(\t\x12\x16\n\x0e\x64ialing_number\x18\x02 \x01(\t\"\xf3\x01\n\x15\x43ommunityCollaborator\x12\x39\n\x11\x63ollaborator_name\x18\x01 \x01(\x0b\x32\x1e.elint.entity.CollaboratorName\x12@\n\x15\x63ommunity_domain_code\x18\x02 \x01(\x0e\x32!.elint.entity.CommunityDomainCode\x12?\n\x14\x63ollaborator_contact\x18\x03 \x01(\x0b\x32!.elint.entity.CollaboratorContact\x12\x1c\n\x14is_core_collaborator\x18\x04 \x01(\x08\x42,\n\x0c\x65lint.entityB\x1a\x43ommunityCollaboratorProtoP\x01P\x00\x62\x06proto3'
+  serialized_pb=b'\n1ethos/elint/entities/community_collaborator.proto\x12\x0c\x65lint.entity\x1a\x1fgoogle/protobuf/timestamp.proto\x1a$ethos/elint/entities/community.proto\"9\n\x10\x43ollaboratorName\x12\x12\n\nfirst_name\x18\x01 \x01(\t\x12\x11\n\tlast_name\x18\x02 \x01(\t\"J\n\x13\x43ollaboratorContact\x12\x33\n\x0fpersonal_mobile\x18\x01 \x01(\x0b\x32\x1a.elint.entity.MobileNumber\"<\n\x0cMobileNumber\x12\x14\n\x0c\x64ialing_code\x18\x01 \x01(\t\x12\x16\n\x0e\x64ialing_number\x18\x02 \x01(\t\"\x8c\x02\n\x15\x43ommunityCollaborator\x12\x17\n\x0f\x63ollaborator_id\x18\x01 \x01(\t\x12\x39\n\x11\x63ollaborator_name\x18\x02 \x01(\x0b\x32\x1e.elint.entity.CollaboratorName\x12@\n\x15\x63ommunity_domain_code\x18\x03 \x01(\x0e\x32!.elint.entity.CommunityDomainCode\x12?\n\x14\x63ollaborator_contact\x18\x04 \x01(\x0b\x32!.elint.entity.CollaboratorContact\x12\x1c\n\x14is_core_collaborator\x18\x05 \x01(\x08\x42,\n\x0c\x65lint.entityB\x1a\x43ommunityCollaboratorProtoP\x01P\x00\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,ethos_dot_elint_dot_entities_dot_community__pb2.DESCRIPTOR,],
   public_dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
@@ -153,29 +153,36 @@ _COMMUNITYCOLLABORATOR = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='collaborator_name', full_name='elint.entity.CommunityCollaborator.collaborator_name', index=0,
-      number=1, type=11, cpp_type=10, label=1,
+      name='collaborator_id', full_name='elint.entity.CommunityCollaborator.collaborator_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='collaborator_name', full_name='elint.entity.CommunityCollaborator.collaborator_name', index=1,
+      number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='community_domain_code', full_name='elint.entity.CommunityCollaborator.community_domain_code', index=1,
-      number=2, type=14, cpp_type=8, label=1,
+      name='community_domain_code', full_name='elint.entity.CommunityCollaborator.community_domain_code', index=2,
+      number=3, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='collaborator_contact', full_name='elint.entity.CommunityCollaborator.collaborator_contact', index=2,
-      number=3, type=11, cpp_type=10, label=1,
+      name='collaborator_contact', full_name='elint.entity.CommunityCollaborator.collaborator_contact', index=3,
+      number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='is_core_collaborator', full_name='elint.entity.CommunityCollaborator.is_core_collaborator', index=3,
-      number=4, type=8, cpp_type=7, label=1,
+      name='is_core_collaborator', full_name='elint.entity.CommunityCollaborator.is_core_collaborator', index=4,
+      number=5, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -193,7 +200,7 @@ _COMMUNITYCOLLABORATOR = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=336,
-  serialized_end=579,
+  serialized_end=604,
 )
 
 _COLLABORATORCONTACT.fields_by_name['personal_mobile'].message_type = _MOBILENUMBER

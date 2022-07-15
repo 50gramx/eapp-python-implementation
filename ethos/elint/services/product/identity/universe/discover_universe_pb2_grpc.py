@@ -2,6 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
+from ethos.elint.services.product.identity.universe import discover_universe_pb2 as ethos_dot_elint_dot_services_dot_product_dot_identity_dot_universe_dot_discover__universe__pb2
 
 
 class DiscoverUniverseServiceStub(object):
@@ -13,14 +14,30 @@ class DiscoverUniverseServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.GetUniverseById = channel.unary_unary(
+                '/elint.services.product.identity.universe.DiscoverUniverseService/GetUniverseById',
+                request_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_universe_dot_discover__universe__pb2.GetUniverseByIdRequest.SerializeToString,
+                response_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_universe_dot_discover__universe__pb2.GetUniverseByIdResponse.FromString,
+                )
 
 
 class DiscoverUniverseServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
+    def GetUniverseById(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_DiscoverUniverseServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'GetUniverseById': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetUniverseById,
+                    request_deserializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_universe_dot_discover__universe__pb2.GetUniverseByIdRequest.FromString,
+                    response_serializer=ethos_dot_elint_dot_services_dot_product_dot_identity_dot_universe_dot_discover__universe__pb2.GetUniverseByIdResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
             'elint.services.product.identity.universe.DiscoverUniverseService', rpc_method_handlers)
@@ -30,3 +47,20 @@ def add_DiscoverUniverseServiceServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class DiscoverUniverseService(object):
     """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def GetUniverseById(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/elint.services.product.identity.universe.DiscoverUniverseService/GetUniverseById',
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_universe_dot_discover__universe__pb2.GetUniverseByIdRequest.SerializeToString,
+            ethos_dot_elint_dot_services_dot_product_dot_identity_dot_universe_dot_discover__universe__pb2.GetUniverseByIdResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -19,60 +19,10 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n com.ethos.elint.services.productP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nFethos/elint/services/product/identity/universe/discover_universe.proto\x12(elint.services.product.identity.universe\"\x17\n\x15GetAllUniverseRequest\"\x18\n\x16GetAllUniverseResponse\"\x18\n\x16GetUniverseByIdRequest\"\x19\n\x17GetUniverseByIdResponse2\x19\n\x17\x44iscoverUniverseServiceB$\n com.ethos.elint.services.productP\x01\x62\x06proto3'
+  serialized_pb=b'\nFethos/elint/services/product/identity/universe/discover_universe.proto\x12(elint.services.product.identity.universe\"\x18\n\x16GetUniverseByIdRequest\"\x19\n\x17GetUniverseByIdResponse2\xb4\x01\n\x17\x44iscoverUniverseService\x12\x98\x01\n\x0fGetUniverseById\x12@.elint.services.product.identity.universe.GetUniverseByIdRequest\x1a\x41.elint.services.product.identity.universe.GetUniverseByIdResponse\"\x00\x42$\n com.ethos.elint.services.productP\x01\x62\x06proto3'
 )
 
 
-
-
-_GETALLUNIVERSEREQUEST = _descriptor.Descriptor(
-  name='GetAllUniverseRequest',
-  full_name='elint.services.product.identity.universe.GetAllUniverseRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=116,
-  serialized_end=139,
-)
-
-
-_GETALLUNIVERSERESPONSE = _descriptor.Descriptor(
-  name='GetAllUniverseResponse',
-  full_name='elint.services.product.identity.universe.GetAllUniverseResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=141,
-  serialized_end=165,
-)
 
 
 _GETUNIVERSEBYIDREQUEST = _descriptor.Descriptor(
@@ -95,8 +45,8 @@ _GETUNIVERSEBYIDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=167,
-  serialized_end=191,
+  serialized_start=116,
+  serialized_end=140,
 )
 
 
@@ -120,29 +70,13 @@ _GETUNIVERSEBYIDRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=193,
-  serialized_end=218,
+  serialized_start=142,
+  serialized_end=167,
 )
 
-DESCRIPTOR.message_types_by_name['GetAllUniverseRequest'] = _GETALLUNIVERSEREQUEST
-DESCRIPTOR.message_types_by_name['GetAllUniverseResponse'] = _GETALLUNIVERSERESPONSE
 DESCRIPTOR.message_types_by_name['GetUniverseByIdRequest'] = _GETUNIVERSEBYIDREQUEST
 DESCRIPTOR.message_types_by_name['GetUniverseByIdResponse'] = _GETUNIVERSEBYIDRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
-
-GetAllUniverseRequest = _reflection.GeneratedProtocolMessageType('GetAllUniverseRequest', (_message.Message,), {
-  'DESCRIPTOR' : _GETALLUNIVERSEREQUEST,
-  '__module__' : 'ethos.elint.services.product.identity.universe.discover_universe_pb2'
-  # @@protoc_insertion_point(class_scope:elint.services.product.identity.universe.GetAllUniverseRequest)
-  })
-_sym_db.RegisterMessage(GetAllUniverseRequest)
-
-GetAllUniverseResponse = _reflection.GeneratedProtocolMessageType('GetAllUniverseResponse', (_message.Message,), {
-  'DESCRIPTOR' : _GETALLUNIVERSERESPONSE,
-  '__module__' : 'ethos.elint.services.product.identity.universe.discover_universe_pb2'
-  # @@protoc_insertion_point(class_scope:elint.services.product.identity.universe.GetAllUniverseResponse)
-  })
-_sym_db.RegisterMessage(GetAllUniverseResponse)
 
 GetUniverseByIdRequest = _reflection.GeneratedProtocolMessageType('GetUniverseByIdRequest', (_message.Message,), {
   'DESCRIPTOR' : _GETUNIVERSEBYIDREQUEST,
@@ -168,9 +102,19 @@ _DISCOVERUNIVERSESERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=220,
-  serialized_end=245,
+  serialized_start=170,
+  serialized_end=350,
   methods=[
+  _descriptor.MethodDescriptor(
+    name='GetUniverseById',
+    full_name='elint.services.product.identity.universe.DiscoverUniverseService.GetUniverseById',
+    index=0,
+    containing_service=None,
+    input_type=_GETUNIVERSEBYIDREQUEST,
+    output_type=_GETUNIVERSEBYIDRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
 ])
 _sym_db.RegisterServiceDescriptor(_DISCOVERUNIVERSESERVICE)
 

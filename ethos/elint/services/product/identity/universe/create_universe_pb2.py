@@ -11,6 +11,12 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from ethos.elint.entities import generic_pb2 as ethos_dot_elint_dot_entities_dot_generic__pb2
+try:
+  google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_generic__pb2.google_dot_protobuf_dot_timestamp__pb2
+except AttributeError:
+  google_dot_protobuf_dot_timestamp__pb2 = ethos_dot_elint_dot_entities_dot_generic__pb2.google.protobuf.timestamp_pb2
+from ethos.elint.services.product.identity.multiverse import access_multiverse_pb2 as ethos_dot_elint_dot_services_dot_product_dot_identity_dot_multiverse_dot_access__multiverse__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -19,12 +25,75 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'\n com.ethos.elint.services.productP\001',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nDethos/elint/services/product/identity/universe/create_universe.proto\x12(elint.services.product.identity.universe2\x17\n\x15\x43reateUniverseServiceB$\n com.ethos.elint.services.productP\x01\x62\x06proto3'
+  serialized_pb=b'\nDethos/elint/services/product/identity/universe/create_universe.proto\x12(elint.services.product.identity.universe\x1a\"ethos/elint/entities/generic.proto\x1aHethos/elint/services/product/identity/multiverse/access_multiverse.proto\"\xe2\x01\n\x1fRecognizeCountryUniverseRequest\x12l\n\x13\x61\x63\x63\x65ss_auth_details\x18\x01 \x01(\x0b\x32O.elint.services.product.identity.multiverse.MultiverseServicesAccessAuthDetails\x12\x15\n\runiverse_name\x18\x03 \x01(\t\x12\x1c\n\x14universe_description\x18\x04 \x01(\t\x12\x1c\n\x14\x63ountry_dialing_code\x18\x05 \x01(\t2\x9d\x01\n\x15\x43reateUniverseService\x12\x83\x01\n\x18RecognizeCountryUniverse\x12I.elint.services.product.identity.universe.RecognizeCountryUniverseRequest\x1a\x1a.elint.entity.ResponseMeta\"\x00\x42$\n com.ethos.elint.services.productP\x01\x62\x06proto3'
+  ,
+  dependencies=[ethos_dot_elint_dot_entities_dot_generic__pb2.DESCRIPTOR,ethos_dot_elint_dot_services_dot_product_dot_identity_dot_multiverse_dot_access__multiverse__pb2.DESCRIPTOR,])
+
+
+
+
+_RECOGNIZECOUNTRYUNIVERSEREQUEST = _descriptor.Descriptor(
+  name='RecognizeCountryUniverseRequest',
+  full_name='elint.services.product.identity.universe.RecognizeCountryUniverseRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='access_auth_details', full_name='elint.services.product.identity.universe.RecognizeCountryUniverseRequest.access_auth_details', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='universe_name', full_name='elint.services.product.identity.universe.RecognizeCountryUniverseRequest.universe_name', index=1,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='universe_description', full_name='elint.services.product.identity.universe.RecognizeCountryUniverseRequest.universe_description', index=2,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='country_dialing_code', full_name='elint.services.product.identity.universe.RecognizeCountryUniverseRequest.country_dialing_code', index=3,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=225,
+  serialized_end=451,
 )
 
-
-
+_RECOGNIZECOUNTRYUNIVERSEREQUEST.fields_by_name['access_auth_details'].message_type = ethos_dot_elint_dot_services_dot_product_dot_identity_dot_multiverse_dot_access__multiverse__pb2._MULTIVERSESERVICESACCESSAUTHDETAILS
+DESCRIPTOR.message_types_by_name['RecognizeCountryUniverseRequest'] = _RECOGNIZECOUNTRYUNIVERSEREQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+RecognizeCountryUniverseRequest = _reflection.GeneratedProtocolMessageType('RecognizeCountryUniverseRequest', (_message.Message,), {
+  'DESCRIPTOR' : _RECOGNIZECOUNTRYUNIVERSEREQUEST,
+  '__module__' : 'ethos.elint.services.product.identity.universe.create_universe_pb2'
+  # @@protoc_insertion_point(class_scope:elint.services.product.identity.universe.RecognizeCountryUniverseRequest)
+  })
+_sym_db.RegisterMessage(RecognizeCountryUniverseRequest)
 
 
 DESCRIPTOR._options = None
@@ -36,9 +105,19 @@ _CREATEUNIVERSESERVICE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=114,
-  serialized_end=137,
+  serialized_start=454,
+  serialized_end=611,
   methods=[
+  _descriptor.MethodDescriptor(
+    name='RecognizeCountryUniverse',
+    full_name='elint.services.product.identity.universe.CreateUniverseService.RecognizeCountryUniverse',
+    index=0,
+    containing_service=None,
+    input_type=_RECOGNIZECOUNTRYUNIVERSEREQUEST,
+    output_type=ethos_dot_elint_dot_entities_dot_generic__pb2._RESPONSEMETA,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
 ])
 _sym_db.RegisterServiceDescriptor(_CREATEUNIVERSESERVICE)
 
