@@ -1,3 +1,4 @@
+--extra-index-url http://python.delivery.50gramx.com
 grpcio==1.34.0
 grpcio-tools==1.34.0
 protobuf==3.14.0
@@ -15,3 +16,4 @@ redis
 stripe
 pyfcm
 google-api-python-client==2.12.0
+eapp_python_domain==0.2.14

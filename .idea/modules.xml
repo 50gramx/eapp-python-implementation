@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../../web/eapp-product-site/.idea/React-Django.iml" filepath="$PROJECT_DIR$/../../web/eapp-product-site/.idea/React-Django.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/eapp-identity.iml" filepath="$PROJECT_DIR$/.idea/eapp-identity.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../web/eapp-identity-site/.idea/eapp-identity-site.iml" filepath="$PROJECT_DIR$/../../web/eapp-identity-site/.idea/eapp-identity-site.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../eapp-service-core/.idea/lapp-service-core.iml" filepath="$PROJECT_DIR$/../eapp-service-core/.idea/lapp-service-core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../../wiki/eapp-wiki/.idea/lapp-wiki.iml" filepath="$PROJECT_DIR$/../../../wiki/eapp-wiki/.idea/lapp-wiki.iml" />
     </modules>
   </component>
 </project>

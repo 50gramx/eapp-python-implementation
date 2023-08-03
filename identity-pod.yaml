@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: eapp-identity
+spec:
+  containers:
+  - name: identity
+    image: ethosindia/services:identity
+  imagePullSecrets:
+  - name: regcred

@@ -1,0 +1,7 @@
+capabilities:
+  ofEntities:
+    - withNameCode: EPME1005
+      forContext:
+        - name: create
+          has:
+            - EPMCC2101

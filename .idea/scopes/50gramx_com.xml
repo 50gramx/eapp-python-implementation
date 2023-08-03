@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="50gramx.com" pattern="file[eapp-conversation]:*/||file[eapp-identity]:*/||file[eapp-knowledge]:*/||file[eapp-service-core]:*/||file[eapp-wiki]:*/||file[eapp-service-core]:src/main/proto/ethos//*" />
+</component>

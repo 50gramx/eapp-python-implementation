@@ -20,10 +20,17 @@
 import os
 
 from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
-from models.base_models import Base
-from models.pay_in_models import PayIn
+import db_session
+from models.base_models import Base, Universe, Galaxy, AccountAssistantNameCode, Space, AccountConvenienceSecrets, \
+    AccountSecrets, AccountDevices, AccountAssistant, Account
+from models.pay_in_models import PayIn, AccountPayIn
+from support.db_service import add_new_entity
+from support.helper_functions import gen_uuid, format_timestamp_to_datetime, get_current_timestamp
 
+# one-line (for command line)
+# db_url = f"postgres://{os.environ['EA_ID_DB_USER']}:{os.environ['EA_ID_DB_PASS']}@{os.environ['EA_ID_DB_HOST']}:{os.environ['EA_ID_DB_PORT']}/{os.environ['EA_ID_DB_NAME']}"
 db_url = f"postgres://{os.environ['EA_ID_DB_USER']}" \
          f":{os.environ['EA_ID_DB_PASS']}" \
          f"@{os.environ['EA_ID_DB_HOST']}" \
@@ -31,6 +38,9 @@ db_url = f"postgres://{os.environ['EA_ID_DB_USER']}" \
          f"/{os.environ['EA_ID_DB_NAME']}"
 
 engine = create_engine(db_url, echo=True)
+Session = sessionmaker(bind=engine)
+session = Session()
+# db_session.DbSession.init_db_session()
 
 # ----------------------------------
 # Delete Tables
@@ -44,6 +54,8 @@ engine = create_engine(db_url, echo=True)
 # Account.__table__.drop(engine)
 # Galaxy.__table__.drop(engine)
 # Universe.__table__.drop(engine)
+
+# AccountPayIn.__table__.drop(engine)
 
 # ----------------------------------
 # Create Tables
@@ -65,10 +77,10 @@ PayIn.metadata.create_all(engine)
 # session.commit()
 
 # universe_id = gen_uuid()
-# universe_name = "Ethos Universe"
-# universe_description = ""
+# universe_name = "INDIA"
+# universe_description = "Universe for the People of INDIA"
 # universe_big_bang_at = format_timestamp_to_datetime(get_current_timestamp())
-#
+
 # new_universe = Universe(
 #     universe_id=universe_id,
 #     universe_name=universe_name,
@@ -79,25 +91,28 @@ PayIn.metadata.create_all(engine)
 # session.commit()
 
 # galaxy_id = gen_uuid()
-# galaxy_name = "Public Galaxy"
+# galaxy_name = "Open Galaxy"
 # galaxy_created_at = format_timestamp_to_datetime(get_current_timestamp())
-# universe_id = session.query(Universe).first().universe_id
-#
+
 # new_galaxy = Galaxy(
 #     galaxy_id=galaxy_id,
 #     galaxy_name=galaxy_name,
 #     galaxy_created_at=galaxy_created_at,
 #     universe_id=universe_id
 # )
-#
+
 # session.add(new_galaxy)
 # session.commit()
 
 # ----------------------------------
+# Check Mobile Number in Account
+# ----------------------------------
+# create session
+q = session.query(Account).all()
+
+# ----------------------------------
 # Delete Record in Tables
 # ----------------------------------
-# Session = sessionmaker(bind=engine)
-# session = Session()
 #
 # account = session.query(Space).first()
 # session.delete(account)

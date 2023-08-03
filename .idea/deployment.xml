@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData">
+  <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
       <paths name="Copy of project-level server 'luciapp-uat'">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$/../../web/eapp-product-site" web="/" />
+            <mapping local="$PROJECT_DIR$/../eapp-conversation" web="/" />
             <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
@@ -13,7 +13,7 @@
       <paths name="luciapp-uat">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$/../../web/eapp-product-site" web="/" />
+            <mapping local="$PROJECT_DIR$/../eapp-conversation" web="/" />
             <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
