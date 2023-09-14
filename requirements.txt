@@ -1,4 +1,3 @@
---extra-index-url https://pypi.pkg.jetbrains.space/50gramx/p/main/python-delivery/simple
 grpcio==1.34.0
 grpcio-tools==1.34.0
 protobuf==3.14.0
