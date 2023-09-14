@@ -4,5 +4,6 @@ EXPOSE 80
 COPY . /app
 WORKDIR /app
 ENV PIP_CONFIG_FILE=/app/pip.conf
+RUN pip install eapp-python-domain==0.2.16
 RUN pip install -r requirements.txt
 ENTRYPOINT ["sh", "eapp_identity_program.sh"]
