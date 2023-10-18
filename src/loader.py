@@ -20,10 +20,6 @@
 import os
 
 import grpc
-
-from ethos.elint.chains.multiverse.identity.community_collaborator_chain_service_pb2_grpc import \
-    CommunityCollaboratorChainServicesStub
-from ethos.elint.chains.multiverse.identity.universe_chain_service_pb2_grpc import UniverseChainServicesStub
 from ethos.elint.services.product.action.space_knowledge_action_pb2_grpc import SpaceKnowledgeActionServiceStub
 from ethos.elint.services.product.conversation.message.account_assistant.send_account_assistant_message_pb2_grpc import \
     SendAccountAssistantMessageServiceStub
@@ -47,6 +43,7 @@ from ethos.elint.services.product.identity.space.access_space_pb2_grpc import Ac
 from ethos.elint.services.product.identity.space.create_space_pb2_grpc import CreateSpaceServiceStub
 from ethos.elint.services.product.knowledge.space_knowledge.access_space_knowledge_pb2_grpc import \
     AccessSpaceKnowledgeServiceStub
+
 from service.account.access_account_service import AccessAccountService
 from service.account.connect_account_service import ConnectAccountService
 from service.account.create_account_service import CreateAccountService
@@ -59,7 +56,6 @@ from service.account_assistant.connect_account_assistant_service import ConnectA
 from service.account_assistant.create_account_assistant_service import CreateAccountAssistantService
 from service.account_assistant.discover_account_assistant_service import DiscoverAccountAssistantService
 from service.machine.discover_machine_service import DiscoverMachineService
-from service.multiverse.access_multiverse_service import AccessMultiverseService
 from service.space.access_space_service import AccessSpaceService
 from service.space.create_space_service import CreateSpaceService
 from support.application.registry import Registry
@@ -80,46 +76,14 @@ class Loader(object):
 
     @staticmethod
     def init_multiverse_identity_context():
-        Loader.__init_multiverse_identity_chain_stubs()
+        # Loader.__init_multiverse_identity_chain_stubs()
         Loader.__init_service_stubs()
         Loader.__register_account_services()
         Loader.__register_account_assistant_services()
         Loader.__register_space_services()  # for now, change later
-        Loader.__register_multiverse_services()
+        # Loader.__register_multiverse_services()
         Loader.__register_machine_services()
         return
-
-    @staticmethod
-    def __init_multiverse_identity_chain_stubs():
-        Loader.__init_multiverse_identity_universe_chain_stubs()
-        Loader.__init_multiverse_identity_community_collaborator_chain_stubs()
-
-    @staticmethod
-    def __init_multiverse_identity_universe_chain_stubs():
-        universe_chain_grpc_host = os.environ['EAPP_MULTIVERSE_IDENTITY_UNIVERSE_CHAIN_HOST']
-        universe_chain_grpc_port = os.environ['EAPP_MULTIVERSE_IDENTITY_UNIVERSE_CHAIN_PORT']
-        host_ip = "{host}:{port}".format(host=universe_chain_grpc_host, port=universe_chain_grpc_port)
-
-        universe_chain_channel = grpc.insecure_channel(host_ip)
-
-        universe_chain_services_stub = UniverseChainServicesStub(universe_chain_channel)
-        Registry.register_service('universe_chain_services_stub', universe_chain_services_stub)
-
-    @staticmethod
-    def __init_multiverse_identity_community_collaborator_chain_stubs():
-        community_collaborator_chain_grpc_host = os.environ[
-            'EAPP_MULTIVERSE_IDENTITY_COMMUNITY_COLLABORATOR_CHAIN_HOST']
-        community_collaborator_chain_grpc_port = os.environ[
-            'EAPP_MULTIVERSE_IDENTITY_COMMUNITY_COLLABORATOR_CHAIN_PORT']
-        host_ip = "{host}:{port}".format(host=community_collaborator_chain_grpc_host,
-                                         port=community_collaborator_chain_grpc_port)
-
-        community_collaborator_chain_channel = grpc.insecure_channel(host_ip)
-
-        community_collaborator_chain_services_stub = CommunityCollaboratorChainServicesStub(
-            community_collaborator_chain_channel)
-        Registry.register_service('community_collaborator_chain_services_stub',
-                                  community_collaborator_chain_services_stub)
 
     @staticmethod
     def __init_service_stubs():
@@ -275,12 +239,6 @@ class Loader(object):
         Registry.register_service('access_space_service', access_space_service)
         create_space_service = CreateSpaceService()
         Registry.register_service('create_space_service', create_space_service)
-        return
-
-    @staticmethod
-    def __register_multiverse_services():
-        access_multiverse_service = AccessMultiverseService()
-        Registry.register_service('access_multiverse_service', access_multiverse_service)
         return
 
     @staticmethod
