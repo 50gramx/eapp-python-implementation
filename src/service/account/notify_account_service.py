@@ -20,13 +20,13 @@
 import logging
 import os
 
-from pyfcm import FCMNotification
-
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account.notify_account_pb2_grpc import NotifyAccountServiceServicer
+from pyfcm import FCMNotification
+
 from services_caller.account_assistant_service_caller import get_account_assistant_name_code_by_id
 from services_caller.account_service_caller import get_account_by_id_caller, validate_account_services_caller
-from support.db_service import get_account_device_token, update_account_devices
+from support.database.account_devices_services import get_account_device_token, update_account_devices
 from support.helper_functions import format_timestamp_to_datetime
 from support.notifications.apple_push_notifications import ApplePushNotifications
 
