@@ -23,7 +23,7 @@ import socket
 import ssl
 import struct
 
-from support.db_service import get_account_device_token
+from support.database.account_devices_services import get_account_device_token
 
 
 class ApplePushNotifications(object):

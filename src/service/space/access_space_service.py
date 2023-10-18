@@ -18,16 +18,17 @@
 #   */
 import logging
 
-from access.space.service_authentication import AccessSpaceServicesAuthentication
-from application_context import ApplicationContext
 from ethos.elint.entities.space_pb2 import SpaceAccessibilityType, SpaceIsolationType
 from ethos.elint.services.product.identity.space.access_space_pb2 import SpaceAccessTokenResponse, \
     ValidateSpaceServicesResponse
 from ethos.elint.services.product.identity.space.access_space_pb2_grpc import AccessSpaceServiceServicer
 from ethos.elint.services.product.identity.space.create_space_pb2 import CreateAccountSpaceRequest
+
+from access.space.service_authentication import AccessSpaceServicesAuthentication
+from application_context import ApplicationContext
 from services_caller.account_assistant_service_caller import validate_account_assistant_services_caller
 from services_caller.account_service_caller import validate_account_services_caller
-from support.db_service import get_space
+from support.database.space_services import get_space
 from support.session_manager import is_persistent_session_valid
 
 
