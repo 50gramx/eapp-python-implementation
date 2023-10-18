@@ -24,13 +24,15 @@ from ethos.elint.services.product.identity.account_assistant.create_account_assi
     CreateAccountAssistantResponse, GetAccountAssistantNameCodeResponse
 from ethos.elint.services.product.identity.account_assistant.create_account_assistant_pb2_grpc import \
     CreateAccountAssistantServiceServicer
+
 from models.account_assistant_connection_models import AccountAssistantConnections
 from models.account_connection_models import AccountConnections
 from services_caller.account_assistant_service_caller import account_assistant_access_token_caller, \
     get_account_assistant_name_code_caller
 from services_caller.account_service_caller import validate_account_services_caller
 from services_caller.message_conversation_service_caller import setup_account_assistant_conversations_caller
-from support.db_service import add_new_account_assistant, get_account_assistant_name_code
+from support.database.account_assistant_name_code_services import get_account_assistant_name_code
+from support.database.account_assistant_services import add_new_account_assistant
 from support.helper_functions import gen_uuid
 
 

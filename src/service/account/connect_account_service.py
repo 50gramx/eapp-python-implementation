@@ -42,7 +42,7 @@ from services_caller.account_assistant_service_caller import account_assistant_a
     get_account_assistant_by_account_caller
 from services_caller.account_service_caller import validate_account_services_caller, \
     account_connected_account_notification_caller
-from support.db_service import get_account
+from support.database.account_services import get_account
 from support.helper_functions import gen_uuid
 
 

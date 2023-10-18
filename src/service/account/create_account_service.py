@@ -19,9 +19,6 @@
 
 import logging
 
-from access.account.authentication import AccessAccountAuthentication
-from access.account.services_authentication import AccessAccountServicesAuthentication
-from application_context import ApplicationContext
 from ethos.elint.entities.galaxy_pb2 import OpenGalaxyTierEnum
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account.create_account_pb2 import ValidateAccountWithMobileResponse, \
@@ -29,13 +26,19 @@ from ethos.elint.services.product.identity.account.create_account_pb2 import Val
 from ethos.elint.services.product.identity.account.create_account_pb2_grpc import CreateAccountServiceServicer
 from ethos.elint.services.product.identity.account.pay_in_account_pb2 import \
     ConfirmAccountOpenGalaxyPlayStoreSubscriptionRequest
+
+from access.account.authentication import AccessAccountAuthentication
+from access.account.services_authentication import AccessAccountServicesAuthentication
+from application_context import ApplicationContext
 from models.account_connection_models import AccountConnections
 from models.base_models import Account, AccountDevices
 from services_caller.account_assistant_service_caller import create_account_assistant_caller
 from services_caller.account_service_caller import validate_account_services_caller
 from services_caller.message_conversation_service_caller import setup_account_conversations_caller
-from support.db_service import is_existing_account_mobile, add_new_account, get_our_galaxy, add_new_account_devices, \
-    check_existing_account_device, activate_account_billing, deactivate_account_billing
+from support.database.account_devices_services import check_existing_account_device, add_new_account_devices
+from support.database.account_services import is_existing_account_mobile, add_new_account, activate_account_billing, \
+    deactivate_account_billing
+from support.database.galaxy_services import get_our_galaxy
 from support.helper_functions import gen_uuid, format_timestamp_to_datetime, generate_verification_code_token, \
     verify_verification_code_token
 from support.session_manager import update_persistent_session_last_requested_at
