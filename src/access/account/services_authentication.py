@@ -1,6 +1,7 @@
-from access.base_access_authentication import BaseAccessAuthentication
 from ethos.elint.services.product.identity.account.access_account_pb2 import AccountServicesAccessAuthDetails
-from support.db_service import get_account
+
+from access.base_access_authentication import BaseAccessAuthentication
+from support.database.account_services import get_account
 
 
 class AccessAccountServicesAuthentication(BaseAccessAuthentication):
