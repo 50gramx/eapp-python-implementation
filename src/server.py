@@ -19,47 +19,19 @@
 
 import contextlib
 import datetime
-import grpc
 import logging
 import multiprocessing
 import os
 import socket
-import sys
 import time
 from concurrent import futures
 
-
-from eapp_python_domain.gramx.fifty.zero.ethos.identity.multiverse.core.entity.epme_1005.capability.discover_epme_1005_pb2_grpc import DiscoverEPME1005
-
+import grpc
+from ethos.elint.services.product.identity.account.access_account_pb2_grpc import \
+    add_AccessAccountServiceServicer_to_server
 
 import db_session
 from application_context import ApplicationContext
-from ethos.elint.services.product.identity.account.access_account_pb2_grpc import \
-    add_AccessAccountServiceServicer_to_server
-from ethos.elint.services.product.identity.account.connect_account_pb2_grpc import \
-    add_ConnectAccountServiceServicer_to_server
-from ethos.elint.services.product.identity.account.create_account_pb2_grpc import \
-    add_CreateAccountServiceServicer_to_server
-from ethos.elint.services.product.identity.account.discover_account_pb2_grpc import \
-    add_DiscoverAccountServiceServicer_to_server
-from ethos.elint.services.product.identity.account.notify_account_pb2_grpc import \
-    add_NotifyAccountServiceServicer_to_server
-from ethos.elint.services.product.identity.account.pay_in_account_pb2_grpc import \
-    add_PayInAccountServiceServicer_to_server
-from ethos.elint.services.product.identity.account_assistant.access_account_assistant_pb2_grpc import \
-    add_AccessAccountAssistantServiceServicer_to_server
-from ethos.elint.services.product.identity.account_assistant.action_account_assistant_pb2_grpc import \
-    add_ActionAccountAssistantServiceServicer_to_server
-from ethos.elint.services.product.identity.account_assistant.connect_account_assistant_pb2_grpc import \
-    add_ConnectAccountAssistantServiceServicer_to_server
-from ethos.elint.services.product.identity.account_assistant.create_account_assistant_pb2_grpc import \
-    add_CreateAccountAssistantServiceServicer_to_server
-from ethos.elint.services.product.identity.account_assistant.discover_account_assistant_pb2_grpc import \
-    add_DiscoverAccountAssistantServiceServicer_to_server
-from ethos.elint.services.product.identity.machine.discover_machine_pb2_grpc import \
-    add_DiscoverMachineServiceServicer_to_server
-from ethos.elint.services.product.identity.space.access_space_pb2_grpc import add_AccessSpaceServiceServicer_to_server
-from ethos.elint.services.product.identity.space.create_space_pb2_grpc import add_CreateSpaceServiceServicer_to_server
 from loader import Loader
 
 _LOGGER = logging.getLogger(__name__)
@@ -85,7 +57,6 @@ max_workers = _MAX_WORKERS
 #
 # _LOGGER = logging.getLogger(__name__)
 # _LOGGER.setLevel(logging.INFO)
-
 
 
 @contextlib.contextmanager
@@ -134,8 +105,8 @@ def run_server(port):
     server_creds = grpc.ssl_server_credentials(
         ((private_key, certificate_chain,),))
 
-    # server_port = server.add_insecure_port(f"[::]:{PORT}")
-    server_port = server.add_secure_port(f"[::]:{PORT}", server_creds)
+    server_port = server.add_insecure_port(f"[::]:{PORT}")
+    # server_port = server.add_secure_port(f"[::]:{PORT}", server_creds)
 
     server.start()
     try:
@@ -153,60 +124,60 @@ def _wait_forever(server):
 
 
 def __add_account_servicer_to_server(server):
-    add_CreateAccountServiceServicer_to_server(
-        ApplicationContext.get_create_account_service(), server
-    )
+    # add_CreateAccountServiceServicer_to_server(
+    #     ApplicationContext.get_create_account_service(), server
+    # )
     add_AccessAccountServiceServicer_to_server(
         ApplicationContext.get_access_account_service(), server
     )
-    add_ConnectAccountServiceServicer_to_server(
-        ApplicationContext.get_connect_account_service(), server
-    )
-    add_DiscoverAccountServiceServicer_to_server(
-        ApplicationContext.get_discover_account_service(), server
-    )
-    add_PayInAccountServiceServicer_to_server(
-        ApplicationContext.get_pay_in_account_service(), server
-    )
-    add_NotifyAccountServiceServicer_to_server(
-        ApplicationContext.get_notify_account_service(), server
-    )
+    # add_ConnectAccountServiceServicer_to_server(
+    #     ApplicationContext.get_connect_account_service(), server
+    # )
+    # add_DiscoverAccountServiceServicer_to_server(
+    #     ApplicationContext.get_discover_account_service(), server
+    # )
+    # add_PayInAccountServiceServicer_to_server(
+    #     ApplicationContext.get_pay_in_account_service(), server
+    # )
+    # add_NotifyAccountServiceServicer_to_server(
+    #     ApplicationContext.get_notify_account_service(), server
+    # )
     return
 
 
 def __add_space_servicer_to_server(server):
-    add_CreateSpaceServiceServicer_to_server(
-        ApplicationContext.get_create_space_service(), server
-    )
-    add_AccessSpaceServiceServicer_to_server(
-        ApplicationContext.get_access_space_service(), server
-    )
+    # add_CreateSpaceServiceServicer_to_server(
+    #     ApplicationContext.get_create_space_service(), server
+    # )
+    # add_AccessSpaceServiceServicer_to_server(
+    #     ApplicationContext.get_access_space_service(), server
+    # )
     return
 
 
 def __add_machine_servicer_to_server(server):
-    add_DiscoverMachineServiceServicer_to_server(
-        ApplicationContext.get_discover_machine_service(), server
-    )
+    # add_DiscoverMachineServiceServicer_to_server(
+    #     ApplicationContext.get_discover_machine_service(), server
+    # )
     return
 
 
 def __add_account_assistant_servicer_to_server(server):
-    add_CreateAccountAssistantServiceServicer_to_server(
-        ApplicationContext.get_create_account_assistant_service(), server
-    )
-    add_AccessAccountAssistantServiceServicer_to_server(
-        ApplicationContext.get_access_account_assistant_service(), server
-    )
-    add_ConnectAccountAssistantServiceServicer_to_server(
-        ApplicationContext.get_connect_account_assistant_service(), server
-    )
-    add_DiscoverAccountAssistantServiceServicer_to_server(
-        ApplicationContext.get_discover_account_assistant_service(), server
-    )
-    add_ActionAccountAssistantServiceServicer_to_server(
-        ApplicationContext.get_action_account_assistant_service(), server
-    )
+    # add_CreateAccountAssistantServiceServicer_to_server(
+    #     ApplicationContext.get_create_account_assistant_service(), server
+    # )
+    # add_AccessAccountAssistantServiceServicer_to_server(
+    #     ApplicationContext.get_access_account_assistant_service(), server
+    # )
+    # add_ConnectAccountAssistantServiceServicer_to_server(
+    #     ApplicationContext.get_connect_account_assistant_service(), server
+    # )
+    # add_DiscoverAccountAssistantServiceServicer_to_server(
+    #     ApplicationContext.get_discover_account_assistant_service(), server
+    # )
+    # add_ActionAccountAssistantServiceServicer_to_server(
+    #     ApplicationContext.get_action_account_assistant_service(), server
+    # )
     return
 
 
