@@ -19,77 +19,54 @@
 
 import logging
 
-import phonenumbers
-
-from access.account.authentication import AccessAccountAuthentication
-from access.account.services_authentication import AccessAccountServicesAuthentication
-from ethos.elint.entities.generic_pb2 import TemporaryTokenDetails, ResponseMeta
-from ethos.elint.services.product.identity.account.access_account_pb2 import ValidateAccountResponse, \
-    VerifyAccountResponse, ValidateAccountServicesResponse, ReAccountAccessTokenResponse
+from ethos.elint.entities.generic_pb2 import ResponseMeta
+from ethos.elint.services.product.identity.account.access_account_pb2 import VerifyAccountResponse, \
+    ValidateAccountServicesResponse, ReAccountAccessTokenResponse
 from ethos.elint.services.product.identity.account.access_account_pb2_grpc import AccessAccountServiceServicer
+from opentracing import tags
+from opentracing.propagation import Format
+
+from access.account.services_authentication import AccessAccountServicesAuthentication
+from service.account.access_account_impl import validate_account_impl
 from services_caller.account_service_caller import validate_account_services_caller
-from support.db_service import is_existing_account_mobile, get_account, update_account_devices
-from support.helper_functions import get_random_string, gen_uuid, get_current_timestamp, send_otp, get_future_timestamp, \
-    format_timestamp_to_datetime
-from support.redis_service import set_kv, get_kv
+from support.application.tracing import init_tracer
+from support.database.account_devices_services import update_account_devices
+from support.database.account_services import get_account
+from support.helper_functions import get_random_string, send_otp, format_timestamp_to_datetime
+from support.redis_service import get_kv
 from support.session_manager import update_persistent_session_last_requested_at, \
     is_persistent_session_valid
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class AccessAccountService(AccessAccountServiceServicer):
     def __init__(self):
         super(AccessAccountService, self).__init__()
         self.session_scope = self.__class__.__name__
+        self.tracer = init_tracer('access-account-service')
+
+    def __del__(self):
+        self.tracer.close()
 
     def ValidateAccount(self, request, context):
-        logging.info("AccessAccountService:ValidateAccount")
-        # get request params here
-        account_mobile_number = request.account_mobile_number
-        requested_at = request.requested_at
+        # Convert the metadata to a dictionary for opentracing.
+        metadata_dict = dict(context.invocation_metadata())
 
-        # check account existence
-        if request.account_mobile_country_code == "":
-            account_country_code = "+" + str(phonenumbers.parse(account_mobile_number, "IN").country_code)
-        else:
-            account_country_code = request.account_mobile_country_code
-        account_exists_with_mobile = is_existing_account_mobile(account_country_code, account_mobile_number)
+        # Extract span context using the TEXT_MAP format.
+        span_ctx = self.tracer.extract(Format.TEXT_MAP, metadata_dict)
+        with self.tracer.start_active_span('ValidateAccount', child_of=span_ctx) as scope:
+            # Add some tags
+            scope.span.set_tag(tags.SPAN_KIND, tags.SPAN_KIND_RPC_SERVER)
+            scope.span.set_tag(tags.PEER_SERVICE, 'unknown-service')  # or wherever the request is coming from
+            scope.span.set_tag('account_mobile_number', request.account_mobile_number)
 
-        # take action
-        if account_exists_with_mobile:
-            # send otp
-            verification_code = get_random_string(4)
-            code_token = gen_uuid()
-            code_generated_at = get_current_timestamp()
-            # send the code to mobile
-            code_sent_at = send_otp(account_country_code, account_mobile_number, verification_code)
-            # store the token details
-            set_kv(code_token, verification_code)
-            # create the code token details here
-            verification_code_token_details = TemporaryTokenDetails(
-                token=code_token,
-                generated_at=code_generated_at,
-                valid_till=get_future_timestamp(after_seconds=180)
-            )
-            # create response
-            validate_account_response = ValidateAccountResponse(
-                account_access_auth_details=AccessAccountAuthentication(
-                    session_scope=self.session_scope,
-                    account_mobile_country_code=request.account_mobile_country_code,
-                    account_mobile_number=account_mobile_number
-                ).create_authentication_details(),
-                account_exists=account_exists_with_mobile,
-                verification_code_token_details=verification_code_token_details,
-                code_sent_at=code_sent_at,
-                validate_account_done=True,
-                validate_account_message="OTP Sent to the Mobile Number"
-            )
-        else:
-            validate_account_response = ValidateAccountResponse(
-                account_exists=account_exists_with_mobile,
-                validate_account_done=False,
-                validate_account_message="Account doesn't exists. Please Create your Account."
-            )
-        return validate_account_response
+            logging.info("AccessAccountService:ValidateAccount")
+            try:
+                return validate_account_impl(request=request, session_scope=self.session_scope)
+            except Exception as e:
+                logging.error(f"An error occurred during ValidateAccount RPC: {e}")
+                # You might also want to modify the response or set gRPC status to signal the error.
 
     def VerifyAccount(self, request, context):
         logging.info("AccessAccountService:VerifyAccount invoked.")

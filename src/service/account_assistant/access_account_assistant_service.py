@@ -19,15 +19,16 @@
 
 import logging
 
-from access.account_assistant.service_authentication import AccessAccountAssistantServicesAuthentication
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account_assistant.access_account_assistant_pb2 import \
     AccountAssistantAccessTokenResponse, ValidateAccessMeta
 from ethos.elint.services.product.identity.account_assistant.access_account_assistant_pb2_grpc import \
     AccessAccountAssistantServiceServicer
+
+from access.account_assistant.service_authentication import AccessAccountAssistantServicesAuthentication
 from services_caller.account_assistant_service_caller import get_account_assistant_by_account_caller
 from services_caller.account_service_caller import validate_account_services_caller, get_account_by_id_caller
-from support.db_service import get_account_assistant
+from support.database.account_assistant_services import get_account_assistant
 from support.session_manager import is_persistent_session_valid
 
 
