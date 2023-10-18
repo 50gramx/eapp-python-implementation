@@ -24,9 +24,10 @@ from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account.discover_account_pb2 import GetAccountByIdResponse, \
     AreAccountsExistingWithMobileResponse
 from ethos.elint.services.product.identity.account.discover_account_pb2_grpc import DiscoverAccountServiceServicer
+
 from services_caller.account_assistant_service_caller import get_account_assistant_by_account_caller
 from services_caller.account_service_caller import validate_account_services_caller
-from support.db_service import get_account, is_existing_account_mobile, is_account_billing_active
+from support.database.account_services import get_account, is_existing_account_mobile, is_account_billing_active
 
 
 class DiscoverAccountService(DiscoverAccountServiceServicer):

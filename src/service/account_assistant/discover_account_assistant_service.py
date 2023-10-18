@@ -25,8 +25,10 @@ from ethos.elint.services.product.identity.account_assistant.discover_account_as
     GetAccountAssistantByIdResponse, GetAccountAssistantNameCodeByIdResponse
 from ethos.elint.services.product.identity.account_assistant.discover_account_assistant_pb2_grpc import \
     DiscoverAccountAssistantServiceServicer
+
 from services_caller.account_service_caller import validate_account_services_caller
-from support.db_service import get_account_assistant, get_account_assistant_meta, get_account_assistant_by_id
+from support.database.account_assistant_services import get_account_assistant, get_account_assistant_meta, \
+    get_account_assistant_by_id
 
 
 class DiscoverAccountAssistantService(DiscoverAccountAssistantServiceServicer):
