@@ -50,7 +50,7 @@ job("Build & Deploy Python Implementations") {
             // image tags
             tags {
                 // use current job run number as a tag - '0.0.run_number'
-                +"50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations:${"$"}VERSION_NUMBER"
+                +"50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations:{{ VERSION_NUMBER }}"
             }
         }
     }
@@ -62,7 +62,7 @@ job("Build & Deploy Python Implementations") {
           docker stop eapp-identity-services  # Stop the existing container
           docker rm eapp-identity-services    # Remove the stopped container
           docker run -d --restart=always -p 5000:80 --name eapp-python-implementations \
-            50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations:${"$"}VERSION_NUMBER
+            50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations:{{ VERSION_NUMBER }}
         """
       }
     }
