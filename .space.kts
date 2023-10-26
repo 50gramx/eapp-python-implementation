@@ -1,4 +1,4 @@
-import java.util.Date
+import java.time.LocalDate
 
 job("Build & Deploy Python Implementations") {
 
@@ -12,19 +12,14 @@ job("Build & Deploy Python Implementations") {
         }
     }
 
-    parameters {
-      text("CURRENT_MONTH", value = "$(date +'%m')")
-      text("VERSION_NUMBER", value = "${"$"}CURRENT_YEAR.${"$"}CURRENT_MONTH.${"$"}JB_SPACE_EXECUTION_NUMBER")
-    }
-
    // To check a condition, basically, you need a kotlinScript step
     host(displayName = "Setup Version") {
         kotlinScript { api ->
             // To pass the result of the condition to other steps, create a job parameter
-            val date = Date()
-            val currentYear = date.year.toString()
-            print(currentYear)
-            api.parameters["CURRENT_YEAR"] = currentYear
+            api.parameters["CURRENT_YEAR"] = LocalDate.now().year.toString()
+            api.parameters["CURRENT_MONTH"] = LocalDate.now().monthValue.toString()
+            api.parameters["VERSION_NUMBER"] = "${"$"}CURRENT_YEAR.${"$"}CURRENT_MONTH."
+
         }
     }
 
