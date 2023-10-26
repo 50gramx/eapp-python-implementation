@@ -10,6 +10,12 @@ job("Build & Deploy Python Implementations") {
             }
         }
     }
+
+    parameters {
+      text("CURRENT_YEAR", value = "$(date +'%y')")
+      text("CURRENT_MONTH", value = "$(date +'%m')")
+      text("VERSION_NUMBER", value = "${"$"}CURRENT_YEAR.${"$"}CURRENT_MONTH.${"$"}JB_SPACE_EXECUTION_NUMBER")
+    }
   
     host("Build Python Implementations Images") {
         dockerBuildPush {
@@ -33,7 +39,7 @@ job("Build & Deploy Python Implementations") {
             // image tags
             tags {
                 // use current job run number as a tag - '0.0.run_number'
-                +"50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations:1.0.${"$"}JB_SPACE_EXECUTION_NUMBER"
+                +"50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations:${"$"}VERSION_NUMBER"
             }
         }
     }
