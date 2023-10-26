@@ -1,3 +1,4 @@
+import java.util.Date
 
 job("Build & Deploy Python Implementations") {
 
@@ -20,7 +21,7 @@ job("Build & Deploy Python Implementations") {
     host(displayName = "Setup Version") {
         kotlinScript { api ->
             // To pass the result of the condition to other steps, create a job parameter
-            api.parameters["CURRENT_YEAR"] = LocalDateTime.now()
+            api.parameters["CURRENT_YEAR"] = Date()
         }
     }
 
