@@ -18,7 +18,7 @@ job("Build & Deploy Python Implementations") {
             // To pass the result of the condition to other steps, create a job parameter
             api.parameters["CURRENT_YEAR"] = LocalDate.now().year.toString()
             api.parameters["CURRENT_MONTH"] = LocalDate.now().monthValue.toString()
-            api.parameters["VERSION_NUMBER"] = "${"$"}CURRENT_YEAR.${"$"}CURRENT_MONTH."
+            api.parameters["VERSION_NUMBER"] = api.parameters["CURRENT_YEAR"]
 
         }
     }
