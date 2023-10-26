@@ -12,11 +12,19 @@ job("Build & Deploy Python Implementations") {
     }
 
     parameters {
-      text("CURRENT_YEAR", value = "$(date +'%y')")
       text("CURRENT_MONTH", value = "$(date +'%m')")
       text("VERSION_NUMBER", value = "${"$"}CURRENT_YEAR.${"$"}CURRENT_MONTH.${"$"}JB_SPACE_EXECUTION_NUMBER")
     }
-  
+
+   // To check a condition, basically, you need a kotlinScript step
+    host(displayName = "Setup Version") {
+        kotlinScript { api ->
+            // To pass the result of the condition to other steps, create a job parameter
+            api.parameters["CURRENT_YEAR"] = LocalDateTime.now()
+        }
+    }
+
+
     host("Build Python Implementations Images") {
         dockerBuildPush {
             // by default, the step runs not only 'docker build' but also 'docker push'
