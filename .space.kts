@@ -19,8 +19,7 @@ job("Build & Deploy Python Implementations") {
             val currentYear = LocalDate.now().year.toString()
             val currentMonth = LocalDate.now().monthValue.toString()
             val currentExecution = System.getenv("JB_SPACE_EXECUTION_NUMBER")
-            api.parameters["VERSION_NUMBER"] = currentExecution
-
+            api.parameters["VERSION_NUMBER"] = "$currentYear.$currentMonth.$currentExecution"
         }
     }
 
