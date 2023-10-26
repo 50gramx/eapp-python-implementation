@@ -58,8 +58,8 @@ job("Build & Deploy Python Implementations") {
 
       shellScript {
         content = """
-          docker stop eapp-identity-services  # Stop the existing container
-          docker rm eapp-identity-services    # Remove the stopped container
+          docker stop eapp-python-implementations  # Stop the existing container
+          docker rm eapp-python-implementations    # Remove the stopped container
           docker run -d --restart=always -p 5000:80 --name eapp-python-implementations \
             50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations:{{ VERSION_NUMBER }}
         """
