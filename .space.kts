@@ -28,10 +28,6 @@ job("Build & Deploy Python Implementations") {
         }
     }
 
-    parameters {
-      text("VERSION_NUMBER", value = "{{ VERSION_NUMBER }}")
-    }
-
     host("Build Python Implementations Images") {
         dockerBuildPush {
             // by default, the step runs not only 'docker build' but also 'docker push'
