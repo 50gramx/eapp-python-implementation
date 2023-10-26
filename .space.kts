@@ -16,8 +16,7 @@ job("Build & Deploy Python Implementations") {
     host(displayName = "Setup Version") {
         kotlinScript { api ->
             // Get the current year and month
-            // To pass the result of the condition to other steps, create a job parameter
-            val currentYear = LocalDate.now().year.toString()
+            val currentYear = (LocalDate.now().year % 100).toString().padStart(2, '0')
             val currentMonth = LocalDate.now().monthValue.toString()
 
             // Get the execution number from environment variables
