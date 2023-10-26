@@ -16,9 +16,10 @@ job("Build & Deploy Python Implementations") {
     host(displayName = "Setup Version") {
         kotlinScript { api ->
             // To pass the result of the condition to other steps, create a job parameter
-            api.parameters["CURRENT_YEAR"] = LocalDate.now().year.toString()
-            api.parameters["CURRENT_MONTH"] = LocalDate.now().monthValue.toString()
-            api.parameters["VERSION_NUMBER"] = api.parameters["CURRENT_YEAR"]
+            val currentYear = LocalDate.now().year.toString()
+            val currentMonth = LocalDate.now().monthValue.toString()
+            val currentExecution = api.parameters["JB_SPACE_EXECUTION_NUMBER"].toString()
+            api.parameters["VERSION_NUMBER"] = currentExecution
 
         }
     }
