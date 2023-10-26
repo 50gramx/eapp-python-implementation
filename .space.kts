@@ -1,5 +1,5 @@
 
-job("Build & Deploy Identity Services") {
+job("Build & Deploy Python Implementations") {
 
     startOn {
         gitPush {
@@ -11,7 +11,7 @@ job("Build & Deploy Identity Services") {
         }
     }
   
-    host("Build Olive") {
+    host("Build Python Implementations Images") {
         dockerBuildPush {
             // by default, the step runs not only 'docker build' but also 'docker push'
             // to disable pushing, add the following line:
@@ -33,19 +33,19 @@ job("Build & Deploy Identity Services") {
             // image tags
             tags {
                 // use current job run number as a tag - '0.0.run_number'
-                +"50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-identity-services:1.0.${"$"}JB_SPACE_EXECUTION_NUMBER"
+                +"50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations:1.0.${"$"}JB_SPACE_EXECUTION_NUMBER"
             }
         }
     }
     
-    host("Deploy Identity Services") {
+    host("Deploy Python Implementations Containers") {
 
       shellScript {
         content = """
           docker stop eapp-identity-services  # Stop the existing container
           docker rm eapp-identity-services    # Remove the stopped container
-          docker run -d --restart=always -p 5000:80 --name eapp-identity-services \
-            50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-identity-services:1.0.${"$"}JB_SPACE_EXECUTION_NUMBER
+          docker run -d --restart=always -p 5000:80 --name eapp-python-implementations \
+            50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations:1.0.${"$"}JB_SPACE_EXECUTION_NUMBER
         """
       }
     }
