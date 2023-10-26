@@ -18,7 +18,7 @@ job("Build & Deploy Python Implementations") {
             // To pass the result of the condition to other steps, create a job parameter
             val currentYear = LocalDate.now().year.toString()
             val currentMonth = LocalDate.now().monthValue.toString()
-            val currentExecution = (api.parameters["JB_SPACE_EXECUTION_NUMBER"]).toString()
+            val currentExecution = System.getenv("JB_SPACE_EXECUTION_NUMBER")
             api.parameters["VERSION_NUMBER"] = currentExecution
 
         }
