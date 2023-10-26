@@ -15,6 +15,6 @@ redis
 stripe
 pyfcm
 google-api-python-client==2.12.0
-eapp-python-domain==23.9.52
+eapp-python-domain
 opentracing
 jaeger-client
