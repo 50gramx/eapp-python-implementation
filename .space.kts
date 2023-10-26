@@ -22,7 +22,9 @@ job("Build & Deploy Python Implementations") {
         kotlinScript { api ->
             // To pass the result of the condition to other steps, create a job parameter
             val date = Date()
-            api.parameters["CURRENT_YEAR"] = date.getMonth()
+            val currentYear = date.getMonth()
+            print(currentYear)
+            api.parameters["CURRENT_YEAR"] = currentYear
         }
     }
 
