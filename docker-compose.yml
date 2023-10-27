@@ -20,5 +20,5 @@ services:
   eapp-python-implementations:
     image: 50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations:latest
     ports:
-      - "5000:80"
+      - "50501:80"
     restart: always
