@@ -32,7 +32,7 @@ job("Build & Deploy Python Implementations") {
             api.space().projects.automation.deployments.start(
                 project = api.projectIdentifier(),
                 targetIdentifier = TargetIdentifier.Key("python-implementation-deployment"),
-                version = "{{ VERSION_NUMBER }}",
+                version = api.parameters["VERSION_NUMBER"],
                 // automatically update deployment status based on a status of a job
                 syncWithAutomationJob = true
             )
