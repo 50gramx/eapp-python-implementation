@@ -99,37 +99,36 @@ class Loader(object):
         host_ip = "{host}:{port}".format(host=grpc_host, port=grpc_port)
 
         ssl_credentials = grpc.ssl_channel_credentials(open(grpc_certificate_file, 'rb').read())
-        capabilities_common_channel = grpc.insecure_channel(host_ip)
-        # identity_common_channel = grpc.secure_channel(host_ip, ssl_credentials)
+        identity_common_channel = grpc.secure_channel(host_ip, ssl_credentials)
 
-        # identity_common_channel = grpc.intercept_channel(identity_common_channel)
-        channels.append(capabilities_common_channel)
+        identity_common_channel = grpc.intercept_channel(identity_common_channel)
+        channels.append(identity_common_channel)
 
-        access_account_service_stub = AccessAccountServiceStub(capabilities_common_channel)
+        access_account_service_stub = AccessAccountServiceStub(identity_common_channel)
         Registry.register_service('access_account_service_stub', access_account_service_stub)
-        create_account_service_stub = CreateAccountServiceStub(capabilities_common_channel)
+        create_account_service_stub = CreateAccountServiceStub(identity_common_channel)
         Registry.register_service('create_account_service_stub', create_account_service_stub)
-        discover_account_service_stub = DiscoverAccountServiceStub(capabilities_common_channel)
+        discover_account_service_stub = DiscoverAccountServiceStub(identity_common_channel)
         Registry.register_service('discover_account_service_stub', discover_account_service_stub)
-        connect_account_service_stub = ConnectAccountServiceStub(capabilities_common_channel)
+        connect_account_service_stub = ConnectAccountServiceStub(identity_common_channel)
         Registry.register_service('connect_account_service_stub', connect_account_service_stub)
-        notify_account_service_stub = NotifyAccountServiceStub(capabilities_common_channel)
+        notify_account_service_stub = NotifyAccountServiceStub(identity_common_channel)
         Registry.register_service('notify_account_service_stub', notify_account_service_stub)
-        pay_in_account_service_stub = PayInAccountServiceStub(capabilities_common_channel)
+        pay_in_account_service_stub = PayInAccountServiceStub(identity_common_channel)
         Registry.register_service('pay_in_account_service_stub', pay_in_account_service_stub)
 
-        access_space_service_stub = AccessSpaceServiceStub(capabilities_common_channel)
+        access_space_service_stub = AccessSpaceServiceStub(identity_common_channel)
         Registry.register_service('access_space_service_stub', access_space_service_stub)
-        create_space_service_stub = CreateSpaceServiceStub(capabilities_common_channel)
+        create_space_service_stub = CreateSpaceServiceStub(identity_common_channel)
         Registry.register_service('create_space_service_stub', create_space_service_stub)
 
-        access_account_assistant_service_stub = AccessAccountAssistantServiceStub(capabilities_common_channel)
+        access_account_assistant_service_stub = AccessAccountAssistantServiceStub(identity_common_channel)
         Registry.register_service('access_account_assistant_service_stub', access_account_assistant_service_stub)
-        create_account_assistant_service_stub = CreateAccountAssistantServiceStub(capabilities_common_channel)
+        create_account_assistant_service_stub = CreateAccountAssistantServiceStub(identity_common_channel)
         Registry.register_service('create_account_assistant_service_stub', create_account_assistant_service_stub)
-        discover_account_assistant_service_stub = DiscoverAccountAssistantServiceStub(capabilities_common_channel)
+        discover_account_assistant_service_stub = DiscoverAccountAssistantServiceStub(identity_common_channel)
         Registry.register_service('discover_account_assistant_service_stub', discover_account_assistant_service_stub)
-        connect_account_assistant_service_stub = ConnectAccountAssistantServiceStub(capabilities_common_channel)
+        connect_account_assistant_service_stub = ConnectAccountAssistantServiceStub(identity_common_channel)
         Registry.register_service('connect_account_assistant_service_stub', connect_account_assistant_service_stub)
 
         # ------------------------------------
@@ -156,26 +155,26 @@ class Loader(object):
         # ------------------------------------
         # CONVERSATION STUBS
         # ------------------------------------
-        # conversation_grpc_host = os.environ['EAPP_SERVICE_CONVERSATION_HOST']
-        # conversation_grpc_port = os.environ['EAPP_SERVICE_CONVERSATION_PORT']
-        # conversation_grpc_certificate_file = os.environ[
-        #     'EAPP_SERVICE_CONVERSATION_COMMON_GRPC_EXTERNAL_CERTIFICATE_FILE']
-        #
-        # conversation_host_ip = "{host}:{port}".format(host=conversation_grpc_host, port=conversation_grpc_port)
-        #
-        # conversation_ssl_credentials = grpc.ssl_channel_credentials(
-        #     open(conversation_grpc_certificate_file, 'rb').read())
-        # conversation_common_channel = grpc.secure_channel(conversation_host_ip, conversation_ssl_credentials)
-        #
-        # conversation_common_channel = grpc.intercept_channel(conversation_common_channel)
-        # channels.append(conversation_common_channel)
+        conversation_grpc_host = os.environ['EAPP_SERVICE_CONVERSATION_HOST']
+        conversation_grpc_port = os.environ['EAPP_SERVICE_CONVERSATION_PORT']
+        conversation_grpc_certificate_file = os.environ[
+            'EAPP_SERVICE_CONVERSATION_COMMON_GRPC_EXTERNAL_CERTIFICATE_FILE']
+
+        conversation_host_ip = "{host}:{port}".format(host=conversation_grpc_host, port=conversation_grpc_port)
+
+        conversation_ssl_credentials = grpc.ssl_channel_credentials(
+            open(conversation_grpc_certificate_file, 'rb').read())
+        conversation_common_channel = grpc.secure_channel(conversation_host_ip, conversation_ssl_credentials)
+
+        conversation_common_channel = grpc.intercept_channel(conversation_common_channel)
+        channels.append(conversation_common_channel)
 
         # message conversation stubs
-        message_conversation_service_stub = MessageConversationServiceStub(capabilities_common_channel)
+        message_conversation_service_stub = MessageConversationServiceStub(conversation_common_channel)
         Registry.register_service('message_conversation_service_stub', message_conversation_service_stub)
 
         send_account_assistant_message_service_stub = SendAccountAssistantMessageServiceStub(
-            capabilities_common_channel)
+            conversation_common_channel)
         Registry.register_service('send_account_assistant_message_service_stub',
                                   send_account_assistant_message_service_stub)
 
