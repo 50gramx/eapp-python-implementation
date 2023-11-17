@@ -21,5 +21,4 @@ services:
     image: 50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations:latest
     ports:
       - "50501:80"
-    network_mode: "host"
     restart: always
