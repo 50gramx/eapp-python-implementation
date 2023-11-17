@@ -22,5 +22,5 @@
 
 -- insert_data.sql
 INSERT INTO Galaxy (galaxy_id, galaxy_name, universe_id, galaxy_created_at)
-VALUES ('3c57ae83-9d6b-4927-a23e-6d48eae37cfd', 'Milky Way', '92d6e05d-9f99-4b27-8980-d2227e88f7f5',
+VALUES ('3c57ae83-9d6b-4927-a23e-6d48eae37cfd', 'Open Galaxy', '92d6e05d-9f99-4b27-8980-d2227e88f7f5',
         '2023-11-18 12:00:00');
