@@ -62,6 +62,7 @@ job("Build & Deploy Python Implementations") {
             tags {
                 // use current job run number as a tag - '0.0.run_number'
                 +"50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations:{{ VERSION_NUMBER }}"
+                +"50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations:latest"
             }
         }
     }
