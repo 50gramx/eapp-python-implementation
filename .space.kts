@@ -27,6 +27,15 @@ job("Build & Deploy Python Implementations") {
         }
     }
 
+    container("Schedule Deployment", image = "amazoncorretto:17-alpine") {
+        kotlinScript { api ->
+            api.space().projects.automation.deployments.schedule(
+                project = api.projectIdentifier(),
+                targetIdentifier = TargetIdentifier.Key("python-implementation-deployment"),
+                version = api.parameters["VERSION_NUMBER"],
+            )
+        }
+    }
 
     host("Build Python Implementations Images") {
         dockerBuildPush {
@@ -56,7 +65,7 @@ job("Build & Deploy Python Implementations") {
         }
     }
 
-    container("Start Deployment", "amazoncorretto:17-alpine") {
+    container("Start Deployment", image = "amazoncorretto:17-alpine") {
         kotlinScript { api ->
             api.space().projects.automation.deployments.start(
                 project = api.projectIdentifier(),
