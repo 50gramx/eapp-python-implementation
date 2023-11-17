@@ -27,17 +27,6 @@ job("Build & Deploy Python Implementations") {
         }
     }
 
-    container("amazoncorretto:17-alpine") {
-        kotlinScript { api ->
-            api.space().projects.automation.deployments.start(
-                project = api.projectIdentifier(),
-                targetIdentifier = TargetIdentifier.Key("python-implementation-deployment"),
-                version = api.parameters["VERSION_NUMBER"],
-                // automatically update deployment status based on a status of a job
-                syncWithAutomationJob = true
-            )
-        }
-    }
 
     host("Build Python Implementations Images") {
         dockerBuildPush {
@@ -66,7 +55,19 @@ job("Build & Deploy Python Implementations") {
             }
         }
     }
-    
+
+    container("Start Deployment", "amazoncorretto:17-alpine") {
+        kotlinScript { api ->
+            api.space().projects.automation.deployments.start(
+                project = api.projectIdentifier(),
+                targetIdentifier = TargetIdentifier.Key("python-implementation-deployment"),
+                version = api.parameters["VERSION_NUMBER"],
+                // automatically update deployment status based on a status of a job
+                syncWithAutomationJob = true
+            )
+        }
+    }
+
     host("Deploy Python Implementations Containers") {
 
       shellScript {
@@ -75,6 +76,17 @@ job("Build & Deploy Python Implementations") {
           docker-compose up -d
         """
       }
+    }
+
+    container("Finish Deployment", image = "amazoncorretto:17-alpine") {
+        kotlinScript { api ->
+            api.space().projects.automation.deployments.finish(
+                project = api.projectIdentifier(),
+                targetIdentifier = TargetIdentifier.Key("python-implementation-deployment"),
+                version = api.parameters["VERSION_NUMBER"],
+            )
+            // to fail the deployment, use ...deployments.fail()
+        }
     }
     
     // run this job only on
