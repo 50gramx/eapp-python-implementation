@@ -29,6 +29,8 @@ from concurrent import futures
 import grpc
 from ethos.elint.services.product.identity.account.access_account_pb2_grpc import \
     add_AccessAccountServiceServicer_to_server
+from ethos.elint.services.product.identity.account.create_account_pb2_grpc import \
+    add_CreateAccountServiceServicer_to_server
 
 import db_session
 from application_context import ApplicationContext
@@ -124,9 +126,9 @@ def _wait_forever(server):
 
 
 def __add_account_servicer_to_server(server):
-    # add_CreateAccountServiceServicer_to_server(
-    #     ApplicationContext.get_create_account_service(), server
-    # )
+    add_CreateAccountServiceServicer_to_server(
+        ApplicationContext.get_create_account_service(), server
+    )
     add_AccessAccountServiceServicer_to_server(
         ApplicationContext.get_access_account_service(), server
     )
