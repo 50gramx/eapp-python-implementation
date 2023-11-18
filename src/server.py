@@ -91,8 +91,41 @@ def run_server(port):
     Loader.init_multiverse_identity_context()
     logging.info(f'Identity context loaded')
 
+    # this channel argument controls the period (in milliseconds) after which a keepalive ping is sent on the transport.
+    # grpc arg keepalive time ms, by-default, client disabled (INT_MAX), server 2 hours (7200000)
+    # I will reduce this to have reduced keepalive connections count.
+
+    # This channel argument controls the amount of time (in milliseconds) the sender of the keepalive ping waits for
+    # an acknowledgement. If it does not receive an acknowledgment within this time, it will close the connection.
+    # GRPC ARG keepalive timout ms, client 20000 (20 seconds), server 20000 (20 seconds)
+    # I will not change this, no troubles here.
+
+    # This channel argument if set to 1 (0 : false; 1 : true),
+    # allows keepalive pings to be sent even if there are no calls in flight.
+    # GRPC_ARG_KEEPALIVE_PERMIT_WITHOUT_CALLS, client 0 (false), server 0 (false)
+    # I will enable this on server side.
+
+    # This channel argument controls the maximum number of pings that can be sent when there is no data/header
+    # frame to be sent. gRPC Core will not continue sending pings if we run over the limit.
+    # Setting it to 0 allows sending pings without such a restriction.
+    # GRPC_ARG_HTTP2_MAX_PINGS_WITHOUT_DATA, Client 2, Server 2
+    # I will set it without such a restriction.
+
+    # If there are no data/header frames being sent on the transport, this channel argument on the server side
+    # controls the minimum time (in milliseconds) that gRPC Core would expect between receiving successive pings.
+    # If the time between successive pings is less that than this time, then the ping will be considered a bad ping
+    # from the peer. Such a ping counts as a ‘ping strike’. On the client side, this does not have any effect.
+    # GRPC_ARG_HTTP2_MIN_RECV_PING_INTERVAL_WITHOUT_DATA_MS, Server Only, 300000 (5 minutes)
+    # I will not alter this.
+
+    # This arg controls the maximum number of bad pings that the server will tolerate before sending an
+    # HTTP2 GOAWAY frame and closing the transport. Setting it to 0 allows the server to accept any number of bad pings
+    # GRPC_ARG_HTTP2_MAX_PING_STRIKES, Server Only, 2
+    # I will not alter this.
+
+
     options = (
-        ('grpc.max_connection_idle_ms', GRPC_MAX_CONNECTION_IDLE_MS),
+        ('grpc.max_connection_idle_ms', 160),
         # ('grpc.max_connection_age_ms', 5000),
         # ('grpc.max_connection_age_grace_ms', 10000),
         # ('grpc.client_idle_timeout_ms', 3000),
