@@ -1,21 +1,43 @@
-grpcio==1.34.0
-grpcio-tools==1.34.0
-protobuf==3.14.0
-py3dns==3.2.1
-python-http-client==3.3.1
-sendgrid==6.4.6
-six==1.15.0
-SQLAlchemy==1.3.22
-starkbank-ecdsa==1.1.0
-validate-email==1.3
-psycopg2-binary==2.8.6
-urllib3==1.26.6 # See: https://github.com/urllib3/urllib3/issues/2168
-twilio
-phonenumbers==8.12.19
-redis
-stripe
-pyfcm
-google-api-python-client==2.12.0
+# Remote Procedure Calls
+grpcio==1.36.1
+grpcio-tools==1.36.1
+protobuf==3.15.6
+
+# Ethos Capabilities Contracts
 ethos
+
+# Programmable Email Tool
+sendgrid==6.4.6
+
+# Structured Databases
+SQLAlchemy==1.3.22
+psycopg2-binary==2.8.6
+
+# Programmable SMS Tool
+twilio
+
+# In Memory Cache
+redis
+
+# Queue Management
+celery==5.0.5
+
+# Payments SDKs
+stripe
+
+# Observability Tools
 opentracing
 jaeger-client
+
+# Rest of the utilties
+six==1.15.0
+starkbank-ecdsa==1.1.0
+validate-email==1.3
+urllib3==1.26.6 # See: https://github.com/urllib3/urllib3/issues/2168
+phonenumbers==8.12.19
+pyfcm
+google-api-python-client==2.12.0
+py3dns==3.2.1
+python-http-client==3.3.1
+
+
