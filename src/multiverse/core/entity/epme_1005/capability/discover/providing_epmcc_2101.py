@@ -39,7 +39,7 @@ class ProvidingEPMCC2101(DiscoverEPME1005Provider):
         self.consumer = Consumer
 
     def providers_context(self):
-        # provide this capability
+        # provide this capabilities
         pass
 
     def EPMCC2101(self, request_iterator, context):
