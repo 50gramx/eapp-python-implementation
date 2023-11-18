@@ -27,18 +27,6 @@ import time
 from concurrent import futures
 
 import grpc
-from ethos.elint.services.product.identity.account.access_account_pb2_grpc import \
-    add_AccessAccountServiceServicer_to_server
-from ethos.elint.services.product.identity.account.connect_account_pb2_grpc import \
-    add_ConnectAccountServiceServicer_to_server
-from ethos.elint.services.product.identity.account.create_account_pb2_grpc import \
-    add_CreateAccountServiceServicer_to_server
-from ethos.elint.services.product.identity.account.discover_account_pb2_grpc import \
-    add_DiscoverAccountServiceServicer_to_server
-from ethos.elint.services.product.identity.account.notify_account_pb2_grpc import \
-    add_NotifyAccountServiceServicer_to_server
-from ethos.elint.services.product.identity.account.pay_in_account_pb2_grpc import \
-    add_PayInAccountServiceServicer_to_server
 from ethos.elint.services.product.identity.account_assistant.access_account_assistant_pb2_grpc import \
     add_AccessAccountAssistantServiceServicer_to_server
 from ethos.elint.services.product.identity.account_assistant.action_account_assistant_pb2_grpc import \
@@ -54,6 +42,7 @@ from ethos.elint.services.product.identity.space.create_space_pb2_grpc import ad
 
 import db_session
 from application_context import ApplicationContext
+from community.gramx.fifty.zero.ethos.identity.account.handler import handle_account_services
 from loader import Loader
 
 _LOGGER = logging.getLogger(__name__)
@@ -123,9 +112,8 @@ def run_server(port):
     # GRPC_ARG_HTTP2_MAX_PING_STRIKES, Server Only, 2
     # I will not alter this.
 
-
     options = (
-        ('grpc.max_connection_idle_ms', 160),
+        ('grpc.max_connection_idle_ms', GRPC_MAX_CONNECTION_IDLE_MS),
         # ('grpc.max_connection_age_ms', 5000),
         # ('grpc.max_connection_age_grace_ms', 10000),
         # ('grpc.client_idle_timeout_ms', 3000),
@@ -145,7 +133,7 @@ def run_server(port):
     elif identity_layer == 2:
         pass
 
-    __add_account_servicer_to_server(server)
+    server = handle_account_services(server)
     __add_space_servicer_to_server(server)
     __add_account_assistant_servicer_to_server(server)
     __add_machine_servicer_to_server(server)
@@ -176,28 +164,6 @@ def _wait_forever(server):
             time.sleep(_ONE_DAY.total_seconds())
     except KeyboardInterrupt:
         server.stop(None)
-
-
-def __add_account_servicer_to_server(server):
-    add_CreateAccountServiceServicer_to_server(
-        ApplicationContext.get_create_account_service(), server
-    )
-    add_AccessAccountServiceServicer_to_server(
-        ApplicationContext.get_access_account_service(), server
-    )
-    add_ConnectAccountServiceServicer_to_server(
-        ApplicationContext.get_connect_account_service(), server
-    )
-    add_DiscoverAccountServiceServicer_to_server(
-        ApplicationContext.get_discover_account_service(), server
-    )
-    add_PayInAccountServiceServicer_to_server(
-        ApplicationContext.get_pay_in_account_service(), server
-    )
-    add_NotifyAccountServiceServicer_to_server(
-        ApplicationContext.get_notify_account_service(), server
-    )
-    return
 
 
 def __add_space_servicer_to_server(server):
@@ -259,7 +225,7 @@ def _run_server(bind_address):
     Loader.init_multiverse_identity_context()
     logging.info(f'Identity context loaded at {bind_address}')
 
-    __add_account_servicer_to_server(server)
+    server = handle_account_services(server=server)
     __add_space_servicer_to_server(server)
     __add_account_assistant_servicer_to_server(server)
     __add_machine_servicer_to_server(server)
