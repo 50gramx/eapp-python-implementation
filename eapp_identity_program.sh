@@ -20,5 +20,9 @@
 #  */
 #
 
-. /app/eapp-identity.dev.env
+
+echo "Sourcing environment"
+. /app/implementation.dev.env
+
+echo "Starting Server"
 python3 /app/src/server.py
