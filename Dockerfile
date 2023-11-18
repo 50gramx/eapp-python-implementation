@@ -5,4 +5,4 @@ COPY . /app
 WORKDIR /app
 ENV PIP_CONFIG_FILE=/app/pip.conf
 RUN pip install -r requirements.txt
-ENTRYPOINT ["sh", "eapp_identity_program.sh"]
+ENTRYPOINT ["sh", "launch.sh"]
