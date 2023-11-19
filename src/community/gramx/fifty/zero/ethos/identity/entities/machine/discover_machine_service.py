@@ -22,8 +22,8 @@ import logging
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.machine.discover_machine_pb2 import ListAllMachinesResponse
 from ethos.elint.services.product.identity.machine.discover_machine_pb2_grpc import DiscoverMachineServiceServicer
-from service.machine.machine_data_dump import get_all_machines
-from services_caller.account_service_caller import validate_account_services_caller
+from community.gramx.fifty.zero.ethos.identity.entities.machine.machine_data_dump import get_all_machines
+from community.gramx.fifty.zero.ethos.identity.services_caller import validate_account_services_caller
 
 
 class DiscoverMachineService(DiscoverMachineServiceServicer):

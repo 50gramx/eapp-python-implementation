@@ -21,9 +21,9 @@ from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account_assistant.connect_account_assistant_pb2 import ConnectAccountResponse
 from ethos.elint.services.product.identity.account_assistant.connect_account_assistant_pb2_grpc import \
     ConnectAccountAssistantServiceServicer
-from models.account_assistant_connection_models import AccountAssistantConnections
-from models.account_connection_models import AccountConnections
-from services_caller.account_assistant_service_caller import validate_account_assistant_services_caller
+from community.gramx.fifty.zero.ethos.identity.models.account_assistant_connection_models import AccountAssistantConnections
+from community.gramx.fifty.zero.ethos.identity.models.account_connection_models import AccountConnections
+from community.gramx.fifty.zero.ethos.identity.services_caller import validate_account_assistant_services_caller
 from support.helper_functions import gen_uuid
 
 

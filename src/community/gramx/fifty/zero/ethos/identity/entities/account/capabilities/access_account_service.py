@@ -27,8 +27,8 @@ from opentracing import tags
 from opentracing.propagation import Format
 
 from access.account.services_authentication import AccessAccountServicesAuthentication
-from community.gramx.fifty.zero.ethos.identity.account.capabilities.access_account_impl import validate_account_impl
-from services_caller.account_service_caller import validate_account_services_caller
+from community.gramx.fifty.zero.ethos.identity.entities.account.capabilities.access_account_impl import validate_account_impl
+from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import validate_account_services_caller
 from support.application.tracing import init_tracer
 from support.database.account_devices_services import update_account_devices
 from support.database.account_services import get_account

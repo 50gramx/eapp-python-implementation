@@ -36,11 +36,12 @@ from ethos.elint.services.product.identity.account.discover_account_pb2 import G
     GetAccountMetaByAccountIdRequest
 from ethos.elint.services.product.identity.account_assistant.discover_account_assistant_pb2 import \
     GetAccountAssistantMetaByAccountAssistantIdRequest
-from models.account_connection_models import AccountConnections
-from services_caller import account_assistant_service_caller, account_service_caller
-from services_caller.account_assistant_service_caller import account_assistant_access_token_caller, \
+from community.gramx.fifty.zero.ethos.identity.models.account_connection_models import AccountConnections
+from community.gramx.fifty.zero.ethos.identity.services_caller import account_assistant_service_caller, \
+    account_service_caller
+from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import account_assistant_access_token_caller, \
     get_account_assistant_by_account_caller
-from services_caller.account_service_caller import validate_account_services_caller, \
+from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import validate_account_services_caller, \
     account_connected_account_notification_caller
 from support.database.account_services import get_account
 from support.helper_functions import gen_uuid

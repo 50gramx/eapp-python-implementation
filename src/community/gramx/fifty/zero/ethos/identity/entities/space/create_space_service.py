@@ -21,7 +21,7 @@ from ethos.elint.entities import space_pb2
 from ethos.elint.services.product.identity.space.create_space_pb2 import CreateAccountSpaceResponse
 from ethos.elint.services.product.identity.space.create_space_pb2_grpc import CreateSpaceServiceServicer
 
-from models.base_models import Space
+from community.gramx.fifty.zero.ethos.identity.models.base_models import Space
 from support.database.galaxy_services import get_galaxy
 from support.database.space_services import add_new_space
 from support.helper_functions import gen_uuid, format_timestamp_to_datetime

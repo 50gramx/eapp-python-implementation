@@ -36,8 +36,8 @@ from ethos.elint.services.product.identity.account.pay_in_account_pb2 import Acc
     VerifyAccountOpenGalaxyPlayStoreSubscriptionChargeRequest, CreateAccountOpenGalaxyTierSubscriptionRequest, \
     VerifyAccountEthosCoinBalanceAdditionRequest
 from ethos.elint.services.product.identity.account.pay_in_account_pb2_grpc import PayInAccountServiceServicer
-from models.pay_in_models import add_new_account_pay_in, get_account_pay_in_id
-from services_caller.account_service_caller import validate_account_services_caller
+from community.gramx.fifty.zero.ethos.identity.models.pay_in_models import add_new_account_pay_in, get_account_pay_in_id
+from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import validate_account_services_caller
 from support.helper_functions import get_future_timestamp, get_current_timestamp, format_iso_string_to_timestamp, \
     format_timestamp_to_datetime, format_datetime_to_iso_string
 

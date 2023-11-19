@@ -30,11 +30,11 @@ from ethos.elint.services.product.identity.account.pay_in_account_pb2 import \
 from access.account.authentication import AccessAccountAuthentication
 from access.account.services_authentication import AccessAccountServicesAuthentication
 from application_context import ApplicationContext
-from models.account_connection_models import AccountConnections
-from models.base_models import Account, AccountDevices
-from services_caller.account_assistant_service_caller import create_account_assistant_caller
-from services_caller.account_service_caller import validate_account_services_caller
-from services_caller.message_conversation_service_caller import setup_account_conversations_caller
+from community.gramx.fifty.zero.ethos.identity.models.account_connection_models import AccountConnections
+from community.gramx.fifty.zero.ethos.identity.models.base_models import Account, AccountDevices
+from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import create_account_assistant_caller
+from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import validate_account_services_caller
+from community.gramx.fifty.zero.ethos.identity.services_caller.message_conversation_service_caller import setup_account_conversations_caller
 from support.database.account_devices_services import check_existing_account_device, add_new_account_devices
 from support.database.account_services import is_existing_account_mobile, add_new_account, activate_account_billing, \
     deactivate_account_billing
