@@ -21,7 +21,7 @@
 from ethos.elint.entities import galaxy_pb2
 
 from db_session import DbSession
-from models.base_models import Galaxy
+from community.gramx.fifty.zero.ethos.identity.models.base_models import Galaxy
 from support.database.universe_services import get_universe
 from support.helper_functions import format_datetime_to_timestamp
 

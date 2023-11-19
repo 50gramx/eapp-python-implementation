@@ -22,7 +22,7 @@ from ethos.elint.entities import account_pb2
 from sqlalchemy import exists, and_
 
 from db_session import DbSession
-from models.base_models import Account
+from community.gramx.fifty.zero.ethos.identity.models.base_models import Account
 from support.helper_functions import format_datetime_to_timestamp
 
 

@@ -22,7 +22,7 @@ from ethos.elint.entities import space_pb2
 from ethos.elint.entities.space_pb2 import SpaceAccessibilityType, SpaceIsolationType, SpaceEntityType
 
 from db_session import DbSession
-from models.base_models import Space
+from community.gramx.fifty.zero.ethos.identity.models.base_models import Space
 from support.database.galaxy_services import get_galaxy
 from support.helper_functions import format_datetime_to_timestamp
 

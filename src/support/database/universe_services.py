@@ -21,7 +21,7 @@
 from ethos.elint.entities import universe_pb2
 
 from db_session import DbSession
-from models.base_models import Universe
+from community.gramx.fifty.zero.ethos.identity.models.base_models import Universe
 from support.helper_functions import format_datetime_to_timestamp
 
 

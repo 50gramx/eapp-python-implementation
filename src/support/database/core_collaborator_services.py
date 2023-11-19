@@ -22,7 +22,7 @@ from ethos.elint.entities import community_pb2
 from ethos.elint.entities.community_collaborator_pb2 import CollaboratorName
 
 from db_session import DbSession
-from models.base_models import CoreCollaborator
+from community.gramx.fifty.zero.ethos.identity.models.base_models import CoreCollaborator
 
 
 def is_existing_core_collaborator(collaborator_first_name: str, collaborator_last_name: str,

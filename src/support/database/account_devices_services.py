@@ -21,7 +21,7 @@
 from datetime import datetime
 
 from db_session import DbSession
-from models.base_models import AccountDevices
+from community.gramx.fifty.zero.ethos.identity.models.base_models import AccountDevices
 
 
 def add_new_account_devices(account_devices: AccountDevices) -> None:

@@ -19,7 +19,7 @@
 
 
 from db_session import DbSession
-from models.base_models import AccountAssistantNameCode
+from community.gramx.fifty.zero.ethos.identity.models.base_models import AccountAssistantNameCode
 
 
 def get_account_assistant_name_code(account_assistant_name: str, account_id: str) -> int:

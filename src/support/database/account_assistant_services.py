@@ -22,7 +22,7 @@ from ethos.elint.entities import account_pb2, account_assistant_pb2
 from ethos.elint.entities.account_assistant_pb2 import AccountAssistantMeta
 
 from db_session import DbSession
-from models.base_models import AccountAssistant
+from community.gramx.fifty.zero.ethos.identity.models.base_models import AccountAssistant
 from support.database.account_services import get_account
 from support.db_service import add_new_entity
 from support.format_proto_entities import format_account_assistant_to_entity
