@@ -32,17 +32,15 @@ from ethos.elint.services.product.identity.account_assistant.action_account_assi
 from ethos.elint.services.product.identity.account_assistant.action_account_assistant_pb2_grpc import \
     ActionAccountAssistantServiceStub
 
-redis_host = os.environ['EA_CONVERSATION_REDIS_HOST']
-redis_port = os.environ['EA_CONVERSATION_REDIS_PORT']
+redis_host = os.environ['EA_ID_REDIS_HOST']
+redis_port = os.environ['EA_ID_REDIS_PORT']
 
 conversation_action_app = Celery("conversation_action_tasks", broker=f"redis://{redis_host}:{redis_port}/0")
 
 identity_grpc_host = os.environ['EAPP_SERVICE_IDENTITY_HOST']
 identity_grpc_port = os.environ['EAPP_SERVICE_IDENTITY_PORT']
-identity_grpc_certificate_file = os.environ['EAPP_SERVICE_IDENTITY_COMMON_GRPC_EXTERNAL_CERTIFICATE_FILE']
 identity_host_ip = "{host}:{port}".format(host=identity_grpc_host, port=identity_grpc_port)
-identity_ssl_credentials = grpc.ssl_channel_credentials(open(identity_grpc_certificate_file, 'rb').read())
-identity_common_channel = grpc.secure_channel(identity_host_ip, identity_ssl_credentials)
+identity_common_channel = grpc.insecure_channel(identity_host_ip)
 identity_common_channel = grpc.intercept_channel(identity_common_channel)
 
 action_account_assistant_service_stub = ActionAccountAssistantServiceStub(identity_common_channel)
