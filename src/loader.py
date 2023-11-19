@@ -22,7 +22,7 @@ import os
 import grpc
 from ethos.elint.services.product.action.space_knowledge_action_pb2_grpc import SpaceKnowledgeActionServiceStub
 from ethos.elint.services.product.conversation.message.account_assistant.send_account_assistant_message_pb2_grpc import \
-    SendAccountAssistantMessageServiceStub
+    SendAccountAssistantMessageServiceStub, SendAccountAssistantMessageService
 from ethos.elint.services.product.conversation.message.message_conversation_pb2_grpc import \
     MessageConversationServiceStub
 from ethos.elint.services.product.identity.account.access_account_pb2_grpc import AccessAccountServiceStub
@@ -44,6 +44,14 @@ from ethos.elint.services.product.identity.space.create_space_pb2_grpc import Cr
 from ethos.elint.services.product.knowledge.space_knowledge.access_space_knowledge_pb2_grpc import \
     AccessSpaceKnowledgeServiceStub
 
+from community.gramx.fifty.zero.ethos.conversations.entities.message.account.receive_account_message_service import \
+    ReceiveAccountMessageService
+from community.gramx.fifty.zero.ethos.conversations.entities.message.account.send_account_message_service import \
+    SendAccountMessageService
+from community.gramx.fifty.zero.ethos.conversations.entities.message.account_assistant.receive_account_assistant_message_service import \
+    ReceiveAccountAssistantMessageService
+from community.gramx.fifty.zero.ethos.conversations.entities.message.message_conversation_service import \
+    MessageConversationService
 from community.gramx.fifty.zero.ethos.identity.entities.account.capabilities.access_account_service import \
     AccessAccountService
 from community.gramx.fifty.zero.ethos.identity.entities.account.capabilities.connect_account_service import \
@@ -67,8 +75,10 @@ from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.capabi
 from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.capabilities.discover_account_assistant_service import \
     DiscoverAccountAssistantService
 from community.gramx.fifty.zero.ethos.identity.entities.machine.discover_machine_service import DiscoverMachineService
-from community.gramx.fifty.zero.ethos.identity.entities.space.capabilities.access_space_service import AccessSpaceService
-from community.gramx.fifty.zero.ethos.identity.entities.space.capabilities.create_space_service import CreateSpaceService
+from community.gramx.fifty.zero.ethos.identity.entities.space.capabilities.access_space_service import \
+    AccessSpaceService
+from community.gramx.fifty.zero.ethos.identity.entities.space.capabilities.create_space_service import \
+    CreateSpaceService
 from support.application.registry import Registry
 
 
@@ -94,6 +104,13 @@ class Loader(object):
         Loader.__register_space_services()  # for now, change later
         # Loader.__register_multiverse_services()
         Loader.__register_machine_services()
+        return
+
+    @staticmethod
+    def init_multiverse_conversations_context():
+        Loader.__register_message_conversation_services()
+        Loader.__register_account_message_services()
+        Loader.__register_account_assistant_message_services()
         return
 
     @staticmethod
@@ -214,6 +231,10 @@ class Loader(object):
         Registry.register_service('grpc_channels', channels)
         return
 
+    # ------------------------------------------------------
+    # Identity Services
+    # ------------------------------------------------------
+
     @staticmethod
     def __register_account_services():
         create_account_service = CreateAccountService()
@@ -257,3 +278,27 @@ class Loader(object):
         discover_machine_service = DiscoverMachineService()
         Registry.register_service('discover_machine_service', discover_machine_service)
         return
+
+    # ------------------------------------------------------
+    # Conversations Services
+    # ------------------------------------------------------
+
+    @staticmethod
+    def __register_message_conversation_services():
+        message_conversation_service = MessageConversationService()
+        Registry.register_service('message_conversation_service', message_conversation_service)
+
+    @staticmethod
+    def __register_account_message_services():
+        send_account_message_service = SendAccountMessageService()
+        Registry.register_service('send_account_message_service', send_account_message_service)
+        receive_account_message_service = ReceiveAccountMessageService()
+        Registry.register_service('receive_account_message_service', receive_account_message_service)
+
+    @staticmethod
+    def __register_account_assistant_message_services():
+        send_account_assistant_message_service = SendAccountAssistantMessageService()
+        Registry.register_service('send_account_assistant_message_service', send_account_assistant_message_service)
+        receive_account_assistant_message_service = ReceiveAccountAssistantMessageService()
+        Registry.register_service('receive_account_assistant_message_service',
+                                  receive_account_assistant_message_service)

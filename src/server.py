@@ -57,6 +57,8 @@ def run_server(port):
     # Load Context
     Loader.init_multiverse_identity_context()
     logging.info(f'Identity context loaded')
+    Loader.init_multiverse_conversations_context()
+    logging.info(f'Conversations context loaded')
 
     # Bind ThreadPoolExecutor and Services to server
     server = grpc.server(
