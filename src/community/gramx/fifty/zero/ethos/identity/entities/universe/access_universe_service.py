@@ -6,7 +6,7 @@ from ethos.elint.services.product.identity.multiverse.access_multiverse_pb2 impo
 from ethos.elint.services.product.identity.universe.access_universe_pb2_grpc import AccessUniverseServiceServicer
 from support.db_service import is_existing_core_collaborator
 from support.helper_functions import get_random_string, gen_uuid, get_current_timestamp, get_future_timestamp, mail
-from support.redis_service import set_kv, get_kv
+from support.session.redis_service import set_kv, get_kv
 from support.session_manager import create_core_collaborator_access_auth_details, \
     update_persistent_session_last_requested_at, create_multiverse_services_access_auth_details, \
     is_persistent_session_valid

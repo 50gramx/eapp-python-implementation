@@ -30,7 +30,7 @@ from twilio.rest import Client
 from validate_email import validate_email
 
 from ethos.elint.entities.generic_pb2 import TemporaryTokenDetails
-from support.redis_service import set_kv, get_kv
+from support.session.redis_service import set_kv, get_kv
 
 sendgrid_api_key = os.environ.get('SENDGRID_API_KEY')
 twilio_account_sid = os.environ['SMS_API_ACCOUNT_SID']

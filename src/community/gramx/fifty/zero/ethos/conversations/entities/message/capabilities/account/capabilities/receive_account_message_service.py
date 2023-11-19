@@ -44,8 +44,7 @@ from community.gramx.fifty.zero.ethos.conversations.services_caller.account_serv
     is_account_assistant_connected_caller, new_received_message_from_account_assistant_caller, \
     is_account_connected_caller, new_received_message_from_account_caller, validate_account_services_caller
 from support.helper_functions import get_current_timestamp, format_timestamp_to_datetime
-from support.session.redis_service import quick_store_list_length, rpush, \
-    quick_store_list_pop_all_items, set_kv, get_kv
+from support.session.redis_service import get_kv, set_kv, rpush, quick_store_list_pop_all_items, quick_store_list_length
 
 
 class ReceiveAccountMessageService(ReceiveAccountMessageServiceServicer):

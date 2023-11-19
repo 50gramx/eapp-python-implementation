@@ -4,7 +4,7 @@ from ethos.elint.entities.generic_pb2 import PersistentSessionTokenDetails
 
 from support.helper_functions import format_timestamp_to_iso_string, gen_uuid, get_current_timestamp, \
     get_future_timestamp
-from support.redis_service import rpush
+from support.session.redis_service import rpush
 
 GENERAL_SESSION_VALIDITY_IN_SECONDS = 0
 GENERAL_SESSION_VALIDITY_IN_MINUTES = 30

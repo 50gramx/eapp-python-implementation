@@ -26,7 +26,7 @@ from ethos.elint.services.product.identity.account.access_account_pb2 import Val
 from access.account.authentication import AccessAccountAuthentication
 from support.database.account_services import is_existing_account_mobile
 from support.helper_functions import get_random_string, gen_uuid, get_current_timestamp, send_otp, get_future_timestamp
-from support.redis_service import set_kv
+from support.session.redis_service import set_kv
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 

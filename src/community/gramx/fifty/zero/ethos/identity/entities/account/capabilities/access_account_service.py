@@ -33,7 +33,7 @@ from support.application.tracing import init_tracer
 from support.database.account_devices_services import update_account_devices
 from support.database.account_services import get_account
 from support.helper_functions import get_random_string, send_otp, format_timestamp_to_datetime
-from support.redis_service import get_kv
+from support.session.redis_service import get_kv
 from support.session_manager import update_persistent_session_last_requested_at, \
     is_persistent_session_valid
 

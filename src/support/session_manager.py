@@ -24,7 +24,7 @@ from google.protobuf.timestamp_pb2 import Timestamp
 
 from support.helper_functions import gen_uuid, get_current_timestamp, get_future_timestamp, \
     format_timestamp_to_iso_string, format_iso_string_to_timestamp
-from support.redis_service import rpush, lindex, lpop
+from support.session.redis_service import rpush, lindex, lpop
 
 
 # def get_new_service_session(session_scope: str, account_identifier: str) -> []:
