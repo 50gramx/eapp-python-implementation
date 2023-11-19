@@ -18,19 +18,15 @@
 #   */
 
 import contextlib
-import datetime
 import logging
-import multiprocessing
 import os
 from concurrent import futures
 
 import grpc
 
 import db_session
-from community.gramx.fifty.zero.ethos.identity.entities.account.handler import handle_account_services
-from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.handler import \
-    handle_account_assistant_services
-from community.gramx.fifty.zero.ethos.identity.entities.space.handler import handle_space_services
+from community.gramx.fifty.zero.ethos.conversations.handler import handle_conversations_services
+from community.gramx.fifty.zero.ethos.identity.handler import handle_identity_services
 from loader import Loader
 
 _LOGGER = logging.getLogger(__name__)
@@ -65,9 +61,13 @@ def run_server(port):
         futures.ThreadPoolExecutor(max_workers=max_workers)
     )
 
-    handle_account_services(server)
-    handle_space_services(server)
-    handle_account_assistant_services(server)
+    # handle Identity Services
+    handle_identity_services(server)
+    logging.info(f'Identity services added')
+
+    # handle conversations services
+    handle_conversations_services(server)
+    logging.info(f'Conversations services added')
 
     server_port = server.add_insecure_port(f"[::]:{port}")
     server.start()

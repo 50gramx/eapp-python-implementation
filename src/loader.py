@@ -21,6 +21,12 @@ import os
 
 import grpc
 from ethos.elint.services.product.action.space_knowledge_action_pb2_grpc import SpaceKnowledgeActionServiceStub
+from ethos.elint.services.product.conversation.message.account.receive_account_message_pb2_grpc import \
+    ReceiveAccountMessageServiceStub
+from ethos.elint.services.product.conversation.message.account.send_account_message_pb2_grpc import \
+    SendAccountMessageServiceStub
+from ethos.elint.services.product.conversation.message.account_assistant.receive_account_assistant_message_pb2_grpc import \
+    ReceiveAccountAssistantMessageServiceStub
 from ethos.elint.services.product.conversation.message.account_assistant.send_account_assistant_message_pb2_grpc import \
     SendAccountAssistantMessageServiceStub, SendAccountAssistantMessageService
 from ethos.elint.services.product.conversation.message.message_conversation_pb2_grpc import \
@@ -44,13 +50,13 @@ from ethos.elint.services.product.identity.space.create_space_pb2_grpc import Cr
 from ethos.elint.services.product.knowledge.space_knowledge.access_space_knowledge_pb2_grpc import \
     AccessSpaceKnowledgeServiceStub
 
-from community.gramx.fifty.zero.ethos.conversations.entities.message.account.receive_account_message_service import \
+from community.gramx.fifty.zero.ethos.conversations.entities.message.capabilities.account.capabilities.receive_account_message_service import \
     ReceiveAccountMessageService
-from community.gramx.fifty.zero.ethos.conversations.entities.message.account.send_account_message_service import \
+from community.gramx.fifty.zero.ethos.conversations.entities.message.capabilities.account.capabilities.send_account_message_service import \
     SendAccountMessageService
-from community.gramx.fifty.zero.ethos.conversations.entities.message.account_assistant.receive_account_assistant_message_service import \
+from community.gramx.fifty.zero.ethos.conversations.entities.message.capabilities.account_assistant.capabilities.receive_account_assistant_message_service import \
     ReceiveAccountAssistantMessageService
-from community.gramx.fifty.zero.ethos.conversations.entities.message.message_conversation_service import \
+from community.gramx.fifty.zero.ethos.conversations.entities.message.capabilities.message_conversation_service import \
     MessageConversationService
 from community.gramx.fifty.zero.ethos.identity.entities.account.capabilities.access_account_service import \
     AccessAccountService
@@ -201,10 +207,23 @@ class Loader(object):
         message_conversation_service_stub = MessageConversationServiceStub(conversation_common_channel)
         Registry.register_service('message_conversation_service_stub', message_conversation_service_stub)
 
+        # account message stubs
+        send_account_message_service_stub = SendAccountMessageServiceStub(conversation_common_channel)
+        Registry.register_service('send_account_message_service_stub', send_account_message_service_stub)
+
+        receive_account_message_service_stub = ReceiveAccountMessageServiceStub(conversation_common_channel)
+        Registry.register_service('receive_account_message_service_stub', receive_account_message_service_stub)
+
+        # account assistant message stubs
         send_account_assistant_message_service_stub = SendAccountAssistantMessageServiceStub(
             conversation_common_channel)
-        Registry.register_service('send_account_assistant_message_service_stub',
-                                  send_account_assistant_message_service_stub)
+        Registry.register_service(
+            'send_account_assistant_message_service_stub', send_account_assistant_message_service_stub)
+
+        receive_account_assistant_message_service_stub = ReceiveAccountAssistantMessageServiceStub(
+            conversation_common_channel)
+        Registry.register_service(
+            'receive_account_assistant_message_service_stub', receive_account_assistant_message_service_stub)
 
         # ------------------------------------
         # KNOWLEDGE STUBS
