@@ -35,10 +35,7 @@ from loader import Loader
 
 _LOGGER = logging.getLogger(__name__)
 
-_ONE_DAY = datetime.timedelta(days=1)
-_PROCESS_COUNT = multiprocessing.cpu_count()
-_THREAD_CONCURRENCY = _PROCESS_COUNT
-_MAX_WORKERS = int(os.environ['EAPP_SERVICE_IDENTITY_GRPC_MAX_WORKERS'])
+max_workers = int(os.environ['EAPP_SERVICE_IDENTITY_GRPC_MAX_WORKERS'])
 
 PORT = os.environ.get('EAPP_SERVICE_IDENTITY_PORT', None)
 if PORT is None:
@@ -49,8 +46,6 @@ if GRPC_MAX_CONNECTION_IDLE_MS is None:
     GRPC_MAX_CONNECTION_IDLE_MS = 15000
 else:
     GRPC_MAX_CONNECTION_IDLE_MS = int(GRPC_MAX_CONNECTION_IDLE_MS)
-
-max_workers = _MAX_WORKERS
 
 
 @contextlib.contextmanager
@@ -72,7 +67,7 @@ def run_server(port):
     handle_space_services(server)
     handle_account_assistant_services(server)
 
-    server_port = server.add_insecure_port(f"[::]:{PORT}")
+    server_port = server.add_insecure_port(f"[::]:{port}")
     server.start()
     try:
         yield server, server_port
