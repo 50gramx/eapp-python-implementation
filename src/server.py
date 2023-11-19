@@ -58,7 +58,12 @@ def run_server(port):
 
     # Bind ThreadPoolExecutor and Services to server
     server = grpc.server(
-        futures.ThreadPoolExecutor(max_workers=max_workers)
+        thread_pool=futures.ThreadPoolExecutor(max_workers=max_workers),
+        options=[
+            ("grpc.enable_keepalive", 0),
+            ("grpc.keepalive_time_ms", 'INT_MAX'),
+            ("grpc.keepalive_timeout_ms", 'INT_MAX'),
+        ]
     )
 
     # handle Identity Services
