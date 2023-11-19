@@ -22,12 +22,8 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-import db_session
-from models.base_models import Base, Universe, Galaxy, AccountAssistantNameCode, Space, AccountConvenienceSecrets, \
-    AccountSecrets, AccountDevices, AccountAssistant, Account
-from models.pay_in_models import PayIn, AccountPayIn
-from support.db_service import add_new_entity
-from support.helper_functions import gen_uuid, format_timestamp_to_datetime, get_current_timestamp
+from community.gramx.fifty.zero.ethos.identity.models.base_models import Base, Account
+from community.gramx.fifty.zero.ethos.identity.models.pay_in_models import PayIn
 
 # one-line (for command line)
 # db_url = f"postgres://{os.environ['EA_ID_DB_USER']}:{os.environ['EA_ID_DB_PASS']}@{os.environ['EA_ID_DB_HOST']}:{os.environ['EA_ID_DB_PORT']}/{os.environ['EA_ID_DB_NAME']}"
