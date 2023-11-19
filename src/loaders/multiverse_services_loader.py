@@ -18,7 +18,7 @@
 #   */
 
 from loader import Loader
-from service.multiverse.access_multiverse_service import AccessMultiverseService
+from community.gramx.fifty.zero.ethos.identity.entities.multiverse import AccessMultiverseService
 from support.application.registry import Registry
 
 
