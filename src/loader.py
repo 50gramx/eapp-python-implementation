@@ -44,20 +44,31 @@ from ethos.elint.services.product.identity.space.create_space_pb2_grpc import Cr
 from ethos.elint.services.product.knowledge.space_knowledge.access_space_knowledge_pb2_grpc import \
     AccessSpaceKnowledgeServiceStub
 
-from community.gramx.fifty.zero.ethos.identity.account.capabilities.access_account_service import AccessAccountService
-from community.gramx.fifty.zero.ethos.identity.account.capabilities.connect_account_service import ConnectAccountService
-from community.gramx.fifty.zero.ethos.identity.account.capabilities.create_account_service import CreateAccountService
-from community.gramx.fifty.zero.ethos.identity.account.capabilities.discover_account_service import DiscoverAccountService
-from community.gramx.fifty.zero.ethos.identity.account.capabilities.notify_account_service import NotifyAccountService
-from community.gramx.fifty.zero.ethos.identity.account.capabilities.pay_in_account_service import PayInAccountService
-from service.account_assistant.access_account_assistant_service import AccessAccountAssistantService
-from service.account_assistant.action_account_assistant_service import ActionAccountAssistantService
-from service.account_assistant.connect_account_assistant_service import ConnectAccountAssistantService
-from service.account_assistant.create_account_assistant_service import CreateAccountAssistantService
-from service.account_assistant.discover_account_assistant_service import DiscoverAccountAssistantService
-from service.machine.discover_machine_service import DiscoverMachineService
-from service.space.access_space_service import AccessSpaceService
-from service.space.create_space_service import CreateSpaceService
+from community.gramx.fifty.zero.ethos.identity.entities.account.capabilities.access_account_service import \
+    AccessAccountService
+from community.gramx.fifty.zero.ethos.identity.entities.account.capabilities.connect_account_service import \
+    ConnectAccountService
+from community.gramx.fifty.zero.ethos.identity.entities.account.capabilities.create_account_service import \
+    CreateAccountService
+from community.gramx.fifty.zero.ethos.identity.entities.account.capabilities.discover_account_service import \
+    DiscoverAccountService
+from community.gramx.fifty.zero.ethos.identity.entities.account.capabilities.notify_account_service import \
+    NotifyAccountService
+from community.gramx.fifty.zero.ethos.identity.entities.account.capabilities.pay_in_account_service import \
+    PayInAccountService
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.access_account_assistant_service import \
+    AccessAccountAssistantService
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.action_account_assistant_service import \
+    ActionAccountAssistantService
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.connect_account_assistant_service import \
+    ConnectAccountAssistantService
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.create_account_assistant_service import \
+    CreateAccountAssistantService
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.discover_account_assistant_service import \
+    DiscoverAccountAssistantService
+from community.gramx.fifty.zero.ethos.identity.entities.machine.discover_machine_service import DiscoverMachineService
+from community.gramx.fifty.zero.ethos.identity.entities.space.access_space_service import AccessSpaceService
+from community.gramx.fifty.zero.ethos.identity.entities.space.create_space_service import CreateSpaceService
 from support.application.registry import Registry
 
 
