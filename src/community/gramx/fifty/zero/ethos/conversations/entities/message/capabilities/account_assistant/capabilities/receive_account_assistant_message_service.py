@@ -1,16 +1,35 @@
+#   /*************************************************************************
+#   *
+#   * AMIT KUMAR KHETAN CONFIDENTIAL
+#   * __________________
+#   *
+#   *  [2017] - [2021] Amit Kumar Khetan
+#   *  All Rights Reserved.
+#   *
+#   * NOTICE:  All information contained herein is, and remains
+#   * the property of Amit Kumar Khetan and its suppliers,
+#   * if any.  The intellectual and technical concepts contained
+#   * herein are proprietary to Amit Kumar Khetan
+#   * and its suppliers and may be covered by U.S. and Foreign Patents,
+#   * patents in process, and are protected by trade secret or copyright law.
+#   * Dissemination of this information or reproduction of this material
+#   * is strictly forbidden unless prior written permission is obtained
+#   * from Amit Kumar Khetan.
+#   */
+
 import logging
 
-from conversation_action_tasks import act_on_account_message
 from ethos.elint.services.product.conversation.message.account_assistant.receive_account_assistant_message_pb2 import \
     MessageFromAccountReceived
 from ethos.elint.services.product.conversation.message.account_assistant.receive_account_assistant_message_pb2_grpc import \
     ReceiveAccountAssistantMessageServiceServicer
 from google.protobuf.json_format import MessageToJson
 
+from community.gramx.fifty.zero.ethos.conversations.entities.message.capabilities import act_on_account_message
 from community.gramx.fifty.zero.ethos.conversations.models.account_assistant_conversation_models import \
     AccountAssistantConversations
 from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import \
-    is_account_connected_caller
+    is_account_connected_caller, account_assistant_access_token_with_master_connection_caller
 from support.helper_functions import get_current_timestamp, format_timestamp_to_datetime
 
 
