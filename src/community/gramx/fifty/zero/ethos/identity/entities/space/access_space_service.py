@@ -26,8 +26,10 @@ from ethos.elint.services.product.identity.space.create_space_pb2 import CreateA
 
 from access.space.service_authentication import AccessSpaceServicesAuthentication
 from application_context import ApplicationContext
-from community.gramx.fifty.zero.ethos.identity.services_caller import validate_account_assistant_services_caller
-from community.gramx.fifty.zero.ethos.identity.services_caller import validate_account_services_caller
+from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import \
+    validate_account_assistant_services_caller
+from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import \
+    validate_account_services_caller
 from support.database.space_services import get_space
 from support.session_manager import is_persistent_session_valid
 

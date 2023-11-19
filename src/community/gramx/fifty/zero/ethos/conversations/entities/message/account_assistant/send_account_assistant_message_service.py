@@ -8,12 +8,10 @@ from ethos.elint.services.product.conversation.message.account_assistant.send_ac
 
 from community.gramx.fifty.zero.ethos.conversations.models.account_assistant_conversation_models import \
     AccountAssistantConversations
-from community.gramx.fifty.zero.ethos.conversations.services_caller.account_assistant_service_caller import \
-    is_account_connected_caller
 from community.gramx.fifty.zero.ethos.conversations.services_caller.account_message_service_caller import \
     receive_message_from_account_assistant_caller
 from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import \
-    validate_account_assistant_services_caller
+    validate_account_assistant_services_caller, is_account_connected_caller
 from support.helper_functions import format_timestamp_to_datetime
 
 

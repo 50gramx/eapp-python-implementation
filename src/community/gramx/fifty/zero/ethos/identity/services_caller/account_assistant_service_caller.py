@@ -23,7 +23,8 @@ from ethos.elint.entities.account_assistant_pb2 import AccountAssistantConnected
 from ethos.elint.services.product.identity.account.access_account_pb2 import AccountServicesAccessAuthDetails
 from ethos.elint.services.product.identity.account_assistant.access_account_assistant_pb2 import \
     AccountAssistantServicesAccessAuthDetails, AccountAssistantAccessTokenWithMasterConnectionRequest
-from ethos.elint.services.product.identity.account_assistant.connect_account_assistant_pb2 import ConnectAccountRequest
+from ethos.elint.services.product.identity.account_assistant.connect_account_assistant_pb2 import ConnectAccountRequest, \
+    IsAccountConnectedRequest
 from ethos.elint.services.product.identity.account_assistant.create_account_assistant_pb2 import \
     GetAccountAssistantNameCodeRequest, CreateAccountAssistantRequest
 from ethos.elint.services.product.identity.account_assistant.discover_account_assistant_pb2 import \
@@ -110,3 +111,11 @@ def get_account_assistant_name_code_by_id(account_assistant_id: str) -> (int, st
         )
     )
     return response.account_assistant_name_code, response.account_assistant_name
+
+
+def is_account_connected_caller(
+        account_assistant_id: str, connected_account: AccountAssistantConnectedAccount) -> (bool, str):
+    stub = ApplicationContext.connect_account_assistant_service_stub()
+    response = stub.IsAccountConnected(IsAccountConnectedRequest(
+        account_assistant_id=account_assistant_id, connected_account=connected_account))
+    return response.meta_done, response.meta_message

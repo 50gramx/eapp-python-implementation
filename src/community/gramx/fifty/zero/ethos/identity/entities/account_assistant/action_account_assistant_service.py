@@ -27,9 +27,13 @@ from ethos.elint.entities.space_knowledge_pb2 import SpaceKnowledgeAction
 from ethos.elint.services.product.action.space_knowledge_action_pb2 import DomainRankedAnswers
 from ethos.elint.services.product.identity.account_assistant.action_account_assistant_pb2_grpc import \
     ActionAccountAssistantServiceServicer
-from community.gramx.fifty.zero.ethos.identity.services_caller import send_message_to_account
-from community.gramx.fifty.zero.ethos.identity.services_caller import validate_account_assistant_services_caller
-from community.gramx.fifty.zero.ethos.identity.services_caller import ask_question
+
+from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_message_service_caller import \
+    send_message_to_account
+from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import \
+    validate_account_assistant_services_caller
+from community.gramx.fifty.zero.ethos.identity.services_caller.space_knowledge_action_services_caller import \
+    ask_question
 
 
 class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
