@@ -212,3 +212,27 @@ class ApplicationContext(object):
     @staticmethod
     def get_notify_account_service():
         return Registry.get_service('notify_account_service')
+
+    # ----------------------------------------------------------------
+    # Conversations Services
+    # ----------------------------------------------------------------
+
+    @staticmethod
+    def get_message_conversation_service():
+        return Registry.get_service('message_conversation_service')
+
+    @staticmethod
+    def get_send_account_message_service():
+        return Registry.get_service('send_account_message_service')
+
+    @staticmethod
+    def get_receive_account_message_service():
+        return Registry.get_service('receive_account_message_service')
+
+    @staticmethod
+    def get_send_account_assistant_message_service():
+        return Registry.get_service('send_account_assistant_message_service')
+
+    @staticmethod
+    def get_receive_account_assistant_message_service():
+        return Registry.get_service('receive_account_assistant_message_service')
