@@ -19,7 +19,7 @@
 
 from ethos.elint.entities import account_pb2, account_assistant_pb2
 from ethos.elint.entities.account_assistant_pb2 import AccountAssistantMeta
-from models.base_models import AccountAssistant
+from community.gramx.fifty.zero.ethos.identity.models.base_models import AccountAssistant
 from support.helper_functions import format_datetime_to_timestamp
 
 
