@@ -42,7 +42,7 @@ from ethos.elint.services.product.identity.space.create_space_pb2_grpc import ad
 
 import db_session
 from application_context import ApplicationContext
-from community.gramx.fifty.zero.ethos.identity.account.handler import handle_account_services
+from community.gramx.fifty.zero.ethos.identity.entities.account.handler import handle_account_services
 from loader import Loader
 
 _LOGGER = logging.getLogger(__name__)
@@ -121,8 +121,7 @@ def run_server(port):
 
     # Bind ThreadPoolExecutor and Services to server
     server = grpc.server(
-        futures.ThreadPoolExecutor(max_workers=max_workers),
-        options=options
+        futures.ThreadPoolExecutor(max_workers=max_workers)
     )
 
     identity_layer = int(os.environ.get("EAPP_SERVICE_IDENTITY_LAYER", "0"))
