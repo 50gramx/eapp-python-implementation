@@ -56,19 +56,19 @@ from community.gramx.fifty.zero.ethos.identity.entities.account.capabilities.not
     NotifyAccountService
 from community.gramx.fifty.zero.ethos.identity.entities.account.capabilities.pay_in_account_service import \
     PayInAccountService
-from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.access_account_assistant_service import \
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.capabilities.access_account_assistant_service import \
     AccessAccountAssistantService
-from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.action_account_assistant_service import \
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.capabilities.action_account_assistant_service import \
     ActionAccountAssistantService
-from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.connect_account_assistant_service import \
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.capabilities.connect_account_assistant_service import \
     ConnectAccountAssistantService
-from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.create_account_assistant_service import \
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.capabilities.create_account_assistant_service import \
     CreateAccountAssistantService
-from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.discover_account_assistant_service import \
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.capabilities.discover_account_assistant_service import \
     DiscoverAccountAssistantService
 from community.gramx.fifty.zero.ethos.identity.entities.machine.discover_machine_service import DiscoverMachineService
-from community.gramx.fifty.zero.ethos.identity.entities.space.access_space_service import AccessSpaceService
-from community.gramx.fifty.zero.ethos.identity.entities.space.create_space_service import CreateSpaceService
+from community.gramx.fifty.zero.ethos.identity.entities.space.capabilities.access_space_service import AccessSpaceService
+from community.gramx.fifty.zero.ethos.identity.entities.space.capabilities.create_space_service import CreateSpaceService
 from support.application.registry import Registry
 
 

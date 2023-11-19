@@ -61,3 +61,12 @@ ghz --insecure \
     -c 50 \
     -n 2000 \
     localhost:50501
+
+ghz --insecure \
+    --proto /opt/ethos/apps/service/eapp-service-core/src/main/proto/ethos/elint/services/product/identity/account/access_account.proto \
+    --import-paths /opt/ethos/apps/service/eapp-service-core/src/main/proto \
+    --call elint.services.product.identity.account.AccessAccountService.ValidateAccount \
+    --data '{"account_mobile_number": "1234567890"}' \
+    -c 50 \
+    -n 1 \
+    1.tcp.in.ngrok.io:20240
