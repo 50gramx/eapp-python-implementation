@@ -17,7 +17,14 @@
 #   * from Amit Kumar Khetan.
 #   */
 
+import logging
+from functools import wraps
+
 from jaeger_client import Config
+from opentracing import tags
+from opentracing.propagation import Format
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 def init_tracer(service_name):
@@ -30,3 +37,29 @@ def init_tracer(service_name):
         service_name=service_name,
     )
     return config.initialize_tracer()
+
+
+PYTHON_IMPLEMENTATION_TRACER = init_tracer('eapp-python-implementation')
+
+
+def trace_rpc(tracer=PYTHON_IMPLEMENTATION_TRACER):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(self, request, context):
+            span_name = func.__name__
+            metadata_dict = dict(context.invocation_metadata())
+            span_ctx = tracer.extract(Format.TEXT_MAP, metadata_dict)
+            with tracer.start_active_span(span_name, child_of=span_ctx) as scope:
+                scope.span.set_tag(tags.SPAN_KIND, tags.SPAN_KIND_RPC_SERVER)
+                scope.span.set_tag(tags.PEER_SERVICE, 'unknown-service')
+                try:
+                    logging.info(f"{self.session_scope}:{span_name}")
+                    return func(self, request, context)
+                except Exception as e:
+                    logging.error(f"An error occurred during {span_name} RPC: {e}")
+                    # You might also want to modify the response or set gRPC status to signal the error.
+                    raise  # Re-raise the exception after logging it
+
+        return wrapper
+
+    return decorator

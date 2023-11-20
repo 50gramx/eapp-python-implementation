@@ -26,6 +26,7 @@ from pyfcm import FCMNotification
 
 from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import get_account_assistant_name_code_by_id
 from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import get_account_by_id_caller, validate_account_services_caller
+from support.application.tracing import trace_rpc
 from support.database.account_devices_services import get_account_device_token, update_account_devices
 from support.helper_functions import format_timestamp_to_datetime
 from support.notifications.apple_push_notifications import ApplePushNotifications
@@ -39,6 +40,7 @@ class NotifyAccountService(NotifyAccountServiceServicer):
         self.session_scope = self.__class__.__name__
         self.fcm_push_service = FCMNotification(api_key=os.environ['FCM_API_KEY'])
 
+    @trace_rpc
     def NewReceivedMessageFromAccountAssistant(self, request, context):
         logging.info("NotifyAccountService:NewReceivedMessageFromAccountAssistant")
         assistant_name_code, assistant_name = get_account_assistant_name_code_by_id(
@@ -75,6 +77,7 @@ class NotifyAccountService(NotifyAccountServiceServicer):
             logging.info("DEBUG:: NOTIFICATION NOT SENT")
             return ResponseMeta(meta_done=False, meta_message="Couldn't notify account!")
 
+    @trace_rpc
     def NewReceivedMessageFromAccount(self, request, context):
         logging.info("NotifyAccountService:NewReceivedMessageFromAccount")
         account, _, _ = get_account_by_id_caller(account_id=request.connecting_account_id)
@@ -114,6 +117,7 @@ class NotifyAccountService(NotifyAccountServiceServicer):
             logging.info(f" notification is not sent, Exception: {e}")
             return ResponseMeta(meta_done=False, meta_message="Couldn't notify account!")
 
+    @trace_rpc
     def AccountConnectedAccountNotification(self, request, context):
         logging.info("NotifyAccountService:AccountFullyConnectedWithAccount")
         connecting_account, _, _ = get_account_by_id_caller(
@@ -163,6 +167,7 @@ class NotifyAccountService(NotifyAccountServiceServicer):
                          f"notification is not sent, Exception: {e}")
             return ResponseMeta(meta_done=False, meta_message="Couldn't notify account!")
 
+    @trace_rpc
     def UpdateAccountDeviceDetails(self, request, context):
         logging.info("NotifyAccountService:AccountFullyConnectedWithAccount")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)

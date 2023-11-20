@@ -30,6 +30,7 @@ from community.gramx.fifty.zero.ethos.conversations.models.account_assistant_con
     AccountAssistantConversations
 from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import \
     is_account_connected_caller, account_assistant_access_token_with_master_connection_caller
+from support.application.tracing import trace_rpc
 from support.helper_functions import get_current_timestamp, format_timestamp_to_datetime
 
 
@@ -38,6 +39,7 @@ class ReceiveAccountAssistantMessageService(ReceiveAccountAssistantMessageServic
         super(ReceiveAccountAssistantMessageService, self).__init__()
         self.session_scope = self.__class__.__name__
 
+    @trace_rpc
     def ReceiveMessageFromAccount(self, request, context):
         logging.info("ReceiveAccountAssistantMessageService:ReceiveMessageFromAccount")
         is_connected, connection_message = is_account_connected_caller(

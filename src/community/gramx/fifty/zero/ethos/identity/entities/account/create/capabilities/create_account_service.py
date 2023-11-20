@@ -30,11 +30,15 @@ from ethos.elint.services.product.identity.account.pay_in_account_pb2 import \
 from access.account.authentication import AccessAccountAuthentication
 from access.account.services_authentication import AccessAccountServicesAuthentication
 from application_context import ApplicationContext
+from community.gramx.fifty.zero.ethos.conversations.services_caller.message_conversation_service_caller import \
+    setup_account_conversations_caller
 from community.gramx.fifty.zero.ethos.identity.models.account_connection_models import AccountConnections
 from community.gramx.fifty.zero.ethos.identity.models.base_models import Account, AccountDevices
-from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import create_account_assistant_caller
-from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import validate_account_services_caller
-from community.gramx.fifty.zero.ethos.conversations.services_caller.message_conversation_service_caller import setup_account_conversations_caller
+from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import \
+    create_account_assistant_caller
+from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import \
+    validate_account_services_caller
+from support.application.tracing import trace_rpc
 from support.database.account_devices_services import check_existing_account_device, add_new_account_devices
 from support.database.account_services import is_existing_account_mobile, add_new_account, activate_account_billing, \
     deactivate_account_billing
@@ -49,6 +53,7 @@ class CreateAccountService(CreateAccountServiceServicer):
         super(CreateAccountService, self).__init__()
         self.session_scope = self.__class__.__name__
 
+    @trace_rpc
     def ValidateAccountWithMobile(self, request, context):
         logging.info("CreateAccountService:ValidateAccountWithMobile invoked.")
         account_exists_with_mobile = is_existing_account_mobile(
@@ -77,6 +82,7 @@ class CreateAccountService(CreateAccountServiceServicer):
                 validate_account_with_mobile_message="Account already exists. Please Access your Account."
             )
 
+    @trace_rpc
     def VerificationAccount(self, request, context):
         logging.info("CreateAccountService:VerificationAccount invoked.")
         update_persistent_session_last_requested_at(
@@ -101,6 +107,7 @@ class CreateAccountService(CreateAccountServiceServicer):
                 verification_done=False,
                 verification_message="Code resent. Please verify to continue.")
 
+    @trace_rpc
     def CaptureAccountMetaDetails(self, request, context):
         logging.info("CreateAccountService:CaptureAccountMetaDetails invoked.")
 
@@ -183,6 +190,7 @@ class CreateAccountService(CreateAccountServiceServicer):
         )
         return capture_account_meta_details_response
 
+    @trace_rpc
     def ActivateAccountBilling(self, request, context):
         logging.info("CreateAccountService:ActivateAccountBilling")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -209,6 +217,7 @@ class CreateAccountService(CreateAccountServiceServicer):
                         meta_message="Something went wrong on our end. Please contact the developer."
                     )
 
+    @trace_rpc
     def DeactivateAccountBilling(self, request, context):
         logging.info("CreateAccountService:DeactivateAccountBilling")
         validation_done, validation_message = validate_account_services_caller(request)

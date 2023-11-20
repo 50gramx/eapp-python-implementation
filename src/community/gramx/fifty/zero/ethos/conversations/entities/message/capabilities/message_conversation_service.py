@@ -46,6 +46,7 @@ from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant
     validate_account_assistant_services_caller
 from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import \
     validate_account_services_caller
+from support.application.tracing import trace_rpc
 
 
 class MessageConversationService(MessageConversationServiceServicer):
@@ -53,6 +54,7 @@ class MessageConversationService(MessageConversationServiceServicer):
         super(MessageConversationService, self).__init__()
         self.session_scope = self.__class__.__name__
 
+    @trace_rpc
     def SetupAccountConversations(self, request, context):
         logging.info("MessageConversationService:SetupAccountConversations")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -65,6 +67,7 @@ class MessageConversationService(MessageConversationServiceServicer):
             add_account_messages_in_speed(account_id=request.account.account_id)
             return meta
 
+    @trace_rpc
     def SetupAccountAssistantConversations(self, request, context):
         logging.info("MessageConversationService:SetupAccountAssistantConversations")
         validation_done, validation_message = validate_account_assistant_services_caller(request)
@@ -77,6 +80,7 @@ class MessageConversationService(MessageConversationServiceServicer):
             account_assistant_conversations.setup_account_conversations()
             return meta
 
+    @trace_rpc
     def GetAccountAndAssistantConversations(self, request, context):
         logging.info("MessageConversationService:GetAccountAndAssistantConversations")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -181,6 +185,7 @@ class MessageConversationService(MessageConversationServiceServicer):
                     )
             return GetAccountAndAssistantConversationsResponse(response_meta=response_meta)
 
+    @trace_rpc
     def GetLast24ProductNConversationMessages(self, request, context):
         logging.info("MessageConversationService:GetLast24ProductNConversationMessages")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -255,6 +260,7 @@ class MessageConversationService(MessageConversationServiceServicer):
                     sorted(conversations_messages_ordered_dict.items(), reverse=True)).values())
             )
 
+    @trace_rpc
     def GetAccountLastMessage(self, request, context):
         logging.info("MessageConversationService:GetAccountLastMessage")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -287,6 +293,7 @@ class MessageConversationService(MessageConversationServiceServicer):
                     account_sent_message=last_account_sent_message
                 )
 
+    @trace_rpc
     def GetAccountAssistantLastMessage(self, request, context):
         logging.info("MessageConversationService:GetAccountAssistantLastMessage")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -319,6 +326,7 @@ class MessageConversationService(MessageConversationServiceServicer):
                     account_assistant_sent_message=last_account_assistant_sent_message
                 )
 
+    @trace_rpc
     def GetConversedAccounts(self, request, context):
         logging.info("MessageConversationService:GetConversedAccounts")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -342,6 +350,7 @@ class MessageConversationService(MessageConversationServiceServicer):
                     list_of_accounts.append(sent_messages_account)
             return GetConversedAccountsResponse(response_meta=response_meta, conversed_accounts=list_of_accounts)
 
+    @trace_rpc
     def GetConversedAccountAssistants(self, request, context):
         logging.info("MessageConversationService:GetConversedAccountAssistants")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -366,6 +375,7 @@ class MessageConversationService(MessageConversationServiceServicer):
             return GetConversedAccountAssistantsResponse(response_meta=response_meta,
                                                          conversed_account_assistants=list_of_account_assistants)
 
+    @trace_rpc
     def GetConversedAccountAndAssistants(self, request, context):
         logging.info("MessageConversationService:GetConversedAccountAndAssistants")
         validation_done, validation_message = validate_account_services_caller(request)

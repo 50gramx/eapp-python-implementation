@@ -1,3 +1,22 @@
+#   /*************************************************************************
+#   *
+#   * AMIT KUMAR KHETAN CONFIDENTIAL
+#   * __________________
+#   *
+#   *  [2017] - [2021] Amit Kumar Khetan
+#   *  All Rights Reserved.
+#   *
+#   * NOTICE:  All information contained herein is, and remains
+#   * the property of Amit Kumar Khetan and its suppliers,
+#   * if any.  The intellectual and technical concepts contained
+#   * herein are proprietary to Amit Kumar Khetan
+#   * and its suppliers and may be covered by U.S. and Foreign Patents,
+#   * patents in process, and are protected by trade secret or copyright law.
+#   * Dissemination of this information or reproduction of this material
+#   * is strictly forbidden unless prior written permission is obtained
+#   * from Amit Kumar Khetan.
+#   */
+
 import logging
 
 from ethos.elint.entities.account_pb2 import AccountConnectedAccountAssistant
@@ -12,6 +31,7 @@ from community.gramx.fifty.zero.ethos.conversations.services_caller.account_mess
     receive_message_from_account_assistant_caller
 from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import \
     validate_account_assistant_services_caller, is_account_connected_caller
+from support.application.tracing import trace_rpc
 from support.helper_functions import format_timestamp_to_datetime
 
 
@@ -20,6 +40,7 @@ class SendAccountAssistantMessageService(SendAccountAssistantMessageServiceServi
         super(SendAccountAssistantMessageService, self).__init__()
         self.session_scope = self.__class__.__name__
 
+    @trace_rpc
     def SendMessageToAccount(self, request, context):
         logging.info("SendAccountAssistantMessageService:SendMessageToAccount")
         validation_done, validation_message = validate_account_assistant_services_caller(request.access_auth_details)
