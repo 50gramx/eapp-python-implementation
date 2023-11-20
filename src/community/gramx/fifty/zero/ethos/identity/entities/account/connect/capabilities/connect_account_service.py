@@ -53,7 +53,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
         super(ConnectAccountService, self).__init__()
         self.session_scope = self.__class__.__name__
 
-    @trace_rpc
+    @trace_rpc()
     def GetAccountSelfConnectedAccountAssistant(self, request, context):
         logging.info("ConnectAccountService:GetAccountSelfConnectedAccountAssistant")
         access_done, access_message = validate_account_services_caller(request)
@@ -68,7 +68,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
             return GetAccountSelfConnectedAccountAssistantResponse(
                 connected_account_assistant=connected_account_assistant, response_meta=meta)
 
-    @trace_rpc
+    @trace_rpc()
     def GetAllConnectedAssistantsWithBelongingEntity(self, request, context):
         logging.info("ConnectAccountService:GetAllConnectedAssistantsWithBelongingEntity")
         # TODO: Remove debugging comments
@@ -159,7 +159,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     )
             return ConnectedAssistantsWithBelongingEntity(response_meta=meta)
 
-    @trace_rpc
+    @trace_rpc()
     def GetAllConnectedAccountAssistants(self, request, context):
         logging.info("ConnectAccountService:GetAllConnectedAccountAssistants")
         access_done, access_message = validate_account_services_caller(request)
@@ -175,7 +175,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
             return ConnectedAccountAssistants(
                 connected_account_assistants=list_of_connected_account_assistants, response_meta=meta)
 
-    @trace_rpc
+    @trace_rpc()
     def GetAllConnectedAccounts(self, request, context):
         logging.info("ConnectAccountService:GetAllConnectedAccounts")
         access_done, access_message = validate_account_services_caller(request)
@@ -189,7 +189,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                 connected_accounts=list_of_connected_accounts,
                 response_meta=ResponseMeta(meta_done=access_done, meta_message=access_message))
 
-    @trace_rpc
+    @trace_rpc()
     def GetConnectedAccount(self, request, context):
         logging.info("ConnectAccountService:GetConnectedAccount")
         access_done, access_message = validate_account_services_caller(request.access_auth_details)
@@ -210,7 +210,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     connected_account=connected_account,
                     response_meta=ResponseMeta(meta_done=True, meta_message="Account connected."))
 
-    @trace_rpc
+    @trace_rpc()
     def GetConnectedAccountAssistant(self, request, context):
         logging.info("ConnectAccountService:GetConnectedAccountAssistant")
         access_done, access_message = validate_account_services_caller(request.access_auth_details)
@@ -233,7 +233,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     connected_account_assistant=connected_account_assistant,
                     response_meta=ResponseMeta(meta_done=True, meta_message="Account Assistant connected."))
 
-    @trace_rpc
+    @trace_rpc()
     def IsAccountConnectionExists(self, request, context):
         logging.info("ConnectAccountService:IsAccountConnectionExists")
         access_done, access_message = validate_account_services_caller(request.access_auth_details)
@@ -245,7 +245,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                 account_id=request.account_id)
             return ResponseMeta(meta_done=is_account_connection_exists, meta_message=access_message)
 
-    @trace_rpc
+    @trace_rpc()
     def IsAccountAssistantConnectionExists(self, request, context):
         logging.info("ConnectAccountService:IsAccountAssistantConnectionExists")
         access_done, access_message = validate_account_services_caller(request.access_auth_details)
@@ -257,7 +257,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                 account_assistant_id=request.account_assistant_id)
             return ResponseMeta(meta_done=is_account_assistant_connection_exists, meta_message=access_message)
 
-    @trace_rpc
+    @trace_rpc()
     def IsAccountAssistantConnected(self, request, context):
         logging.info("ConnectAccountService:IsAccountAssistantConnected")
         account_connections = AccountConnections(account_id=request.account_id)
@@ -270,7 +270,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
         else:
             return ResponseMeta(meta_done=account_assistant_connected, meta_message="Account Assistant connected.")
 
-    @trace_rpc
+    @trace_rpc()
     def IsAccountConnected(self, request, context):
         logging.info("ConnectAccountService:IsAccountConnected")
         account_connections = AccountConnections(account_id=request.account_id)
@@ -283,7 +283,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
         else:
             return ResponseMeta(meta_done=False, meta_message="Account not connected.")
 
-    @trace_rpc
+    @trace_rpc()
     def ParseAccountMobiles(self, request, context):
         logging.info("ConnectAccountService:ParseAccountMobiles")
         access_done, access_message = validate_account_services_caller(request.access_auth_details)
@@ -307,7 +307,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     logging.warning(f"The {mn} did not seem to be a phone number")
             return ParseAccountMobilesResponse(account_mobiles=account_mobiles, response_meta=response_meta)
 
-    @trace_rpc
+    @trace_rpc()
     def ParseStreamingAccountMobiles(self, request_iterator, context):
         logging.info("ConnectAccountService:ParseStreamingAccountMobiles")
         origin_country_code = "+91"
@@ -327,7 +327,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     logging.warning(f"The {mn} did not seem to be a phone number")
             yield ParseStreamingAccountMobilesResponse(account_mobiles=account_mobiles)
 
-    @trace_rpc
+    @trace_rpc()
     def SyncAccountConnections(self, request, context):
         logging.info("ConnectAccountService:SyncAccountConnections")
         access_done, access_message = validate_account_services_caller(request.access_auth_details)
@@ -363,7 +363,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                 return SyncAccountConnectionsResponse(
                     response_meta=ResponseMeta(meta_done=False, meta_message="Account Syncing is self account"))
 
-    @trace_rpc
+    @trace_rpc()
     def ConnectAccount(self, request, context):
         logging.info("ConnectAccountService:ConnectAccount")
         access_done, access_message = validate_account_services_caller(request.access_auth_details)
@@ -433,7 +433,7 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                     response_meta=ResponseMeta(meta_done=True, meta_message="Account connected")
                 )
 
-    @trace_rpc
+    @trace_rpc()
     def ToggleAccountConnectAccountInterest(self, request, context):
         logging.info("ConnectAccountService:ToggleAccountConnectAccountInterest")
         access_done, access_message = validate_account_services_caller(request.access_auth_details)

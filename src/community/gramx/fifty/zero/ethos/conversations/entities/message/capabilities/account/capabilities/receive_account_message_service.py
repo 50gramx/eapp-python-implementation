@@ -53,7 +53,7 @@ class ReceiveAccountMessageService(ReceiveAccountMessageServiceServicer):
         super(ReceiveAccountMessageService, self).__init__()
         self.session_scope = self.__class__.__name__
 
-    @trace_rpc
+    @trace_rpc()
     def ReceiveMessageFromAccountAssistant(self, request, context):
         logging.info("ReceiveAccountMessageService:ReceiveMessageFromAccountAssistant")
         logging.info(f"request:{request}")
@@ -101,7 +101,7 @@ class ReceiveAccountMessageService(ReceiveAccountMessageServiceServicer):
             )
             return MessageFromAccountAssistantReceived(is_received=True, received_at=received_at)
 
-    @trace_rpc
+    @trace_rpc()
     def ReceiveMessageFromAccount(self, request, context):
         logging.info("ReceiveAccountMessageService:ReceiveMessageFromAccount")
         is_connected, connection_message = is_account_connected_caller(
@@ -129,7 +129,7 @@ class ReceiveAccountMessageService(ReceiveAccountMessageServiceServicer):
             )
             return MessageFromAccountReceived(is_received=True, received_at=received_at)
 
-    @trace_rpc
+    @trace_rpc()
     def SyncAccountReceivedMessages(self, request, context):
         logging.info("ReceiveAccountMessageService:SyncAccountReceivedMessages")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -144,7 +144,7 @@ class ReceiveAccountMessageService(ReceiveAccountMessageServiceServicer):
                     response_meta=response_meta
                 )
 
-    @trace_rpc
+    @trace_rpc()
     def SyncAccountConnectedAccountReceivedMessages(self, request, context):
         logging.info("ReceiveAccountMessageService:SyncAccountConnectedAccountReceivedMessages")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -161,7 +161,7 @@ class ReceiveAccountMessageService(ReceiveAccountMessageServiceServicer):
                     sync_progress=account_received_message_dict.get('progress', 0.0)
                 )
 
-    @trace_rpc
+    @trace_rpc()
     def SyncAccountConnectedAccountAssistantReceivedMessages(self, request, context):
         logging.info("ReceiveAccountMessageService:SyncAccountConnectedAccountAssistantReceivedMessages")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -180,7 +180,7 @@ class ReceiveAccountMessageService(ReceiveAccountMessageServiceServicer):
                     sync_progress=account_assistant_received_message_dict.get('progress', 0.0)
                 )
 
-    @trace_rpc
+    @trace_rpc()
     def ListenForReceivedAccountAssistantMessages(self, request, context):
         logging.info("ReceiveAccountMessageService:ListenForReceivedAccountAssistantMessages")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -199,7 +199,7 @@ class ReceiveAccountMessageService(ReceiveAccountMessageServiceServicer):
                 response_meta=response_meta
             )
 
-    @trace_rpc
+    @trace_rpc()
     def ListenForReceivedAccountMessages(self, request, context):
         logging.info("ReceiveAccountMessageService:ListenForReceivedAccountMessages")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -217,7 +217,7 @@ class ReceiveAccountMessageService(ReceiveAccountMessageServiceServicer):
                 response_meta=response_meta
             )
 
-    @trace_rpc
+    @trace_rpc()
     def ListenForReceivedAccountSpeedMessages(self, request, context):
         logging.info("ReceiveAccountMessageService:ListenForReceivedAccountSpeedMessages")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -245,7 +245,7 @@ class ReceiveAccountMessageService(ReceiveAccountMessageServiceServicer):
                 else:
                     pass
 
-    @trace_rpc
+    @trace_rpc()
     def GetLast24ProductNReceivedMessages(self, request, context):
         logging.info("ReceiveAccountMessageService:GetLast24ProductNReceivedMessages")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -305,7 +305,7 @@ class ReceiveAccountMessageService(ReceiveAccountMessageServiceServicer):
 
     # MESSAGES COUNT
 
-    @trace_rpc
+    @trace_rpc()
     def GetAccountReceivedMessagesCount(self, request, context):
         logging.info("SendAccountMessageService:GetAccountReceivedMessagesCount")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -319,7 +319,7 @@ class ReceiveAccountMessageService(ReceiveAccountMessageServiceServicer):
                 response_meta=response_meta
             )
 
-    @trace_rpc
+    @trace_rpc()
     def GetAccountAssistantReceivedMessagesCount(self, request, context):
         logging.info("SendAccountMessageService:GetAccountAssistantReceivedMessagesCount")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -335,7 +335,7 @@ class ReceiveAccountMessageService(ReceiveAccountMessageServiceServicer):
 
     # LAST MESSAGES
 
-    @trace_rpc
+    @trace_rpc()
     def GetAccountLastReceivedMessage(self, request, context):
         logging.info("SendAccountMessageService:GetAccountLastReceivedMessage")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -349,7 +349,7 @@ class ReceiveAccountMessageService(ReceiveAccountMessageServiceServicer):
             return GetAccountLastReceivedMessageResponse(response_meta=response_meta,
                                                          last_received_message=last_received_message)
 
-    @trace_rpc
+    @trace_rpc()
     def GetAccountAssistantLastReceivedMessage(self, request, context):
         logging.info("SendAccountMessageService:GetAccountLastReceivedMessage")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -363,7 +363,7 @@ class ReceiveAccountMessageService(ReceiveAccountMessageServiceServicer):
             return GetAccountAssistantLastReceivedMessageResponse(response_meta=response_meta,
                                                                   last_received_message=last_received_message)
 
-    @trace_rpc
+    @trace_rpc()
     def GetReceivedMessagesAccounts(self, request, context):
         logging.info("SendAccountMessageService:GetReceivedMessagesAccounts")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -384,7 +384,7 @@ class ReceiveAccountMessageService(ReceiveAccountMessageServiceServicer):
                 response_meta=response_meta
             )
 
-    @trace_rpc
+    @trace_rpc()
     def GetReceivedMessagesAccountAssistants(self, request, context):
         logging.info("SendAccountMessageService:GetReceivedMessagesAccountAssistants")
         validation_done, validation_message = validate_account_services_caller(request)

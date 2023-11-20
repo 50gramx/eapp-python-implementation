@@ -165,7 +165,7 @@ class PayInAccountService(PayInAccountServiceServicer):
         }
         self.session_scope = self.__class__.__name__
 
-    @trace_rpc
+    @trace_rpc()
     def GetAccountPayInPublishableKey(self, request, context):
         logging.info("PayInAccountService:GetAccountPayInPublishableKey")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -178,7 +178,7 @@ class PayInAccountService(PayInAccountServiceServicer):
                 response_meta=response_meta
             )
 
-    @trace_rpc
+    @trace_rpc()
     def CreateAccountPayIn(self, request, context):
         logging.info("PayInAccountService:CreateAccountPayIn")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -194,7 +194,7 @@ class PayInAccountService(PayInAccountServiceServicer):
             add_new_account_pay_in(account_id=request.account.account_id, account_pay_id=account.id)
             return response_meta
 
-    @trace_rpc
+    @trace_rpc()
     def GetAccountPayInAccessKey(self, request, context):
         logging.info("PayInAccountService:GetAccountPayInAccessKey")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -211,7 +211,7 @@ class PayInAccountService(PayInAccountServiceServicer):
             )
             return AccountPayInAccessKey(json_key=json.dumps(key), response_meta=response_meta)
 
-    @trace_rpc
+    @trace_rpc()
     def ListAllCards(self, request, context):
         logging.info("PayInAccountService:ListAllCards")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -244,7 +244,7 @@ class PayInAccountService(PayInAccountServiceServicer):
                 response_meta=response_meta
             )
 
-    @trace_rpc
+    @trace_rpc()
     def SaveCard(self, request, context):
         logging.info("PayInAccountService:SaveCard")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -267,7 +267,7 @@ class PayInAccountService(PayInAccountServiceServicer):
     # ------------------------------------
     # EthosCoin
     # ------------------------------------
-    @trace_rpc
+    @trace_rpc()
     def AccountEthosCoinBalance(self, request, context):
         logging.info("PayInAccountService:AccountEthosCoinBalance")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -306,7 +306,7 @@ class PayInAccountService(PayInAccountServiceServicer):
                     ),
                     balance=0)
 
-    @trace_rpc
+    @trace_rpc()
     def CreditAccountEthosCoinBalance(self, request, context):
         logging.info("PayInAccountService:CreditAccountEthosCoinBalance")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -334,7 +334,7 @@ class PayInAccountService(PayInAccountServiceServicer):
     # ------------------------------------
     # Play Store Subscriptions
     # ------------------------------------
-    @trace_rpc
+    @trace_rpc()
     def CreateAccountOpenGalaxyTierSubscription(self, request, context):
         logging.info("PayInAccountService:CreateAccountOpenGalaxyTierSubscription")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -396,7 +396,7 @@ class PayInAccountService(PayInAccountServiceServicer):
                     meta_message="Subscription failed due to negative EthosCoin Balance. Please clear your dues."
                 )
 
-    @trace_rpc
+    @trace_rpc()
     def ConfirmAccountOpenGalaxyPlayStoreSubscription(self, request, context):
         logging.info("PayInAccountService:ConfirmAccountOpenGalaxyPlayStoreSubscription")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -433,7 +433,7 @@ class PayInAccountService(PayInAccountServiceServicer):
             _ = ApplicationContext.create_account_service_stub().ActivateAccountBilling(request.access_auth_details)
             return ResponseMeta(meta_done=True, meta_message="Successfully subscribed.")
 
-    @trace_rpc
+    @trace_rpc()
     def VerifyAccountOpenGalaxyPlayStoreSubscriptionCharge(self, request, context):
         logging.info("PayInAccountService:VerifyAccountOpenGalaxyPlayStoreSubscriptionCharge")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -462,7 +462,7 @@ class PayInAccountService(PayInAccountServiceServicer):
                 return ResponseMeta(meta_done=False, meta_message=http_error.error_details)
 
     # Add EthosCoin Balance
-    @trace_rpc
+    @trace_rpc()
     def ConfirmAccountEthosCoinBalanceAddition(self, request, context):
         logging.info("PayInAccountService:ConfirmAccountEthosCoinBalanceAddition")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -491,7 +491,7 @@ class PayInAccountService(PayInAccountServiceServicer):
                 ))
             return ResponseMeta(meta_done=True, meta_message=f"Successfully Added {add_ethoscoin} EthosCoin.")
 
-    @trace_rpc
+    @trace_rpc()
     def VerifyAccountEthosCoinBalanceAddition(self, request, context):
         logging.info("PayInAccountService:VerifyAccountEthosCoinBalanceAddition")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -518,7 +518,7 @@ class PayInAccountService(PayInAccountServiceServicer):
 
     # call this at the first access of the day to
     # todo: later on at check to subscription status if necessary
-    @trace_rpc
+    @trace_rpc()
     def UpdateAccountRemainingOpenGalaxyTierBenefits(self, request, context):
         logging.info("PayInAccountService:UpdateAccountRemainingOpenGalaxyTierBenefits")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -550,7 +550,7 @@ class PayInAccountService(PayInAccountServiceServicer):
             else:
                 return ResponseMeta(meta_done=True, meta_message="Daily tier limits already updated.")
 
-    @trace_rpc
+    @trace_rpc()
     def IsTierBenefitsRemainingForClosedDomainLaunchPerMonth(self, request, context):
         logging.info("PayInAccountService:IsTierBenefitsRemainingForClosedDomainLaunchPerMonth")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -571,7 +571,7 @@ class PayInAccountService(PayInAccountServiceServicer):
                     meta_message=f"No Closed Domain Launch remaining for current month"
                 )
 
-    @trace_rpc
+    @trace_rpc()
     def IsTierBenefitsRemainingForClosedDomainPageLearningPerMonth(self, request, context):
         logging.info("PayInAccountService:IsTierBenefitsRemainingForClosedDomainPageLearningPerMonth")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -593,7 +593,7 @@ class PayInAccountService(PayInAccountServiceServicer):
                     meta_message=f"No Closed Domain Page Learning remaining for current month"
                 )
 
-    @trace_rpc
+    @trace_rpc()
     def IsTierBenefitsRemainingForClosedDomainInferencePerDay(self, request, context):
         logging.info("PayInAccountService:IsTierBenefitsRemainingForClosedDomainInferencePerDay")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -614,7 +614,7 @@ class PayInAccountService(PayInAccountServiceServicer):
                     meta_message=f"No Closed Domain Inference remaining for current day"
                 )
 
-    @trace_rpc
+    @trace_rpc()
     def IsTierBenefitsRemainingForOpenDomainInferencePerDay(self, request, context):
         logging.info("PayInAccountService:IsTierBenefitsRemainingForOpenDomainInferencePerDay")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -648,7 +648,7 @@ class PayInAccountService(PayInAccountServiceServicer):
     #     ).execute()
 
     # Account EthosCoin Charges
-    @trace_rpc
+    @trace_rpc()
     def ChargeForClosedDomainLaunch(self, request, context):
         logging.info("PayInAccountService:ChargeForClosedDomainLaunch")
         validation_response = ApplicationContext.access_space_knowledge_service_stub().ValidateSpaceKnowledgeServices(

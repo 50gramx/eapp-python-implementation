@@ -39,7 +39,7 @@ class ReceiveAccountAssistantMessageService(ReceiveAccountAssistantMessageServic
         super(ReceiveAccountAssistantMessageService, self).__init__()
         self.session_scope = self.__class__.__name__
 
-    @trace_rpc
+    @trace_rpc()
     def ReceiveMessageFromAccount(self, request, context):
         logging.info("ReceiveAccountAssistantMessageService:ReceiveMessageFromAccount")
         is_connected, connection_message = is_account_connected_caller(

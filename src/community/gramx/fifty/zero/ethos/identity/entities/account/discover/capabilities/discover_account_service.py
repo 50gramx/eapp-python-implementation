@@ -36,7 +36,7 @@ class DiscoverAccountService(DiscoverAccountServiceServicer):
         super(DiscoverAccountService, self).__init__()
         self.session_scope = self.__class__.__name__
 
-    @trace_rpc
+    @trace_rpc()
     def GetAccountById(self, request, context):
         logging.info("DiscoverAccountService:GetAccountById")
         return GetAccountByIdResponse(
@@ -54,7 +54,7 @@ class DiscoverAccountService(DiscoverAccountServiceServicer):
     #     else:
     #         pass
 
-    @trace_rpc
+    @trace_rpc()
     def GetAccountAssistant(self, request, context):
         logging.info("DiscoverAccountService:GetAccountAssistant")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -63,7 +63,7 @@ class DiscoverAccountService(DiscoverAccountServiceServicer):
         else:
             return get_account_assistant_by_account_caller(request.account)
 
-    @trace_rpc
+    @trace_rpc()
     def IsAccountExistsWithMobile(self, request, context):
         logging.info("DiscoverAccountService:IsAccountExistsWithMobile")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -78,7 +78,7 @@ class DiscoverAccountService(DiscoverAccountServiceServicer):
             else:
                 return ResponseMeta(meta_done=False, meta_message="Account doesn't exists.")
 
-    @trace_rpc
+    @trace_rpc()
     def AreAccountsExistingWithMobile(self, request, context):
         logging.info("DiscoverAccountService:AreAccountsExistingWithMobile")
         # TODO: Optimise this service
@@ -99,7 +99,7 @@ class DiscoverAccountService(DiscoverAccountServiceServicer):
                     response_meta=response_meta
                 )
 
-    @trace_rpc
+    @trace_rpc()
     def IsAccountBillingActive(self, request, context):
         logging.info("DiscoverAccountService:IsAccountBillingActive")
         validation_done, validation_message = validate_account_services_caller(request)

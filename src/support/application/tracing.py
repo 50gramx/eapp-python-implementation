@@ -43,9 +43,14 @@ PYTHON_IMPLEMENTATION_TRACER = init_tracer('eapp-python-implementation')
 
 
 def trace_rpc(tracer=PYTHON_IMPLEMENTATION_TRACER):
+    logging.debug("...into trace_rpc...")
+
     def decorator(func):
+        logging.debug("...into decorator...")
+
         @wraps(func)
         def wrapper(self, request, context):
+            logging.debug("...into wrapper...")
             span_name = func.__name__
             metadata_dict = dict(context.invocation_metadata())
             span_ctx = tracer.extract(Format.TEXT_MAP, metadata_dict)

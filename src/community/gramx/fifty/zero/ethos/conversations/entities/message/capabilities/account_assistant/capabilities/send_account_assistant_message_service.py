@@ -40,7 +40,7 @@ class SendAccountAssistantMessageService(SendAccountAssistantMessageServiceServi
         super(SendAccountAssistantMessageService, self).__init__()
         self.session_scope = self.__class__.__name__
 
-    @trace_rpc
+    @trace_rpc()
     def SendMessageToAccount(self, request, context):
         logging.info("SendAccountAssistantMessageService:SendMessageToAccount")
         validation_done, validation_message = validate_account_assistant_services_caller(request.access_auth_details)

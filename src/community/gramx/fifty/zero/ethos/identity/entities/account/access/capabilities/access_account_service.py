@@ -46,19 +46,19 @@ class AccessAccountService(AccessAccountServiceServicer):
     def __del__(self):
         self.tracer.close()
 
-    @trace_rpc
+    @trace_rpc()
     def ValidateAccount(self, request, context):
         return validate_account_impl(request=request, session_scope=self.session_scope)
 
-    @trace_rpc
+    @trace_rpc()
     def VerifyAccount(self, request, context):
         return verify_account_impl(request=request, session_scope=self.session_scope)
 
-    @trace_rpc
+    @trace_rpc()
     def ValidateAccountServices(self, request, context):
         return validate_account_services_impl(request=request, session_scope=self.session_scope)
 
-    @trace_rpc
+    @trace_rpc()
     def ReAccountAccessToken(self, request, context):
         validation_done, validation_message = validate_account_services_caller(
             request.account_service_access_auth_details)

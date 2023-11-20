@@ -40,7 +40,7 @@ class NotifyAccountService(NotifyAccountServiceServicer):
         self.session_scope = self.__class__.__name__
         self.fcm_push_service = FCMNotification(api_key=os.environ['FCM_API_KEY'])
 
-    @trace_rpc
+    @trace_rpc()
     def NewReceivedMessageFromAccountAssistant(self, request, context):
         logging.info("NotifyAccountService:NewReceivedMessageFromAccountAssistant")
         assistant_name_code, assistant_name = get_account_assistant_name_code_by_id(
@@ -77,7 +77,7 @@ class NotifyAccountService(NotifyAccountServiceServicer):
             logging.info("DEBUG:: NOTIFICATION NOT SENT")
             return ResponseMeta(meta_done=False, meta_message="Couldn't notify account!")
 
-    @trace_rpc
+    @trace_rpc()
     def NewReceivedMessageFromAccount(self, request, context):
         logging.info("NotifyAccountService:NewReceivedMessageFromAccount")
         account, _, _ = get_account_by_id_caller(account_id=request.connecting_account_id)
@@ -117,7 +117,7 @@ class NotifyAccountService(NotifyAccountServiceServicer):
             logging.info(f" notification is not sent, Exception: {e}")
             return ResponseMeta(meta_done=False, meta_message="Couldn't notify account!")
 
-    @trace_rpc
+    @trace_rpc()
     def AccountConnectedAccountNotification(self, request, context):
         logging.info("NotifyAccountService:AccountFullyConnectedWithAccount")
         connecting_account, _, _ = get_account_by_id_caller(
@@ -167,7 +167,7 @@ class NotifyAccountService(NotifyAccountServiceServicer):
                          f"notification is not sent, Exception: {e}")
             return ResponseMeta(meta_done=False, meta_message="Couldn't notify account!")
 
-    @trace_rpc
+    @trace_rpc()
     def UpdateAccountDeviceDetails(self, request, context):
         logging.info("NotifyAccountService:AccountFullyConnectedWithAccount")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)

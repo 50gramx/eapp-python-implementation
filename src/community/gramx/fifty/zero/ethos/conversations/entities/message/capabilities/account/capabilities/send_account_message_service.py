@@ -53,7 +53,7 @@ class SendAccountMessageService(SendAccountMessageServiceServicer):
         super(SendAccountMessageService, self).__init__()
         self.session_scope = self.__class__.__name__
 
-    @trace_rpc
+    @trace_rpc()
     def SendMessageToAccountAssistant(self, request, context):
         logging.info("SendAccountMessageService:SendMessageToAccountAssistant")
         validation_done, validate_message = validate_account_services_caller(request.access_auth_details)
@@ -98,7 +98,7 @@ class SendAccountMessageService(SendAccountMessageServiceServicer):
                         is_sent=is_received, sent_at=request.access_auth_details.requested_at, received_at=received_at
                     )
 
-    @trace_rpc
+    @trace_rpc()
     def SendMessageToAccount(self, request, context):
         logging.info("SendAccountMessageService:SendMessageToAccount")
         is_connected, connection_message = is_account_connected_caller(
@@ -136,7 +136,7 @@ class SendAccountMessageService(SendAccountMessageServiceServicer):
                     account_sent_message_id=account_sent_message_id,
                     is_sent=True, sent_at=request.access_auth_details.requested_at, received_at=received_at)
 
-    @trace_rpc
+    @trace_rpc()
     def SendSpeedMessageToAccount(self, request_iterator, context):
         logging.info("SendAccountMessageService:SendSpeedMessageToAccount")
         account_id = ""
@@ -155,7 +155,7 @@ class SendAccountMessageService(SendAccountMessageServiceServicer):
                 message=request.message,
             )
 
-    @trace_rpc
+    @trace_rpc()
     def SyncAccountSentMessages(self, request, context):
         logging.info("SendAccountMessageService:SyncAccountSentMessages")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -170,7 +170,7 @@ class SendAccountMessageService(SendAccountMessageServiceServicer):
                     response_meta=response_meta
                 )
 
-    @trace_rpc
+    @trace_rpc()
     def SyncAccountConnectedAccountSentMessages(self, request, context):
         logging.info("SendAccountMessageService:SyncAccountConnectedAccountSentMessages")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -187,7 +187,7 @@ class SendAccountMessageService(SendAccountMessageServiceServicer):
                     sync_progress=account_sent_message_dict.get('progress', 0.0)
                 )
 
-    @trace_rpc
+    @trace_rpc()
     def SyncAccountConnectedAccountAssistantSentMessages(self, request, context):
         logging.info("SendAccountMessageService:SyncAccountConnectedAccountAssistantSentMessages")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -206,7 +206,7 @@ class SendAccountMessageService(SendAccountMessageServiceServicer):
                     sync_progress=account_assistant_sent_message_dict.get('progress', 0.0)
                 )
 
-    @trace_rpc
+    @trace_rpc()
     def GetLast24ProductNSentMessages(self, request, context):
         logging.info("SendAccountMessageService:GetLast24ProductNSentMessages")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -257,7 +257,7 @@ class SendAccountMessageService(SendAccountMessageServiceServicer):
                 return GetLast24ProductNSentMessagesResponse(response_meta=response_meta,
                                                              account_assistant_sent_messages=account_assistant_sent_messages)
 
-    @trace_rpc
+    @trace_rpc()
     def GetAccountSentMessagesCount(self, request, context):
         logging.info("SendAccountMessageService:GetAccountSentMessagesCount")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -271,7 +271,7 @@ class SendAccountMessageService(SendAccountMessageServiceServicer):
                 response_meta=response_meta
             )
 
-    @trace_rpc
+    @trace_rpc()
     def GetAccountAssistantSentMessagesCount(self, request, context):
         logging.info("SendAccountMessageService:GetAccountAssistantSentMessagesCount")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -287,7 +287,7 @@ class SendAccountMessageService(SendAccountMessageServiceServicer):
 
     # LAST MESSAGES
 
-    @trace_rpc
+    @trace_rpc()
     def GetAccountLastSentMessage(self, request, context):
         logging.info("SendAccountMessageService:GetAccountLastSentMessage")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -301,7 +301,7 @@ class SendAccountMessageService(SendAccountMessageServiceServicer):
             return GetAccountLastSentMessageResponse(response_meta=response_meta,
                                                      last_sent_message=last_sent_message)
 
-    @trace_rpc
+    @trace_rpc()
     def GetAccountAssistantLastSentMessage(self, request, context):
         logging.info("SendAccountMessageService:GetAccountLastSentMessage")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
@@ -315,7 +315,7 @@ class SendAccountMessageService(SendAccountMessageServiceServicer):
             return GetAccountAssistantLastSentMessageResponse(response_meta=response_meta,
                                                               last_sent_message=last_sent_message)
 
-    @trace_rpc
+    @trace_rpc()
     def GetSentMessagesAccounts(self, request, context):
         logging.info("SendAccountMessageService:GetSentMessagesAccounts")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -336,7 +336,7 @@ class SendAccountMessageService(SendAccountMessageServiceServicer):
                 response_meta=response_meta
             )
 
-    @trace_rpc
+    @trace_rpc()
     def GetSentMessagesAccountAssistants(self, request, context):
         logging.info("SendAccountMessageService:GetSentMessagesAccountAssistants")
         validation_done, validation_message = validate_account_services_caller(request)

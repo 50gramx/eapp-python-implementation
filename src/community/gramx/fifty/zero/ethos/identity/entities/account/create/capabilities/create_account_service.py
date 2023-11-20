@@ -53,7 +53,7 @@ class CreateAccountService(CreateAccountServiceServicer):
         super(CreateAccountService, self).__init__()
         self.session_scope = self.__class__.__name__
 
-    @trace_rpc
+    @trace_rpc()
     def ValidateAccountWithMobile(self, request, context):
         logging.info("CreateAccountService:ValidateAccountWithMobile invoked.")
         account_exists_with_mobile = is_existing_account_mobile(
@@ -82,7 +82,7 @@ class CreateAccountService(CreateAccountServiceServicer):
                 validate_account_with_mobile_message="Account already exists. Please Access your Account."
             )
 
-    @trace_rpc
+    @trace_rpc()
     def VerificationAccount(self, request, context):
         logging.info("CreateAccountService:VerificationAccount invoked.")
         update_persistent_session_last_requested_at(
@@ -107,7 +107,7 @@ class CreateAccountService(CreateAccountServiceServicer):
                 verification_done=False,
                 verification_message="Code resent. Please verify to continue.")
 
-    @trace_rpc
+    @trace_rpc()
     def CaptureAccountMetaDetails(self, request, context):
         logging.info("CreateAccountService:CaptureAccountMetaDetails invoked.")
 
@@ -190,7 +190,7 @@ class CreateAccountService(CreateAccountServiceServicer):
         )
         return capture_account_meta_details_response
 
-    @trace_rpc
+    @trace_rpc()
     def ActivateAccountBilling(self, request, context):
         logging.info("CreateAccountService:ActivateAccountBilling")
         validation_done, validation_message = validate_account_services_caller(request)
@@ -217,7 +217,7 @@ class CreateAccountService(CreateAccountServiceServicer):
                         meta_message="Something went wrong on our end. Please contact the developer."
                     )
 
-    @trace_rpc
+    @trace_rpc()
     def DeactivateAccountBilling(self, request, context):
         logging.info("CreateAccountService:DeactivateAccountBilling")
         validation_done, validation_message = validate_account_services_caller(request)
