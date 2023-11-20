@@ -32,7 +32,7 @@ from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant
     get_account_assistant_name_code_caller, account_assistant_access_token_caller
 from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import \
     validate_account_services_caller
-from community.gramx.fifty.zero.ethos.identity.services_caller.message_conversation_service_caller import \
+from community.gramx.fifty.zero.ethos.conversations.services_caller.message_conversation_service_caller import \
     setup_account_assistant_conversations_caller
 from support.database.account_assistant_name_code_services import get_account_assistant_name_code
 from support.database.account_assistant_services import add_new_account_assistant
