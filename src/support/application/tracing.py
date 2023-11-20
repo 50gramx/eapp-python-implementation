@@ -63,8 +63,7 @@ def trace_rpc(tracer=PYTHON_IMPLEMENTATION_TRACER):
                 # Inject trace context into outgoing request metadata
                 tracer.inject(scope.span.context, Format.TEXT_MAP, metadata_dict)
                 metadata = [(key, value) for key, value in metadata_dict.items()]
-                context.invocation_metadata(metadata)
-                
+
                 # Set gRPC tags
                 scope.span.set_tag(tags.SPAN_KIND, tags.SPAN_KIND_RPC_SERVER)
                 scope.span.set_tag(tags.PEER_SERVICE, 'unknown-service')
