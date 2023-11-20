@@ -68,7 +68,7 @@ from community.gramx.fifty.zero.ethos.identity.entities.account.discover.capabil
     DiscoverAccountService
 from community.gramx.fifty.zero.ethos.identity.entities.account.notify.capabilities.notify_account_service import \
     NotifyAccountService
-from community.gramx.fifty.zero.ethos.identity.entities.account.access.capabilities import \
+from community.gramx.fifty.zero.ethos.identity.entities.account.pay.capabiliities.pay_in_account_service import \
     PayInAccountService
 from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.capabilities.access_account_assistant_service import \
     AccessAccountAssistantService
