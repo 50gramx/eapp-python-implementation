@@ -23,11 +23,6 @@ import math
 import os
 
 import stripe
-from google.oauth2 import service_account
-from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
-
-from application_context import ApplicationContext
 from ethos.elint.entities.account_pb2 import AccountPayInCardDetails
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account.pay_in_account_pb2 import AccountPayInPublishableKey, \
@@ -36,8 +31,15 @@ from ethos.elint.services.product.identity.account.pay_in_account_pb2 import Acc
     VerifyAccountOpenGalaxyPlayStoreSubscriptionChargeRequest, CreateAccountOpenGalaxyTierSubscriptionRequest, \
     VerifyAccountEthosCoinBalanceAdditionRequest
 from ethos.elint.services.product.identity.account.pay_in_account_pb2_grpc import PayInAccountServiceServicer
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
+from grpc import StatusCode
+
+from application_context import ApplicationContext
 from community.gramx.fifty.zero.ethos.identity.models.pay_in_models import add_new_account_pay_in, get_account_pay_in_id
-from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import validate_account_services_caller
+from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import \
+    validate_account_services_caller
 from support.application.tracing import trace_rpc
 from support.helper_functions import get_future_timestamp, get_current_timestamp, format_iso_string_to_timestamp, \
     format_timestamp_to_datetime, format_datetime_to_iso_string
@@ -398,40 +400,44 @@ class PayInAccountService(PayInAccountServiceServicer):
 
     @trace_rpc()
     def ConfirmAccountOpenGalaxyPlayStoreSubscription(self, request, context):
-        logging.info("PayInAccountService:ConfirmAccountOpenGalaxyPlayStoreSubscription")
-        validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
-        if validation_done is False:
-            return ResponseMeta(meta_done=validation_done, meta_message=validation_message)
-        else:
-            verify_response = None
-            if request.open_galaxy_tier_enum > 0:
-                verify_response = ApplicationContext.pay_in_account_service_stub(
-                ).VerifyAccountOpenGalaxyPlayStoreSubscriptionCharge(
-                    VerifyAccountOpenGalaxyPlayStoreSubscriptionChargeRequest(
+        try:
+            validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
+            if validation_done is False:
+                return ResponseMeta(meta_done=validation_done, meta_message=validation_message)
+            else:
+                verify_response = None
+                if request.open_galaxy_tier_enum > 0:
+                    verify_response = ApplicationContext.pay_in_account_service_stub(
+                    ).VerifyAccountOpenGalaxyPlayStoreSubscriptionCharge(
+                        VerifyAccountOpenGalaxyPlayStoreSubscriptionChargeRequest(
+                            access_auth_details=request.access_auth_details,
+                            open_galaxy_tier_enum=request.open_galaxy_tier_enum,
+                            google_play_purchase_token=request.google_play_purchase_token
+                        ))
+                if verify_response is not None and verify_response.meta_done is False:
+                    return ResponseMeta(meta_done=False, meta_message=verify_response.meta_message)
+                _ = ApplicationContext.pay_in_account_service_stub().CreditAccountEthosCoinBalance(
+                    CreditAccountEthosCoinBalanceRequest(
                         access_auth_details=request.access_auth_details,
-                        open_galaxy_tier_enum=request.open_galaxy_tier_enum,
-                        google_play_purchase_token=request.google_play_purchase_token
+                        add_ethoscoin=self.open_galaxy_tier_plans[request.open_galaxy_tier_enum].get("ethoscoin"),
+                        account_currency="INR",
+                        play_store_subscription_id=self.open_galaxy_tier_plans[request.open_galaxy_tier_enum].get(
+                            "play_store_subscription_id"),
+                        google_play_purchase_token=request.google_play_purchase_token,
+                        description=f"Purchased Open Galaxy Tier {request.open_galaxy_tier_enum} on Play Store"
                     ))
-            if verify_response is not None and verify_response.meta_done is False:
-                return ResponseMeta(meta_done=False, meta_message=verify_response.meta_message)
-            _ = ApplicationContext.pay_in_account_service_stub().CreditAccountEthosCoinBalance(
-                CreditAccountEthosCoinBalanceRequest(
-                    access_auth_details=request.access_auth_details,
-                    add_ethoscoin=self.open_galaxy_tier_plans[request.open_galaxy_tier_enum].get("ethoscoin"),
-                    account_currency="INR",
-                    play_store_subscription_id=self.open_galaxy_tier_plans[request.open_galaxy_tier_enum].get(
-                        "play_store_subscription_id"),
-                    google_play_purchase_token=request.google_play_purchase_token,
-                    description=f"Purchased Open Galaxy Tier {request.open_galaxy_tier_enum} on Play Store"
-                ))
-            _ = ApplicationContext.pay_in_account_service_stub().CreateAccountOpenGalaxyTierSubscription(
-                CreateAccountOpenGalaxyTierSubscriptionRequest(
-                    access_auth_details=request.access_auth_details,
-                    open_galaxy_tier_enum=request.open_galaxy_tier_enum
+                _ = ApplicationContext.pay_in_account_service_stub().CreateAccountOpenGalaxyTierSubscription(
+                    CreateAccountOpenGalaxyTierSubscriptionRequest(
+                        access_auth_details=request.access_auth_details,
+                        open_galaxy_tier_enum=request.open_galaxy_tier_enum
+                    )
                 )
-            )
-            _ = ApplicationContext.create_account_service_stub().ActivateAccountBilling(request.access_auth_details)
-            return ResponseMeta(meta_done=True, meta_message="Successfully subscribed.")
+                _ = ApplicationContext.create_account_service_stub().ActivateAccountBilling(request.access_auth_details)
+                return ResponseMeta(meta_done=True, meta_message="Successfully subscribed.")
+        except Exception as e:
+            # You might also want to modify the response or set gRPC status to signal the error.
+            context.set_code(StatusCode.INTERNAL)
+            context.set_details(f"Internal Server Error: {str(e)}")
 
     @trace_rpc()
     def VerifyAccountOpenGalaxyPlayStoreSubscriptionCharge(self, request, context):
