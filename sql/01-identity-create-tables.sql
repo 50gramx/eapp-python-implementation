@@ -1,4 +1,4 @@
--- 01-create-tables.sql
+-- 01-identity-create-tables.sql
 
 -- Universe Table
 CREATE TABLE universe
