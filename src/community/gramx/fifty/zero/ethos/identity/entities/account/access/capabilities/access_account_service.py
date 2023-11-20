@@ -20,8 +20,8 @@
 import logging
 
 from ethos.elint.entities.generic_pb2 import ResponseMeta
-from ethos.elint.services.product.identity.account.access_account_pb2 import VerifyAccountResponse, \
-    ValidateAccountServicesResponse, ReAccountAccessTokenResponse
+from ethos.elint.services.product.identity.account.access_account_pb2 import ValidateAccountServicesResponse, \
+    ReAccountAccessTokenResponse
 from ethos.elint.services.product.identity.account.access_account_pb2_grpc import AccessAccountServiceServicer
 from opentracing import tags
 from opentracing.propagation import Format
@@ -34,12 +34,8 @@ from community.gramx.fifty.zero.ethos.identity.entities.account.access.capabilit
 from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import \
     validate_account_services_caller
 from support.application.tracing import init_tracer
-from support.database.account_devices_services import update_account_devices
 from support.database.account_services import get_account
-from support.helper_functions import get_random_string, send_otp, format_timestamp_to_datetime
-from support.session.redis_service import get_kv
-from support.session_manager import update_persistent_session_last_requested_at, \
-    is_persistent_session_valid
+from support.session_manager import is_persistent_session_valid
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
