@@ -115,18 +115,24 @@ class CreateAccountService(CreateAccountServiceServicer):
         update_persistent_session_last_requested_at(
             request.account_creation_auth_details.account_creation_session_token_details.session_token,
             request.requested_at)
+        logging.info("Session updated.")
 
         # create the account here
         account_analytics_id = gen_uuid()
         account_id = gen_uuid()
         account_galaxy_id = get_our_galaxy().galaxy_id
 
+        logging.info("Generated IDs.")
+
         # before adding account, check if the device is already registered
         if check_existing_account_device(account_device_token=request.account_device_details.device_token):
+            logging.warning("Device already registered with another account.")
             return CaptureAccountMetaDetailsResponse(
                 account_creation_done=False,
                 account_creation_message="Your device is already registered with another account. Trying to sign in?"
             )
+
+        logging.info("Device check passed.")
 
         new_account = Account(
             account_analytics_id=account_analytics_id, account_id=account_id,
@@ -136,8 +142,13 @@ class CreateAccountService(CreateAccountServiceServicer):
             account_galaxy_id=account_galaxy_id, account_gender=request.account_gender,
             account_birth_at=format_timestamp_to_datetime(request.account_birth_at),
             account_created_at=format_timestamp_to_datetime(request.requested_at), account_billing_active=False)
+
+        logging.info("Account created.")
+
         # add the new account to db
         add_new_account(new_account)
+
+        logging.info("Account added to the database.")
 
         # add the new account device details
         try:
@@ -155,20 +166,36 @@ class CreateAccountService(CreateAccountServiceServicer):
                 account_creation_message="Your device is already registered with another account. Trying to sign in?"
             )
 
+        logging.info("Account device details added.")
+
         # setup account connections tables
         AccountConnections(account_id=account_id).setup_account_connections()
+        logging.info("Account connections tables set up.")
+
         # create the response params here
         account_creation_done = True
         account_creation_message = "Account successfully created. Thanks."
+
+        logging.info("Response params created.")
+
         # create account_service_access_auth_details
         account_services_access_auth_details = AccessAccountServicesAuthentication(
             session_scope=self.session_scope,
             account_id=account_id
         ).create_authentication_details()
+
+        logging.info("Account service access auth details created.")
+
         # setup account conversation
         _, _ = setup_account_conversations_caller(access_auth_details=account_services_access_auth_details)
+
+        logging.info("Account conversation set up.")
+
         # setup account pay_in
         _ = ApplicationContext.pay_in_account_service_stub().CreateAccountPayIn(account_services_access_auth_details)
+
+        logging.info("Account pay-in set up.")
+
         # add account to free tier
         subscription_request = ConfirmAccountOpenGalaxyPlayStoreSubscriptionRequest(
             access_auth_details=account_services_access_auth_details,
@@ -177,17 +204,26 @@ class CreateAccountService(CreateAccountServiceServicer):
         )
         _ = ApplicationContext.pay_in_account_service_stub().ConfirmAccountOpenGalaxyPlayStoreSubscription(
             subscription_request)
+
+        logging.info("Account added to free tier.")
+
         # create the response here
         capture_account_meta_details_response = CaptureAccountMetaDetailsResponse(
             account_service_access_auth_details=account_services_access_auth_details,
             account_creation_done=account_creation_done,
             account_creation_message=account_creation_message
         )
+
+        logging.info("Response created.")
+
         # create account assistant
         _, _, _ = create_account_assistant_caller(
             access_auth_details=account_services_access_auth_details,
             account_assistant_name=request.account_assistant_name
         )
+
+        logging.info("Account assistant created.")
+
         return capture_account_meta_details_response
 
     @trace_rpc()
