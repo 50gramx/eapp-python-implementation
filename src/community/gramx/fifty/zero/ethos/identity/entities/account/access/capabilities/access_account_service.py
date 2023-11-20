@@ -18,10 +18,10 @@
 #   */
 
 import logging
+from functools import wraps
 
 from ethos.elint.entities.generic_pb2 import ResponseMeta
-from ethos.elint.services.product.identity.account.access_account_pb2 import ValidateAccountServicesResponse, \
-    ReAccountAccessTokenResponse
+from ethos.elint.services.product.identity.account.access_account_pb2 import ReAccountAccessTokenResponse
 from ethos.elint.services.product.identity.account.access_account_pb2_grpc import AccessAccountServiceServicer
 from opentracing import tags
 from opentracing.propagation import Format
@@ -29,44 +29,53 @@ from opentracing.propagation import Format
 from access.account.services_authentication import AccessAccountServicesAuthentication
 from community.gramx.fifty.zero.ethos.identity.entities.account.access.capabilities.implementations.validate_account_impl import \
     validate_account_impl
+from community.gramx.fifty.zero.ethos.identity.entities.account.access.capabilities.implementations.validate_account_services_impl import \
+    validate_account_services_impl
 from community.gramx.fifty.zero.ethos.identity.entities.account.access.capabilities.implementations.verify_account_impl import \
     verify_account_impl
 from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import \
     validate_account_services_caller
 from support.application.tracing import init_tracer
-from support.database.account_services import get_account
-from support.session_manager import is_persistent_session_valid
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+
+def trace_rpc(tracer, span_name):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(self, request, context):
+            metadata_dict = dict(context.invocation_metadata())
+            span_ctx = tracer.extract(Format.TEXT_MAP, metadata_dict)
+            with tracer.start_active_span(span_name, child_of=span_ctx) as scope:
+                scope.span.set_tag(tags.SPAN_KIND, tags.SPAN_KIND_RPC_SERVER)
+                scope.span.set_tag(tags.PEER_SERVICE, 'unknown-service')
+                try:
+                    return func(self, request, context)
+                except Exception as e:
+                    logging.error(f"An error occurred during {span_name} RPC: {e}")
+                    # You might also want to modify the response or set gRPC status to signal the error.
+                    raise  # Re-raise the exception after logging it
+
+        return wrapper
+
+    return decorator
+
+
+tracer = init_tracer('access-account-service')
 
 
 class AccessAccountService(AccessAccountServiceServicer):
     def __init__(self):
         super(AccessAccountService, self).__init__()
         self.session_scope = self.__class__.__name__
-        self.tracer = init_tracer('access-account-service')
+        self.tracer = tracer
 
     def __del__(self):
         self.tracer.close()
 
+    @trace_rpc(tracer, 'ValidateAccount')
     def ValidateAccount(self, request, context):
-        # Convert the metadata to a dictionary for opentracing.
-        metadata_dict = dict(context.invocation_metadata())
-
-        # Extract span context using the TEXT_MAP format.
-        span_ctx = self.tracer.extract(Format.TEXT_MAP, metadata_dict)
-        with self.tracer.start_active_span('ValidateAccount', child_of=span_ctx) as scope:
-            # Add some tags
-            scope.span.set_tag(tags.SPAN_KIND, tags.SPAN_KIND_RPC_SERVER)
-            scope.span.set_tag(tags.PEER_SERVICE, 'unknown-service')  # or wherever the request is coming from
-            scope.span.set_tag('account_mobile_number', request.account_mobile_number)
-
-            logging.info("\t[-->]AccessAccountService:ValidateAccount")
-            try:
-                return validate_account_impl(request=request, session_scope=self.session_scope)
-            except Exception as e:
-                logging.error(f"An error occurred during ValidateAccount RPC: {e}")
-                # You might also want to modify the response or set gRPC status to signal the error.
+        return validate_account_impl(request=request, session_scope=self.session_scope)
 
     def VerifyAccount(self, request, context):
         # Convert the metadata to a dictionary for opentracing.
@@ -78,41 +87,29 @@ class AccessAccountService(AccessAccountServiceServicer):
             # Add some tags
             scope.span.set_tag(tags.SPAN_KIND, tags.SPAN_KIND_RPC_SERVER)
             scope.span.set_tag(tags.PEER_SERVICE, 'unknown-service')  # or wherever the request is coming from
-            logging.info("\t[-->]AccessAccountService:VerifyAccount")
+            logging.info("AccessAccountService:VerifyAccount")
             try:
                 return verify_account_impl(request=request, session_scope=self.session_scope)
             except Exception as e:
-                logging.error(f"An error occurred during ValidateAccount RPC: {e}")
+                logging.error(f"An error occurred during VerifyAccount RPC: {e}")
                 # You might also want to modify the response or set gRPC status to signal the error.
 
     def ValidateAccountServices(self, request, context):
-        logging.info("AccessAccountService:ValidateAccountServices invoked.")
-        # validate request params
-        if request.account.account_id is "":
-            return ValidateAccountServicesResponse(
-                account_service_access_validation_done=False,
-                account_service_access_validation_message="Invalid Request. This action will be reported."
-            )
+        # Convert the metadata to a dictionary for opentracing.
+        metadata_dict = dict(context.invocation_metadata())
 
-        account_id = request.account.account_id
-        # validate the account
-        if get_account(account_id=account_id).account_id != account_id:
-            # create the response here
-            return ValidateAccountServicesResponse(
-                account_service_access_validation_done=False,
-                account_service_access_validation_message="Requesting account is not legit. This action will be reported."
-            )
-        else:
-            # validate the session
-            session_valid, session_valid_message = is_persistent_session_valid(
-                request.account_services_access_session_token_details.session_token,
-                account_id,
-                self.session_scope
-            )
-            return ValidateAccountServicesResponse(
-                account_service_access_validation_done=session_valid,
-                account_service_access_validation_message=session_valid_message
-            )
+        # Extract span context using the TEXT_MAP format.
+        span_ctx = self.tracer.extract(Format.TEXT_MAP, metadata_dict)
+        with self.tracer.start_active_span('ValidateAccountServices', child_of=span_ctx) as scope:
+            # Add some tags
+            scope.span.set_tag(tags.SPAN_KIND, tags.SPAN_KIND_RPC_SERVER)
+            scope.span.set_tag(tags.PEER_SERVICE, 'unknown-service')  # or wherever the request is coming from
+            logging.info(f"{self.session_scope}:ValidateAccountServices")
+            try:
+                return validate_account_services_impl(request=request, session_scope=self.session_scope)
+            except Exception as e:
+                logging.error(f"An error occurred during ValidateAccountServices RPC: {e}")
+                # You might also want to modify the response or set gRPC status to signal the error.
 
     def ReAccountAccessToken(self, request, context):
         logging.info("AccessAccountService:ReAccountAccessToken")
