@@ -20,6 +20,7 @@
 import logging
 from functools import wraps
 
+from grpc import StatusCode
 from jaeger_client import Config
 from opentracing import tags
 from opentracing.propagation import Format
@@ -52,17 +53,30 @@ def trace_rpc(tracer=PYTHON_IMPLEMENTATION_TRACER):
         def wrapper(self, request, context):
             logging.debug("...into wrapper...")
             span_name = func.__name__
+
+            # Extract trace context from incoming request metadata
             metadata_dict = dict(context.invocation_metadata())
             span_ctx = tracer.extract(Format.TEXT_MAP, metadata_dict)
+
+            # Start a new span for the incoming request
             with tracer.start_active_span(span_name, child_of=span_ctx) as scope:
+                # Inject trace context into outgoing request metadata
+                tracer.inject(scope.span.context, Format.TEXT_MAP, metadata_dict)
+                metadata = [(key, value) for key, value in metadata_dict.items()]
+                context.invocation_metadata(metadata)
+                
+                # Set gRPC tags
                 scope.span.set_tag(tags.SPAN_KIND, tags.SPAN_KIND_RPC_SERVER)
                 scope.span.set_tag(tags.PEER_SERVICE, 'unknown-service')
+
                 try:
                     logging.info(f"{self.session_scope}:{span_name}")
                     return func(self, request, context)
                 except Exception as e:
                     logging.error(f"An error occurred during {span_name} RPC: {e}")
                     # You might also want to modify the response or set gRPC status to signal the error.
+                    context.set_code(StatusCode.INTERNAL)
+                    context.set_details(f"Internal Server Error: {str(e)}")
                     raise  # Re-raise the exception after logging it
 
         return wrapper
