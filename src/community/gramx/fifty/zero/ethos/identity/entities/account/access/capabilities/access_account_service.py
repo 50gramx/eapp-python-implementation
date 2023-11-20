@@ -27,8 +27,12 @@ from opentracing import tags
 from opentracing.propagation import Format
 
 from access.account.services_authentication import AccessAccountServicesAuthentication
-from community.gramx.fifty.zero.ethos.identity.entities.account.capabilities.access_account_impl import validate_account_impl
-from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import validate_account_services_caller
+from community.gramx.fifty.zero.ethos.identity.entities.account.access.capabilities.implementations.validate_account_impl import \
+    validate_account_impl
+from community.gramx.fifty.zero.ethos.identity.entities.account.access.capabilities.implementations.verify_account_impl import \
+    verify_account_impl
+from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import \
+    validate_account_services_caller
 from support.application.tracing import init_tracer
 from support.database.account_devices_services import update_account_devices
 from support.database.account_services import get_account
@@ -61,7 +65,7 @@ class AccessAccountService(AccessAccountServiceServicer):
             scope.span.set_tag(tags.PEER_SERVICE, 'unknown-service')  # or wherever the request is coming from
             scope.span.set_tag('account_mobile_number', request.account_mobile_number)
 
-            logging.info("AccessAccountService:ValidateAccount")
+            logging.info("\t[-->]AccessAccountService:ValidateAccount")
             try:
                 return validate_account_impl(request=request, session_scope=self.session_scope)
             except Exception as e:
@@ -69,66 +73,21 @@ class AccessAccountService(AccessAccountServiceServicer):
                 # You might also want to modify the response or set gRPC status to signal the error.
 
     def VerifyAccount(self, request, context):
-        logging.info("AccessAccountService:VerifyAccount invoked.")
-        # get the request params here
-        account_access_auth_details = request.account_access_auth_details
-        resend_code = request.resend_code
-        verification_code_token_details = request.verification_code_token_details
-        verification_code = request.verification_code
-        requested_at = request.requested_at
+        # Convert the metadata to a dictionary for opentracing.
+        metadata_dict = dict(context.invocation_metadata())
 
-        # update the session here
-        update_persistent_session_last_requested_at(
-            account_access_auth_details.account_access_auth_session_token_details.session_token, requested_at)
-
-        if not resend_code:
-            # verify the code and return the status
-            sent_verification_code = get_kv(verification_code_token_details.token)
-            if verification_code == sent_verification_code:
-                # verification successful
-                verification_done = True
-                verification_message = "Account successfully verified."
-                # access account id
-                account = get_account(account_mobile_number=account_access_auth_details.account_mobile_number)
-                # update account devices
-                update_account_devices(
-                    account_id=account.account_id,
-                    account_device_os=request.account_device_details.account_device_os,
-                    account_device_token=request.account_device_details.device_token,
-                    account_device_token_accessed_at=format_timestamp_to_datetime(requested_at)
-                )
-                verify_account_response = VerifyAccountResponse(
-                    account_service_access_auth_details=AccessAccountServicesAuthentication(
-                        session_scope=self.session_scope,
-                        account_id=account.account_id
-                    ).create_authentication_details(),
-                    verification_done=verification_done,
-                    verification_message=verification_message
-                )
-            else:
-                # verification failed
-                verification_done = False
-                verification_message = "Verification failed. Please check the sent OTP and retry again."
-                verify_account_response = VerifyAccountResponse(
-                    verification_done=verification_done,
-                    verification_message=verification_message
-                )
-        else:
-            # resend the code and return the status
-            new_verification_code = get_random_string(4)
-            # TODO: Store the new verification code to cache
-            code_sent_at = send_otp(
-                country_code="+91",
-                account_mobile_number=account_access_auth_details.account_mobile_number,
-                verification_code=new_verification_code)
-            # create the response here
-            verification_done = False
-            verification_message = "Code resent. Please verify to continue."
-            verify_account_response = VerifyAccountResponse(
-                verification_done=verification_done,
-                verification_message=verification_message
-            )
-        return verify_account_response
+        # Extract span context using the TEXT_MAP format.
+        span_ctx = self.tracer.extract(Format.TEXT_MAP, metadata_dict)
+        with self.tracer.start_active_span('VerifyAccount', child_of=span_ctx) as scope:
+            # Add some tags
+            scope.span.set_tag(tags.SPAN_KIND, tags.SPAN_KIND_RPC_SERVER)
+            scope.span.set_tag(tags.PEER_SERVICE, 'unknown-service')  # or wherever the request is coming from
+            logging.info("\t[-->]AccessAccountService:VerifyAccount")
+            try:
+                return verify_account_impl(request=request, session_scope=self.session_scope)
+            except Exception as e:
+                logging.error(f"An error occurred during ValidateAccount RPC: {e}")
+                # You might also want to modify the response or set gRPC status to signal the error.
 
     def ValidateAccountServices(self, request, context):
         logging.info("AccessAccountService:ValidateAccountServices invoked.")

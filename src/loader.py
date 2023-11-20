@@ -58,17 +58,17 @@ from community.gramx.fifty.zero.ethos.conversations.entities.message.capabilitie
     ReceiveAccountAssistantMessageService
 from community.gramx.fifty.zero.ethos.conversations.entities.message.capabilities.message_conversation_service import \
     MessageConversationService
-from community.gramx.fifty.zero.ethos.identity.entities.account.capabilities.access_account_service import \
+from community.gramx.fifty.zero.ethos.identity.entities.account.access.capabilities.access_account_service import \
     AccessAccountService
-from community.gramx.fifty.zero.ethos.identity.entities.account.capabilities.connect_account_service import \
+from community.gramx.fifty.zero.ethos.identity.entities.account.connect.capabilities.connect_account_service import \
     ConnectAccountService
-from community.gramx.fifty.zero.ethos.identity.entities.account.capabilities.create_account_service import \
+from community.gramx.fifty.zero.ethos.identity.entities.account.create.capabilities.create_account_service import \
     CreateAccountService
-from community.gramx.fifty.zero.ethos.identity.entities.account.capabilities.discover_account_service import \
+from community.gramx.fifty.zero.ethos.identity.entities.account.discover.capabilities.discover_account_service import \
     DiscoverAccountService
-from community.gramx.fifty.zero.ethos.identity.entities.account.capabilities.notify_account_service import \
+from community.gramx.fifty.zero.ethos.identity.entities.account.notify.capabilities.notify_account_service import \
     NotifyAccountService
-from community.gramx.fifty.zero.ethos.identity.entities.account.capabilities.pay_in_account_service import \
+from community.gramx.fifty.zero.ethos.identity.entities.account.access.capabilities import \
     PayInAccountService
 from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.capabilities.access_account_assistant_service import \
     AccessAccountAssistantService

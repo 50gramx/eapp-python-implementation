@@ -61,8 +61,6 @@ def run_server(port):
         thread_pool=futures.ThreadPoolExecutor(max_workers=max_workers),
         options=[
             ("grpc.enable_keepalive", 0),
-            ("grpc.keepalive_time_ms", 'INT_MAX'),
-            ("grpc.keepalive_timeout_ms", 'INT_MAX'),
         ]
     )
 
