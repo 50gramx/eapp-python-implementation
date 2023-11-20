@@ -24,5 +24,5 @@
 CREATE TABLE account_pay_in
 (
     account_id     VARCHAR(255) PRIMARY KEY,
-    account_pay_id VARCHAR(255) PRIMARY KEY
+    account_pay_id VARCHAR(255)
 );
