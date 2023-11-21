@@ -29,6 +29,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 
 def init_tracer(service_name):
+    logging.info("init_tracer")
     config = Config(
         config={
             'sampler': {'type': 'const', 'param': 1},
@@ -41,17 +42,18 @@ def init_tracer(service_name):
 
 
 PYTHON_IMPLEMENTATION_TRACER = init_tracer('eapp-python-implementation')
+logging.info("PYTHON_IMPLEMENTATION_TRACER")
 
 
 def trace_rpc(tracer=PYTHON_IMPLEMENTATION_TRACER):
-    logging.debug("...into trace_rpc...")
+    logging.info("...into trace_rpc...")
 
     def decorator(func):
-        logging.debug("...into decorator...")
+        logging.info("...into decorator...")
 
         @wraps(func)
         def wrapper(self, request, context):
-            logging.debug("...into wrapper...")
+            logging.info("...into wrapper...")
             span_name = func.__name__
 
             # Extract trace context from incoming request metadata
@@ -59,14 +61,14 @@ def trace_rpc(tracer=PYTHON_IMPLEMENTATION_TRACER):
             span_ctx = tracer.extract(Format.TEXT_MAP, metadata_dict)
 
             # Start a new span for the incoming request
-            with tracer.start_active_span(span_name, child_of=span_ctx) as scope:
+            with tracer.start_span(span_name, child_of=span_ctx) as span:
                 # Inject trace context into outgoing request metadata
-                tracer.inject(scope.span.context, Format.TEXT_MAP, metadata_dict)
+                tracer.inject(span.context, Format.TEXT_MAP, metadata_dict)
                 metadata = [(key, value) for key, value in metadata_dict.items()]
 
                 # Set gRPC tags
-                scope.span.set_tag(tags.SPAN_KIND, tags.SPAN_KIND_RPC_SERVER)
-                scope.span.set_tag(tags.PEER_SERVICE, 'unknown-service')
+                span.set_tag(tags.SPAN_KIND, tags.SPAN_KIND_RPC_SERVER)
+                span.set_tag(tags.PEER_SERVICE, 'unknown-service')
 
                 try:
                     logging.info(f"{self.session_scope}:{span_name}")
