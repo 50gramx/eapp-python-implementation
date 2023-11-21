@@ -54,7 +54,7 @@ class PayInAccountService(PayInAccountServiceServicer):
             0: {
                 "price_api": "price_1JAVQkF89FbkqSMdPfnZ0rKB",
                 # "price_api": "price_1J9dgOF89FbkqSMd2ircLWjC",
-                "ethoscoin": 0.0,
+                "ethoscoin": 0.1,
                 "play_store_subscription_id": "50gramx.subscribe.tier.free",
                 "closed_domain_launch_per_month": 1,
                 "closed_domain_page_learning_per_month": 5,
