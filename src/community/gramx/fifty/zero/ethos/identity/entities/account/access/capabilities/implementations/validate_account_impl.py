@@ -19,6 +19,8 @@
 import logging
 
 import phonenumbers
+from phonenumbers import carrier
+from phonenumbers.phonenumberutil import number_type
 from ethos.elint.entities.generic_pb2 import TemporaryTokenDetails
 from ethos.elint.services.product.identity.account.access_account_pb2 import ValidateAccountRequest
 from ethos.elint.services.product.identity.account.access_account_pb2 import ValidateAccountResponse
@@ -40,8 +42,16 @@ def validate_account_impl(request: ValidateAccountRequest, session_scope: str):
 
     # validate the account number
     try:
-        phonenumbers.parse(request.account_mobile_number)
-    except Exception as e:
+        is_valid_mobile_number = carrier._is_mobile(
+            number_type(phonenumbers.parse(request.account_mobile_number, "IN")))
+        if not is_valid_mobile_number:
+            validate_account_response = ValidateAccountResponse(
+                account_exists=False,
+                validate_account_done=False,
+                validate_account_message=f"Invalid mobile number. Please provide a valid mobile number."
+            )
+            return validate_account_response
+    except Exception:
         validate_account_response = ValidateAccountResponse(
             account_exists=False,
             validate_account_done=False,
