@@ -41,7 +41,7 @@ trace.set_tracer_provider(TracerProvider())
 
 # create a JaegerExporter
 jaeger_exporter = OTLPSpanExporter(
-    'jaeger:6831', insecure=True
+    'jaeger:4317', insecure=True
 )
 
 # Create a BatchSpanProcessor and add the exporter to it
