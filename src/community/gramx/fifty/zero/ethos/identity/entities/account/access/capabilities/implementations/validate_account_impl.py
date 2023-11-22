@@ -45,7 +45,7 @@ def validate_account_impl(request: ValidateAccountRequest, session_scope: str):
         validate_account_response = ValidateAccountResponse(
             account_exists=False,
             validate_account_done=False,
-            validate_account_message=f"Invalid mobile number with error {e} Please provide a valid mobile number."
+            validate_account_message=f"Invalid mobile number. Please provide a valid mobile number."
         )
         return validate_account_response
 
