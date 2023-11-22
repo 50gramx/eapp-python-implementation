@@ -122,8 +122,20 @@ class ApplicationContext(object):
         return Registry.get_service('message_conversation_service_stub')
 
     @staticmethod
+    def send_account_message_service_stub():
+        return Registry.get_service('send_account_message_service_stub')
+
+    @staticmethod
+    def receive_account_message_service_stub():
+        return Registry.get_service('receive_account_message_service_stub')
+
+    @staticmethod
     def send_account_assistant_message_service_stub():
         return Registry.get_service('send_account_assistant_message_service_stub')
+
+    @staticmethod
+    def receive_account_assistant_message_service_stub():
+        return Registry.get_service('receive_account_assistant_message_service_stub')
 
     # --------------------------------
     # Knowledge Stubs
