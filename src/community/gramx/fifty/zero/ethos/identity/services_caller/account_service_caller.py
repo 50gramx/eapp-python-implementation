@@ -16,6 +16,7 @@
 #   * is strictly forbidden unless prior written permission is obtained
 #   * from Amit Kumar Khetan.
 #   */
+import logging
 
 from application_context import ApplicationContext
 from ethos.elint.entities import account_pb2
@@ -29,8 +30,11 @@ from ethos.elint.services.product.identity.account.notify_account_pb2 import Acc
 
 def validate_account_services_caller(
         access_auth_details: AccountServicesAccessAuthDetails) -> (bool, str):
+    logging.info("validate_account_services_caller")
     stub = ApplicationContext.access_account_service_stub()
+    logging.info("fetched stub, will call")
     response = stub.ValidateAccountServices(access_auth_details)
+    logging.info("response received")
     return (response.account_service_access_validation_done,
             response.account_service_access_validation_message)
 
@@ -56,6 +60,7 @@ def connect_account_caller(access_auth_details: AccountServicesAccessAuthDetails
     response = stub.ConnectAccount(ConnectAccountRequest(
         access_auth_details=access_auth_details, connecting_account_id=connecting_account_id))
     return response.response_meta.meta_done, response.response_meta.meta_message, response.connected_account
+
 
 def account_connected_account_notification_caller(
         account: account_pb2.Account,
