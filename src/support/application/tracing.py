@@ -72,6 +72,7 @@ def trace_rpc(tracer=PYTHON_IMPLEMENTATION_TRACER):
 
                 try:
                     logging.info(f"{self.session_scope}:{span_name}")
+                    logging.info(f"context: {context}")
                     return func(self, request, context)
                 except Exception as e:
                     logging.error(f"An error occurred during {span_name} RPC: {e}")

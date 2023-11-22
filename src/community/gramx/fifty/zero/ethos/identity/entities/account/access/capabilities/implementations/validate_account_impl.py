@@ -38,6 +38,17 @@ def validate_account_impl(request: ValidateAccountRequest, session_scope: str):
     logging.info(
         f"Received account_mobile_number: {request.account_mobile_number} at {request.requested_at}")
 
+    # validate the account number
+    try:
+        phonenumbers.parse(request.account_mobile_number)
+    except Exception as e:
+        validate_account_response = ValidateAccountResponse(
+            account_exists=False,
+            validate_account_done=False,
+            validate_account_message=f"Invalid mobile number with error {e} Please provide a valid mobile number."
+        )
+        return validate_account_response
+
     # check account existence
     account_country_code = request.account_mobile_country_code if request.account_mobile_country_code \
         else "+" + str(phonenumbers.parse(request.account_mobile_number, "IN").country_code)
