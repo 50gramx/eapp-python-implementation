@@ -20,28 +20,45 @@
 import contextlib
 import logging
 import os
+import threading
 from concurrent import futures
+from time import sleep
 
 import grpc
+from grpc_health.v1 import health, health_pb2_grpc, health_pb2
 
 import db_session
 from community.gramx.fifty.zero.ethos.conversations.handler import handle_conversations_services
 from community.gramx.fifty.zero.ethos.identity.handler import handle_identity_services
 from loader import Loader
 
-_LOGGER = logging.getLogger(__name__)
 
-max_workers = int(os.environ['EAPP_SERVICE_IDENTITY_GRPC_MAX_WORKERS'])
+def _toggle_health(health_servicer: health.HealthServicer, service: str):
+    next_status = health_pb2.HealthCheckResponse.SERVING
+    while True:
+        if next_status == health_pb2.HealthCheckResponse.SERVING:
+            next_status = health_pb2.HealthCheckResponse.NOT_SERVING
+        else:
+            next_status = health_pb2.HealthCheckResponse.SERVING
 
-PORT = os.environ.get('EAPP_SERVICE_IDENTITY_PORT', None)
-if PORT is None:
-    logging.error("PORT NOT FOUND!")
+        health_servicer.set(service, next_status)
+        sleep(5)
 
-GRPC_MAX_CONNECTION_IDLE_MS = os.environ.get('EAPP_SERVICE_IDENTITY_GRPC_MAX_CONNECTION_IDLE_MS', None)
-if GRPC_MAX_CONNECTION_IDLE_MS is None:
-    GRPC_MAX_CONNECTION_IDLE_MS = 15000
-else:
-    GRPC_MAX_CONNECTION_IDLE_MS = int(GRPC_MAX_CONNECTION_IDLE_MS)
+
+def _configure_health_server(server: grpc.Server):
+    health_servicer = health.HealthServicer(
+        experimental_non_blocking=True,
+        experimental_thread_pool=futures.ThreadPoolExecutor(max_workers=10),
+    )
+    health_pb2_grpc.add_HealthServicer_to_server(health_servicer, server)
+
+    # Use a daemon thread to toggle health status
+    toggle_health_status_thread = threading.Thread(
+        target=_toggle_health,
+        args=(health_servicer, "helloworld.Greeter"),
+        daemon=True,
+    )
+    toggle_health_status_thread.start()
 
 
 @contextlib.contextmanager
@@ -58,7 +75,9 @@ def run_server(port):
 
     # Bind ThreadPoolExecutor and Services to server
     server = grpc.server(
-        thread_pool=futures.ThreadPoolExecutor(max_workers=max_workers),
+        thread_pool=futures.ThreadPoolExecutor(
+            max_workers=int(os.environ['ERPC_MAX_WORKERS'])
+        ),
         options=[
             ("grpc.enable_keepalive", 0),
         ]
@@ -73,6 +92,7 @@ def run_server(port):
     logging.info(f'Conversations services added')
 
     server_port = server.add_insecure_port(f"[::]:{port}")
+    _configure_health_server(server)
     server.start()
     try:
         yield server, server_port
@@ -81,8 +101,10 @@ def run_server(port):
 
 
 def main():
-    with run_server(PORT) as (server, port):
-        logging.info(f'\tEthosApp Identity Server is listening at port {port}')
+    with run_server(
+            os.environ.get('ERPC_PORT', 80)
+    ) as (server, port):
+        logging.info(f'\tEthosApps Python Capabilities are listening at port {port}')
         server.wait_for_termination()
 
 
