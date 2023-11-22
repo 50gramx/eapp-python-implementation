@@ -5,6 +5,7 @@ services:
     image: redis:latest
     ports:
       - "6379:6379"
+
   postgres:
     image: postgres:latest
     ports:
@@ -15,11 +16,13 @@ services:
       POSTGRES_PASSWORD: password
     volumes:
       - ./sql:/docker-entrypoint-initdb.d
+
   eapp-python-implementations:
     image: 50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations:latest
     ports:
       - "50501:80"
     restart: always
+
   jaeger:
     networks:
       - backend
@@ -37,6 +40,7 @@ services:
       - PROMETHEUS_QUERY_NORMALIZE_DURATION=true
     ports:
       - "16686:16686"
+
   otel_collector:
     networks:
       - backend
@@ -46,6 +50,7 @@ services:
     command: --config /etc/otelcol/otel-collector-config.yml
     depends_on:
       - jaeger
+
   microsim:
     networks:
       - backend
@@ -53,6 +58,7 @@ services:
     command: "-j http://otel_collector:14278/api/traces -d 24h -s 500ms"
     depends_on:
       - otel_collector
+
   prometheus:
     networks:
       - backend
@@ -61,6 +67,7 @@ services:
       - "./prometheus.yml:/etc/prometheus/prometheus.yml"
     ports:
       - "9090:9090"
+
   grafana:
     networks:
       - backend
