@@ -24,8 +24,6 @@ services:
     restart: always
 
   jaeger:
-    networks:
-      - backend
     image: jaegertracing/all-in-one:${JAEGER_IMAGE_TAG:-latest}
     volumes:
       - "./jaeger-ui.json:/etc/jaeger/jaeger-ui.json"
@@ -42,8 +40,6 @@ services:
       - "16686:16686"
 
   otel_collector:
-    networks:
-      - backend
     image: otel/opentelemetry-collector-contrib:${OTEL_IMAGE_TAG:-0.89.0}
     volumes:
       - ${OTEL_CONFIG_SRC:-./otel-collector-config-connector.yml}:/etc/otelcol/otel-collector-config.yml
@@ -52,16 +48,12 @@ services:
       - jaeger
 
   microsim:
-    networks:
-      - backend
     image: yurishkuro/microsim:0.2.0
     command: "-j http://otel_collector:14278/api/traces -d 24h -s 500ms"
     depends_on:
       - otel_collector
 
   prometheus:
-    networks:
-      - backend
     image: prom/prometheus:latest
     volumes:
       - "./prometheus.yml:/etc/prometheus/prometheus.yml"
@@ -69,8 +61,6 @@ services:
       - "9090:9090"
 
   grafana:
-    networks:
-      - backend
     image: grafana/grafana:latest
     volumes:
       - ./grafana.ini:/etc/grafana/grafana.ini
@@ -81,6 +71,3 @@ services:
       - GF_AUTH_DISABLE_LOGIN_FORM=true
     ports:
       - 3000:3000
-
-networks:
-  backend:
