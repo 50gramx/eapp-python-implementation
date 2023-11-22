@@ -42,7 +42,15 @@ def validate_account_services_impl(request: AccountServicesAccessAuthDetails, se
     account_id = request.account.account_id
     # validate the account
     logging.info("will get the account")
-    if get_account(account_id=account_id).account_id != account_id:
+    try:
+        account_mismatch = get_account(account_id=account_id).account_id != account_id
+    except:
+        return ValidateAccountServicesResponse(
+            account_service_access_validation_done=False,
+            account_service_access_validation_message="Requesting account is not legit. This action will be reported."
+        )
+
+    if account_mismatch:
         # create the response here
         logging.info("account id mis-match, will return")
         return ValidateAccountServicesResponse(
