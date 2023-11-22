@@ -323,14 +323,19 @@ class PayInAccountService(PayInAccountServiceServicer):
 
     @trace_rpc()
     def CreditAccountEthosCoinBalance(self, request, context):
-        logging.info("PayInAccountService:CreditAccountEthosCoinBalance")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
+        logging.info("PayInAccountService:CreditAccountEthosCoinBalance: validation done")
         if validation_done is False:
+            logging.info("PayInAccountService:CreditAccountEthosCoinBalance: validation is false, will return")
             return ResponseMeta(meta_done=validation_done, meta_message=validation_message)
         else:
+            logging.info("PayInAccountService:CreditAccountEthosCoinBalance: validation is true, will compute")
             customer_id = get_account_pay_in_id(account_id=request.access_auth_details.account.account_id)
+            logging.info("PayInAccountService:CreditAccountEthosCoinBalance: got the customer id")
             amount = math.ceil(self.ethoscoin_price_inr * request.add_ethoscoin * 100) * -1
+            logging.info("PayInAccountService:CreditAccountEthosCoinBalance: computed the amount")
             try:
+                logging.info("PayInAccountService:CreditAccountEthosCoinBalance: will create balance transaction")
                 stripe.Customer.create_balance_transaction(
                     customer_id,
                     amount=amount,
@@ -342,8 +347,10 @@ class PayInAccountService(PayInAccountServiceServicer):
                     },
                     description=request.description
                 )
+                logging.info("PayInAccountService:CreditAccountEthosCoinBalance: will return successfully")
                 return ResponseMeta(meta_done=True, meta_message="Credited Successfully.")
-            except:
+            except Exception as e:
+                logging.info(f"PayInAccountService:CreditAccountEthosCoinBalance: will return false for exception: {e}")
                 return ResponseMeta(meta_done=False, meta_message="Something went wrong.")
 
     # ------------------------------------
@@ -351,16 +358,22 @@ class PayInAccountService(PayInAccountServiceServicer):
     # ------------------------------------
     @trace_rpc()
     def CreateAccountOpenGalaxyTierSubscription(self, request, context):
-        logging.info("PayInAccountService:CreateAccountOpenGalaxyTierSubscription")
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
+        logging.info("PayInAccountService:CreateAccountOpenGalaxyTierSubscription: validation done")
         response_meta = ResponseMeta(meta_done=validation_done, meta_message=validation_message)
+        logging.info("PayInAccountService:CreateAccountOpenGalaxyTierSubscription: meta created")
         ethoscoin_balance_response = ApplicationContext.pay_in_account_service_stub().AccountEthosCoinBalance(
             request.access_auth_details)
+        logging.info("PayInAccountService:CreateAccountOpenGalaxyTierSubscription: fetched balance")
         customer_id = get_account_pay_in_id(account_id=request.access_auth_details.account.account_id)
+        logging.info("PayInAccountService:CreateAccountOpenGalaxyTierSubscription: fetched customer id")
         if ethoscoin_balance_response.response_meta.meta_done is False:
+            logging.info("PayInAccountService:CreateAccountOpenGalaxyTierSubscription: meta is false, returning")
             return response_meta
         else:
+            logging.info("PayInAccountService:CreateAccountOpenGalaxyTierSubscription: meta is true, will compute")
             if ethoscoin_balance_response.balance >= 0:
+                logging.info("PayInAccountService:CreateAccountOpenGalaxyTierSubscription: balance >= 0")
                 if ethoscoin_balance_response.balance < self.open_galaxy_tier_plans.get(
                         request.open_galaxy_tier_enum).get("ethoscoin"):
                     logging.info("Subscription failed due to insufficient EthosCoin Balance.")
@@ -414,12 +427,18 @@ class PayInAccountService(PayInAccountServiceServicer):
     @trace_rpc()
     def ConfirmAccountOpenGalaxyPlayStoreSubscription(self, request, context):
         try:
+            logging.info("ConfirmAccountOpenGalaxyPlayStoreSubscription: Start")
             validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
             if validation_done is False:
+                logging.error(
+                    f"ConfirmAccountOpenGalaxyPlayStoreSubscription: Validation failed - {validation_message}")
                 return ResponseMeta(meta_done=validation_done, meta_message=validation_message)
             else:
+                logging.info(
+                    f"ConfirmAccountOpenGalaxyPlayStoreSubscription: Validation passed - {validation_message}")
                 verify_response = None
                 if request.open_galaxy_tier_enum > 0:
+                    logging.info(f"ConfirmAccountOpenGalaxyPlayStoreSubscription: tier > 0")
                     verify_response = ApplicationContext.pay_in_account_service_stub(
                     ).VerifyAccountOpenGalaxyPlayStoreSubscriptionCharge(
                         VerifyAccountOpenGalaxyPlayStoreSubscriptionChargeRequest(
@@ -427,8 +446,14 @@ class PayInAccountService(PayInAccountServiceServicer):
                             open_galaxy_tier_enum=request.open_galaxy_tier_enum,
                             google_play_purchase_token=request.google_play_purchase_token
                         ))
+                    logging.info(f"ConfirmAccountOpenGalaxyPlayStoreSubscription: verify_response: {verify_response}")
                 if verify_response is not None and verify_response.meta_done is False:
+                    logging.info(
+                        f"ConfirmAccountOpenGalaxyPlayStoreSubscription: verify_response is not none, will return")
                     return ResponseMeta(meta_done=False, meta_message=verify_response.meta_message)
+                logging.info(
+                    f"ConfirmAccountOpenGalaxyPlayStoreSubscription: verify_response is not none"
+                    f" and meta is true, will call the CreditAccountEthosCoinBalance")
                 _ = ApplicationContext.pay_in_account_service_stub().CreditAccountEthosCoinBalance(
                     CreditAccountEthosCoinBalanceRequest(
                         access_auth_details=request.access_auth_details,
@@ -439,13 +464,19 @@ class PayInAccountService(PayInAccountServiceServicer):
                         google_play_purchase_token=request.google_play_purchase_token,
                         description=f"Purchased Open Galaxy Tier {request.open_galaxy_tier_enum} on Play Store"
                     ))
+                logging.info(
+                    f"ConfirmAccountOpenGalaxyPlayStoreSubscription: will call CreateAccountOpenGalaxyTierSubscription")
                 _ = ApplicationContext.pay_in_account_service_stub().CreateAccountOpenGalaxyTierSubscription(
                     CreateAccountOpenGalaxyTierSubscriptionRequest(
                         access_auth_details=request.access_auth_details,
                         open_galaxy_tier_enum=request.open_galaxy_tier_enum
                     )
                 )
+                logging.info(
+                    f"ConfirmAccountOpenGalaxyPlayStoreSubscription: will call ActivateAccountBilling")
                 _ = ApplicationContext.create_account_service_stub().ActivateAccountBilling(request.access_auth_details)
+                logging.info(
+                    f"ConfirmAccountOpenGalaxyPlayStoreSubscription: will return")
                 return ResponseMeta(meta_done=True, meta_message="Successfully subscribed.")
         except Exception as e:
             # You might also want to modify the response or set gRPC status to signal the error.
