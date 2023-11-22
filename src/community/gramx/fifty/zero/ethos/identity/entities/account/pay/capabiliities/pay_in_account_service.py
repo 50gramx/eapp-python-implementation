@@ -271,21 +271,31 @@ class PayInAccountService(PayInAccountServiceServicer):
     # ------------------------------------
     @trace_rpc()
     def AccountEthosCoinBalance(self, request, context):
-        logging.info("PayInAccountService:AccountEthosCoinBalance")
         validation_done, validation_message = validate_account_services_caller(request)
+        logging.info("PayInAccountService:AccountEthosCoinBalance:validation done")
         response_meta = ResponseMeta(meta_done=validation_done, meta_message=validation_message)
+        logging.info("PayInAccountService:AccountEthosCoinBalance:meta created")
         if validation_done is False:
+            logging.info("PayInAccountService:AccountEthosCoinBalance:validation false, returning response")
             return AccountEthosCoinBalanceResponse(response_meta=response_meta)
         else:
+            logging.info("PayInAccountService:AccountEthosCoinBalance:validation true, fetching balance")
             list_balance_transactions = stripe.Customer.list_balance_transactions(
                 get_account_pay_in_id(request.account.account_id), limit=1).get("data", None)
+            logging.info("PayInAccountService:AccountEthosCoinBalance:fetched balance")
             if len(list_balance_transactions) > 0:
+                logging.info("PayInAccountService:AccountEthosCoinBalance:balance > 0")
                 last_transaction = list_balance_transactions[0]
+                logging.info("PayInAccountService:AccountEthosCoinBalance:last transaction computed")
                 ending_balance = last_transaction.get("ending_balance", 0)
+                logging.info("PayInAccountService:AccountEthosCoinBalance:ending balance computed")
                 ethoscoin_balance = ((ending_balance / 100) * -1) / self.ethoscoin_price_inr
                 if ethoscoin_balance > 0:
+                    logging.info(
+                        "PayInAccountService:AccountEthosCoinBalance:balance more than zero, returning response")
                     return AccountEthosCoinBalanceResponse(response_meta=response_meta, balance=ethoscoin_balance)
                 elif ethoscoin_balance == 0:
+                    logging.info("PayInAccountService:AccountEthosCoinBalance:balance is zero, returning response")
                     return AccountEthosCoinBalanceResponse(
                         response_meta=ResponseMeta(
                             meta_done=validation_done,
@@ -293,6 +303,8 @@ class PayInAccountService(PayInAccountServiceServicer):
                         ),
                         balance=ethoscoin_balance)
                 else:
+                    logging.info(
+                        "PayInAccountService:AccountEthosCoinBalance:balance is less than zero, returning response")
                     return AccountEthosCoinBalanceResponse(
                         response_meta=ResponseMeta(
                             meta_done=validation_done,
@@ -301,6 +313,7 @@ class PayInAccountService(PayInAccountServiceServicer):
                         ),
                         balance=ethoscoin_balance)
             else:
+                logging.info("PayInAccountService:AccountEthosCoinBalance:no list balance transactions")
                 return AccountEthosCoinBalanceResponse(
                     response_meta=ResponseMeta(
                         meta_done=validation_done,
