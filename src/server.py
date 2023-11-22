@@ -26,11 +26,33 @@ from time import sleep
 
 import grpc
 from grpc_health.v1 import health, health_pb2_grpc, health_pb2
+from opentelemetry import trace
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+from opentelemetry.instrumentation.grpc import GrpcInstrumentorServer
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
 import db_session
 from community.gramx.fifty.zero.ethos.conversations.handler import handle_conversations_services
 from community.gramx.fifty.zero.ethos.identity.handler import handle_identity_services
 from loader import Loader
+
+trace.set_tracer_provider(TracerProvider())
+
+# create a JaegerExporter
+jaeger_exporter = OTLPSpanExporter(
+    'jaeger:6831', insecure=True
+)
+
+# Create a BatchSpanProcessor and add the exporter to it
+span_processor = BatchSpanProcessor(jaeger_exporter)
+
+trace.get_tracer_provider().add_span_processor(
+    span_processor
+)
+
+grpc_server_instrumentor = GrpcInstrumentorServer()
+grpc_server_instrumentor.instrument()
 
 
 def _toggle_health(health_servicer: health.HealthServicer, service: str):
