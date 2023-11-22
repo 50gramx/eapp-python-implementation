@@ -38,7 +38,7 @@ redis_port = os.environ['EA_ID_REDIS_PORT']
 conversation_action_app = Celery("conversation_action_tasks", broker=f"redis://{redis_host}:{redis_port}/0")
 
 identity_grpc_host = os.environ['EAPP_SERVICE_IDENTITY_HOST']
-identity_grpc_port = os.environ['EAPP_SERVICE_IDENTITY_PORT']
+identity_grpc_port = os.environ['ERPC_PORT']
 identity_host_ip = "{host}:{port}".format(host=identity_grpc_host, port=identity_grpc_port)
 identity_common_channel = grpc.insecure_channel(identity_host_ip)
 identity_common_channel = grpc.intercept_channel(identity_common_channel)
