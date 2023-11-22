@@ -266,11 +266,9 @@ class PayInAccountService(PayInAccountServiceServicer):
                 response_meta=response_meta
             )
 
-    # ------------------------------------
-    # EthosCoin
-    # ------------------------------------
     @trace_rpc()
     def AccountEthosCoinBalance(self, request, context):
+        logging.info("PayInAccountService:AccountEthosCoinBalance:will validate")
         validation_done, validation_message = validate_account_services_caller(request)
         logging.info("PayInAccountService:AccountEthosCoinBalance:validation done")
         response_meta = ResponseMeta(meta_done=validation_done, meta_message=validation_message)
@@ -353,9 +351,6 @@ class PayInAccountService(PayInAccountServiceServicer):
                 logging.info(f"PayInAccountService:CreditAccountEthosCoinBalance: will return false for exception: {e}")
                 return ResponseMeta(meta_done=False, meta_message="Something went wrong.")
 
-    # ------------------------------------
-    # Play Store Subscriptions
-    # ------------------------------------
     @trace_rpc()
     def CreateAccountOpenGalaxyTierSubscription(self, request, context):
         validation_done, validation_message = validate_account_services_caller(request.access_auth_details)
