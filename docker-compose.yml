@@ -47,7 +47,8 @@ services:
       - /c/Users/amitk/Documents/capability-data/psql/data:/var/lib/postgresql/data
       # Mounting backup script for terminating backups
       - ./psql_backup.sh:/psql_backup.sh
-    command: [ "docker-entrypoint.sh", "postgres", "-c", "config_file=/etc/postgresql/postgresql.conf", "--restore", "$(ls -t /restore/backup_*.sql | head -n 1)" ]
+    command: >
+      docker-entrypoint.sh postgres -c config_file=/etc/postgresql/postgresql.conf --restore "$(ls -t /restore/backup_*.sql | head -n 1)"
 
   # PostgreSQL Backup Service
   postgres_backup:
