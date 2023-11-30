@@ -1,11 +1,33 @@
 version: '3'
 
 services:
+  # Redis Service
   redis:
     image: redis:latest
     ports:
       - "6379:6379"
+    volumes:
+      # Mounting host directory to store Redis data
+      - /c/Users/amitk/Documents/capability-data/redis/data:/data
+      # Mounting script for restoring and starting Redis
+      - ./redis_restore_and_start.sh:/redis_restore_and_start.sh
+      # Mounting backup script for terminating backups
+      - ./redis_backup.sh:/redis_backup.sh
+    entrypoint: [ "/docker-entrypoint.sh", "sh", "-c", "/redis_restore_and_start.sh" ]
 
+  # Redis Backup Service
+  redis_backup:
+    image: alpine:latest
+    volumes:
+      # Mounting host directory to store Redis backups
+      - /c/Users/amitk/Documents/capability-data/redis/backup:/backups
+      # Mounting backup script for periodic backups
+      - ./redis_backup.sh:/redis_backup.sh
+    command: /bin/sh -c "crond -f -l 8 & tail -f /dev/null"
+    depends_on:
+      - redis
+
+  # PostgreSQL Service
   postgres:
     image: postgres:latest
     ports:
@@ -15,14 +37,38 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
     volumes:
+      # Mounting initialization SQL files from the host
       - ./sql:/docker-entrypoint-initdb.d
+      # Mounting initialization SQL files from the host for PostgreSQL
+      - /c/Users/amitk/Documents/capability-data/psql/init:/docker-entrypoint-initdb.d
+      # Mounting backup files for restoration
+      - /c/Users/amitk/Documents/capability-data/psql\backup:/restore
+      # Mounting PostgreSQL data directory to the host
+      - /c/Users/amitk/Documents/capability-data/psql/data:/var/lib/postgresql/data
+      # Mounting backup script for terminating backups
+      - ./psql_backup.sh:/psql_backup.sh
+    command: [ "docker-entrypoint.sh", "postgres", "-c", "config_file=/etc/postgresql/postgresql.conf", "--restore", "$(ls -t /restore/backup_*.sql | head -n 1)" ]
 
+  # PostgreSQL Backup Service
+  postgres_backup:
+    image: alpine:latest
+    volumes:
+      # Mounting host directory to store PostgreSQL backups
+      - /c/Users/amitk/Documents/capability-data/psql/backup:/backups
+      # Mounting backup script for periodic backups
+      - ./psql_backup.sh:/psql_backup.sh
+    command: /bin/sh -c "crond -f -l 8 & tail -f /dev/null"
+    depends_on:
+      - postgres
+
+  # Ethos Apps Python Implementations Service
   eapp-python-implementations:
     image: 50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations:latest
     ports:
       - "50501:80"
     restart: always
 
+  # Jaeger Service
   jaeger:
     image: jaegertracing/all-in-one:latest
     ports:
