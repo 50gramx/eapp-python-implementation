@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/eapp-identity.iml" filepath="$PROJECT_DIR$/.idea/eapp-identity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../eapp-python-consumer/.idea/eapp-python-consumer.iml" filepath="$PROJECT_DIR$/../eapp-python-consumer/.idea/eapp-python-consumer.iml" />
     </modules>
   </component>
 </project>

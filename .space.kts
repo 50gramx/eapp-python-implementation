@@ -77,14 +77,21 @@ job("Build & Deploy Python Implementations") {
         }
     }
 
-    host("Deploy Python Implementations Containers") {
+    host("Trigger Python Implementations Backups") {
 
       shellScript {
         content = """
             # Trigger backups before bringing down the services
             docker-compose exec eapp-python-implementation-postgres-1 /psql_backup.sh
             docker-compose exec eapp-python-implementation-redis-1 /redis_backup.sh
+        """
+      }
+    }
 
+    host("Deploy Python Implementations Containers") {
+
+      shellScript {
+        content = """
             # Bring down the services
             docker-compose down
 

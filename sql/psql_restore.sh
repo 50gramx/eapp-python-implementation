@@ -21,6 +21,8 @@
 #  */
 #
 
+echo "Postgres Restore Initiated"
 RESTORE_FILE=$(ls -t /restore/backup_*.sql | head -n 1)
 
 psql -U user -d mydatabase -f "$RESTORE_FILE"
+echo "Redis Restored $RESTORE_FILE"

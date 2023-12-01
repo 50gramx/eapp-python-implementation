@@ -45,10 +45,14 @@ services:
       - /c/Users/amitk/Documents/capability-data/psql/init:/docker-entrypoint-initdb.d
       # Mounting backup files for restoration
       - /c/Users/amitk/Documents/capability-data/psql/backup:/restore
+      # Mounting archive files for point in time recovery
+      - /c/Users/amitk/Documents/capability-data/psql/archive:/archive
       # Mounting PostgreSQL data directory to the host
       - /c/Users/amitk/Documents/capability-data/psql/data:/var/lib/postgresql/data
       # Mounting backup script for terminating backups
       - ./psql_backup.sh:/psql_backup.sh
+      # Mount custom configuration file
+      - ./custom_postgresql.conf:/etc/postgresql/postgresql.conf
 
   # PostgreSQL Backup Service
   postgres_backup:
