@@ -26,4 +26,4 @@ LATEST_BACKUP=$(ls -t /restore/backup_*.rdb | head -n 1)
 cp $LATEST_BACKUP /data/dump.rdb
 
 # Start Redis server
-exec redis-server --appendonly yes
+exec redis-server
