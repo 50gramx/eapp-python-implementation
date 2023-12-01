@@ -9,6 +9,8 @@ services:
     volumes:
       # Mounting host directory to store Redis data
       - /c/Users/amitk/Documents/capability-data/redis/data:/data
+      # Mounting host directory to store Redis backups
+      - /c/Users/amitk/Documents/capability-data/redis/backup:/restore
       # Mounting script for restoring and starting Redis
       - ./redis_restore_and_start.sh:/redis_restore_and_start.sh
       # Mounting backup script for terminating backups
