@@ -10,7 +10,7 @@ services:
       # Mounting host directory to store Redis data
       - /c/Users/amitk/Documents/capability-data/redis/data:/data
       # Mounting host directory to store Redis backups
-      - /c/Users/amitk/Documents/capability-data/redis/backup:/restore
+      - /c/Users/amitk/Documents/capability-data/redis/backups:/backups
       # Mounting script for restoring and starting Redis
       - ./redis_restore_and_start.sh:/redis_restore_and_start.sh
       # Mounting backup script for terminating backups
@@ -44,7 +44,7 @@ services:
       # Mounting initialization SQL files from the host for PostgreSQL
       - /c/Users/amitk/Documents/capability-data/psql/init:/docker-entrypoint-initdb.d
       # Mounting backup files for restoration
-      - /c/Users/amitk/Documents/capability-data/psql/backup:/restore
+      - /c/Users/amitk/Documents/capability-data/psql/backups:/backups
       # Mounting archive files for point in time recovery
       - /c/Users/amitk/Documents/capability-data/psql/archive:/archive
       # Mounting PostgreSQL data directory to the host

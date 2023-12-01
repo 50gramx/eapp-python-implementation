@@ -23,7 +23,7 @@
 
 echo "Redis Restore Initiated"
 # Restore the latest backup
-LATEST_BACKUP=$(ls -t /restore/backup_*.rdb | head -n 1)
+LATEST_BACKUP=$(ls -t /backups/backup_*.rdb | head -n 1)
 cp $LATEST_BACKUP /data/dump.rdb
 echo "Redis Copied $LATEST_BACKUP"
 

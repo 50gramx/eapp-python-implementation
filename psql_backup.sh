@@ -23,8 +23,8 @@
 
 echo "Postgres Backup Initiated"
 CONTAINER_NAME="eapp-python-implementation-postgres-1"
-BACKUP_DIR="C:\Users\amitk\Documents\capability-data\psql\backup"
-BACKUP_FILE="$BACKUP_DIR\backup_$(date +\%Y\%m\%d).sql"
+BACKUP_DIR="\backups"
+BACKUP_FILE="$BACKUP_DIR\backup_$(date +\%Y\%m\%d_%H%M%S_%Z).sql"
 
 PG_CONFIG_FILE="\custom_postgresql.conf"
 
