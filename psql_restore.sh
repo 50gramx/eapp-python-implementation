@@ -23,4 +23,4 @@
 
 RESTORE_FILE=$(ls -t /restore/backup_*.sql | head -n 1)
 
-pg_restore -U user -d mydatabase -f "$RESTORE_FILE"
+pg_restore -U user -f "$RESTORE_FILE"
