@@ -23,10 +23,10 @@
 
 echo "Postgres Backup Initiated"
 CONTAINER_NAME="eapp-python-implementation-postgres-1"
-BACKUP_DIR="\backups"
-BACKUP_FILE="$BACKUP_DIR\backup_$(date +\%Y\%m\%d_%H%M%S_%Z).sql"
+BACKUP_DIR="/backups"
+BACKUP_FILE="$BACKUP_DIR/backup_$(date +\%Y\%m\%d_%H%M%S_%Z).sql"
 
-PG_CONFIG_FILE="\custom_postgresql.conf"
+PG_CONFIG_FILE="/custom_postgresql.conf"
 
 docker exec -t $CONTAINER_NAME pg_dump -U user -d mydatabase --file=$BACKUP_FILE --config=$PG_CONFIG_FILE
 echo "Postgres Dumped $BACKUP_FILE"
