@@ -47,12 +47,6 @@ services:
       - /c/Users/amitk/Documents/capability-data/psql/data:/var/lib/postgresql/data
       # Mounting backup script for terminating backups
       - ./psql_backup.sh:/psql_backup.sh
-      # Mounting restore script for initiating restore backups
-      - ./psql_restore.sh:/psql_restore.sh
-    command: >
-      bash -c "
-        docker-entrypoint.sh && sh psql_restore.sh
-      "
 
   # PostgreSQL Backup Service
   postgres_backup:
