@@ -49,7 +49,11 @@ services:
       - ./psql_backup.sh:/psql_backup.sh
       # Mounting restore script for initiating restore backups
       - ./psql_restore.sh:/psql_restore.sh
-    command: [ "bash", "/psql_restore.sh" ]
+    command: >
+      bash -c "
+        docker-entrypoint.sh postgres -c 'config_file=/etc/postgresql/postgresql.conf' &&
+        /psql_restore.sh
+      "
 
   # PostgreSQL Backup Service
   postgres_backup:
