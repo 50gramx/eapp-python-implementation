@@ -91,8 +91,8 @@ job("Build & Deploy Python Implementations") {
       shellScript {
         content = """
             # Trigger backups before bringing down the services
-            docker-compose exec eapp-python-implementation-postgres-1 /psql_backup.sh
-            docker-compose exec eapp-python-implementation-redis-1 /redis_backup.sh
+            docker-compose postgres /psql_backup.sh
+            docker-compose exec redis /redis_backup.sh
 
             # Bring down the services
             docker-compose down

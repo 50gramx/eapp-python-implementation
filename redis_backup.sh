@@ -23,8 +23,8 @@
 
 echo "Redis Backup Initiated"
 CONTAINER_NAME="eapp-python-implementation-redis-1"
-BACKUP_DIR="C:\Users\amitk\Documents\capability-data\redis\backup"
-BACKUP_FILE="$BACKUP_DIR/backup_$(date +\%Y\%m\%d).rdb"
+BACKUP_DIR="\backups"
+BACKUP_FILE="$BACKUP_DIR\backup_$(date +\%Y\%m\%d).rdb"
 
 docker exec -t $CONTAINER_NAME redis-cli SAVE
 docker cp $CONTAINER_NAME:/data/dump.rdb $BACKUP_FILE
