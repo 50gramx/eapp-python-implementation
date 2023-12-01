@@ -13,7 +13,7 @@ services:
       - ./redis_restore_and_start.sh:/redis_restore_and_start.sh
       # Mounting backup script for terminating backups
       - ./redis_backup.sh:/redis_backup.sh
-    entrypoint: [ "/docker-entrypoint.sh", "sh", "-c", "/redis_restore_and_start.sh" ]
+    command: [ "bash", "/redis_restore_and_start.sh" ]
 
   # Redis Backup Service
   redis_backup:
