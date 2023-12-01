@@ -21,6 +21,12 @@
 #  */
 #
 
+# Start PostgreSQL service
+service postgresql start
+
+# Wait for PostgreSQL to be ready (adjust the sleep duration as needed)
+sleep 5
+
 RESTORE_FILE=$(ls -t /restore/backup_*.sql | head -n 1)
 
 psql -U user -d mydatabase -f "$RESTORE_FILE"
