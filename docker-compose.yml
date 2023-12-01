@@ -51,7 +51,7 @@ services:
       - ./psql_restore.sh:/psql_restore.sh
     command: >
       bash -c "
-        docker-entrypoint.sh && psql_restore.sh
+        docker-entrypoint.sh && sh psql_restore.sh
       "
 
   # PostgreSQL Backup Service
