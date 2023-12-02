@@ -81,7 +81,9 @@ job("Build & Deploy Python Implementations") {
 
       shellScript {
         content = """
-            echo "Pending"
+            # Trigger backups before bringing down the services
+            docker-compose exec postgres /bin/sh -c "sh /psql_backup.sh instant"
+            docker-compose exec redis /bin/sh -c "sh /redis_backup.sh instant"
         """
       }
     }
@@ -90,12 +92,8 @@ job("Build & Deploy Python Implementations") {
 
       shellScript {
         content = """
-            # Trigger backups before bringing down the services
-            docker-compose exec postgres /bin/sh -c "sh /psql_backup.sh instant"
-            docker-compose exec redis /bin/sh -c "sh /redis_backup.sh instant"
-
             # Bring down the services
-            docker-compose down
+            docker-compose down --remove-orphans
 
             # Bring up the services
             docker-compose up -d
