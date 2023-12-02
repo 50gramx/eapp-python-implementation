@@ -62,6 +62,8 @@ services:
       - /c/Users/amitk/Documents/capability-data/psql/backup:/backups
       # Mounting backup script for periodic backups
       - ./psql_backup.sh:/psql_backup.sh
+      # Mounting cron file for scheduling
+      - ./postgres_crontab:/etc/crontabs/root
     command: /bin/sh -c "crond -f -l 8 & tail -f /dev/null"
     depends_on:
       - postgres
