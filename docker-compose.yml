@@ -17,20 +17,6 @@ services:
       - ./redis_backup.sh:/redis_backup.sh
     command: [ "bash", "/redis_restore_and_start.sh" ]
 
-  # Redis Backup Service
-  redis_backup:
-    image: alpine:latest
-    volumes:
-      # Mounting host directory to store Redis backups
-      - /c/Users/amitk/Documents/capability-data/redis/backup:/backups
-      # Mounting backup script for periodic backups
-      - ./redis_backup.sh:/redis_backup.sh
-      # Mounting cron file for scheduling
-      - ./redis_crontab:/etc/crontabs/root
-    command: /bin/sh -c "crond -f -l 8 & tail -f /dev/null"
-    depends_on:
-      - redis
-
   # PostgreSQL Service
   postgres:
     image: postgres:latest
@@ -57,19 +43,16 @@ services:
       - ./custom_postgresql.conf:/etc/postgresql/postgresql.conf
     command: ["-c", "config_file=/etc/postgresql/postgresql.conf"]
 
-  # PostgreSQL Backup Service
-  postgres_backup:
+  # maintenance Service
+  maintenance:
     image: alpine:latest
     volumes:
-      # Mounting host directory to store PostgreSQL backups
-      - /c/Users/amitk/Documents/capability-data/psql/backup:/backups
-      # Mounting backup script for periodic backups
-      - ./psql_backup.sh:/psql_backup.sh
       # Mounting cron file for scheduling
-      - ./postgres_crontab:/etc/crontabs/root
-    command: /bin/sh -c "crond -f -l 8 & tail -f /dev/null"
+      - ./crontab:/etc/crontabs/root
+    command: /bin/sh -c "crond -f -L /dev/stdout"
     depends_on:
       - postgres
+      - redis
 
   # Ethos Apps Python Implementations Service
   eapp-python-implementations:

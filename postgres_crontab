@@ -1,2 +1,0 @@
-# Run the backup script every day at midnight
-0 0 * * * /psql_backup.sh

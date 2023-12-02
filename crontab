@@ -1,0 +1,3 @@
+# Run the backup script every day at midnight
+0 0 * * * docker-compose exec postgres /bin/sh -c "sh /psql_backup.sh"
+0 0 * * * docker-compose exec redis /bin/sh -c "sh /redis_backup.sh"
