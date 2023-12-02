@@ -21,11 +21,23 @@
 #  */
 #
 
-echo "Redis Backup Initiated"
-CONTAINER_NAME="eapp-python-implementation-redis-1"
-BACKUP_DIR="/backups"
-BACKUP_FILE="$BACKUP_DIR/backup_$(date +\%Y\%m\%d).rdb"
 
-docker exec -t $CONTAINER_NAME redis-cli SAVE
-docker cp $CONTAINER_NAME:/data/dump.rdb $BACKUP_FILE
-echo "0 0 * * * /redis_backup.sh" > /etc/crontabs/root
+echo "Redis Backup Initiated"
+BACKUP_DIR="/backups"
+BACKUP_FILE="$BACKUP_DIR/backup_$(date +\%Y\%m\%d_%H%M%S_%Z).rdb"
+
+# Perform a backup
+perform_backup() {
+    redis-cli SAVE
+    cp /data/dump.rdb $BACKUP_FILE
+    echo "Redis Dumped $BACKUP_FILE"
+}
+
+# Check if invoked manually or through cron
+if [ "$1" = "instant" ]; then
+    # Triggered manually or by another container
+    perform_backup
+else
+    # Scheduled backup
+    perform_backup
+fi

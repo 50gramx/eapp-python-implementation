@@ -92,7 +92,7 @@ job("Build & Deploy Python Implementations") {
         content = """
             # Trigger backups before bringing down the services
             docker-compose exec postgres /bin/sh -c "/psql_backup.sh instant"
-            docker-compose exec redis /redis_backup.sh
+            docker-compose exec redis /bin/sh -c "/redis_backup.sh instant"
 
             # Bring down the services
             docker-compose down

@@ -1,0 +1,2 @@
+# Run the backup script every day at midnight
+0 0 * * * /redis_backup.sh

@@ -25,6 +25,8 @@ services:
       - /c/Users/amitk/Documents/capability-data/redis/backup:/backups
       # Mounting backup script for periodic backups
       - ./redis_backup.sh:/redis_backup.sh
+      # Mounting cron file for scheduling
+      - ./redis_crontab:/etc/crontabs/root
     command: /bin/sh -c "crond -f -l 8 & tail -f /dev/null"
     depends_on:
       - redis
@@ -53,6 +55,7 @@ services:
       - ./psql_backup.sh:/psql_backup.sh
       # Mount custom configuration file
       - ./custom_postgresql.conf:/etc/postgresql/postgresql.conf
+    command: ["-c", "config_file=/etc/postgresql/postgresql.conf"]
 
   # PostgreSQL Backup Service
   postgres_backup:
