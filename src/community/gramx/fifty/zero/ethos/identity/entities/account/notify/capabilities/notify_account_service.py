@@ -20,16 +20,19 @@
 import logging
 import os
 
+import firebase_admin
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account.notify_account_pb2_grpc import NotifyAccountServiceServicer
+from firebase_admin import messaging
 from pyfcm import FCMNotification
 
-from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import get_account_assistant_name_code_by_id
-from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import get_account_by_id_caller, validate_account_services_caller
+from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import \
+    get_account_assistant_name_code_by_id
+from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import get_account_by_id_caller, \
+    validate_account_services_caller
 from support.application.tracing import trace_rpc
 from support.database.account_devices_services import get_account_device_token, update_account_devices
 from support.helper_functions import format_timestamp_to_datetime
-from support.notifications.apple_push_notifications import ApplePushNotifications
 
 
 # TODO: ADD APP SOUNDS
@@ -39,6 +42,7 @@ class NotifyAccountService(NotifyAccountServiceServicer):
         super(NotifyAccountService, self).__init__()
         self.session_scope = self.__class__.__name__
         self.fcm_push_service = FCMNotification(api_key=os.environ['FCM_API_KEY'])
+        self.app = firebase_admin.initialize_app()
 
     @trace_rpc()
     def NewReceivedMessageFromAccountAssistant(self, request, context):
@@ -63,14 +67,16 @@ class NotifyAccountService(NotifyAccountServiceServicer):
             'rpc': "NewReceivedMessageFromAccountAssistant",
         }
         try:
-            # apns = ApplePushNotifications()
-            # apns.notify_account(account_id=request.account_id, payload=ios_new_messages_payload)
-            push_result = self.fcm_push_service.notify_single_device(
-                registration_id=get_account_device_token(account_id=request.account_id),
-                message_title=message_title,
-                message_body=message_body,
-                data_message=message_data, sound='insight.mp3'
+            # See documentation on defining a message payload.
+            message = messaging.Message(
+                notification=messaging.Notification(
+                    title=message_title,
+                    body=message_body,
+                ),
+                data=message_data,
+                token=get_account_device_token(account_id=request.account_id),
             )
+            push_result = messaging.send(message)
             logging.info(f"DEBUG:: NOTIFICATION SENT: {push_result}")
             return ResponseMeta(meta_done=True, meta_message="Notified successfully!")
         except:
@@ -103,13 +109,15 @@ class NotifyAccountService(NotifyAccountServiceServicer):
                 'service': "NotifyAccountService",
                 'rpc': "NewReceivedMessageFromAccount"
             }
-
-            push_result = self.fcm_push_service.notify_single_device(
-                registration_id=get_account_device_token(account_id=request.account_id),
-                message_title=message_title,
-                message_body=message_body,
-                data_message=message_data, sound='doneforyou.mp3'
+            message = messaging.Message(
+                notification=messaging.Notification(
+                    title=message_title,
+                    body=message_body,
+                ),
+                data=message_data,
+                token=get_account_device_token(account_id=request.account_id),
             )
+            push_result = messaging.send(message)
             # apns.notify_account(account_id=request.account_id, payload=ios_new_messages_payload)
             logging.info(f"DEBUG:: NOTIFICATION SENT: {push_result}")
             return ResponseMeta(meta_done=True, meta_message="Notified successfully!")
@@ -157,10 +165,17 @@ class NotifyAccountService(NotifyAccountServiceServicer):
                 'rpc': "AccountConnectedAccountNotification",
                 "connecting_account_connected_account": request.connecting_account_connected_account.SerializeToString()
             }
-            apns = ApplePushNotifications()
-            apns.notify_account(account_id=request.account.account_id, payload=ios_payload)
-            logging.info("NotifyAccountService:NewReceivedMessageFromAccountAssistant: "
-                         "notification sent")
+            message = messaging.Message(
+                notification=messaging.Notification(
+                    title=title,
+                    body=body,
+                ),
+                data=ios_payload,
+                token=get_account_device_token(account_id=request.account_id),
+            )
+            push_result = messaging.send(message)
+            logging.info(f"NotifyAccountService:NewReceivedMessageFromAccountAssistant: "
+                         f"notification sent {push_result}")
             return ResponseMeta(meta_done=True, meta_message="Notified successfully!")
         except Exception as e:
             logging.info(f"NotifyAccountService:NewReceivedMessageFromAccountAssistant: "
