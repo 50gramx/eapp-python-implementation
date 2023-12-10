@@ -7,6 +7,22 @@ grpcio-health-checking==1.34.0
 # Ethos Capabilities Contracts
 ethos
 
+# Deps
+CacheControl==0.13.1
+cachetools==4.2.4
+click==7.1.2
+click-repl==0.3.0
+click-plugins==1.1.1
+click-didyoumean==0.3.0
+google-api-core==1.32.0
+google-api-python-client==2.12.0
+google-auth==1.35.0
+google-auth-httplib2==0.1.0
+google-cloud-core==2.3.3
+google-cloud-firestore==2.5.0
+google-cloud-storage==2.11.0
+
+
 # Programmable Email Tool
 sendgrid==6.4.6
 
@@ -27,10 +43,18 @@ celery==5.0.5
 stripe
 
 # Observability Tools
-opentracing
+opentelemetry-api==1.21.0
+opentelemetry-exporter-otlp==1.14.0
+opentelemetry-exporter-otlp-proto-common==1.21.0
+opentelemetry-exporter-otlp-proto-grpc==1.14.0
+opentelemetry-exporter-otlp-proto-http==1.14.0
+opentelemetry-instrumentation==0.42b0
+opentelemetry-instrumentation-grpc==0.42b0
+opentelemetry-proto==1.14.0
+opentelemetry-sdk==1.21.0
+opentelemetry-semantic-conventions==0.42b0
+opentracing==2.4.0
 jaeger-client
-opentelemetry-instrumentation-grpc
-opentelemetry-exporter-otlp
 
 # Rest of the utilties
 six==1.15.0
@@ -58,3 +82,4 @@ pdf2image==1.14.0
 #Flask~=1.1.2
 boto3~=1.16.47
 botocore~=1.19.47
+
