@@ -17,9 +17,17 @@
 #   * from Amit Kumar Khetan.
 #   */
 
-# --------------------------------
-# Session Management
-# --------------------------------
+from ethos.elint.entities import space_knowledge_pb2, space_knowledge_domain_file_pb2, \
+    space_knowledge_domain_file_page_pb2, space_knowledge_domain_pb2
+from ethos.elint.entities.generic_pb2 import PersistentSessionTokenDetails
+from ethos.elint.services.product.knowledge.space_knowledge.access_space_knowledge_pb2 import \
+    SpaceKnowledgeServicesAccessAuthDetails
+from ethos.elint.services.product.knowledge.space_knowledge_domain.access_space_knowledge_domain_pb2 import \
+    SpaceKnowledgeDomainServicesAccessAuthDetails
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file.access_space_knowledge_domain_file_pb2 import \
+    SpaceKnowledgeDomainFileServicesAccessAuthDetails
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.access_space_knowledge_domain_file_page_pb2 import \
+    SpaceKnowledgeDomainFilePageServicesAccessAuthDetails
 from google.protobuf.timestamp_pb2 import Timestamp
 
 from support.helper_functions import gen_uuid, get_current_timestamp, get_future_timestamp, \
@@ -27,15 +35,19 @@ from support.helper_functions import gen_uuid, get_current_timestamp, get_future
 from support.session.redis_service import rpush, lindex, lpop
 
 
-# def get_new_service_session(session_scope: str, account_identifier: str) -> []:
-#     session_token = gen_uuid()
-#     requested_at = get_current_timestamp()
-#     valid_till = get_future_timestamp(after_seconds=0,
-#                                       after_minutes=4320)
-#     store_session_details_in_redis_list(session_token=session_token, session_scope=session_scope,
-#                                         account_identifier=account_identifier, requested_at=requested_at,
-#                                         valid_till=valid_till)
-#     return [session_token, requested_at, valid_till]
+# --------------------------------
+# Session Management
+# --------------------------------
+
+def get_new_service_session(session_scope: str, session_identifier: str) -> []:
+    session_token = gen_uuid()
+    requested_at = get_current_timestamp()
+    valid_till = get_future_timestamp(after_seconds=0,
+                                      after_minutes=4320)
+    store_session_details_in_redis_list(session_token=session_token, session_scope=session_scope,
+                                        session_identifier=session_identifier, requested_at=requested_at,
+                                        valid_till=valid_till)
+    return [session_token, requested_at, valid_till]
 
 
 def gen_session_meta(session_validity_in_seconds: int, session_validity_in_minutes: int = 0):
@@ -46,16 +58,16 @@ def gen_session_meta(session_validity_in_seconds: int, session_validity_in_minut
     return [session_token, requested_at, valid_till]
 
 
-def store_session_details_in_redis_list(session_token, session_scope, account_identifier, requested_at, valid_till):
+def store_session_details_in_redis_list(session_token, session_scope, session_identifier, requested_at, valid_till):
     rpush(session_token, session_scope)
-    rpush(session_token, account_identifier)
+    rpush(session_token, session_identifier)
     rpush(session_token, format_timestamp_to_iso_string(requested_at))
     rpush(session_token, format_timestamp_to_iso_string(valid_till))
 
 
-def is_persistent_session_valid(session_token, account_identifier, session_scope) -> (bool, str):
+def is_persistent_session_valid(session_token, session_identifier, session_scope) -> (bool, str):
     # validate requesting account
-    if lindex(session_token, 1) == account_identifier:
+    if lindex(session_token, 1) == session_identifier:
         # validate the token validity
         if format_iso_string_to_timestamp(lindex(session_token, 3)).seconds > get_current_timestamp().seconds:
             # validate the session scope
@@ -74,3 +86,60 @@ def update_persistent_session_last_requested_at(session_token: str, last_request
         lpop(session_token)
     rpush(session_token, format_timestamp_to_iso_string(last_requested_at))
     return
+
+
+# --------------------------------
+# Knowledge Session Management
+# --------------------------------
+
+def create_space_knowledge_services_access_auth_details(
+        session_scope: str, space_knowledge: space_knowledge_pb2.SpaceKnowledge
+) -> SpaceKnowledgeServicesAccessAuthDetails:
+    session_token, requested_at, valid_till = get_new_service_session(
+        session_scope, space_knowledge.space_knowledge_id)
+    return SpaceKnowledgeServicesAccessAuthDetails(
+        space_knowledge=space_knowledge,
+        space_knowledge_services_access_session_token_details=PersistentSessionTokenDetails(
+            session_token=session_token, session_scope=session_scope,
+            generated_at=requested_at, valid_till=valid_till),
+        requested_at=requested_at)
+
+
+def create_space_knowledge_domain_services_access_auth_details(
+        session_scope: str, space_knowledge_domain: space_knowledge_domain_pb2.SpaceKnowledgeDomain
+) -> SpaceKnowledgeDomainServicesAccessAuthDetails:
+    session_token, requested_at, valid_till = get_new_service_session(
+        session_scope, space_knowledge_domain.space_knowledge_domain_id)
+    return SpaceKnowledgeDomainServicesAccessAuthDetails(
+        space_knowledge_domain=space_knowledge_domain,
+        space_knowledge_domain_services_access_session_token_details=PersistentSessionTokenDetails(
+            session_token=session_token, session_scope=session_scope,
+            generated_at=requested_at, valid_till=valid_till),
+        requested_at=requested_at)
+
+
+def create_space_knowledge_domain_file_services_access_auth_details(
+        session_scope: str, space_knowledge_domain_file: space_knowledge_domain_file_pb2.SpaceKnowledgeDomainFile
+) -> SpaceKnowledgeDomainFileServicesAccessAuthDetails:
+    session_token, requested_at, valid_till = get_new_service_session(
+        session_scope, space_knowledge_domain_file.space_knowledge_domain_file_id)
+    return SpaceKnowledgeDomainFileServicesAccessAuthDetails(
+        space_knowledge_domain_file=space_knowledge_domain_file,
+        space_knowledge_domain_file_services_access_session_token_details=PersistentSessionTokenDetails(
+            session_token=session_token, session_scope=session_scope, generated_at=requested_at, valid_till=valid_till),
+        requested_at=requested_at
+    )
+
+
+def create_space_knowledge_domain_file_page_services_access_auth_details(
+        session_scope: str,
+        space_knowledge_domain_file_page: space_knowledge_domain_file_page_pb2.SpaceKnowledgeDomainFilePage
+) -> SpaceKnowledgeDomainFilePageServicesAccessAuthDetails:
+    session_token, requested_at, valid_till = get_new_service_session(
+        session_scope, space_knowledge_domain_file_page.space_knowledge_domain_file_page_id)
+    return SpaceKnowledgeDomainFilePageServicesAccessAuthDetails(
+        space_knowledge_domain_file_page=space_knowledge_domain_file_page,
+        space_knowledge_domain_file_page_services_access_session_token_details=PersistentSessionTokenDetails(
+            session_token=session_token, session_scope=session_scope, generated_at=requested_at, valid_till=valid_till),
+        requested_at=requested_at
+    )

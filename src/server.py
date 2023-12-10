@@ -35,6 +35,7 @@ from opentelemetry.sdk.trace.export import BatchSpanProcessor
 import db_session
 from community.gramx.fifty.zero.ethos.conversations.handler import handle_conversations_services
 from community.gramx.fifty.zero.ethos.identity.handler import handle_identity_services
+from community.gramx.fifty.zero.ethos.knowledge_spaces.handler import handle_knowledge_spaces_services
 from loader import Loader
 
 trace.set_tracer_provider(TracerProvider())
@@ -91,9 +92,8 @@ def run_server(port):
 
     # Load Context
     Loader.init_multiverse_identity_context()
-    logging.info(f'Identity context loaded')
     Loader.init_multiverse_conversations_context()
-    logging.info(f'Conversations context loaded')
+    Loader.init_multiverse_knowledge_spaces_context()
 
     # Bind ThreadPoolExecutor and Services to server
     server = grpc.server(
@@ -105,13 +105,9 @@ def run_server(port):
         ]
     )
 
-    # handle Identity Services
     handle_identity_services(server)
-    logging.info(f'Identity services added')
-
-    # handle conversations services
     handle_conversations_services(server)
-    logging.info(f'Conversations services added')
+    handle_knowledge_spaces_services(server)
 
     server_port = server.add_insecure_port(f"[::]:{port}")
     _configure_health_server(server)

@@ -31,3 +31,4 @@ def handle_identity_services(server):
     logging.info(f'\t [x] added space services')
     handle_account_assistant_services(server)
     logging.info(f'\t [x] added account assistant services')
+    logging.info(f'Identity services added')

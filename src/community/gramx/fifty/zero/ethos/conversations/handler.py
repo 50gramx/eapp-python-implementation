@@ -32,3 +32,4 @@ def handle_conversations_services(server):
     logging.info(f'\t [x] added account message services')
     handle_message_account_assistant_services(server)
     logging.info(f'\t [x] added account assistant message services')
+    logging.info(f'Conversations services added')

@@ -137,12 +137,118 @@ class ApplicationContext(object):
     def receive_account_assistant_message_service_stub():
         return Registry.get_service('receive_account_assistant_message_service_stub')
 
-    # --------------------------------
-    # Knowledge Stubs
-    # --------------------------------
+    # -----------------------------------------
+    # Space Knowledge Service Stubs
+    # -----------------------------------------
+    @staticmethod
+    def create_space_knowledge_service_stub():
+        """
+        :rtype: proto.ethos.elint.services.product.knowledge.space_knowledge.create_space_knowledge_pb2_grpc
+        """
+        return Registry.get_service('create_space_knowledge_service_stub')
+
     @staticmethod
     def access_space_knowledge_service_stub():
+        """
+        :rtype: proto.ethos.elint.services.product.knowledge.space_knowledge.access_space_knowledge_pb2_grpc
+        """
         return Registry.get_service('access_space_knowledge_service_stub')
+
+    @staticmethod
+    def discover_space_knowledge_services_stub():
+        return Registry.get_service('discover_space_knowledge_services_stub')
+
+    # -----------------------------------------
+    # Space Knowledge Domain Service Stubs
+    # -----------------------------------------
+    @staticmethod
+    def create_space_knowledge_domain_service_stub():
+        """
+        :rtype: proto.ethos.elint.services.product.knowledge.space_knowledge_domain.create_space_knowledge_domain_pb2_grpc
+        """
+        return Registry.get_service('create_space_knowledge_domain_service_stub')
+
+    @staticmethod
+    def access_space_knowledge_domain_service_stub():
+        """
+        :rtype: proto.ethos.elint.services.product.knowledge.space_knowledge_domain.access_space_knowledge_domain_pb2_grpc
+        """
+        return Registry.get_service('access_space_knowledge_domain_service_stub')
+
+    @staticmethod
+    def discover_space_knowledge_domain_service_stub():
+        """
+        :rtype: proto.ethos.elint.services.product.knowledge.space_knowledge_domain.discover_space_knowledge_domain_pb2_grpc
+        """
+        return Registry.get_service('discover_space_knowledge_domain_service_stub')
+
+    # --------------------------------------------------
+    # Space Knowledge Domain File Service Stubs
+    # --------------------------------------------------
+    @staticmethod
+    def create_space_knowledge_domain_file_service_stub():
+        """
+        :rtype: proto.ethos.elint.services.product.knowledge.space_knowledge_domain_file.create_space_knowledge_domain_file_pb2_grpc
+        """
+        return Registry.get_service('create_space_knowledge_domain_file_service_stub')
+
+    @staticmethod
+    def access_space_knowledge_domain_file_service_stub():
+        """
+        :rtype: proto.ethos.elint.services.product.knowledge.space_knowledge_domain_file.access_space_knowledge_domain_file_pb2_grpc
+        """
+        return Registry.get_service('access_space_knowledge_domain_file_service_stub')
+
+    @staticmethod
+    def delete_space_knowledge_domain_file_service_stub():
+        """
+        :rtype: proto.ethos.elint.services.product.knowledge.space_knowledge_domain_file.delete_space_knowledge_domain_file_pb2_grpc
+        """
+        return Registry.get_service('delete_space_knowledge_domain_file_service_stub')
+
+    # --------------------------------------------------
+    # Space Knowledge Domain File Page Service Stubs
+    # --------------------------------------------------
+    @staticmethod
+    def create_space_knowledge_domain_file_page_service_stub():
+        """
+        :rtype: proto.ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.create_space_knowledge_domain_file_page_pb2_grpc
+        """
+        return Registry.get_service('create_space_knowledge_domain_file_page_service_stub')
+
+    @staticmethod
+    def access_space_knowledge_domain_file_page_service_stub():
+        """
+        :rtype: proto.ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.access_space_knowledge_domain_file_page_pb2_grpc
+        """
+        return Registry.get_service('access_space_knowledge_domain_file_page_service_stub')
+
+    @staticmethod
+    def discover_space_knowledge_domain_file_page_service_stub():
+        return Registry.get_service('discover_space_knowledge_domain_file_page_service_stub')
+
+    @staticmethod
+    def delete_space_knowledge_domain_file_page_service_stub():
+        return Registry.get_service('delete_space_knowledge_domain_file_page_service_stub')
+
+    # ----------------------------------------------------
+    # Space Knowledge Domain File Page Para Service Stubs
+    # ----------------------------------------------------
+    @staticmethod
+    def create_space_knowledge_domain_file_page_para_service_stub():
+        return Registry.get_service('create_space_knowledge_domain_file_page_para_service_stub')
+
+    @staticmethod
+    def access_space_knowledge_domain_file_page_para_service_stub():
+        return Registry.get_service('access_space_knowledge_domain_file_page_para_service_stub')
+
+    @staticmethod
+    def discover_space_knowledge_domain_file_page_para_service_stub():
+        return Registry.get_service('discover_space_knowledge_domain_file_page_para_service_stub')
+
+    @staticmethod
+    def delete_space_knowledge_domain_file_page_para_service_stub():
+        return Registry.get_service('delete_space_knowledge_domain_file_page_para_service_stub')
 
     # ----------  Services ---------
     @staticmethod
@@ -248,3 +354,119 @@ class ApplicationContext(object):
     @staticmethod
     def get_receive_account_assistant_message_service():
         return Registry.get_service('receive_account_assistant_message_service')
+
+    # ------------------------------
+    # Space Knowledge Services
+    # ------------------------------
+    @staticmethod
+    def get_create_space_knowledge_service():
+        """
+        :rtype: src.service.space_knowledge.CreateSpaceKnowledgeService
+        """
+        return Registry.get_service('create_space_knowledge_service')
+
+    @staticmethod
+    def get_access_space_knowledge_service():
+        """
+        :rtype: src.service.space_knowledge.AccessSpaceKnowledgeService
+        """
+        return Registry.get_service('access_space_knowledge_service')
+
+    @staticmethod
+    def get_discover_space_knowledge_service():
+        """
+        :rtype: src.service.space_knowledge.DiscoverSpaceKnowledgeService
+        """
+        return Registry.get_service('discover_space_knowledge_service')
+
+    # -------------------------------------
+    # Space Knowledge Domain Services
+    # -------------------------------------
+    @staticmethod
+    def get_create_space_knowledge_domain_service():
+        """
+        :rtype: src.service.space_knowledge_domain.CreateSpaceKnowledgeDomainService
+        """
+        return Registry.get_service('create_space_knowledge_domain_service')
+
+    @staticmethod
+    def get_access_space_knowledge_domain_service():
+        """
+        :rtype: src.service.space_knowledge_domain.AccessSpaceKnowledgeDomainService
+        """
+        return Registry.get_service('access_space_knowledge_domain_service')
+
+    @staticmethod
+    def get_discover_space_knowledge_domain_service():
+        """
+        :rtype: src.service.space_knowledge_domain.DiscoverSpaceKnowledgeDomainService
+        """
+        return Registry.get_service('discover_space_knowledge_domain_service')
+
+    # --------------------------------------------
+    # Space Knowledge Domain File Services
+    # --------------------------------------------
+    @staticmethod
+    def get_create_space_knowledge_domain_file_service():
+        """
+        :rtype: src.service.space_knowledge_domain_file.CreateSpaceKnowledgeDomainFileService
+        """
+        return Registry.get_service('create_space_knowledge_domain_file_service')
+
+    @staticmethod
+    def get_access_space_knowledge_domain_file_service():
+        """
+        :rtype: src.service.space_knowledge_domain_file.AccessSpaceKnowledgeDomainFileService
+        """
+        return Registry.get_service('access_space_knowledge_domain_file_service')
+
+    @staticmethod
+    def get_delete_space_knowledge_domain_file_service():
+        """
+        :rtype: src.service.space_knowledge_domain_file.DeleteSpaceKnowledgeDomainFileService
+        """
+        return Registry.get_service('delete_space_knowledge_domain_file_service')
+
+    # --------------------------------------------
+    # Space Knowledge Domain File Page Services
+    # --------------------------------------------
+    @staticmethod
+    def get_create_space_knowledge_domain_file_page_service():
+        """
+        :rtype: src.service.space_knowledge_domain_file_page.CreateSpaceKnowledgeDomainFilePageService
+        """
+        return Registry.get_service('create_space_knowledge_domain_file_page_service')
+
+    @staticmethod
+    def get_access_space_knowledge_domain_file_page_service():
+        """
+        :rtype: src.service.space_knowledge_domain_file_page.AccessSpaceKnowledgeDomainFilePageService
+        """
+        return Registry.get_service('access_space_knowledge_domain_file_page_service')
+
+    @staticmethod
+    def get_discover_space_knowledge_domain_file_page_service():
+        return Registry.get_service('discover_space_knowledge_domain_file_page_service')
+
+    @staticmethod
+    def get_delete_space_knowledge_domain_file_page_service():
+        return Registry.get_service('delete_space_knowledge_domain_file_page_service')
+
+    # ---------------------------------------------------
+    # Space Knowledge Domain File Page Para Services
+    # ---------------------------------------------------
+    @staticmethod
+    def get_access_space_knowledge_domain_file_page_para_service():
+        return Registry.get_service('access_space_knowledge_domain_file_page_para_service')
+
+    @staticmethod
+    def get_create_space_knowledge_domain_file_page_para_service():
+        return Registry.get_service('create_space_knowledge_domain_file_page_para_service')
+
+    @staticmethod
+    def get_discover_space_knowledge_domain_file_page_para_service():
+        return Registry.get_service('discover_space_knowledge_domain_file_page_para_service')
+
+    @staticmethod
+    def get_delete_space_knowledge_domain_file_page_para_service():
+        return Registry.get_service('delete_space_knowledge_domain_file_page_para_service')

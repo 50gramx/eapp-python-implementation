@@ -77,7 +77,7 @@ class AccessAccountAssistantService(AccessAccountAssistantServiceServicer):
         logging.info("AccessAccountAssistantService:AccountAssistantAccessToken")
         session_valid, session_valid_message = is_persistent_session_valid(
             session_token=request.account_assistant_services_access_session_token_details.session_token,
-            account_identifier=request.account_assistant.account_assistant_id,
+            session_identifier=request.account_assistant.account_assistant_id,
             session_scope=self.session_scope
         )
         return ValidateAccessMeta(
