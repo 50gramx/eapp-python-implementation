@@ -43,18 +43,10 @@ celery==5.0.5
 stripe
 
 # Observability Tools
-opentelemetry-api==1.21.0
-opentelemetry-exporter-otlp==1.14.0
-opentelemetry-exporter-otlp-proto-common==1.21.0
-opentelemetry-exporter-otlp-proto-grpc==1.14.0
-opentelemetry-exporter-otlp-proto-http==1.14.0
-opentelemetry-instrumentation==0.42b0
-opentelemetry-instrumentation-grpc==0.42b0
-opentelemetry-proto==1.14.0
-opentelemetry-sdk==1.21.0
-opentelemetry-semantic-conventions==0.42b0
-opentracing==2.4.0
+opentracing>=2.4.0
 jaeger-client
+opentelemetry-instrumentation-grpc>=0.42b0
+opentelemetry-exporter-otlp>=1.14.0
 
 # Rest of the utilties
 six==1.15.0
