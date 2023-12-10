@@ -31,7 +31,7 @@ class DbSession():
 
     @staticmethod
     def init_db_session():
-        db_url = f"postgres://{os.environ['EA_ID_DB_USER']}" \
+        db_url = f"postgresql://{os.environ['EA_ID_DB_USER']}" \
                  f":{os.environ['EA_ID_DB_PASS']}" \
                  f"@{os.environ['EA_ID_DB_HOST']}" \
                  f":{os.environ['EA_ID_DB_PORT']}" \
