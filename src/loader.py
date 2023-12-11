@@ -50,6 +50,38 @@ from ethos.elint.services.product.identity.space.access_space_pb2_grpc import Ac
 from ethos.elint.services.product.identity.space.create_space_pb2_grpc import CreateSpaceServiceStub
 from ethos.elint.services.product.knowledge.space_knowledge.access_space_knowledge_pb2_grpc import \
     AccessSpaceKnowledgeServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge.create_space_knowledge_pb2_grpc import \
+    CreateSpaceKnowledgeServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge.discover_space_knowledge_pb2_grpc import \
+    DiscoverSpaceKnowledgeServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain.access_space_knowledge_domain_pb2_grpc import \
+    AccessSpaceKnowledgeDomainServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain.create_space_knowledge_domain_pb2_grpc import \
+    CreateSpaceKnowledgeDomainServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain.discover_space_knowledge_domain_pb2_grpc import \
+    DiscoverSpaceKnowledgeDomainServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file.access_space_knowledge_domain_file_pb2_grpc import \
+    AccessSpaceKnowledgeDomainFileServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file.create_space_knowledge_domain_file_pb2_grpc import \
+    CreateSpaceKnowledgeDomainFileServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file.delete_space_knowledge_domain_file_pb2_grpc import \
+    DeleteSpaceKnowledgeDomainFileServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.access_space_knowledge_domain_file_page_pb2_grpc import \
+    AccessSpaceKnowledgeDomainFilePageServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.create_space_knowledge_domain_file_page_pb2_grpc import \
+    CreateSpaceKnowledgeDomainFilePageServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.delete_space_knowledge_domain_file_page_pb2_grpc import \
+    DeleteSpaceKnowledgeDomainFilePageServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.discover_space_knowledge_domain_file_page_pb2_grpc import \
+    DiscoverSpaceKnowledgeDomainFilePageServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page_para.access_space_knowledge_domain_file_page_para_pb2_grpc import \
+    AccessSpaceKnowledgeDomainFilePageParaServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page_para.create_space_knowledge_domain_file_page_para_pb2_grpc import \
+    CreateSpaceKnowledgeDomainFilePageParaServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page_para.delete_space_knowledge_domain_file_page_para_pb2_grpc import \
+    DeleteSpaceKnowledgeDomainFilePageParaServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page_para.discover_space_knowledge_domain_file_page_para_pb2_grpc import \
+    DiscoverSpaceKnowledgeDomainFilePageParaServiceStub
 
 from community.gramx.fifty.zero.ethos.conversations.entities.message.capabilities.account.registry import \
     register_account_message_services
@@ -167,22 +199,8 @@ class Loader(object):
         # ------------------------------------
         # ACTION STUBS
         # ------------------------------------
-        action_grpc_host = os.environ['EAPP_SERVICE_ACTION_HOST']
-        action_grpc_port = os.environ['EAPP_SERVICE_ACTION_PORT']
-        action_grpc_certificate_file = os.environ[
-            'EAPP_SERVICE_ACTION_COMMON_GRPC_EXTERNAL_CERTIFICATE_FILE']
 
-        action_host_ip = "{host}:{port}".format(host=action_grpc_host, port=action_grpc_port)
-
-        action_ssl_credentials = grpc.ssl_channel_credentials(
-            open(action_grpc_certificate_file, 'rb').read())
-        action_common_channel = grpc.secure_channel(action_host_ip, action_ssl_credentials)
-
-        # action_common_channel = grpc.insecure_channel(action_host_ip)
-        action_common_channel = grpc.intercept_channel(action_common_channel)
-        channels.append(action_common_channel)
-
-        space_knowledge_action_service_stub = SpaceKnowledgeActionServiceStub(action_common_channel)
+        space_knowledge_action_service_stub = SpaceKnowledgeActionServiceStub(capabilities_common_channel)
         Registry.register_service('space_knowledge_action_service_stub', space_knowledge_action_service_stub)
 
         # ------------------------------------
@@ -214,23 +232,88 @@ class Loader(object):
         # ------------------------------------
         # KNOWLEDGE STUBS
         # ------------------------------------
-        knowledge_grpc_host = os.environ['EAPP_SERVICE_KNOWLEDGE_HOST']
-        knowledge_grpc_port = os.environ['EAPP_SERVICE_KNOWLEDGE_PORT']
-        knowledge_grpc_certificate_file = os.environ[
-            'EAPP_SERVICE_KNOWLEDGE_COMMON_GRPC_EXTERNAL_CERTIFICATE_FILE']
 
-        knowledge_host_ip = "{host}:{port}".format(host=knowledge_grpc_host, port=knowledge_grpc_port)
+        # SPACE KNOWLEDGE STUBS
+        access_space_knowledge_service_stub = AccessSpaceKnowledgeServiceStub(capabilities_common_channel)
+        Registry.register_service("access_space_knowledge_service_stub", access_space_knowledge_service_stub)
 
-        knowledge_ssl_credentials = grpc.ssl_channel_credentials(
-            open(knowledge_grpc_certificate_file, 'rb').read())
-        knowledge_common_channel = grpc.secure_channel(knowledge_host_ip, knowledge_ssl_credentials)
+        discover_space_knowledge_services_stub = DiscoverSpaceKnowledgeServiceStub(capabilities_common_channel)
+        Registry.register_service('discover_space_knowledge_services_stub', discover_space_knowledge_services_stub)
 
-        knowledge_common_channel = grpc.intercept_channel(knowledge_common_channel)
-        channels.append(knowledge_common_channel)
+        create_space_knowledge_service_stub = CreateSpaceKnowledgeServiceStub(capabilities_common_channel)
+        Registry.register_service('create_space_knowledge_service_stub', create_space_knowledge_service_stub)
 
-        # knowledge stubs
-        access_space_knowledge_service_stub = AccessSpaceKnowledgeServiceStub(knowledge_common_channel)
-        Registry.register_service('access_space_knowledge_service_stub', access_space_knowledge_service_stub)
+        # DOMAIN STUBS
+        create_space_knowledge_domain_service_stub = CreateSpaceKnowledgeDomainServiceStub(capabilities_common_channel)
+        Registry.register_service('create_space_knowledge_domain_service_stub',
+                                  create_space_knowledge_domain_service_stub)
+
+        access_space_knowledge_domain_service_stub = AccessSpaceKnowledgeDomainServiceStub(capabilities_common_channel)
+        Registry.register_service('access_space_knowledge_domain_service_stub',
+                                  access_space_knowledge_domain_service_stub)
+
+        discover_space_knowledge_domain_service_stub = DiscoverSpaceKnowledgeDomainServiceStub(
+            capabilities_common_channel)
+        Registry.register_service('discover_space_knowledge_domain_service_stub',
+                                  discover_space_knowledge_domain_service_stub)
+
+        # FILE STUBS
+        create_space_knowledge_domain_file_service_stub = CreateSpaceKnowledgeDomainFileServiceStub(
+            capabilities_common_channel)
+        Registry.register_service('create_space_knowledge_domain_file_service_stub',
+                                  create_space_knowledge_domain_file_service_stub)
+
+        access_space_knowledge_domain_file_service_stub = AccessSpaceKnowledgeDomainFileServiceStub(
+            capabilities_common_channel)
+        Registry.register_service('access_space_knowledge_domain_file_service_stub',
+                                  access_space_knowledge_domain_file_service_stub)
+
+        delete_space_knowledge_domain_file_service_stub = DeleteSpaceKnowledgeDomainFileServiceStub(
+            capabilities_common_channel)
+        Registry.register_service('delete_space_knowledge_domain_file_service_stub',
+                                  delete_space_knowledge_domain_file_service_stub)
+
+        # PAGE STUBS
+        create_space_knowledge_domain_file_page_service_stub = CreateSpaceKnowledgeDomainFilePageServiceStub(
+            capabilities_common_channel)
+        Registry.register_service('create_space_knowledge_domain_file_page_service_stub',
+                                  create_space_knowledge_domain_file_page_service_stub)
+
+        access_space_knowledge_domain_file_page_service_stub = AccessSpaceKnowledgeDomainFilePageServiceStub(
+            capabilities_common_channel)
+        Registry.register_service('access_space_knowledge_domain_file_page_service_stub',
+                                  access_space_knowledge_domain_file_page_service_stub)
+
+        discover_space_knowledge_domain_file_page_service_stub = DiscoverSpaceKnowledgeDomainFilePageServiceStub(
+            capabilities_common_channel)
+        Registry.register_service('discover_space_knowledge_domain_file_page_service_stub',
+                                  discover_space_knowledge_domain_file_page_service_stub)
+
+        delete_space_knowledge_domain_file_page_service_stub = DeleteSpaceKnowledgeDomainFilePageServiceStub(
+            capabilities_common_channel)
+        Registry.register_service('delete_space_knowledge_domain_file_page_service_stub',
+                                  delete_space_knowledge_domain_file_page_service_stub)
+
+        # PARA STUBS
+        create_space_knowledge_domain_file_page_para_service_stub = CreateSpaceKnowledgeDomainFilePageParaServiceStub(
+            capabilities_common_channel)
+        Registry.register_service('create_space_knowledge_domain_file_page_para_service_stub',
+                                  create_space_knowledge_domain_file_page_para_service_stub)
+
+        access_space_knowledge_domain_file_page_para_service_stub = AccessSpaceKnowledgeDomainFilePageParaServiceStub(
+            capabilities_common_channel)
+        Registry.register_service('access_space_knowledge_domain_file_page_para_service_stub',
+                                  access_space_knowledge_domain_file_page_para_service_stub)
+
+        discover_space_knowledge_domain_file_page_para_service_stub = DiscoverSpaceKnowledgeDomainFilePageParaServiceStub(
+            capabilities_common_channel)
+        Registry.register_service('discover_space_knowledge_domain_file_page_para_service_stub',
+                                  discover_space_knowledge_domain_file_page_para_service_stub)
+
+        delete_space_knowledge_domain_file_page_para_service_stub = DeleteSpaceKnowledgeDomainFilePageParaServiceStub(
+            capabilities_common_channel)
+        Registry.register_service('delete_space_knowledge_domain_file_page_para_service_stub',
+                                  delete_space_knowledge_domain_file_page_para_service_stub)
 
         # adding channels to registry
         Registry.register_service('grpc_channels', channels)
