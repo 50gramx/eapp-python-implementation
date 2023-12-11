@@ -7,7 +7,7 @@ RUN apt-get update \
 COPY ./requirements.txt /app/requirements.txt
 COPY ./pip.conf /app/pip.conf
 ENV PIP_CONFIG_FILE=/app/pip.conf
-RUN pip install -r requirements.txt
+RUN pip install -r /app/requirements.txt
 COPY . /app
 WORKDIR /app
 ENTRYPOINT ["sh", "launch.sh"]
