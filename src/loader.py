@@ -21,6 +21,8 @@ import logging
 import os
 
 import grpc
+from ethos.elint.services.cognitive.assist.knowledge.reader_knowledge_pb2_grpc import ReaderKnowledgeServiceStub
+from ethos.elint.services.cognitive.assist.knowledge.retriever_knowledge_pb2_grpc import RetrieverKnowledgeServiceStub
 from ethos.elint.services.product.action.space_knowledge_action_pb2_grpc import SpaceKnowledgeActionServiceStub
 from ethos.elint.services.product.conversation.message.account.receive_account_message_pb2_grpc import \
     ReceiveAccountMessageServiceStub
@@ -314,6 +316,20 @@ class Loader(object):
             capabilities_common_channel)
         Registry.register_service('delete_space_knowledge_domain_file_page_para_service_stub',
                                   delete_space_knowledge_domain_file_page_para_service_stub)
+
+        # --------------------------------------------
+        # COGNITIVE ASSIST KNOWLEDGE RETRIEVER STUBS
+        # --------------------------------------------
+
+        retriever_knowledge_service_stub = RetrieverKnowledgeServiceStub(capabilities_common_channel)
+        Registry.register_service('retriever_knowledge_service_stub', retriever_knowledge_service_stub)
+
+        # --------------------------------------------
+        # COGNITIVE ASSIST KNOWLEDGE READER STUBS
+        # --------------------------------------------
+
+        reader_knowledge_service_stub = ReaderKnowledgeServiceStub(capabilities_common_channel)
+        Registry.register_service('reader_knowledge_service_stub', reader_knowledge_service_stub)
 
         # adding channels to registry
         Registry.register_service('grpc_channels', channels)
