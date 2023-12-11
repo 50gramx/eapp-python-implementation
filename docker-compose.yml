@@ -30,8 +30,6 @@ services:
     volumes:
       # Mounting initialization SQL files from the host
       - ./sql:/docker-entrypoint-initdb.d
-      # Mounting initialization SQL files from the host for PostgreSQL
-      - /c/Users/amitk/Documents/capability-data/psql/init:/docker-entrypoint-initdb.d
       # Mounting backup files for restoration
       - /c/Users/amitk/Documents/capability-data/psql/backups:/backups
       # Mounting archive files for point in time recovery
