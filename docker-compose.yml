@@ -40,7 +40,6 @@ services:
       - ./psql_backup.sh:/psql_backup.sh
       # Mount custom configuration file
       - ./custom_postgresql.conf:/etc/postgresql/postgresql.conf
-    command: ["-c", "config_file=/etc/postgresql/postgresql.conf"]
 
   # maintenance Service
   maintenance:
