@@ -38,8 +38,6 @@ services:
       - /c/Users/amitk/Documents/capability-data/psql/data:/var/lib/postgresql/data
       # Mounting backup script for terminating backups
       - ./psql_backup.sh:/psql_backup.sh
-      # Mount custom configuration file
-      - ./custom_postgresql.conf:/etc/postgresql/postgresql.conf
 
   # maintenance Service
   maintenance:
