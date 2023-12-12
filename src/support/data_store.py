@@ -21,6 +21,7 @@ import os
 
 import boto3
 from botocore.config import Config
+from botocore.exceptions import ClientError
 from ethos.elint.entities.galaxy_pb2 import Galaxy
 from ethos.elint.entities.space_knowledge_domain_file_page_pb2 import SpaceKnowledgeDomainFilePage
 from ethos.elint.entities.space_knowledge_domain_file_pb2 import SpaceKnowledgeDomainFile
@@ -93,6 +94,17 @@ class DataStore:
             aws_secret_access_key=self.access_key,
             endpoint_url=self.endpoint,
         )
+        # Make bucket if not exist.
+        try:
+            self.ds_client.head_bucket(Bucket=self.bucket_name)
+            print(f"Bucket '{self.bucket_name}' already exists")
+        except ClientError as e:
+            # If a client error is thrown, check if it was a 404 error (Bucket does not exist)
+            error_code = e.response.get('Error', {}).get('Code')
+            if error_code == '404':
+                self.ds_client.create_bucket(Bucket=self.bucket_name)
+            else:
+                raise
         self.tmp_file_path = "/tmp"
 
     # ------------------------------------
