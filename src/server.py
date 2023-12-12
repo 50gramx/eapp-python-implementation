@@ -29,6 +29,7 @@ from grpc_health.v1 import health, health_pb2_grpc, health_pb2
 from opentelemetry import trace
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
 from opentelemetry.instrumentation.grpc import GrpcInstrumentorServer
+from opentelemetry.instrumentation.grpc._server import OpenTelemetryServerInterceptor
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
@@ -37,6 +38,7 @@ from community.gramx.fifty.zero.ethos.conversations.handler import handle_conver
 from community.gramx.fifty.zero.ethos.identity.handler import handle_identity_services
 from community.gramx.fifty.zero.ethos.knowledge_spaces.handler import handle_knowledge_spaces_services
 from loader import Loader
+from support.application.tracing import PYTHON_IMPLEMENTATION_TRACER
 
 trace.set_tracer_provider(TracerProvider())
 
@@ -95,6 +97,10 @@ def run_server(port):
     Loader.init_multiverse_conversations_context()
     Loader.init_multiverse_knowledge_spaces_context()
 
+    interceptors = [
+        OpenTelemetryServerInterceptor(PYTHON_IMPLEMENTATION_TRACER),
+    ]
+
     # Bind ThreadPoolExecutor and Services to server
     server = grpc.server(
         thread_pool=futures.ThreadPoolExecutor(
@@ -102,7 +108,8 @@ def run_server(port):
         ),
         options=[
             ("grpc.enable_keepalive", 0),
-        ]
+        ],
+        interceptors=interceptors
     )
 
     handle_identity_services(server)
