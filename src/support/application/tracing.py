@@ -59,7 +59,6 @@ def trace_rpc(tracer=PYTHON_IMPLEMENTATION_TRACER):
             # Extract trace context from incoming request metadata
             metadata_dict = dict(context.invocation_metadata())
             span_ctx = tracer.extract(Format.TEXT_MAP, metadata_dict)
-            span_ctx = context.get_active_span().context
 
             # Start a new span for the incoming request
             with tracer.start_span(span_name, child_of=span_ctx) as span:
