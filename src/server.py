@@ -38,7 +38,6 @@ from community.gramx.fifty.zero.ethos.conversations.handler import handle_conver
 from community.gramx.fifty.zero.ethos.identity.handler import handle_identity_services
 from community.gramx.fifty.zero.ethos.knowledge_spaces.handler import handle_knowledge_spaces_services
 from loader import Loader
-from support.application.tracing import PYTHON_IMPLEMENTATION_TRACER
 
 trace.set_tracer_provider(TracerProvider())
 
@@ -98,7 +97,7 @@ def run_server(port):
     Loader.init_multiverse_knowledge_spaces_context()
 
     interceptors = [
-        OpenTelemetryServerInterceptor(PYTHON_IMPLEMENTATION_TRACER),
+        OpenTelemetryServerInterceptor(trace),
     ]
 
     # Bind ThreadPoolExecutor and Services to server
