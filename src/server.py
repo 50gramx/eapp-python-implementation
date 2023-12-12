@@ -28,7 +28,6 @@ import grpc
 from grpc_health.v1 import health, health_pb2_grpc, health_pb2
 from opentelemetry import trace
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
-from opentelemetry.instrumentation.grpc import GrpcInstrumentorServer
 from opentelemetry.instrumentation.grpc._server import OpenTelemetryServerInterceptor
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
@@ -53,8 +52,11 @@ trace.get_tracer_provider().add_span_processor(
     span_processor
 )
 
-grpc_server_instrumentor = GrpcInstrumentorServer()
-grpc_server_instrumentor.instrument()
+tracer = trace.get_tracer(__name__)
+
+
+# grpc_server_instrumentor = GrpcInstrumentorServer()
+# grpc_server_instrumentor.instrument()
 
 
 def _toggle_health(health_servicer: health.HealthServicer, service: str):
@@ -97,7 +99,7 @@ def run_server(port):
     Loader.init_multiverse_knowledge_spaces_context()
 
     interceptors = [
-        OpenTelemetryServerInterceptor(trace),
+        OpenTelemetryServerInterceptor(tracer),
     ]
 
     # Bind ThreadPoolExecutor and Services to server
