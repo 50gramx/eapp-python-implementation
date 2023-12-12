@@ -72,3 +72,15 @@ services:
       - "4318:4318"
     environment:
       - COLLECTOR_OTLP_ENABLED=true
+
+  # Object Storage
+  s3:
+    image: minio/minio:latest
+    ports:
+      - "9000:9000"
+    environment:
+      MINIO_ACCESS_KEY: AKIAZRD2XQCNZ753U6UH
+      MINIO_SECRET_KEY: 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
+    volumes:
+      - /c/Users/amitk/Documents/capability-data/s3/data:/data
+    command: server /data

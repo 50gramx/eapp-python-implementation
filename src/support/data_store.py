@@ -21,7 +21,6 @@ import os
 
 import boto3
 from botocore.config import Config
-
 from ethos.elint.entities.galaxy_pb2 import Galaxy
 from ethos.elint.entities.space_knowledge_domain_file_page_pb2 import SpaceKnowledgeDomainFilePage
 from ethos.elint.entities.space_knowledge_domain_file_pb2 import SpaceKnowledgeDomainFile
@@ -87,11 +86,12 @@ class DataStore:
                 'mode': 'standard'
             }
         )
+        self.endpoint = os.environ['ELINT_STORE_ENDPOINT']
         self.ds_client = boto3.client(
             's3',
             aws_access_key_id=self.access_id,
             aws_secret_access_key=self.access_key,
-            config=self.ds_client_config
+            endpoint_url=self.endpoint,
         )
         self.tmp_file_path = "/tmp"
 
