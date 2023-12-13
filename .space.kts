@@ -83,13 +83,15 @@ job("Build & Deploy Python Implementations") {
         content = """
             # Trigger backups before bringing down the services
 
-            # Check if the PostgreSQL container is running
-            if $(docker ps -q --filter "name=^/postgres$" 2>/dev/null); then
+            CONTAINER_NAME='eapp-python-implementation-postgres-1'
+            CID=$(docker ps -q -f status=running -f name=^/${CONTAINER_NAME}$)
+            if [ ! "${CID}" ]; then
+                echo "PostgreSQL container is not running. Skipping backup."
+            else
                 echo "PostgreSQL container is running. Backing up..."
                 docker-compose exec postgres /bin/sh -c "sh /psql_backup.sh instant"
-            else
-                echo "PostgreSQL container is not running. Skipping backup."
             fi
+            unset CID
 
             # Trigger backups before bringing down the services
             docker-compose exec redis /bin/sh -c "sh /redis_backup.sh instant"
