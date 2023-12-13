@@ -93,8 +93,15 @@ job("Build & Deploy Python Implementations") {
             fi
             unset CID
 
-            # Trigger backups before bringing down the services
-            docker-compose exec redis /bin/sh -c "sh /redis_backup.sh instant"
+            export CONTAINER_NAME='eapp-python-implementation-redis-1'
+            export CID=$(docker ps -q -f status=running -f name=^/${"$"}CONTAINER_NAME$)
+            if [ ! "${"$"}CID" ]; then
+                echo "Redis container is not running. Skipping backup."
+            else
+                echo "Redis container is running. Backing up..."
+                docker-compose exec redis /bin/sh -c "sh /redis_backup.sh instant"
+            fi
+            unset CID
         """
       }
     }
