@@ -41,6 +41,7 @@ class TasksLoader(object):
         app = Celery("tasks", broker=f"redis://{redis_host}:{redis_port}/0")
         app.conf.update(
             task_routes={
+                '.tasks.act_on_account_message': {'queue', 'eapp_knowledge_queue'},
                 '.tasks.extract_file_pages': {'queue', 'eapp_knowledge_queue'},
                 '.tasks.extract_page_paras': {'queue', 'eapp_knowledge_queue'},
                 '.tasks.extract_page_text': {'queue', 'eapp_knowledge_queue'},

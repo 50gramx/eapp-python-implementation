@@ -98,18 +98,21 @@ def run_server(port):
     Loader.init_multiverse_conversations_context()
     Loader.init_multiverse_knowledge_spaces_context()
 
+    migration_thread_pool = futures.ThreadPoolExecutor(
+        max_workers=int(os.environ['ERPC_MAX_WORKERS'])
+    )
+
+    options = [
+        ("grpc.enable_keepalive", 0),
+    ]
+
     interceptors = [
         OpenTelemetryServerInterceptor(tracer),
     ]
 
-    # Bind ThreadPoolExecutor and Services to server
-    server = grpc.server(
-        thread_pool=futures.ThreadPoolExecutor(
-            max_workers=int(os.environ['ERPC_MAX_WORKERS'])
-        ),
-        options=[
-            ("grpc.enable_keepalive", 0),
-        ],
+    server = grpc.aio.server(
+        migration_thread_pool=migration_thread_pool,
+        options=options,
         interceptors=interceptors
     )
 
