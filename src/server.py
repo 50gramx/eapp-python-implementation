@@ -17,7 +17,6 @@
 #   * from Amit Kumar Khetan.
 #   */
 import asyncio
-import contextlib
 import logging
 import os
 import threading
@@ -87,7 +86,6 @@ def _configure_health_server(server: grpc.Server):
     toggle_health_status_thread.start()
 
 
-@contextlib.contextmanager
 async def run_server(port):
     # Initiate the DbSession
     db_session.DbSession.init_db_session()
@@ -113,7 +111,6 @@ async def run_server(port):
     server = grpc.aio.server(
         migration_thread_pool=migration_thread_pool,
         options=options,
-        interceptors=interceptors
     )
 
     handle_identity_services(server)
@@ -124,19 +121,12 @@ async def run_server(port):
     _configure_health_server(server)
     await server.start()
     try:
-        yield server, server_port
+        logging.info(f'\tEthosApps Python Capabilities are listening at port {server_port}')
+        await server.wait_for_termination()
     finally:
         await server.stop()
 
 
-def main():
-    with asyncio.run(run_server(
-            os.environ.get('ERPC_PORT', 80)
-    )) as (server, port):
-        logging.info(f'\tEthosApps Python Capabilities are listening at port {port}')
-        await server.wait_for_termination()
-
-
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)  # warn: testing this
-    main()
+    asyncio.run(run_server(os.environ.get('ERPC_PORT', 80)))
