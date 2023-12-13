@@ -84,7 +84,9 @@ job("Build & Deploy Python Implementations") {
             # Trigger backups before bringing down the services
 
             # Check if the PostgreSQL container is running
-            if [ -n '$(docker ps -q --filter "name=postgres" 2>/dev/null)' ]; then
+            export postgresRunning=$(docker ps -q --filter "name=postgres" 2>/dev/null)
+
+            if [ -n "$postgresRunning" ]; then
                 echo "PostgreSQL container is running. Backing up..."
                 docker-compose exec postgres /bin/sh -c "sh /psql_backup.sh instant"
             else
