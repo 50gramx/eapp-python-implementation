@@ -16,7 +16,7 @@
 #   * is strictly forbidden unless prior written permission is obtained
 #   * from Amit Kumar Khetan.
 #   */
-
+import asyncio
 import contextlib
 import logging
 import os
@@ -88,7 +88,7 @@ def _configure_health_server(server: grpc.Server):
 
 
 @contextlib.contextmanager
-def run_server(port):
+async def run_server(port):
     # Initiate the DbSession
     db_session.DbSession.init_db_session()
     logging.info(f'DbSession started')
@@ -122,19 +122,19 @@ def run_server(port):
 
     server_port = server.add_insecure_port(f"[::]:{port}")
     _configure_health_server(server)
-    server.start()
+    await server.start()
     try:
         yield server, server_port
     finally:
-        server.stop()
+        await server.stop()
 
 
 def main():
-    with run_server(
+    with asyncio.run(run_server(
             os.environ.get('ERPC_PORT', 80)
-    ) as (server, port):
+    )) as (server, port):
         logging.info(f'\tEthosApps Python Capabilities are listening at port {port}')
-        server.wait_for_termination()
+        await server.wait_for_termination()
 
 
 if __name__ == '__main__':
