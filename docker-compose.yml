@@ -38,6 +38,8 @@ services:
       #      - /c/Users/amitk/Documents/capability-data/psql/data:/var/lib/postgresql/data
       # Mounting backup script for terminating backups
       - ./psql_backup.sh:/psql_backup.sh
+    command: /bin/bash -c "/psql_backup.sh wait_for_stop_signal"
+    stop_signal: SIGINT
 
   # maintenance Service
   maintenance:
@@ -51,7 +53,7 @@ services:
       - redis
 
   # Ethos Apps Python Implementations Service
-  eapp-python-implementations:
+  capabilities:
     image: 50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations:latest
     ports:
       - "50501:80"

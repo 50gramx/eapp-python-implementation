@@ -82,7 +82,18 @@ job("Build & Deploy Python Implementations") {
       shellScript {
         content = """
             # Trigger backups before bringing down the services
-            docker-compose exec postgres /bin/sh -c "sh /psql_backup.sh instant"
+
+            # Check if the PostgreSQL container is running
+            postgresRunning=$(docker ps -q --filter "name=postgres" 2>/dev/null)
+
+            if [ -n "$postgresRunning" ]; then
+                echo "PostgreSQL container is running. Backing up..."
+                docker-compose exec postgres /bin/sh -c "sh /psql_backup.sh instant"
+            else
+                echo "PostgreSQL container is not running. Skipping backup."
+            fi
+
+            # Trigger backups before bringing down the services
             docker-compose exec redis /bin/sh -c "sh /redis_backup.sh instant"
         """
       }

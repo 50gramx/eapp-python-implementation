@@ -31,10 +31,16 @@ perform_backup() {
     echo "Postgres Dumped $BACKUP_FILE"
 }
 
-# Check if invoked manually or through cron
 if [ "$1" = "instant" ]; then
     # Triggered manually or by another container
     perform_backup
+elif [ "$1" = "wait_for_stop_signal" ]; then
+    # Triggered by container stop signal
+    # Trap SIGINT signal and invoke the backup function
+    trap 'perform_backup' SIGINT
+    # Keep the script running
+    echo "Stop listener script is running. Press Ctrl+C to stop."
+    sleep infinity
 else
     # Scheduled backup
     perform_backup
