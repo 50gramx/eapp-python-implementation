@@ -83,9 +83,9 @@ job("Build & Deploy Python Implementations") {
         content = """
             # Trigger backups before bringing down the services
 
-            CONTAINER_NAME='eapp-python-implementation-postgres-1'
-            CID=$(docker ps -q -f status=running -f name=^/${CONTAINER_NAME}$)
-            if [ ! "${CID}" ]; then
+            export CONTAINER_NAME='eapp-python-implementation-postgres-1'
+            export CID=$(docker ps -q -f status=running -f name=^/${"$"}CONTAINER_NAME$)
+            if [ ! "${"$"}CID" ]; then
                 echo "PostgreSQL container is not running. Skipping backup."
             else
                 echo "PostgreSQL container is running. Backing up..."
