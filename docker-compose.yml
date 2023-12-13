@@ -38,7 +38,7 @@ services:
       #      - /c/Users/amitk/Documents/capability-data/psql/data:/var/lib/postgresql/data
       # Mounting backup script for terminating backups
       - ./psql_backup.sh:/psql_backup.sh
-    command: /bin/bash -c "/psql_backup.sh wait_for_stop_signal"
+    command: [ "bash", "/psql_backup.sh wait_for_stop_signal" ]
     stop_signal: SIGINT
 
   # maintenance Service
