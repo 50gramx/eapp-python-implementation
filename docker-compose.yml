@@ -16,6 +16,7 @@ services:
       # Mounting backup script for terminating backups
       - ./redis_backup.sh:/redis_backup.sh
     command: [ "bash", "/redis_restore_and_start.sh" ]
+    restart: always
 
   # PostgreSQL Service
   postgres:
@@ -39,6 +40,7 @@ services:
       # Mounting backup script for terminating backups
       - ./psql_backup.sh:/psql_backup.sh
     stop_signal: SIGINT
+    restart: always
 
   # maintenance Service
   maintenance:
@@ -57,6 +59,10 @@ services:
     ports:
       - "50501:80"
     restart: always
+    depends_on:
+      - postgres
+      - redis
+      - s3
 
   # Jaeger Service
   jaeger:
@@ -73,6 +79,7 @@ services:
       - "4318:4318"
     environment:
       - COLLECTOR_OTLP_ENABLED=true
+    restart: always
 
   # Object Storage
   s3:
@@ -85,3 +92,4 @@ services:
     volumes:
       - /c/Users/amitk/Documents/capability-data/s3/data:/data
     command: server /data
+    restart: always
