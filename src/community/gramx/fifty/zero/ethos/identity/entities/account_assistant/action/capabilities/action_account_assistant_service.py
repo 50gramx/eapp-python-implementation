@@ -41,7 +41,7 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
         super(ActionAccountAssistantService, self).__init__()
         self.session_scope = self.__class__.__name__
 
-    def ActOnAccountMessage(self, request, context):
+    async def ActOnAccountMessage(self, request, context):
         logging.info("ActionAccountAssistantService:ActOnAccountMessage")
         validation_done, validation_message = validate_account_assistant_services_caller(request.access_auth_details)
         if validation_done is False:
