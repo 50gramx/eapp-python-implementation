@@ -26,8 +26,8 @@ from ethos.elint.services.product.identity.account_assistant.access_account_assi
     AccessAccountAssistantServiceServicer
 
 from access.account_assistant.service_authentication import AccessAccountAssistantServicesAuthentication
-from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import \
-    get_account_assistant_by_account_caller
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.discover.consumers.discover_account_assistant_consumer import \
+    DiscoverAccountAssistantConsumer
 from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import \
     validate_account_services_caller, get_account_by_id_caller
 from support.database.account_assistant_services import get_account_assistant
@@ -57,7 +57,8 @@ class AccessAccountAssistantService(AccessAccountAssistantServiceServicer):
     def AccountAssistantAccessTokenWithMasterConnection(self, request, context):
         logging.info("AccessAccountAssistantService:AccountAssistantAccessTokenWithMasterConnection")
         account, _, _ = get_account_by_id_caller(account_id=request.connected_account.account_id)
-        account_assistant = get_account_assistant_by_account_caller(account=account)
+        discover_consumer = DiscoverAccountAssistantConsumer
+        account_assistant = discover_consumer.get_account_assistant_by_account(account=account)
         if account_assistant.account_assistant_id != request.account_assistant_id:
             return AccountAssistantAccessTokenResponse(meta=ResponseMeta(
                 meta_done=False,

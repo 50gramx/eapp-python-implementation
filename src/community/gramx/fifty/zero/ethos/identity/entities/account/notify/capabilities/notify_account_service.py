@@ -26,8 +26,8 @@ from ethos.elint.services.product.identity.account.notify_account_pb2_grpc impor
 from firebase_admin import messaging
 from pyfcm import FCMNotification
 
-from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import \
-    get_account_assistant_name_code_by_id
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.discover.consumers.discover_account_assistant_consumer import \
+    DiscoverAccountAssistantConsumer
 from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import get_account_by_id_caller, \
     validate_account_services_caller
 from support.application.tracing import trace_rpc
@@ -47,7 +47,8 @@ class NotifyAccountService(NotifyAccountServiceServicer):
     @trace_rpc()
     def NewReceivedMessageFromAccountAssistant(self, request, context):
         logging.info("NotifyAccountService:NewReceivedMessageFromAccountAssistant")
-        assistant_name_code, assistant_name = get_account_assistant_name_code_by_id(
+        discover_consumer = DiscoverAccountAssistantConsumer
+        assistant_name_code, assistant_name = discover_consumer.get_account_assistant_name_code_by_id(
             account_assistant_id=request.connecting_account_assistant_id)
         # ios_new_messages_payload = {
         #     'aps': {

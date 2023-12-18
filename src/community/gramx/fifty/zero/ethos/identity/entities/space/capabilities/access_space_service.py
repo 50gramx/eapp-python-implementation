@@ -26,8 +26,8 @@ from ethos.elint.services.product.identity.space.create_space_pb2 import CreateA
 
 from access.space.service_authentication import AccessSpaceServicesAuthentication
 from application_context import ApplicationContext
-from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import \
-    validate_account_assistant_services_caller
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.access.consumers.access_account_assistant_consumer import \
+    AccessAccountAssistantConsumer
 from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import \
     validate_account_services_caller
 from support.database.space_services import get_space
@@ -99,7 +99,9 @@ class AccessSpaceService(AccessSpaceServiceServicer):
 
     def AssistSpaceAccessToken(self, request, context):
         logging.info("AccessSpaceService:AssistSpaceAccessToken invoked.")
-        validation_done, validation_message = validate_account_assistant_services_caller(access_auth_details=request)
+        access_consumer = AccessAccountAssistantConsumer
+        validation_done, validation_message = access_consumer.validate_account_assistant_services(
+            access_auth_details=request)
         if validation_done is False:
             return SpaceAccessTokenResponse(
                 space_services_access_done=validation_done,

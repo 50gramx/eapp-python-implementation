@@ -22,15 +22,17 @@ import logging
 from ethos.elint.entities.account_pb2 import AccountConnectedAccountAssistant
 from ethos.elint.services.product.conversation.message.account_assistant.send_account_assistant_message_pb2 import \
     MessageForAccountSent
-from ethos.elint.services.product.conversation.message.account_assistant.send_account_assistant_message_pb2_grpc import \
-    SendAccountAssistantMessageServiceServicer
+from ethos.elint.services.product.conversation.message.account_assistant. \
+    send_account_assistant_message_pb2_grpc import SendAccountAssistantMessageServiceServicer
 
 from community.gramx.fifty.zero.ethos.conversations.models.account_assistant_conversation_models import \
     AccountAssistantConversations
 from community.gramx.fifty.zero.ethos.conversations.services_caller.account_message_service_caller import \
     receive_message_from_account_assistant_caller
-from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import \
-    validate_account_assistant_services_caller, is_account_connected_caller
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.access.consumers.access_account_assistant_consumer import \
+    AccessAccountAssistantConsumer
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.connect.consumers. \
+    connect_account_assistant_consumer import ConnectAccountAssistantConsumer
 from support.application.tracing import trace_rpc
 from support.helper_functions import format_timestamp_to_datetime
 
@@ -43,11 +45,14 @@ class SendAccountAssistantMessageService(SendAccountAssistantMessageServiceServi
     @trace_rpc()
     def SendMessageToAccount(self, request, context):
         logging.info("SendAccountAssistantMessageService:SendMessageToAccount")
-        validation_done, validation_message = validate_account_assistant_services_caller(request.access_auth_details)
+        access_consumer = AccessAccountAssistantConsumer
+        validation_done, validation_message = access_consumer.validate_account_assistant_services(
+            request.access_auth_details)
         if validation_done is False:
             return MessageForAccountSent(is_sent=validation_done)
         else:
-            is_connected, connection_message = is_account_connected_caller(
+            connect_consumer = ConnectAccountAssistantConsumer
+            is_connected, connection_message = connect_consumer.is_account_connected(
                 account_assistant_id=request.access_auth_details.account_assistant.account_assistant_id,
                 connected_account=request.connected_account)
             if is_connected is False:

@@ -25,8 +25,10 @@ from ethos.elint.services.product.identity.account.discover_account_pb2 import G
     AreAccountsExistingWithMobileResponse
 from ethos.elint.services.product.identity.account.discover_account_pb2_grpc import DiscoverAccountServiceServicer
 
-from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import get_account_assistant_by_account_caller
-from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import validate_account_services_caller
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.discover.consumers.discover_account_assistant_consumer import \
+    DiscoverAccountAssistantConsumer
+from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import \
+    validate_account_services_caller
 from support.application.tracing import trace_rpc
 from support.database.account_services import get_account, is_existing_account_mobile, is_account_billing_active
 
@@ -61,7 +63,8 @@ class DiscoverAccountService(DiscoverAccountServiceServicer):
         if validation_done is False:
             return AccountAssistant()
         else:
-            return get_account_assistant_by_account_caller(request.account)
+            discover_consumer = DiscoverAccountAssistantConsumer
+            return discover_consumer.get_account_assistant_by_account(request.account)
 
     @trace_rpc()
     def IsAccountExistsWithMobile(self, request, context):

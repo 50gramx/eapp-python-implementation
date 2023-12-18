@@ -19,19 +19,18 @@
 
 import logging
 
-from google.protobuf.any_pb2 import Any
-
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.entities.space_knowledge_domain_pb2 import SpaceKnowledgeDomain
 from ethos.elint.entities.space_knowledge_pb2 import SpaceKnowledgeAction
 from ethos.elint.services.product.action.space_knowledge_action_pb2 import DomainRankedAnswers
 from ethos.elint.services.product.identity.account_assistant.action_account_assistant_pb2_grpc import \
     ActionAccountAssistantServiceServicer
+from google.protobuf.any_pb2 import Any
 
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.access.consumers.access_account_assistant_consumer import \
+    AccessAccountAssistantConsumer
 from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_message_service_caller import \
     send_message_to_account
-from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import \
-    validate_account_assistant_services_caller
 from community.gramx.fifty.zero.ethos.identity.services_caller.space_knowledge_action_services_caller import \
     ask_question
 
@@ -43,7 +42,9 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
 
     async def ActOnAccountMessage(self, request, context):
         logging.info("ActionAccountAssistantService:ActOnAccountMessage")
-        validation_done, validation_message = validate_account_assistant_services_caller(request.access_auth_details)
+        access_consumer = AccessAccountAssistantConsumer
+        validation_done, validation_message = access_consumer.validate_account_assistant_services(
+            request.access_auth_details)
         if validation_done is False:
             return ResponseMeta(meta_done=validation_done, meta_message=validation_message)
         else:

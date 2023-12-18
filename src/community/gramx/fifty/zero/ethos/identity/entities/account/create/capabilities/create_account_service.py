@@ -32,10 +32,10 @@ from access.account.services_authentication import AccessAccountServicesAuthenti
 from application_context import ApplicationContext
 from community.gramx.fifty.zero.ethos.conversations.services_caller.message_conversation_service_caller import \
     setup_account_conversations_caller
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.create.consumers.create_account_assistant_consumer import \
+    CreateAccountAssistantConsumer
 from community.gramx.fifty.zero.ethos.identity.models.account_connection_models import AccountConnections
 from community.gramx.fifty.zero.ethos.identity.models.base_models import Account, AccountDevices
-from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import \
-    create_account_assistant_caller
 from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import \
     validate_account_services_caller
 from support.application.tracing import trace_rpc
@@ -217,7 +217,8 @@ class CreateAccountService(CreateAccountServiceServicer):
         logging.info("Response created.")
 
         # create account assistant
-        _, _, _ = create_account_assistant_caller(
+        create_consumer = CreateAccountAssistantConsumer
+        _, _, _ = create_consumer.create_account_assistant(
             access_auth_details=account_services_access_auth_details,
             account_assistant_name=request.account_assistant_name
         )

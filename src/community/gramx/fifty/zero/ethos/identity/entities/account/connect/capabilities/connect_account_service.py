@@ -20,9 +20,6 @@
 import logging
 
 import phonenumbers
-from google.protobuf.any_pb2 import Any
-
-from application_context import ApplicationContext
 from ethos.elint.entities.account_pb2 import AccountMobile
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.identity.account.connect_account_pb2 import ConnectedAccountAssistants, \
@@ -36,12 +33,19 @@ from ethos.elint.services.product.identity.account.discover_account_pb2 import G
     GetAccountMetaByAccountIdRequest
 from ethos.elint.services.product.identity.account_assistant.discover_account_assistant_pb2 import \
     GetAccountAssistantMetaByAccountAssistantIdRequest
+from google.protobuf.any_pb2 import Any
+
+from application_context import ApplicationContext
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.access.consumers.access_account_assistant_consumer import \
+    AccessAccountAssistantConsumer
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.connect.consumers.connect_account_assistant_consumer import \
+    ConnectAccountAssistantConsumer
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.discover.consumers.discover_account_assistant_consumer import \
+    DiscoverAccountAssistantConsumer
 from community.gramx.fifty.zero.ethos.identity.models.account_connection_models import AccountConnections
-from community.gramx.fifty.zero.ethos.identity.services_caller import account_assistant_service_caller, \
-    account_service_caller
-from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import account_assistant_access_token_caller, \
-    get_account_assistant_by_account_caller
-from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import validate_account_services_caller, \
+from community.gramx.fifty.zero.ethos.identity.services_caller import account_service_caller
+from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import \
+    validate_account_services_caller, \
     account_connected_account_notification_caller
 from support.application.tracing import trace_rpc
 from support.database.account_services import get_account
@@ -62,7 +66,9 @@ class ConnectAccountService(ConnectAccountServiceServicer):
             return GetAccountSelfConnectedAccountAssistantResponse(response_meta=meta)
         else:
             account_connections = AccountConnections(account_id=request.account.account_id)
-            account_assistant_id = get_account_assistant_by_account_caller(account=request.account).account_assistant_id
+            discover_consumer = DiscoverAccountAssistantConsumer
+            account_assistant_id = discover_consumer.get_account_assistant_by_account(
+                account=request.account).account_assistant_id
             connected_account_assistant = account_connections.get_connected_account_assistant(
                 account_assistant_id=account_assistant_id)
             return GetAccountSelfConnectedAccountAssistantResponse(
@@ -389,9 +395,11 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                             account_id=request.access_auth_details.account.account_id)
                     )
                     # connect with account assistant
-                    _, _, account_assistant_access_auth_details = account_assistant_access_token_caller(
+                    access_consumer = AccessAccountAssistantConsumer
+                    _, _, account_assistant_access_auth_details = access_consumer.account_assistant_access_token(
                         access_auth_details=request.access_auth_details)
-                    _, _, _ = account_assistant_service_caller.connect_account_caller(
+                    connect_consumer = ConnectAccountAssistantConsumer
+                    _, _, _ = connect_consumer.connect_account(
                         access_auth_details=account_assistant_access_auth_details,
                         connecting_account_id=request.connecting_account_id
                     )
@@ -421,9 +429,11 @@ class ConnectAccountService(ConnectAccountServiceServicer):
                 )
                 connected_account = account_connections.get_connected_account(account_id=request.connecting_account_id)
                 # connect with account assistant
-                _, _, account_assistant_access_auth_details = account_assistant_access_token_caller(
+                access_consumer = AccessAccountAssistantConsumer
+                _, _, account_assistant_access_auth_details = access_consumer.account_assistant_access_token(
                     access_auth_details=request.access_auth_details)
-                _, _, _ = account_assistant_service_caller.connect_account_caller(
+                connect_consumer = ConnectAccountAssistantConsumer
+                _, _, _ = connect_consumer.connect_account(
                     access_auth_details=account_assistant_access_auth_details,
                     connecting_account_id=request.connecting_account_id
                 )

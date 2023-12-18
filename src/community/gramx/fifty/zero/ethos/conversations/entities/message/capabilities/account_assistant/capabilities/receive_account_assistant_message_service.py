@@ -28,8 +28,10 @@ from google.protobuf.json_format import MessageToJson
 from community.gramx.fifty.zero.ethos.conversations.entities.message.capabilities import act_on_account_message
 from community.gramx.fifty.zero.ethos.conversations.models.account_assistant_conversation_models import \
     AccountAssistantConversations
-from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import \
-    is_account_connected_caller, account_assistant_access_token_with_master_connection_caller
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.access.consumers.access_account_assistant_consumer import \
+    AccessAccountAssistantConsumer
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.connect.consumers.connect_account_assistant_consumer import \
+    ConnectAccountAssistantConsumer
 from support.application.tracing import trace_rpc
 from support.helper_functions import get_current_timestamp, format_timestamp_to_datetime
 
@@ -42,7 +44,8 @@ class ReceiveAccountAssistantMessageService(ReceiveAccountAssistantMessageServic
     @trace_rpc()
     def ReceiveMessageFromAccount(self, request, context):
         logging.info("ReceiveAccountAssistantMessageService:ReceiveMessageFromAccount")
-        is_connected, connection_message = is_account_connected_caller(
+        connect_consumer = ConnectAccountAssistantConsumer
+        is_connected, connection_message = connect_consumer.is_account_connected(
             account_assistant_id=request.account_assistant_id,
             connected_account=request.connected_account
         )
@@ -62,7 +65,8 @@ class ReceiveAccountAssistantMessageService(ReceiveAccountAssistantMessageServic
                 received_at=format_timestamp_to_datetime(received_at)
             )
             # pass the message to action based on action
-            access_done, access_message, access_auth_details = account_assistant_access_token_with_master_connection_caller(
+            access_consumer = AccessAccountAssistantConsumer
+            access_done, access_message, access_auth_details = access_consumer.account_assistant_access_token_with_master_connection(
                 account_assistant_id=request.account_assistant_id,
                 connected_account=request.connected_account
             )

@@ -25,15 +25,17 @@ from ethos.elint.services.product.identity.account_assistant.create_account_assi
 from ethos.elint.services.product.identity.account_assistant.create_account_assistant_pb2_grpc import \
     CreateAccountAssistantServiceServicer
 
+from community.gramx.fifty.zero.ethos.conversations.services_caller.message_conversation_service_caller import \
+    setup_account_assistant_conversations_caller
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.access.consumers. \
+    access_account_assistant_consumer import AccessAccountAssistantConsumer
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.create.consumers. \
+    create_account_assistant_consumer import CreateAccountAssistantConsumer
 from community.gramx.fifty.zero.ethos.identity.models.account_assistant_connection_models import \
     AccountAssistantConnections
 from community.gramx.fifty.zero.ethos.identity.models.account_connection_models import AccountConnections
-from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import \
-    get_account_assistant_name_code_caller, account_assistant_access_token_caller
 from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import \
     validate_account_services_caller
-from community.gramx.fifty.zero.ethos.conversations.services_caller.message_conversation_service_caller import \
-    setup_account_assistant_conversations_caller
 from support.database.account_assistant_name_code_services import get_account_assistant_name_code
 from support.database.account_assistant_services import add_new_account_assistant
 from support.helper_functions import gen_uuid
@@ -51,7 +53,8 @@ class CreateAccountAssistantService(CreateAccountAssistantServiceServicer):
         if validation_done is False:
             return CreateAccountAssistantResponse(response_meta=response_meta)
         else:
-            _, _, account_assistant_name_code = get_account_assistant_name_code_caller(
+            create_consumer = CreateAccountAssistantConsumer
+            _, _, account_assistant_name_code = create_consumer.get_account_assistant_name_code(
                 access_auth_details=request.access_auth_details, account_assistant_name=request.account_assistant_name)
             new_account_assistant_id = add_new_account_assistant(
                 account_id=request.access_auth_details.account.account_id,
@@ -70,7 +73,8 @@ class CreateAccountAssistantService(CreateAccountAssistantServiceServicer):
                 account_assistant_connection_id=new_connection_id,
                 account_assistant_id=new_account_assistant_id
             )
-            access_done, access_message, access_auth_details = account_assistant_access_token_caller(
+            access_consumer = AccessAccountAssistantConsumer
+            access_done, access_message, access_auth_details = access_consumer.account_assistant_access_token(
                 request.access_auth_details)
             # setup account assistant conversation
             _, _ = setup_account_assistant_conversations_caller(access_auth_details=access_auth_details)

@@ -42,8 +42,8 @@ from community.gramx.fifty.zero.ethos.conversations.models.account_assistant_con
     AccountAssistantConversations
 from community.gramx.fifty.zero.ethos.conversations.models.account_conversation_models import AccountConversations
 from community.gramx.fifty.zero.ethos.conversations.models.base_models import add_account_messages_in_speed
-from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_service_caller import \
-    validate_account_assistant_services_caller
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.access.consumers.access_account_assistant_consumer import \
+    AccessAccountAssistantConsumer
 from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import \
     validate_account_services_caller
 from support.application.tracing import trace_rpc
@@ -70,7 +70,8 @@ class MessageConversationService(MessageConversationServiceServicer):
     @trace_rpc()
     def SetupAccountAssistantConversations(self, request, context):
         logging.info("MessageConversationService:SetupAccountAssistantConversations")
-        validation_done, validation_message = validate_account_assistant_services_caller(request)
+        access_consumer = AccessAccountAssistantConsumer
+        validation_done, validation_message = access_consumer.validate_account_assistant_services(request)
         meta = ResponseMeta(meta_done=validation_done, meta_message=validation_message)
         if validation_done is False:
             return meta
