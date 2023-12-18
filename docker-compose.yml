@@ -63,7 +63,7 @@ services:
       - postgres
       - redis
       - s3
-    command: ["sh", "launch_async.sh"]
+    entrypoint: ["sh", "launch_async.sh"]
 
   # Ethos Apps Python Synchronous Capabilities
   sync_py_caps:
