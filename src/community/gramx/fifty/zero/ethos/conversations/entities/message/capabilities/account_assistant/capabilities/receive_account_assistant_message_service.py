@@ -23,13 +23,13 @@ from ethos.elint.services.product.conversation.message.account_assistant.receive
     MessageFromAccountReceived
 from ethos.elint.services.product.conversation.message.account_assistant.receive_account_assistant_message_pb2_grpc import \
     ReceiveAccountAssistantMessageServiceServicer
-from google.protobuf.json_format import MessageToJson
 
-from community.gramx.fifty.zero.ethos.conversations.entities.message.capabilities import act_on_account_message
 from community.gramx.fifty.zero.ethos.conversations.models.account_assistant_conversation_models import \
     AccountAssistantConversations
 from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.access.consumers.access_account_assistant_consumer import \
     AccessAccountAssistantConsumer
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.action.consumers.action_account_assistant_consumer import \
+    ActionAccountAssistantConsumer
 from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.connect.consumers.connect_account_assistant_consumer import \
     ConnectAccountAssistantConsumer
 from support.application.tracing import trace_rpc
@@ -73,9 +73,11 @@ class ReceiveAccountAssistantMessageService(ReceiveAccountAssistantMessageServic
             if access_done is False:
                 return MessageFromAccountReceived(is_received=access_done)
             else:
-                act_on_account_message.apply_async((MessageToJson(access_auth_details),
-                                                    MessageToJson(request.connected_account),
-                                                    request.space_knowledge_action,
-                                                    request.message
-                                                    ), queue="eapp_conversation_queue")
+                action_consumer = ActionAccountAssistantConsumer
+                action_consumer.act_on_account_message(
+                    access_auth_details=access_auth_details,
+                    connected_account=request.connected_account,
+                    space_knowledge_action=request.space_knowledge_action,
+                    message=request.message
+                )
                 return MessageFromAccountReceived(is_received=access_done, received_at=get_current_timestamp())
