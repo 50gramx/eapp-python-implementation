@@ -27,38 +27,15 @@ from time import sleep
 
 import grpc
 from grpc_health.v1 import health, health_pb2_grpc, health_pb2
-from opentelemetry import trace
-from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
 from opentelemetry.instrumentation.grpc import aio_server_interceptor
 from opentelemetry.instrumentation.grpc._server import OpenTelemetryServerInterceptor
-from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
 import db_session
 from community.gramx.fifty.zero.ethos.conversations.handler import handle_conversations_services
 from community.gramx.fifty.zero.ethos.identity.handler import handle_identity_services
 from community.gramx.fifty.zero.ethos.knowledge_spaces.handler import handle_knowledge_spaces_services
 from loader import Loader
-
-trace.set_tracer_provider(TracerProvider())
-
-# create a JaegerExporter
-jaeger_exporter = OTLPSpanExporter(
-    'jaeger:4317', insecure=True
-)
-
-# Create a BatchSpanProcessor and add the exporter to it
-span_processor = BatchSpanProcessor(jaeger_exporter)
-
-trace.get_tracer_provider().add_span_processor(
-    span_processor
-)
-
-tracer = trace.get_tracer(__name__)
-
-
-# grpc_server_instrumentor = GrpcInstrumentorServer()
-# grpc_server_instrumentor.instrument()
+from support.application.tracing import AtlasTracer
 
 
 def _toggle_health(health_servicer: health.HealthServicer, service: str):
@@ -109,7 +86,7 @@ def _init_services(server, aio: bool = False):
     handle_knowledge_spaces_services(server=server, aio=aio)
 
 
-async def run_aio_server(port):
+async def run_aio_server(port, server_tracer):
     _init_db()
     _init_context(aio=True)
 
@@ -144,12 +121,12 @@ async def run_aio_server(port):
 
 
 @contextlib.contextmanager
-def run_server(port):
+def run_server(server_port, server_tracer):
     _init_db()
     _init_context()
 
     interceptors = [
-        OpenTelemetryServerInterceptor(tracer),
+        OpenTelemetryServerInterceptor(server_tracer),
     ]
 
     # Bind ThreadPoolExecutor and Services to server
@@ -165,7 +142,7 @@ def run_server(port):
 
     _init_services(server=server)
 
-    server_port = server.add_insecure_port(f"[::]:{port}")
+    server_port = server.add_insecure_port(f"[::]:{server_port}")
     _configure_health_server(server)
     server.start()
     try:
@@ -181,10 +158,17 @@ if __name__ == '__main__':
     parser.add_argument('--debug', action='store_true')
     parser.set_defaults(feature=True)
     args = parser.parse_args()
+
+    # Configure Loggins
     logging.basicConfig(level=(logging.DEBUG if args.debug else logging.INFO))
+
+    # Register Tracer
+    server_tracer = AtlasTracer.get(args.aio)
+
+    server_port = os.environ.get('ERPC_PORT', 80)
     if args.aio:
         logging.info("Starting Asynchronous Server")
-        asyncio.run(run_aio_server(os.environ.get('ERPC_PORT', 80)))
+        asyncio.run(run_aio_server(server_port, server_tracer=server_tracer))
     else:
         logging.info("Starting Synchronous Server")
-        run_server(os.environ.get('ERPC_PORT', 80))
+        run_server(server_port, server_tracer=server_tracer)

@@ -33,6 +33,7 @@ from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant
     send_message_to_account
 from community.gramx.fifty.zero.ethos.identity.services_caller.space_knowledge_action_services_caller import \
     ask_question
+from support.application.tracing import trace_rpc
 
 
 class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
@@ -40,6 +41,7 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
         super(ActionAccountAssistantService, self).__init__()
         self.session_scope = self.__class__.__name__
 
+    @trace_rpc()
     async def ActOnAccountMessage(self, request, context):
         logging.info("ActionAccountAssistantService:ActOnAccountMessage")
         access_consumer = AccessAccountAssistantConsumer
