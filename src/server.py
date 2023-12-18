@@ -169,7 +169,7 @@ def run_server(port):
     _configure_health_server(server)
     server.start()
     try:
-        logging.info(f'\tEthosApps Python Capabilities are listening at port {server_port}')
+        logging.info(f'\tEthosApps Python Synchronous Capabilities are listening at port {server_port}')
         server.wait_for_termination()
     finally:
         server.stop()
