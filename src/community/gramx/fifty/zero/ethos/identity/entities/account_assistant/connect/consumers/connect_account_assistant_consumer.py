@@ -17,10 +17,10 @@
 #   * from Amit Kumar Khetan.
 #   */
 from ethos.elint.entities.account_assistant_pb2 import AccountAssistantConnectedAccount
-from ethos.elint.services.product.identity.account.connect_account_pb2 import ConnectAccountRequest, \
-    IsAccountConnectedRequest
 from ethos.elint.services.product.identity.account_assistant.access_account_assistant_pb2 import \
     AccountAssistantServicesAccessAuthDetails
+from ethos.elint.services.product.identity.account_assistant.connect_account_assistant_pb2 import \
+    IsAccountConnectedRequest, ConnectAccountRequest
 
 from application_context import ApplicationContext
 
