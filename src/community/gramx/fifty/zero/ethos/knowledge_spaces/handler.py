@@ -31,15 +31,15 @@ from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_
     handle_space_knowledge_domain_file_page_para_services
 
 
-def handle_knowledge_spaces_services(server):
-    handle_space_knowledge_services(server)
+def handle_knowledge_spaces_services(server, aio: bool):
+    handle_space_knowledge_services(server, aio)
     logging.info(f'\t [x] added space knowledge services')
-    handle_space_knowledge_domain_services(server)
+    handle_space_knowledge_domain_services(server, aio)
     logging.info(f'\t [x] added space knowledge domain services')
-    handle_space_knowledge_domain_file_services(server)
+    handle_space_knowledge_domain_file_services(server, aio)
     logging.info(f'\t [x] added space knowledge domain file services')
-    handle_space_knowledge_domain_file_page_services(server)
+    handle_space_knowledge_domain_file_page_services(server, aio)
     logging.info(f'\t [x] added space knowledge domain file page services')
-    handle_space_knowledge_domain_file_page_para_services(server)
+    handle_space_knowledge_domain_file_page_para_services(server, aio)
     logging.info(f'\t [x] added space knowledge domain file page para services')
     logging.info(f'Knowledge Spaces services added')

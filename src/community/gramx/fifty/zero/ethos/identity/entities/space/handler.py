@@ -16,17 +16,24 @@
 #   * is strictly forbidden unless prior written permission is obtained
 #   * from Amit Kumar Khetan.
 #   */
+import logging
+
 from ethos.elint.services.product.identity.space.access_space_pb2_grpc import add_AccessSpaceServiceServicer_to_server
 from ethos.elint.services.product.identity.space.create_space_pb2_grpc import add_CreateSpaceServiceServicer_to_server
 
 from application_context import ApplicationContext
 
 
-def handle_space_services(server):
-    add_CreateSpaceServiceServicer_to_server(
-        ApplicationContext.get_create_space_service(), server
-    )
-    add_AccessSpaceServiceServicer_to_server(
-        ApplicationContext.get_access_space_service(), server
-    )
+def handle_space_services(server, aio: bool):
+    if aio:
+        pass
+    else:
+        add_CreateSpaceServiceServicer_to_server(
+            ApplicationContext.get_create_space_service(), server
+        )
+        logging.info(f'\t\t [x] create')
+        add_AccessSpaceServiceServicer_to_server(
+            ApplicationContext.get_access_space_service(), server
+        )
+        logging.info(f'\t\t [x] access')
     return

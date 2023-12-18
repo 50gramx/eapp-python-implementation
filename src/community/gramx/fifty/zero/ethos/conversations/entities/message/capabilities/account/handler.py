@@ -16,6 +16,8 @@
 #   * is strictly forbidden unless prior written permission is obtained
 #   * from Amit Kumar Khetan.
 #   */
+import logging
+
 from ethos.elint.services.product.conversation.message.account.receive_account_message_pb2_grpc import \
     add_ReceiveAccountMessageServiceServicer_to_server
 from ethos.elint.services.product.conversation.message.account.send_account_message_pb2_grpc import \
@@ -24,10 +26,15 @@ from ethos.elint.services.product.conversation.message.account.send_account_mess
 from application_context import ApplicationContext
 
 
-def handle_message_account_services(server):
-    add_SendAccountMessageServiceServicer_to_server(
-        ApplicationContext.get_send_account_message_service(), server
-    )
-    add_ReceiveAccountMessageServiceServicer_to_server(
-        ApplicationContext.get_receive_account_message_service(), server
-    )
+def handle_message_account_services(server, aio: bool):
+    if aio:
+        pass
+    else:
+        add_SendAccountMessageServiceServicer_to_server(
+            ApplicationContext.get_send_account_message_service(), server
+        )
+        logging.info(f'\t\t [x] send')
+        add_ReceiveAccountMessageServiceServicer_to_server(
+            ApplicationContext.get_receive_account_message_service(), server
+        )
+        logging.info(f'\t\t [x] receive')

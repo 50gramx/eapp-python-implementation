@@ -29,7 +29,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 
 def init_tracer(service_name):
-    logging.info("init_tracer")
+    logging.debug("init_tracer")
     config = Config(
         config={
             'sampler': {'type': 'const', 'param': 1},
@@ -46,14 +46,14 @@ logging.info("PYTHON_IMPLEMENTATION_TRACER")
 
 
 def trace_rpc(tracer=PYTHON_IMPLEMENTATION_TRACER):
-    logging.info("...into trace_rpc...")
+    logging.debug("...into trace_rpc...")
 
     def decorator(func):
-        logging.info("...into decorator...")
+        logging.debug("...into decorator...")
 
         @wraps(func)
         def wrapper(self, request, context):
-            logging.info("...into wrapper...")
+            logging.debug("...into wrapper...")
             span_name = func.__name__
 
             # Extract trace context from incoming request metadata

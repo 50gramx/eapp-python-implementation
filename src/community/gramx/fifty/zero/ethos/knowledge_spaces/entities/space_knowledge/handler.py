@@ -16,6 +16,8 @@
 #   * is strictly forbidden unless prior written permission is obtained
 #   * from Amit Kumar Khetan.
 #   */
+import logging
+
 from ethos.elint.services.product.knowledge.space_knowledge.access_space_knowledge_pb2_grpc import \
     add_AccessSpaceKnowledgeServiceServicer_to_server
 from ethos.elint.services.product.knowledge.space_knowledge.create_space_knowledge_pb2_grpc import \
@@ -26,13 +28,19 @@ from ethos.elint.services.product.knowledge.space_knowledge.discover_space_knowl
 from application_context import ApplicationContext
 
 
-def handle_space_knowledge_services(server):
-    add_AccessSpaceKnowledgeServiceServicer_to_server(
-        ApplicationContext.get_access_space_knowledge_service(), server
-    )
-    add_CreateSpaceKnowledgeServiceServicer_to_server(
-        ApplicationContext.get_create_space_knowledge_service(), server
-    )
-    add_DiscoverSpaceKnowledgeServiceServicer_to_server(
-        ApplicationContext.get_discover_space_knowledge_service(), server
-    )
+def handle_space_knowledge_services(server, aio: bool):
+    if aio:
+        pass
+    else:
+        add_AccessSpaceKnowledgeServiceServicer_to_server(
+            ApplicationContext.get_access_space_knowledge_service(), server
+        )
+        logging.info(f'\t\t [x] access')
+        add_CreateSpaceKnowledgeServiceServicer_to_server(
+            ApplicationContext.get_create_space_knowledge_service(), server
+        )
+        logging.info(f'\t\t [x] create')
+        add_DiscoverSpaceKnowledgeServiceServicer_to_server(
+            ApplicationContext.get_discover_space_knowledge_service(), server
+        )
+        logging.info(f'\t\t [x] discover')

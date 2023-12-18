@@ -42,6 +42,8 @@ from ethos.elint.services.product.identity.account.notify_account_pb2_grpc impor
 from ethos.elint.services.product.identity.account.pay_in_account_pb2_grpc import PayInAccountServiceStub
 from ethos.elint.services.product.identity.account_assistant.access_account_assistant_pb2_grpc import \
     AccessAccountAssistantServiceStub
+from ethos.elint.services.product.identity.account_assistant.action_account_assistant_pb2_grpc import \
+    ActionAccountAssistantServiceStub
 from ethos.elint.services.product.identity.account_assistant.connect_account_assistant_pb2_grpc import \
     ConnectAccountAssistantServiceStub
 from ethos.elint.services.product.identity.account_assistant.create_account_assistant_pb2_grpc import \
@@ -112,6 +114,11 @@ from support.application.registry import Registry
 class Loader(object):
 
     @staticmethod
+    def init_multiverse_context():
+        Loader.__init_service_stubs()
+        return
+
+    @staticmethod
     def init_universe_context(universe_id: str):
         Loader.__init_service_stubs()
         return
@@ -123,32 +130,31 @@ class Loader(object):
         return
 
     @staticmethod
-    def init_multiverse_identity_context():
+    def init_multiverse_identity_context(aio: bool):
         # Loader.__init_multiverse_identity_chain_stubs()
-        Loader.__init_service_stubs()
-        register_account_services()
-        register_account_assistant_services()
-        register_space_services()
+        register_account_services(aio=aio)
+        register_account_assistant_services(aio=aio)
+        register_space_services(aio=aio)
         # Loader.__register_multiverse_services()
         Loader.__register_machine_services()
         logging.info(f'Identity context loaded')
         return
 
     @staticmethod
-    def init_multiverse_conversations_context():
-        register_message_conversation_services()
-        register_account_message_services()
-        register_account_assistant_message_services()
+    def init_multiverse_conversations_context(aio: bool):
+        register_message_conversation_services(aio=aio)
+        register_account_message_services(aio=aio)
+        register_account_assistant_message_services(aio=aio)
         logging.info(f'Conversations context loaded')
         return
 
     @staticmethod
-    def init_multiverse_knowledge_spaces_context():
-        register_space_knowledge_services()
-        register_space_knowledge_domain_services()
-        register_space_knowledge_domain_file_services()
-        register_space_knowledge_domain_file_page_services()
-        register_space_knowledge_domain_file_page_para_services()
+    def init_multiverse_knowledge_spaces_context(aio: bool):
+        register_space_knowledge_services(aio=aio)
+        register_space_knowledge_domain_services(aio=aio)
+        register_space_knowledge_domain_file_services(aio=aio)
+        register_space_knowledge_domain_file_page_services(aio=aio)
+        register_space_knowledge_domain_file_page_para_services(aio=aio)
         logging.info(f'Knowledge Spaces context loaded')
         pass
 
@@ -197,7 +203,20 @@ class Loader(object):
         Registry.register_service('discover_account_assistant_service_stub', discover_account_assistant_service_stub)
         connect_account_assistant_service_stub = ConnectAccountAssistantServiceStub(capabilities_common_channel)
         Registry.register_service('connect_account_assistant_service_stub', connect_account_assistant_service_stub)
-        action_account_assistant_service_stub = ConnectAccountAssistantServiceStub(capabilities_common_channel)
+
+        aio_grpc_host = os.environ['ERPC_AIO_HOST']
+        aio_grpc_port = os.environ['ERPC_AIO_PORT']
+        # grpc_certificate_file = os.environ['EAPP_SERVICE_IDENTITY_COMMON_GRPC_EXTERNAL_CERTIFICATE_FILE']
+
+        aio_host_ip = "{host}:{port}".format(host=aio_grpc_host, port=aio_grpc_port)
+
+        asynchronous_capabilities_common_channel = grpc.aio.insecure_channel(aio_host_ip)
+
+        asynchronous_capabilities_common_channel = grpc.intercept_channel(asynchronous_capabilities_common_channel)
+        channels.append(asynchronous_capabilities_common_channel)
+
+        action_account_assistant_service_stub = ActionAccountAssistantServiceStub(
+            asynchronous_capabilities_common_channel)
         Registry.register_service('action_account_assistant_service_stub', action_account_assistant_service_stub)
 
         # ------------------------------------

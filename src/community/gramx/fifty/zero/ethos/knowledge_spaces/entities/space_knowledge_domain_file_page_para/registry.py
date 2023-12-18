@@ -27,16 +27,19 @@ from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_
 from support.application.registry import Registry
 
 
-def register_space_knowledge_domain_file_page_para_services():
-    create_space_knowledge_domain_file_page_para_service = CreateSpaceKnowledgeDomainFilePageParaService()
-    Registry.register_service('create_space_knowledge_domain_file_page_para_service',
-                              create_space_knowledge_domain_file_page_para_service)
-    access_space_knowledge_domain_file_page_para_service = AccessSpaceKnowledgeDomainFilePageParaService()
-    Registry.register_service('access_space_knowledge_domain_file_page_para_service',
-                              access_space_knowledge_domain_file_page_para_service)
-    discover_space_knowledge_domain_file_page_para_service = DiscoverSpaceKnowledgeDomainFilePageParaService()
-    Registry.register_service('discover_space_knowledge_domain_file_page_para_service',
-                              discover_space_knowledge_domain_file_page_para_service)
-    delete_space_knowledge_domain_file_page_para_service = DeleteSpaceKnowledgeDomainFilePageParaService()
-    Registry.register_service('delete_space_knowledge_domain_file_page_para_service',
-                              delete_space_knowledge_domain_file_page_para_service)
+def register_space_knowledge_domain_file_page_para_services(aio: bool):
+    if aio:
+        pass
+    else:
+        create_space_knowledge_domain_file_page_para_service = CreateSpaceKnowledgeDomainFilePageParaService()
+        Registry.register_service('create_space_knowledge_domain_file_page_para_service',
+                                  create_space_knowledge_domain_file_page_para_service)
+        access_space_knowledge_domain_file_page_para_service = AccessSpaceKnowledgeDomainFilePageParaService()
+        Registry.register_service('access_space_knowledge_domain_file_page_para_service',
+                                  access_space_knowledge_domain_file_page_para_service)
+        discover_space_knowledge_domain_file_page_para_service = DiscoverSpaceKnowledgeDomainFilePageParaService()
+        Registry.register_service('discover_space_knowledge_domain_file_page_para_service',
+                                  discover_space_knowledge_domain_file_page_para_service)
+        delete_space_knowledge_domain_file_page_para_service = DeleteSpaceKnowledgeDomainFilePageParaService()
+        Registry.register_service('delete_space_knowledge_domain_file_page_para_service',
+                                  delete_space_knowledge_domain_file_page_para_service)

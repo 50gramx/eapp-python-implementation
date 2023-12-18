@@ -16,6 +16,8 @@
 #   * is strictly forbidden unless prior written permission is obtained
 #   * from Amit Kumar Khetan.
 #   */
+import logging
+
 from ethos.elint.services.product.knowledge.space_knowledge_domain.access_space_knowledge_domain_pb2_grpc import \
     add_AccessSpaceKnowledgeDomainServiceServicer_to_server
 from ethos.elint.services.product.knowledge.space_knowledge_domain.create_space_knowledge_domain_pb2_grpc import \
@@ -26,13 +28,19 @@ from ethos.elint.services.product.knowledge.space_knowledge_domain.discover_spac
 from application_context import ApplicationContext
 
 
-def handle_space_knowledge_domain_services(server):
-    add_AccessSpaceKnowledgeDomainServiceServicer_to_server(
-        ApplicationContext.get_access_space_knowledge_domain_service(), server
-    )
-    add_CreateSpaceKnowledgeDomainServiceServicer_to_server(
-        ApplicationContext.get_create_space_knowledge_domain_service(), server
-    )
-    add_DiscoverSpaceKnowledgeDomainServiceServicer_to_server(
-        ApplicationContext.get_discover_space_knowledge_domain_service(), server
-    )
+def handle_space_knowledge_domain_services(server, aio: bool):
+    if aio:
+        pass
+    else:
+        add_AccessSpaceKnowledgeDomainServiceServicer_to_server(
+            ApplicationContext.get_access_space_knowledge_domain_service(), server
+        )
+        logging.info(f'\t\t [x] access')
+        add_CreateSpaceKnowledgeDomainServiceServicer_to_server(
+            ApplicationContext.get_create_space_knowledge_domain_service(), server
+        )
+        logging.info(f'\t\t [x] create')
+        add_DiscoverSpaceKnowledgeDomainServiceServicer_to_server(
+            ApplicationContext.get_discover_space_knowledge_domain_service(), server
+        )
+        logging.info(f'\t\t [x] discover')

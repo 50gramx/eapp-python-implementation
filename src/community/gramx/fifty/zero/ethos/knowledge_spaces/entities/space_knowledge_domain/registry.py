@@ -25,10 +25,13 @@ from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_
 from support.application.registry import Registry
 
 
-def register_space_knowledge_domain_services():
-    create_space_knowledge_domain_service = CreateSpaceKnowledgeDomainService()
-    Registry.register_service('create_space_knowledge_domain_service', create_space_knowledge_domain_service)
-    access_space_knowledge_domain_service = AccessSpaceKnowledgeDomainService()
-    Registry.register_service('access_space_knowledge_domain_service', access_space_knowledge_domain_service)
-    discover_space_knowledge_domain_service = DiscoverSpaceKnowledgeDomainService()
-    Registry.register_service('discover_space_knowledge_domain_service', discover_space_knowledge_domain_service)
+def register_space_knowledge_domain_services(aio: bool):
+    if aio:
+        pass
+    else:
+        create_space_knowledge_domain_service = CreateSpaceKnowledgeDomainService()
+        Registry.register_service('create_space_knowledge_domain_service', create_space_knowledge_domain_service)
+        access_space_knowledge_domain_service = AccessSpaceKnowledgeDomainService()
+        Registry.register_service('access_space_knowledge_domain_service', access_space_knowledge_domain_service)
+        discover_space_knowledge_domain_service = DiscoverSpaceKnowledgeDomainService()
+        Registry.register_service('discover_space_knowledge_domain_service', discover_space_knowledge_domain_service)

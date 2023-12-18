@@ -30,15 +30,17 @@ from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.discov
 from support.application.registry import Registry
 
 
-def register_account_assistant_services():
-    access_account_assistant_service = AccessAccountAssistantService()
-    Registry.register_service('access_account_assistant_service', access_account_assistant_service)
-    create_account_assistant_service = CreateAccountAssistantService()
-    Registry.register_service('create_account_assistant_service', create_account_assistant_service)
-    connect_account_assistant_service = ConnectAccountAssistantService()
-    Registry.register_service('connect_account_assistant_service', connect_account_assistant_service)
-    discover_account_assistant_service = DiscoverAccountAssistantService()
-    Registry.register_service('discover_account_assistant_service', discover_account_assistant_service)
-    action_account_assistant_service = ActionAccountAssistantService()
-    Registry.register_service('action_account_assistant_service', action_account_assistant_service)
+def register_account_assistant_services(aio: bool):
+    if aio:
+        action_account_assistant_service = ActionAccountAssistantService()
+        Registry.register_service('action_account_assistant_service', action_account_assistant_service)
+    else:
+        access_account_assistant_service = AccessAccountAssistantService()
+        Registry.register_service('access_account_assistant_service', access_account_assistant_service)
+        create_account_assistant_service = CreateAccountAssistantService()
+        Registry.register_service('create_account_assistant_service', create_account_assistant_service)
+        connect_account_assistant_service = ConnectAccountAssistantService()
+        Registry.register_service('connect_account_assistant_service', connect_account_assistant_service)
+        discover_account_assistant_service = DiscoverAccountAssistantService()
+        Registry.register_service('discover_account_assistant_service', discover_account_assistant_service)
     return

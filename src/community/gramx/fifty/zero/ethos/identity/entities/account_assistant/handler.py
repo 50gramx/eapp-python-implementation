@@ -16,6 +16,8 @@
 #   * is strictly forbidden unless prior written permission is obtained
 #   * from Amit Kumar Khetan.
 #   */
+import logging
+
 from ethos.elint.services.product.identity.account_assistant.access_account_assistant_pb2_grpc import \
     add_AccessAccountAssistantServiceServicer_to_server
 from ethos.elint.services.product.identity.account_assistant.action_account_assistant_pb2_grpc import \
@@ -30,20 +32,27 @@ from ethos.elint.services.product.identity.account_assistant.discover_account_as
 from application_context import ApplicationContext
 
 
-def handle_account_assistant_services(server):
-    add_CreateAccountAssistantServiceServicer_to_server(
-        ApplicationContext.get_create_account_assistant_service(), server
-    )
-    add_AccessAccountAssistantServiceServicer_to_server(
-        ApplicationContext.get_access_account_assistant_service(), server
-    )
-    add_ConnectAccountAssistantServiceServicer_to_server(
-        ApplicationContext.get_connect_account_assistant_service(), server
-    )
-    add_DiscoverAccountAssistantServiceServicer_to_server(
-        ApplicationContext.get_discover_account_assistant_service(), server
-    )
-    add_ActionAccountAssistantServiceServicer_to_server(
-        ApplicationContext.get_action_account_assistant_service(), server
-    )
+def handle_account_assistant_services(server, aio: bool):
+    if aio:
+        add_ActionAccountAssistantServiceServicer_to_server(
+            ApplicationContext.get_action_account_assistant_service(), server
+        )
+        logging.info(f'\t\t [x] action')
+    else:
+        add_CreateAccountAssistantServiceServicer_to_server(
+            ApplicationContext.get_create_account_assistant_service(), server
+        )
+        logging.info(f'\t\t [x] create')
+        add_AccessAccountAssistantServiceServicer_to_server(
+            ApplicationContext.get_access_account_assistant_service(), server
+        )
+        logging.info(f'\t\t [x] access')
+        add_ConnectAccountAssistantServiceServicer_to_server(
+            ApplicationContext.get_connect_account_assistant_service(), server
+        )
+        logging.info(f'\t\t [x] connect')
+        add_DiscoverAccountAssistantServiceServicer_to_server(
+            ApplicationContext.get_discover_account_assistant_service(), server
+        )
+        logging.info(f'\t\t [x] discover')
     return

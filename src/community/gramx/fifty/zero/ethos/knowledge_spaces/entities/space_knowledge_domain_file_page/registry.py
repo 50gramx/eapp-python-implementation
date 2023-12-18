@@ -27,16 +27,19 @@ from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_
 from support.application.registry import Registry
 
 
-def register_space_knowledge_domain_file_page_services():
-    create_space_knowledge_domain_file_page_service = CreateSpaceKnowledgeDomainFilePageService()
-    Registry.register_service('create_space_knowledge_domain_file_page_service',
-                              create_space_knowledge_domain_file_page_service)
-    access_space_knowledge_domain_file_page_service = AccessSpaceKnowledgeDomainFilePageService()
-    Registry.register_service('access_space_knowledge_domain_file_page_service',
-                              access_space_knowledge_domain_file_page_service)
-    discover_space_knowledge_domain_file_page_service = DiscoverSpaceKnowledgeDomainFilePageService()
-    Registry.register_service('discover_space_knowledge_domain_file_page_service',
-                              discover_space_knowledge_domain_file_page_service)
-    delete_space_knowledge_domain_file_page_service = DeleteSpaceKnowledgeDomainFilePageService()
-    Registry.register_service('delete_space_knowledge_domain_file_page_service',
-                              delete_space_knowledge_domain_file_page_service)
+def register_space_knowledge_domain_file_page_services(aio: bool):
+    if aio:
+        pass
+    else:
+        create_space_knowledge_domain_file_page_service = CreateSpaceKnowledgeDomainFilePageService()
+        Registry.register_service('create_space_knowledge_domain_file_page_service',
+                                  create_space_knowledge_domain_file_page_service)
+        access_space_knowledge_domain_file_page_service = AccessSpaceKnowledgeDomainFilePageService()
+        Registry.register_service('access_space_knowledge_domain_file_page_service',
+                                  access_space_knowledge_domain_file_page_service)
+        discover_space_knowledge_domain_file_page_service = DiscoverSpaceKnowledgeDomainFilePageService()
+        Registry.register_service('discover_space_knowledge_domain_file_page_service',
+                                  discover_space_knowledge_domain_file_page_service)
+        delete_space_knowledge_domain_file_page_service = DeleteSpaceKnowledgeDomainFilePageService()
+        Registry.register_service('delete_space_knowledge_domain_file_page_service',
+                                  delete_space_knowledge_domain_file_page_service)

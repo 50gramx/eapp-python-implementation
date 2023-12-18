@@ -25,11 +25,11 @@ from community.gramx.fifty.zero.ethos.conversations.entities.message.capabilitie
 from community.gramx.fifty.zero.ethos.conversations.entities.message.handler import handle_message_services
 
 
-def handle_conversations_services(server):
-    handle_message_services(server)
+def handle_conversations_services(server, aio: bool):
+    handle_message_services(server, aio)
     logging.info(f'\t [x] added message services')
-    handle_message_account_services(server)
+    handle_message_account_services(server, aio)
     logging.info(f'\t [x] added account message services')
-    handle_message_account_assistant_services(server)
+    handle_message_account_assistant_services(server, aio)
     logging.info(f'\t [x] added account assistant message services')
     logging.info(f'Conversations services added')

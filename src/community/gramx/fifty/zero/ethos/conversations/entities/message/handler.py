@@ -16,13 +16,19 @@
 #   * is strictly forbidden unless prior written permission is obtained
 #   * from Amit Kumar Khetan.
 #   */
+import logging
+
 from ethos.elint.services.product.conversation.message.message_conversation_pb2_grpc import \
     add_MessageConversationServiceServicer_to_server
 
 from application_context import ApplicationContext
 
 
-def handle_message_services(server):
-    add_MessageConversationServiceServicer_to_server(
-        ApplicationContext.get_message_conversation_service(), server
-    )
+def handle_message_services(server, aio: bool):
+    if aio:
+        pass
+    else:
+        add_MessageConversationServiceServicer_to_server(
+            ApplicationContext.get_message_conversation_service(), server
+        )
+        logging.info(f'\t\t [x] message')

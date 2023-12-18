@@ -24,9 +24,12 @@ from community.gramx.fifty.zero.ethos.identity.entities.space.capabilities.creat
 from support.application.registry import Registry
 
 
-def register_space_services():
-    access_space_service = AccessSpaceService()
-    Registry.register_service('access_space_service', access_space_service)
-    create_space_service = CreateSpaceService()
-    Registry.register_service('create_space_service', create_space_service)
+def register_space_services(aio: bool):
+    if aio:
+        pass
+    else:
+        access_space_service = AccessSpaceService()
+        Registry.register_service('access_space_service', access_space_service)
+        create_space_service = CreateSpaceService()
+        Registry.register_service('create_space_service', create_space_service)
     return

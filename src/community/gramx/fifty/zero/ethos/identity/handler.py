@@ -24,11 +24,11 @@ from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.handle
 from community.gramx.fifty.zero.ethos.identity.entities.space.handler import handle_space_services
 
 
-def handle_identity_services(server):
-    handle_account_services(server)
+def handle_identity_services(server, aio: bool):
+    handle_account_services(server, aio)
     logging.info(f'\t [x] added account services')
-    handle_space_services(server)
+    handle_space_services(server, aio)
     logging.info(f'\t [x] added space services')
-    handle_account_assistant_services(server)
+    handle_account_assistant_services(server, aio)
     logging.info(f'\t [x] added account assistant services')
     logging.info(f'Identity services added')

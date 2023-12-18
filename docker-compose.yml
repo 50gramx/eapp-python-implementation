@@ -53,8 +53,20 @@ services:
       - postgres
       - redis
 
-  # Ethos Apps Python Implementations Service
-  capabilities:
+  # Ethos Apps Python Asynchronous Capabilities
+  async_py_caps:
+    image: 50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations:latest
+    ports:
+      - "50502:80"
+    restart: always
+    depends_on:
+      - postgres
+      - redis
+      - s3
+    command: /bin/bash . /app/implementation.dev.env && python3 server.py --aio
+
+  # Ethos Apps Python Synchronous Capabilities
+  sync_py_caps:
     image: 50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations:latest
     ports:
       - "50501:80"
@@ -63,6 +75,7 @@ services:
       - postgres
       - redis
       - s3
+      - async_py_caps
 
   # Jaeger Service
   jaeger:

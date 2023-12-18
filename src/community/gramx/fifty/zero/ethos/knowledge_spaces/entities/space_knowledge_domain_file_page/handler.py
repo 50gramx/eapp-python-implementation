@@ -16,6 +16,8 @@
 #   * is strictly forbidden unless prior written permission is obtained
 #   * from Amit Kumar Khetan.
 #   */
+import logging
+
 from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.access_space_knowledge_domain_file_page_pb2_grpc import \
     add_AccessSpaceKnowledgeDomainFilePageServiceServicer_to_server
 from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.create_space_knowledge_domain_file_page_pb2_grpc import \
@@ -28,16 +30,23 @@ from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.dis
 from application_context import ApplicationContext
 
 
-def handle_space_knowledge_domain_file_page_services(server):
-    add_AccessSpaceKnowledgeDomainFilePageServiceServicer_to_server(
-        ApplicationContext.get_access_space_knowledge_domain_file_page_service(), server
-    )
-    add_CreateSpaceKnowledgeDomainFilePageServiceServicer_to_server(
-        ApplicationContext.get_create_space_knowledge_domain_file_page_service(), server
-    )
-    add_DiscoverSpaceKnowledgeDomainFilePageServiceServicer_to_server(
-        ApplicationContext.get_discover_space_knowledge_domain_file_page_service(), server
-    )
-    add_DeleteSpaceKnowledgeDomainFilePageServiceServicer_to_server(
-        ApplicationContext.get_delete_space_knowledge_domain_file_page_service(), server
-    )
+def handle_space_knowledge_domain_file_page_services(server, aio: bool):
+    if aio:
+        pass
+    else:
+        add_AccessSpaceKnowledgeDomainFilePageServiceServicer_to_server(
+            ApplicationContext.get_access_space_knowledge_domain_file_page_service(), server
+        )
+        logging.info(f'\t\t [x] access')
+        add_CreateSpaceKnowledgeDomainFilePageServiceServicer_to_server(
+            ApplicationContext.get_create_space_knowledge_domain_file_page_service(), server
+        )
+        logging.info(f'\t\t [x] create')
+        add_DiscoverSpaceKnowledgeDomainFilePageServiceServicer_to_server(
+            ApplicationContext.get_discover_space_knowledge_domain_file_page_service(), server
+        )
+        logging.info(f'\t\t [x] discover')
+        add_DeleteSpaceKnowledgeDomainFilePageServiceServicer_to_server(
+            ApplicationContext.get_delete_space_knowledge_domain_file_page_service(), server
+        )
+        logging.info(f'\t\t [x] delete')

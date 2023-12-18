@@ -21,6 +21,9 @@ from community.gramx.fifty.zero.ethos.conversations.entities.message.capabilitie
 from support.application.registry import Registry
 
 
-def register_message_conversation_services():
-    message_conversation_service = MessageConversationService()
-    Registry.register_service('message_conversation_service', message_conversation_service)
+def register_message_conversation_services(aio: bool):
+    if aio:
+        pass
+    else:
+        message_conversation_service = MessageConversationService()
+        Registry.register_service('message_conversation_service', message_conversation_service)

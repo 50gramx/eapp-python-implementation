@@ -16,6 +16,8 @@
 #   * is strictly forbidden unless prior written permission is obtained
 #   * from Amit Kumar Khetan.
 #   */
+import logging
+
 from ethos.elint.services.product.knowledge.space_knowledge_domain_file.access_space_knowledge_domain_file_pb2_grpc import \
     add_AccessSpaceKnowledgeDomainFileServiceServicer_to_server
 from ethos.elint.services.product.knowledge.space_knowledge_domain_file.create_space_knowledge_domain_file_pb2_grpc import \
@@ -26,13 +28,19 @@ from ethos.elint.services.product.knowledge.space_knowledge_domain_file.delete_s
 from application_context import ApplicationContext
 
 
-def handle_space_knowledge_domain_file_services(server):
-    add_AccessSpaceKnowledgeDomainFileServiceServicer_to_server(
-        ApplicationContext.get_access_space_knowledge_domain_file_service(), server
-    )
-    add_CreateSpaceKnowledgeDomainFileServiceServicer_to_server(
-        ApplicationContext.get_create_space_knowledge_domain_file_service(), server
-    )
-    add_DeleteSpaceKnowledgeDomainFileServiceServicer_to_server(
-        ApplicationContext.get_delete_space_knowledge_domain_file_service(), server
-    )
+def handle_space_knowledge_domain_file_services(server, aio: bool):
+    if aio:
+        pass
+    else:
+        add_AccessSpaceKnowledgeDomainFileServiceServicer_to_server(
+            ApplicationContext.get_access_space_knowledge_domain_file_service(), server
+        )
+        logging.info(f'\t\t [x] access')
+        add_CreateSpaceKnowledgeDomainFileServiceServicer_to_server(
+            ApplicationContext.get_create_space_knowledge_domain_file_service(), server
+        )
+        logging.info(f'\t\t [x] create')
+        add_DeleteSpaceKnowledgeDomainFileServiceServicer_to_server(
+            ApplicationContext.get_delete_space_knowledge_domain_file_service(), server
+        )
+        logging.info(f'\t\t [x] delete')

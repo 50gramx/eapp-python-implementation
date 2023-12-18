@@ -24,8 +24,11 @@ from community.gramx.fifty.zero.ethos.conversations.entities.message.capabilitie
 from support.application.registry import Registry
 
 
-def register_account_message_services():
-    send_account_message_service = SendAccountMessageService()
-    Registry.register_service('send_account_message_service', send_account_message_service)
-    receive_account_message_service = ReceiveAccountMessageService()
-    Registry.register_service('receive_account_message_service', receive_account_message_service)
+def register_account_message_services(aio: bool):
+    if aio:
+        pass
+    else:
+        send_account_message_service = SendAccountMessageService()
+        Registry.register_service('send_account_message_service', send_account_message_service)
+        receive_account_message_service = ReceiveAccountMessageService()
+        Registry.register_service('receive_account_message_service', receive_account_message_service)

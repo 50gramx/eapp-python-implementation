@@ -31,17 +31,20 @@ from community.gramx.fifty.zero.ethos.identity.entities.account.pay.capabiliitie
 from support.application.registry import Registry
 
 
-def register_account_services():
-    create_account_service = CreateAccountService()
-    Registry.register_service('create_account_service', create_account_service)
-    access_account_service = AccessAccountService()
-    Registry.register_service('access_account_service', access_account_service)
-    connect_account_service = ConnectAccountService()
-    Registry.register_service('connect_account_service', connect_account_service)
-    discover_account_service = DiscoverAccountService()
-    Registry.register_service('discover_account_service', discover_account_service)
-    pay_in_account_service = PayInAccountService()
-    Registry.register_service('pay_in_account_service', pay_in_account_service)
-    notify_account_service = NotifyAccountService()
-    Registry.register_service('notify_account_service', notify_account_service)
+def register_account_services(aio: bool):
+    if aio:
+        pass
+    else:
+        create_account_service = CreateAccountService()
+        Registry.register_service('create_account_service', create_account_service)
+        access_account_service = AccessAccountService()
+        Registry.register_service('access_account_service', access_account_service)
+        connect_account_service = ConnectAccountService()
+        Registry.register_service('connect_account_service', connect_account_service)
+        discover_account_service = DiscoverAccountService()
+        Registry.register_service('discover_account_service', discover_account_service)
+        pay_in_account_service = PayInAccountService()
+        Registry.register_service('pay_in_account_service', pay_in_account_service)
+        notify_account_service = NotifyAccountService()
+        Registry.register_service('notify_account_service', notify_account_service)
     return
