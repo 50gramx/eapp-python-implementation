@@ -16,25 +16,36 @@
 #   * is strictly forbidden unless prior written permission is obtained
 #   * from Amit Kumar Khetan.
 #   */
+import logging
+import os
+
+import grpc
 from ethos.elint.entities.account_assistant_pb2 import AccountAssistantConnectedAccount
 from ethos.elint.services.product.identity.account_assistant.access_account_assistant_pb2 import \
     AccountAssistantServicesAccessAuthDetails
 from ethos.elint.services.product.identity.account_assistant.action_account_assistant_pb2 import \
     ActOnAccountMessageRequest
-
-from application_context import ApplicationContext
+from ethos.elint.services.product.identity.account_assistant.action_account_assistant_pb2_grpc import \
+    ActionAccountAssistantServiceStub
 
 
 class ActionAccountAssistantConsumer:
 
     @staticmethod
-    def act_on_account_message(access_auth_details: AccountAssistantServicesAccessAuthDetails, space_knowledge_action,
-                               connected_account: AccountAssistantConnectedAccount, message):
-        stub = ApplicationContext.action_account_assistant_service_stub()
+    async def act_on_account_message(access_auth_details: AccountAssistantServicesAccessAuthDetails,
+                                     space_knowledge_action,
+                                     connected_account: AccountAssistantConnectedAccount, message):
+        aio_grpc_host = os.environ['ERPC_AIO_HOST']
+        aio_grpc_port = os.environ['ERPC_AIO_PORT']
+        aio_host_ip = "{host}:{port}".format(host=aio_grpc_host, port=aio_grpc_port)
+
         request = ActOnAccountMessageRequest(
             access_auth_details=access_auth_details,
             space_knowledge_action=space_knowledge_action,
             connected_account=connected_account,
             message=message
         )
-        stub.ActOnAccountMessage(request)
+        async with grpc.aio.insecure_channel(aio_host_ip) as channel:
+            stub = ActionAccountAssistantServiceStub(channel)
+            response = await stub.ActOnAccountMessage(request)
+        logging.info(f"act_on_account_message client, Response Received: {response}")
