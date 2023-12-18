@@ -37,7 +37,9 @@ from community.gramx.fifty.zero.ethos.identity.handler import handle_identity_se
 from community.gramx.fifty.zero.ethos.knowledge_spaces.handler import handle_knowledge_spaces_services
 from loader import Loader
 
+# Step 1 for tracer
 trace.set_tracer_provider(TracerProvider())
+tracer = trace.get_tracer_provider()
 
 # create a JaegerExporter
 jaeger_exporter = OTLPSpanExporter(
@@ -45,13 +47,13 @@ jaeger_exporter = OTLPSpanExporter(
 )
 
 # Create a BatchSpanProcessor and add the exporter to it
-span_processor = BatchSpanProcessor(jaeger_exporter)
+# span_processor = BatchSpanProcessor(jaeger_exporter)
+#
+# trace.get_tracer_provider().add_span_processor(
+#     span_processor
+# )
 
-trace.get_tracer_provider().add_span_processor(
-    span_processor
-)
-
-tracer = trace.get_tracer(__name__)
+# tracer = trace.get_tracer(__name__)
 
 
 # grpc_server_instrumentor = GrpcInstrumentorServer()
