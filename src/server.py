@@ -27,7 +27,7 @@ import grpc
 from grpc_health.v1 import health, health_pb2_grpc, health_pb2
 from opentelemetry import trace
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
-from opentelemetry.instrumentation.grpc._server import OpenTelemetryServerInterceptor
+from opentelemetry.instrumentation.grpc import aio_server_interceptor
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
@@ -104,13 +104,15 @@ async def run_server(port):
         ("grpc.enable_keepalive", 0),
     ]
 
+    # OpenTelemetryServerInterceptor(tracer),
     interceptors = [
-        OpenTelemetryServerInterceptor(tracer),
+        aio_server_interceptor(tracer_provider=tracer)
     ]
 
     server = grpc.aio.server(
         migration_thread_pool=migration_thread_pool,
         options=options,
+        interceptors=interceptors
     )
 
     handle_identity_services(server)
