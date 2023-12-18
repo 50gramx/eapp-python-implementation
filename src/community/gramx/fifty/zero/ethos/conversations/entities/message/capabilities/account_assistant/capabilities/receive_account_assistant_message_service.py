@@ -16,7 +16,7 @@
 #   * is strictly forbidden unless prior written permission is obtained
 #   * from Amit Kumar Khetan.
 #   */
-
+import asyncio
 import logging
 
 from ethos.elint.services.product.conversation.message.account_assistant.receive_account_assistant_message_pb2 import \
@@ -74,10 +74,12 @@ class ReceiveAccountAssistantMessageService(ReceiveAccountAssistantMessageServic
                 return MessageFromAccountReceived(is_received=access_done)
             else:
                 action_consumer = ActionAccountAssistantConsumer
-                await action_consumer.act_on_account_message(
-                    access_auth_details=access_auth_details,
-                    connected_account=request.connected_account,
-                    space_knowledge_action=request.space_knowledge_action,
-                    message=request.message
+                asyncio.run(
+                    action_consumer.act_on_account_message(
+                        access_auth_details=access_auth_details,
+                        connected_account=request.connected_account,
+                        space_knowledge_action=request.space_knowledge_action,
+                        message=request.message
+                    )
                 )
                 return MessageFromAccountReceived(is_received=access_done, received_at=get_current_timestamp())
