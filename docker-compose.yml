@@ -63,7 +63,7 @@ services:
       - postgres
       - redis
       - s3
-    command: [".", "/app/implementation.dev.env", "&&", "python3", "server.py", "--aio"]
+    command: ["sh", "launch_async.sh"]
 
   # Ethos Apps Python Synchronous Capabilities
   sync_py_caps:
