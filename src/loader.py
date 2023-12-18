@@ -166,7 +166,7 @@ class Loader(object):
         host_ip = "{host}:{port}".format(host=grpc_host, port=grpc_port)
 
         # ssl_credentials = grpc.ssl_channel_credentials(open(grpc_certificate_file, 'rb').read())
-        capabilities_common_channel = grpc.aio.insecure_channel(host_ip)
+        capabilities_common_channel = grpc.insecure_channel(host_ip)
 
         capabilities_common_channel = grpc.intercept_channel(capabilities_common_channel)
         channels.append(capabilities_common_channel)
