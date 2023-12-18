@@ -51,7 +51,8 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
         if validation_done is False:
             return ResponseMeta(meta_done=validation_done, meta_message=validation_message)
         else:
-            if request.space_knowledge_action == 0:
+            should_continue = False
+            if request.space_knowledge_action == 0 and should_continue:
                 if request.act_on_particular_domain:
                     _, _, domains_ranked_answers = ask_question(access_auth_details=request.access_auth_details,
                                                                 message=request.message, ask_particular_domain=True,
@@ -82,6 +83,19 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
                     message_source_space_domain_action=SpaceKnowledgeAction.ASK_QUESTION,
                     message_source_space_domain_action_context_id=context_id,
                     message_source=message_sources
+                )
+                return ResponseMeta(meta_done=validation_done, meta_message=validation_message)
+            elif not should_continue:
+                response = send_message_to_account(
+                    access_auth_details=request.access_auth_details,
+                    connected_account=request.connected_account,
+                    message="Hello there",
+                    message_source_space_id="space_id",
+                    message_source_space_type_id="space_type_id",
+                    message_source_space_domain_id="domain_id",
+                    message_source_space_domain_action=SpaceKnowledgeAction.ASK_QUESTION,
+                    message_source_space_domain_action_context_id="context_id",
+                    message_source=[]
                 )
                 return ResponseMeta(meta_done=validation_done, meta_message=validation_message)
             else:
