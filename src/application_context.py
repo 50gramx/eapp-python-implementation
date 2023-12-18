@@ -107,6 +107,13 @@ class ApplicationContext(object):
         """
         return Registry.get_service('connect_account_assistant_service_stub')
 
+    @staticmethod
+    def action_account_assistant_service_stub():
+        """
+        :rtype: ethos.elint.services.product.identity.account_assistant.action_assistant_account_pb2_grpc
+        """
+        return Registry.get_service('action_account_assistant_service_stub')
+
     # --------------------------------
     # Action Stubs
     # --------------------------------
