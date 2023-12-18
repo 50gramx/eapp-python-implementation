@@ -74,7 +74,7 @@ class ReceiveAccountAssistantMessageService(ReceiveAccountAssistantMessageServic
                 return MessageFromAccountReceived(is_received=access_done)
             else:
                 action_consumer = ActionAccountAssistantConsumer
-                action_consumer.act_on_account_message(
+                await action_consumer.act_on_account_message(
                     access_auth_details=access_auth_details,
                     connected_account=request.connected_account,
                     space_knowledge_action=request.space_knowledge_action,
