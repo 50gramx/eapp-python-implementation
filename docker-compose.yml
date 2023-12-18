@@ -63,7 +63,7 @@ services:
       - postgres
       - redis
       - s3
-    command: /bin/bash . /app/implementation.dev.env && python3 server.py --aio
+    command: [".", "/app/implementation.dev.env", "&&", "python3", "server.py", "--aio"]
 
   # Ethos Apps Python Synchronous Capabilities
   sync_py_caps:
