@@ -31,7 +31,7 @@ from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentracing import tags
 from opentracing.propagation import Format
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class AtlasTracer:
@@ -74,6 +74,11 @@ class AtlasTracer:
     def get(aio: bool = False):
         return AtlasTracer._register_tracer(aio=aio)
 
+    @staticmethod
+    def set_span_attr(key, value):
+        current_span = trace.get_current_span()
+        current_span.set_attribute(key, value)
+
 
 def init_jaeger_tracer(service_name):
     logging.debug("init_tracer")
@@ -106,6 +111,7 @@ def trace_rpc(tracer=PYTHON_IMPLEMENTATION_TRACER):
 
             # Extract trace context from incoming request metadata
             metadata_dict = dict(context.invocation_metadata())
+            logging.debug(f"metadata_dict: {metadata_dict}")
             span_ctx = tracer.extract(Format.TEXT_MAP, metadata_dict)
 
             # Start a new span for the incoming request

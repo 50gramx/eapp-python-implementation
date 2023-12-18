@@ -30,6 +30,7 @@ from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.discov
     DiscoverAccountAssistantConsumer
 from community.gramx.fifty.zero.ethos.identity.services_caller.account_service_caller import \
     validate_account_services_caller, get_account_by_id_caller
+from support.application.tracing import AtlasTracer
 from support.database.account_assistant_services import get_account_assistant
 from support.session_manager import is_persistent_session_valid
 
@@ -42,6 +43,7 @@ class AccessAccountAssistantService(AccessAccountAssistantServiceServicer):
     def AccountAssistantAccessToken(self, request, context):
         logging.info("AccessAccountAssistantService:AccountAssistantAccessToken")
         validation_done, validate_message = validate_account_services_caller(request)
+        AtlasTracer.set_span_attr("valid", validation_done)
         response_meta = ResponseMeta(meta_done=validation_done, meta_message=validate_message)
         if validation_done is False:
             return AccountAssistantAccessTokenResponse(meta=response_meta)

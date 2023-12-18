@@ -33,7 +33,7 @@ from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant
     send_message_to_account
 from community.gramx.fifty.zero.ethos.identity.services_caller.space_knowledge_action_services_caller import \
     ask_question
-from support.application.tracing import trace_rpc
+from support.application.tracing import trace_rpc, AtlasTracer
 
 
 class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
@@ -47,6 +47,7 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
         access_consumer = AccessAccountAssistantConsumer
         validation_done, validation_message = access_consumer.validate_account_assistant_services(
             request.access_auth_details)
+        AtlasTracer.set_span_attr("valid", validation_done)
         if validation_done is False:
             return ResponseMeta(meta_done=validation_done, meta_message=validation_message)
         else:
