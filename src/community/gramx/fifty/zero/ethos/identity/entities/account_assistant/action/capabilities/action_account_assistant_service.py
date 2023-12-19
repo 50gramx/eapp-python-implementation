@@ -100,7 +100,7 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
                     "messages": [
                         {
                             "role": "user",
-                            "content": "Hello!"
+                            "content": f"{request.message}"
                         }
                     ],
                     "mode": "instruct",
