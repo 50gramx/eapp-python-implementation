@@ -19,6 +19,7 @@
 
 import logging
 
+import requests
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.entities.space_knowledge_domain_pb2 import SpaceKnowledgeDomain
 from ethos.elint.entities.space_knowledge_pb2 import SpaceKnowledgeAction
@@ -86,10 +87,44 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
                 )
                 return ResponseMeta(meta_done=validation_done, meta_message=validation_message)
             elif not should_continue:
+                # step 1: find the message context (assistance context)
+                # step 2: this context can be of zero-shot or 3-shot
+                # step 3: this context pertains some actions to be done
+                # step 4: this actions can be performed by the space assistant
+                # step 4>: or domain assistants (who would need to act on message)
+                # step 5: these assistants needs to respond back to space assistant
+                # step 6: space assistant then responds with the apt assistance
+                url = "https://tyvia2ffw8lsp5-5000.proxy.runpod.net/v1/chat/completions"
+                headers = {"Content-Type": "application/json"}
+                data = {
+                    "messages": [
+                        {
+                            "role": "user",
+                            "content": "Hello!"
+                        }
+                    ],
+                    "mode": "instruct",
+                    "instruction_template": "Alpaca"
+                }
+
+                response = requests.post(url, json=data, headers=headers)
+
+                # Check if the request was successful (status code 200)
+                if response.status_code == 200:
+                    print("API call successful!")
+                    print("Response:")
+                    print(response.json())
+                    message = response.json()['choices'][0]['message']['content']
+                else:
+                    print(f"API call failed with status code {response.status_code}")
+                    print("Response:")
+                    print(response.text)
+                    message = "Hello there"
+
                 response = send_message_to_account(
                     access_auth_details=request.access_auth_details,
                     connected_account=request.connected_account,
-                    message="Hello there",
+                    message=message,
                     message_source_space_id="space_id",
                     message_source_space_type_id="space_type_id",
                     message_source_space_domain_id="domain_id",
