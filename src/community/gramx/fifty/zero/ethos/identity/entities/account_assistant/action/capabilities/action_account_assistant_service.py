@@ -94,7 +94,7 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
                 # step 4>: or domain assistants (who would need to act on message)
                 # step 5: these assistants needs to respond back to space assistant
                 # step 6: space assistant then responds with the apt assistance
-                url = "https://tyvia2ffw8lsp5-5000.proxy.runpod.net/v1/chat/completions"
+                url = "https://sx7ooh5qfxvrzx-5000.proxy.runpod.net/v1/chat/completions"
                 headers = {"Content-Type": "application/json"}
                 data = {
                     "messages": [
