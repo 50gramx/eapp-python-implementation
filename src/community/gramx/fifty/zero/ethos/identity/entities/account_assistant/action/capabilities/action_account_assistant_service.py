@@ -119,7 +119,7 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
                     print(f"API call failed with status code {response.status_code}")
                     print("Response:")
                     print(response.text)
-                    message = "Hello there"
+                    message = "Apologies, I'm not available at the moment."
 
                 response = send_message_to_account(
                     access_auth_details=request.access_auth_details,
