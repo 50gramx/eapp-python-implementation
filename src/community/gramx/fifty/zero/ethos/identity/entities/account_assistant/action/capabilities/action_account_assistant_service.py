@@ -111,14 +111,14 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
 
                 # Check if the request was successful (status code 200)
                 if response.status_code == 200:
-                    print("API call successful!")
-                    print("Response:")
-                    print(response.json())
+                    logging.info("API call successful!")
+                    logging.info("Response:")
+                    logging.info(response.json())
                     message = response.json()['choices'][0]['message']['content']
                 else:
-                    print(f"API call failed with status code {response.status_code}")
-                    print("Response:")
-                    print(response.text)
+                    logging.info(f"API call failed with status code {response.status_code}")
+                    logging.info("Response:")
+                    logging.info(response.text)
                     message = "Apologies, I'm not available at the moment."
 
                 response = send_message_to_account(
