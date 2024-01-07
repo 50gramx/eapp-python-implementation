@@ -18,6 +18,7 @@
 #   */
 
 import logging
+import os
 
 import requests
 from ethos.elint.entities.generic_pb2 import ResponseMeta
@@ -35,6 +36,10 @@ from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant
 from community.gramx.fifty.zero.ethos.identity.services_caller.space_knowledge_action_services_caller import \
     ask_question
 from support.application.tracing import trace_rpc, AtlasTracer
+
+EAPP_ACTION_GENERIC_LM_HOST = os.environ.get('EAPP_ACTION_GENERIC_LM_HOST', "generic_lm")
+EAPP_ACTION_GENERIC_LM_PORT = os.environ.get('EAPP_ACTION_GENERIC_LM_PORT', "80")
+EAPP_ACTION_GENERIC_LM_URI = f'{EAPP_ACTION_GENERIC_LM_HOST}:{EAPP_ACTION_GENERIC_LM_PORT}'
 
 
 class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
@@ -94,7 +99,7 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
                 # step 4>: or domain assistants (who would need to act on message)
                 # step 5: these assistants needs to respond back to space assistant
                 # step 6: space assistant then responds with the apt assistance
-                url = "https://sx7ooh5qfxvrzx-5000.proxy.runpod.net/v1/chat/completions"
+                url = f"{EAPP_ACTION_GENERIC_LM_URI}/v1/chat/completions"
                 headers = {"Content-Type": "application/json"}
                 data = {
                     "messages": [
