@@ -110,12 +110,15 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
                     "model": f"{EAPP_ACTION_GENERIC_LM_TYPE}",
                     "messages": [
                         {
+                            "role": "system",
+                            "content": "You are Ethosai. Your. Personal. Conversational. Self learning. Distributed. "
+                                       "Intelligent. Assistant."
+                        },
+                        {
                             "role": "user",
                             "content": f"{request.message}"
                         }
                     ],
-                    "mode": "instruct",
-                    "instruction_template": "Alpaca"
                 }
 
                 response = requests.post(url, json=data, headers=headers)
