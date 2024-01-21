@@ -39,6 +39,8 @@ from support.application.tracing import trace_rpc, AtlasTracer
 
 EAPP_ACTION_GENERIC_LM_HOST = os.environ.get('EAPP_ACTION_GENERIC_LM_HOST', "generic_lm")
 EAPP_ACTION_GENERIC_LM_PORT = os.environ.get('EAPP_ACTION_GENERIC_LM_PORT', "80")
+EAPP_ACTION_GENERIC_LM_KEY = os.environ.get('EAPP_ACTION_GENERIC_LM_KEY', "sk-11111111111111111111111111111111")
+EAPP_ACTION_GENERIC_LM_TYPE = os.environ.get('EAPP_ACTION_GENERIC_LM_TYPE', "")
 EAPP_ACTION_GENERIC_LM_URI = f'{EAPP_ACTION_GENERIC_LM_HOST}:{EAPP_ACTION_GENERIC_LM_PORT}'
 
 
@@ -100,8 +102,12 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
                 # step 5: these assistants needs to respond back to space assistant
                 # step 6: space assistant then responds with the apt assistance
                 url = f"{EAPP_ACTION_GENERIC_LM_URI}/v1/chat/completions"
-                headers = {"Content-Type": "application/json"}
+                headers = {
+                    "Content-Type": "application/json",
+                    f"Authorization: Bearer {EAPP_ACTION_GENERIC_LM_KEY}"
+                }
                 data = {
+                    "model": f"{EAPP_ACTION_GENERIC_LM_TYPE}",
                     "messages": [
                         {
                             "role": "user",
