@@ -104,7 +104,7 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
                 url = f"{EAPP_ACTION_GENERIC_LM_URI}/v1/chat/completions"
                 headers = {
                     "Content-Type": "application/json",
-                    f"Authorization: Bearer {EAPP_ACTION_GENERIC_LM_KEY}"
+                    "Authorization": f"Bearer {EAPP_ACTION_GENERIC_LM_KEY}"
                 }
                 data = {
                     "model": f"{EAPP_ACTION_GENERIC_LM_TYPE}",
