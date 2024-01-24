@@ -77,6 +77,14 @@ services:
       - s3
       - async_py_caps
 
+  # Ethos Apps Python Synchronous Capabilities Envoy
+  sync_py_caps_proxy:
+    image: 50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-capabilities-proxy:latest
+    ports:
+      - "50503:8080"
+    links:
+      - sync_py_caps
+
   # Jaeger Service
   jaeger:
     image: jaegertracing/all-in-one:latest
