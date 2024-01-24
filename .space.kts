@@ -188,8 +188,8 @@ job("Build Capabilities Proxy Image") {
             // image tags
             tags {
                 // use current job run number as a tag - '0.0.run_number'
-                +"50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/capabilities-proxy:{{ VERSION_NUMBER }}"
-                +"50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/capabilities-proxy:latest"
+                +"50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-capabilities-proxy:{{ VERSION_NUMBER }}"
+                +"50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-capabilities-proxy:latest"
             }
         }
 
