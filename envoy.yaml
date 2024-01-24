@@ -58,4 +58,4 @@ static_resources:
                 address:
                   socket_address:
                     address: sync_py_caps
-                    port_value: 50501
+                    port_value: 80
