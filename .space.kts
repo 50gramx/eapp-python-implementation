@@ -143,6 +143,7 @@ job("Build Capabilities Proxy Image") {
         gitPush {
             pathFilter {
                 +"Dockerfile.proxy"
+                +"envoy.yaml"
             }
         }
     }
