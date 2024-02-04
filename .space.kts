@@ -25,6 +25,10 @@ job("Build & Deploy Python Implementations") {
             // Set the VERSION_NUMBER parameter
             api.parameters["VERSION_NUMBER"] = "$currentYear.$currentMonth.$currentExecution"
         }
+
+        requirements {
+            workerTags("windows-pool")
+        }
     }
 
     container("Schedule Deployment", image = "amazoncorretto:17-alpine") {
@@ -34,6 +38,10 @@ job("Build & Deploy Python Implementations") {
                 targetIdentifier = TargetIdentifier.Key("python-implementation-deployment"),
                 version = api.parameters["VERSION_NUMBER"],
             )
+        }
+
+        requirements {
+            workerTags("windows-pool")
         }
     }
 
@@ -63,6 +71,10 @@ job("Build & Deploy Python Implementations") {
                 +"50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations:latest"
             }
         }
+
+        requirements {
+            workerTags("windows-pool")
+        }
     }
 
     container("Start Deployment", image = "amazoncorretto:17-alpine") {
@@ -75,48 +87,62 @@ job("Build & Deploy Python Implementations") {
                 syncWithAutomationJob = true
             )
         }
+
+        requirements {
+            workerTags("windows-pool")
+        }
     }
 
     host("Trigger Python Implementations Backups") {
 
-      shellScript {
-        content = """
-            # Trigger backups before bringing down the services
+        shellScript {
+            content = """
+                # Trigger backups before bringing down the services
 
-            export CONTAINER_NAME='eapp-python-implementation-postgres-1'
-            export CID=$(docker ps -q -f status=running -f name=^/${"$"}CONTAINER_NAME$)
-            if [ ! "${"$"}CID" ]; then
-                echo "PostgreSQL container is not running. Skipping backup."
-            else
-                echo "PostgreSQL container is running. Backing up..."
-                docker-compose exec postgres /bin/sh -c "sh /psql_backup.sh instant"
-            fi
-            unset CID
+                export CONTAINER_NAME='eapp-python-implementation-postgres-1'
+                export CID=$(docker ps -q -f status=running -f name=^/${"$"}CONTAINER_NAME$)
+                if [ ! "${"$"}CID" ]; then
+                    echo "PostgreSQL container is not running. Skipping backup."
+                else
+                    echo "PostgreSQL container is running. Backing up..."
+                    docker-compose exec postgres /bin/sh -c "sh /psql_backup.sh instant"
+                fi
+                unset CID
 
-            export CONTAINER_NAME='eapp-python-implementation-redis-1'
-            export CID=$(docker ps -q -f status=running -f name=^/${"$"}CONTAINER_NAME$)
-            if [ ! "${"$"}CID" ]; then
-                echo "Redis container is not running. Skipping backup."
-            else
-                echo "Redis container is running. Backing up..."
-                docker-compose exec redis /bin/sh -c "sh /redis_backup.sh instant"
-            fi
-            unset CID
-        """
-      }
+                export CONTAINER_NAME='eapp-python-implementation-redis-1'
+                export CID=$(docker ps -q -f status=running -f name=^/${"$"}CONTAINER_NAME$)
+                if [ ! "${"$"}CID" ]; then
+                    echo "Redis container is not running. Skipping backup."
+                else
+                    echo "Redis container is running. Backing up..."
+                    docker-compose exec redis /bin/sh -c "sh /redis_backup.sh instant"
+                fi
+                unset CID
+            """
+        }
+
+        requirements {
+            workerTags("windows-pool")
+            workerTags("amitkumarkhetan15-user")
+        }
     }
 
     host("Deploy Python Implementations Containers") {
 
-      shellScript {
-        content = """
-            # Bring down the services
-            docker-compose down --remove-orphans
+        shellScript {
+            content = """
+                # Bring down the services
+                docker-compose down --remove-orphans
 
-            # Bring up the services
-            docker-compose up -d
-        """
-      }
+                # Bring up the services
+                docker-compose up -d
+            """
+        }
+
+        requirements {
+            workerTags("windows-pool")
+            workerTags("amitkumarkhetan15-user")
+        }
     }
 
     container("Finish Deployment", image = "amazoncorretto:17-alpine") {
@@ -128,13 +154,10 @@ job("Build & Deploy Python Implementations") {
             )
             // to fail the deployment, use ...deployments.fail()
         }
-    }
-    
-    // run this job only on
-    // a Windows worker
-    // that is tagged as 'pool-1'
-    requirements {
-        workerTags("windows-pool")
+
+        requirements {
+            workerTags("windows-pool")
+        }
     }
 }
 
