@@ -20,8 +20,10 @@ click-plugins==1.1.1
 click-repl==0.3.0
 cryptography==41.0.7
 Deprecated==1.2.14
+diskcache==5.6.3    # TODO: Evaluate the need
 ethos>=23.12.77
 firebase-admin==6.3.0
+FLAML==2.1.1    # TODO: Evaluate the need
 frozenlist==1.4.0
 google-api-core==2.15.0
 google-api-python-client==2.110.0
@@ -47,6 +49,7 @@ kombu==5.3.4
 msgpack==1.0.7
 multidict==6.0.4
 numpy==1.26.2
+openai==1.6.0   # TODO: Evaluate the need
 opencv-python==4.8.1.78
 opentelemetry-api==1.21.0
 opentelemetry-exporter-otlp==1.21.0
@@ -76,6 +79,7 @@ PyJWT==2.8.0
 pyparsing==3.1.1
 pytesseract==0.3.10
 python-dateutil==2.8.2
+python-dotenv==1.0.0    # TODO: Evaluate the need
 python-http-client==3.3.7
 redis==5.0.1
 requests==2.31.0
@@ -86,6 +90,7 @@ six==1.16.0
 SQLAlchemy==2.0.23
 starkbank-ecdsa==2.2.0
 stripe==7.8.1
+tiktoken==0.5.2     # TODO: Evaluate the need
 threadloop==1.0.2
 thrift==0.16.0
 tornado==6.4
