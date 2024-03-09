@@ -168,7 +168,7 @@ job("Build & Deploy Python Implementations") {
         kotlinScript { api ->
             val slack = Slack.getInstance()
             val token = System.getenv("SLACK_BOT_TOKEN")
-            val version = api.parameters["VERSION_NUMBER"],
+            val version = api.parameters["VERSION_NUMBER"]
             val response = slack.methods(token).chatPostMessage { req ->
                 req.channel("#product-dev").text("Finished Building & Deploying Python Implementations v$version")
             }
