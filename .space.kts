@@ -1,3 +1,5 @@
+@file:DependsOn("com.slack.api:slack-api-client:1.1.1")
+import com.slack.api.Slack
 import java.time.LocalDate
 
 job("Build & Deploy Python Implementations") {
@@ -153,6 +155,24 @@ job("Build & Deploy Python Implementations") {
                 version = api.parameters["VERSION_NUMBER"],
             )
             // to fail the deployment, use ...deployments.fail()
+        }
+
+        requirements {
+            workerTags("windows-pool")
+        }
+    }
+
+    container("Send Slack Update", image = "amazoncorretto:17-alpine") {
+        env["SLACK_BOT_TOKEN"] = Secrets("SLACK_BOT_TOKEN")
+
+        kotlinScript { api ->
+            val slack = Slack.getInstance()
+            val token = System.getenv("SLACK_BOT_TOKEN")
+            val version = api.parameters["VERSION_NUMBER"],
+            val response = slack.methods(token).chatPostMessage { req ->
+                req.channel("#product-dev").text("Finished Building & Deploying Python Implementations v$version")
+            }
+            println("$response")
         }
 
         requirements {
