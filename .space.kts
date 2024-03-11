@@ -242,3 +242,23 @@ job("Build Capabilities Proxy Image") {
         }
     }
 }
+
+
+job("Run EthosPods First Worker") {
+    startOn {
+        gitPush { enabled = false }
+    }
+
+    host(displayName = "Docker List Containers") {
+        shellScript {
+            content = """
+                docker ps
+            """
+        }
+
+        requirements {
+            workerTags("windows-pool")
+            workerTags("kunalhindocha20-user")
+        }
+    }
+}
