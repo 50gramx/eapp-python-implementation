@@ -36,7 +36,7 @@ class CreateSpaceKnowledgeDomainFilePageConsumer:
 
         async with grpc.aio.insecure_channel(aio_host_ip) as channel:
             stub = CreateSpaceKnowledgeDomainFilePageServiceStub(channel)
-            response = await stub.ExtractPagesFromFile(access_auth_details)
-        logging.info(f"extract_pages_from_file client, Response Received: {response}")
-
+            response_generator = stub.ExtractPagesFromFile(access_auth_details)
+            async for response in response_generator:
+                logging.info(f"extract_pages_from_file client, Response Received: {response}")
         # TODO: call rest of the tasks
