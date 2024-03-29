@@ -20,23 +20,31 @@ import logging
 import os
 
 import grpc
+from ethos.elint.entities.space_knowledge_domain_file_page_pb2 import SpaceKnowledgeDomainFilePage
 from ethos.elint.services.product.knowledge.space_knowledge_domain_file.access_space_knowledge_domain_file_pb2 import \
     SpaceKnowledgeDomainFileServicesAccessAuthDetails
 from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.create_space_knowledge_domain_file_page_pb2_grpc import \
     CreateSpaceKnowledgeDomainFilePageServiceStub
+
+aio_grpc_host = os.environ['ERPC_AIO_HOST']
+aio_grpc_port = os.environ['ERPC_AIO_PORT']
+aio_host_ip = "{host}:{port}".format(host=aio_grpc_host, port=aio_grpc_port)
 
 
 class CreateSpaceKnowledgeDomainFilePageConsumer:
 
     @staticmethod
     async def extract_pages_from_file(access_auth_details: SpaceKnowledgeDomainFileServicesAccessAuthDetails):
-        aio_grpc_host = os.environ['ERPC_AIO_HOST']
-        aio_grpc_port = os.environ['ERPC_AIO_PORT']
-        aio_host_ip = "{host}:{port}".format(host=aio_grpc_host, port=aio_grpc_port)
-
         async with grpc.aio.insecure_channel(aio_host_ip) as channel:
             stub = CreateSpaceKnowledgeDomainFilePageServiceStub(channel)
             response_generator = stub.ExtractPagesFromFile(access_auth_details)
             async for response in response_generator:
                 logging.info(f"extract_pages_from_file client, Response Received: {response}")
         # TODO: call rest of the tasks
+
+    @staticmethod
+    async def extract_text_from_page(space_knowledge_domain_file_page: SpaceKnowledgeDomainFilePage):
+        async with grpc.aio.insecure_channel(aio_host_ip) as channel:
+            stub = CreateSpaceKnowledgeDomainFilePageServiceStub(channel)
+            response = await stub.ExtractTextFromPage(space_knowledge_domain_file_page)
+        logging.info(f"meta_done: {response.meta_done}, meta_message: {response.meta_message}")
