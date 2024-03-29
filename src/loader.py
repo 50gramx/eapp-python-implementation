@@ -131,6 +131,7 @@ class Loader(object):
 
     @staticmethod
     def init_multiverse_identity_context(aio: bool):
+        logging.info(f'Identity context loading...')
         # Loader.__init_multiverse_identity_chain_stubs()
         register_account_services(aio=aio)
         register_account_assistant_services(aio=aio)
@@ -142,6 +143,7 @@ class Loader(object):
 
     @staticmethod
     def init_multiverse_conversations_context(aio: bool):
+        logging.info(f'Conversations context loading...')
         register_message_conversation_services(aio=aio)
         register_account_message_services(aio=aio)
         register_account_assistant_message_services(aio=aio)
@@ -150,6 +152,7 @@ class Loader(object):
 
     @staticmethod
     def init_multiverse_knowledge_spaces_context(aio: bool):
+        logging.info(f'Knowledge Spaces context loading...')
         register_space_knowledge_services(aio=aio)
         register_space_knowledge_domain_services(aio=aio)
         register_space_knowledge_domain_file_services(aio=aio)
