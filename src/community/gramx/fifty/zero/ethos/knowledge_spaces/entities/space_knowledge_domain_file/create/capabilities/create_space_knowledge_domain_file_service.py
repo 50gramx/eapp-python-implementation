@@ -17,6 +17,7 @@
 #   * from Amit Kumar Khetan.
 #   */
 
+import asyncio
 import logging
 import os
 
@@ -30,6 +31,8 @@ from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_
     AccessSpaceKnowledgeDomainConsumer
 from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file.access.consumers.access_space_knowledge_domain_file_consumer import \
     AccessSpaceKnowledgeDomainFileConsumer
+from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file_page.create.consumers.create_space_knowledge_domain_file_page_consumer import \
+    CreateSpaceKnowledgeDomainFilePageConsumer
 from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file_page.create.tasks.create_space_knowledge_domain_file_page_task import \
     extract_file_pages
 from community.gramx.fifty.zero.ethos.knowledge_spaces.models.knowledge_space_models import DomainKnowledgeSpace, \
@@ -153,6 +156,14 @@ class CreateSpaceKnowledgeDomainFileService(CreateSpaceKnowledgeDomainFileServic
                 space_knowledge_domain_id=space_knowledge_domain.space_knowledge_domain_id
             )
             logging.info("upload done. extract_file_pages queued.")
+            # TODO: check and complete the task
+            create_consumer = CreateSpaceKnowledgeDomainFilePageConsumer
+            asyncio.run(
+                create_consumer.extract_pages_from_file(
+                    access_auth_details=file_services_access_auth_details
+                )
+            )
+            # TODO: check and remove the task
             extract_file_pages.apply_async(kwargs={
                 'space_knowledge_domain_file_services_access_auth_details': MessageToJson(
                     file_services_access_auth_details),
