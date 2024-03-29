@@ -108,6 +108,7 @@ from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_
     register_space_knowledge_domain_file_page_services
 from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file_page_para.registry import \
     register_space_knowledge_domain_file_page_para_services
+from community.gramx.sixty.six.ethos.retriever.entities.knowledge.registry import register_knowledge_retriever_services
 from support.application.registry import Registry
 
 
@@ -159,6 +160,13 @@ class Loader(object):
         register_space_knowledge_domain_file_page_services(aio=aio)
         register_space_knowledge_domain_file_page_para_services(aio=aio)
         logging.info(f'Knowledge Spaces context loaded')
+        pass
+
+    @staticmethod
+    def init_multiverse_knowledge_retriever_context(aio: bool):
+        logging.info(f'Knowledge Retriever context loading...')
+        register_knowledge_retriever_services(aio=aio)
+        logging.info(f'Knowledge Retriever context loaded')
         pass
 
     @staticmethod

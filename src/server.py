@@ -34,6 +34,7 @@ import db_session
 from community.gramx.fifty.zero.ethos.conversations.handler import handle_conversations_services
 from community.gramx.fifty.zero.ethos.identity.handler import handle_identity_services
 from community.gramx.fifty.zero.ethos.knowledge_spaces.handler import handle_knowledge_spaces_services
+from community.gramx.sixty.six.ethos.retriever.entities.knowledge.handler import handle_knowledge_retriever_services
 from loader import Loader
 from support.application.tracing import AtlasTracer
 
@@ -78,12 +79,14 @@ def _init_context(aio: bool = False):
     Loader.init_multiverse_identity_context(aio=aio)
     Loader.init_multiverse_conversations_context(aio=aio)
     Loader.init_multiverse_knowledge_spaces_context(aio=aio)
+    Loader.init_multiverse_knowledge_retriever_context(aio=aio)
 
 
 def _init_services(server, aio: bool = False):
     handle_identity_services(server=server, aio=aio)
     handle_conversations_services(server=server, aio=aio)
     handle_knowledge_spaces_services(server=server, aio=aio)
+    handle_knowledge_retriever_services(server=server, aio=aio)
 
 
 async def run_aio_server(port, server_tracer):

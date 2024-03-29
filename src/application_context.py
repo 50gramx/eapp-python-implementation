@@ -484,3 +484,10 @@ class ApplicationContext(object):
     @staticmethod
     def get_delete_space_knowledge_domain_file_page_para_service():
         return Registry.get_service('delete_space_knowledge_domain_file_page_para_service')
+
+    # ----------------------------------------------------
+    # Knowledge Retriever Services
+    # ----------------------------------------------------
+    @staticmethod
+    def get_retriever_knowledge_service():
+        return Registry.get_service('retriever_knowledge_service')
