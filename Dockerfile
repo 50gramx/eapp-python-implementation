@@ -4,7 +4,7 @@ EXPOSE 80
 RUN apt-get update \
   && apt-get -y install tesseract-ocr \
   && apt-get -y install ffmpeg libsm6 libxext6 \
-  && apt-get -y apt-get install poppler-utils # required for pytesseract, opencv, pdf2image
+  && apt-get -y install poppler-utils # required for pytesseract, opencv, pdf2image
 COPY ./requirements.txt /app/requirements.txt
 COPY ./pip.conf /app/pip.conf
 ENV PIP_CONFIG_FILE=/app/pip.conf
