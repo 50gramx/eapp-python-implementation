@@ -160,7 +160,8 @@ class CreateSpaceKnowledgeDomainFileService(CreateSpaceKnowledgeDomainFileServic
             create_consumer = CreateSpaceKnowledgeDomainFilePageConsumer
             asyncio.run(
                 create_consumer.extract_pages_from_file(
-                    access_auth_details=file_services_access_auth_details
+                    file_services_access_auth_details=file_services_access_auth_details,
+                    domain_services_access_auth_details=access_auth_details,
                 )
             )
             # TODO: check and remove the task
