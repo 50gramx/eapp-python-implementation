@@ -17,6 +17,7 @@
 #   * from Amit Kumar Khetan.
 #   */
 
+import asyncio
 import logging
 
 from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.create_space_knowledge_domain_file_page_pb2 import \
@@ -26,19 +27,20 @@ from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.cre
 from google.protobuf.json_format import MessageToJson
 from pdf2image import convert_from_path
 
-from support.application.tracing import trace_rpc
-from support.image_processing.utils import get_page_image_text
-
 from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file.access.consumers.access_space_knowledge_domain_file_consumer import \
     AccessSpaceKnowledgeDomainFileConsumer
 from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file_page.access.consumers.access_space_knowledge_domain_file_page_consumer import \
     AccessSpaceKnowledgeDomainFilePageConsumer
+from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file_page.create.consumers.create_space_knowledge_domain_file_page_consumer import \
+    CreateSpaceKnowledgeDomainFilePageConsumer
 from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file_page.create.tasks.create_space_knowledge_domain_file_page_task import \
     extract_page_text
 from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file_page_para.create.tasks.create_space_knowledge_domain_file_page_para_task import \
     extract_page_paras
 from community.gramx.fifty.zero.ethos.knowledge_spaces.models.knowledge_space_models import DomainKnowledgeSpace
+from support.application.tracing import trace_rpc
 from support.data_store import DataStore
+from support.image_processing.utils import get_page_image_text
 
 
 class CreateSpaceKnowledgeDomainFilePageService(CreateSpaceKnowledgeDomainFilePageServiceServicer):
@@ -79,9 +81,17 @@ class CreateSpaceKnowledgeDomainFilePageService(CreateSpaceKnowledgeDomainFilePa
                 )  # save page to local
                 data_store_client.upload_tmp_page(page=space_knowledge_domain_file_page)  # upload page to data store
                 data_store_client.delete_tmp_page(page=space_knowledge_domain_file_page)  # delete page from local
+                # TODO: remove queue
                 extract_page_text.apply_async(kwargs={
                     'space_knowledge_domain_file_page': MessageToJson(space_knowledge_domain_file_page)
                 }, queue='eapp_knowledge_queue')  # extract text from page
+                # TODO: check this
+                create_consumer = CreateSpaceKnowledgeDomainFilePageConsumer
+                asyncio.run(
+                    create_consumer.extract_text_from_page(
+                        space_knowledge_domain_file_page=space_knowledge_domain_file_page
+                    )
+                )  # extract text from page
                 _, _, file_page_access_auth_details = AccessSpaceKnowledgeDomainFilePageConsumer.space_knowledge_domain_file_page_access_token(
                     access_auth_details=request,
                     space_knowledge_domain_file_page=space_knowledge_domain_file_page)
