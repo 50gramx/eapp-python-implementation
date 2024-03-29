@@ -257,6 +257,13 @@ class ApplicationContext(object):
     def delete_space_knowledge_domain_file_page_para_service_stub():
         return Registry.get_service('delete_space_knowledge_domain_file_page_para_service_stub')
 
+    # ----------------------------------------------------
+    # Knowledge Retriever Service Stubs
+    # ----------------------------------------------------
+    @staticmethod
+    def retriever_knowledge_service_stub():
+        return Registry.get_service('retriever_knowledge_service_stub')
+
     # ----------  Services ---------
     @staticmethod
     def get_create_account_service():
