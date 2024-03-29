@@ -52,7 +52,7 @@ class CreateSpaceKnowledgeDomainFilePageService(CreateSpaceKnowledgeDomainFilePa
         validation_done, validation_message = AccessSpaceKnowledgeDomainFileConsumer.validate_space_knowledge_domain_file_services(
             request)
         if validation_done is False:
-            return ExtractPagesFromFileResponse(meta_done=validation_done, meta_message=validation_message)
+            yield ExtractPagesFromFileResponse(meta_done=validation_done, meta_message=validation_message)
         else:
             data_store_client = DataStore()
             space_knowledge_domain_file = request.space_knowledge_domain_file
