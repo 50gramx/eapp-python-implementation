@@ -20,6 +20,7 @@ click-plugins==1.1.1
 click-repl==0.3.0
 cryptography==41.0.7
 Deprecated==1.2.14
+elasticsearch==8.13.0   # TODO: Evaluate the version
 ethos>=24.3.104
 diskcache==5.6.3    # TODO: Evaluate the need
 firebase-admin==6.3.0
@@ -63,7 +64,7 @@ opentelemetry-sdk==1.21.0
 opentelemetry-semantic-conventions==0.42b0
 opentracing==2.4.0
 packaging==23.2
-pexpect==4.2.1
+pexpect==4.9.0      # TODO: Evaluate the version
 pdf2image==1.16.3
 phonenumbers==8.13.26
 Pillow==10.1.0
@@ -86,6 +87,7 @@ redis==5.0.1
 requests==2.31.0
 rsa==4.9
 s3transfer==0.3.7
+scikit-learn==1.4.0     # TODO: Evaluate the version
 scipy==1.12.0   # TODO: Evaluate the version
 sendgrid==6.11.0
 six==1.16.0
