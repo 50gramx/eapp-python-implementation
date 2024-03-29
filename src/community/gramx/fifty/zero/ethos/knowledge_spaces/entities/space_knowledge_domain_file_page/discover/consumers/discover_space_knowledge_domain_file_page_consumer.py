@@ -20,21 +20,12 @@ from ethos.elint.entities.space_knowledge_domain_file_page_pb2 import SpaceKnowl
 from ethos.elint.services.product.knowledge.space_knowledge_domain.access_space_knowledge_domain_pb2 import \
     SpaceKnowledgeDomainServicesAccessAuthDetails
 from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.discover_space_knowledge_domain_file_page_pb2 import \
-    GetPageTextByIdReq, GetPageByIdRequest
+    GetPageByIdRequest
 
 from application_context import ApplicationContext
 
 
 class DiscoverSpaceKnowledgeDomainFilePageConsumer:
-
-    @staticmethod
-    def get_page_text_by_id(access_auth_details: SpaceKnowledgeDomainServicesAccessAuthDetails,
-                            page_id: str) -> (
-            bool, str, str):
-        stub = ApplicationContext.discover_space_knowledge_domain_file_page_service_stub()
-        response = stub.GetPageTextById(
-            GetPageTextByIdReq(access_auth_details=access_auth_details, space_knowledge_domain_file_page_id=page_id))
-        return response.meta.meta_done, response.meta.meta_message, response.page_text
 
     @staticmethod
     def get_page_by_id(access_auth_details: SpaceKnowledgeDomainServicesAccessAuthDetails,
