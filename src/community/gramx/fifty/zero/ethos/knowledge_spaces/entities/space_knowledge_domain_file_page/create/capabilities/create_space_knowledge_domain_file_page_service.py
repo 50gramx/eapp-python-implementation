@@ -32,8 +32,6 @@ from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_
     AccessSpaceKnowledgeDomainFilePageConsumer
 from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file_page.create.consumers.create_space_knowledge_domain_file_page_consumer import \
     CreateSpaceKnowledgeDomainFilePageConsumer
-from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file_page.create.tasks.create_space_knowledge_domain_file_page_task import \
-    extract_page_text
 from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file_page_para.create.tasks.create_space_knowledge_domain_file_page_para_task import \
     extract_page_paras
 from community.gramx.fifty.zero.ethos.knowledge_spaces.models.knowledge_space_models import DomainKnowledgeSpace
@@ -80,13 +78,8 @@ class CreateSpaceKnowledgeDomainFilePageService(CreateSpaceKnowledgeDomainFilePa
                 )  # save page to local
                 data_store_client.upload_tmp_page(page=space_knowledge_domain_file_page)  # upload page to data store
                 data_store_client.delete_tmp_page(page=space_knowledge_domain_file_page)  # delete page from local
-                # TODO: remove queue
-                extract_page_text.apply_async(kwargs={
-                    'space_knowledge_domain_file_page': MessageToJson(space_knowledge_domain_file_page)
-                }, queue='eapp_knowledge_queue')  # extract text from page
-                # TODO: check this
-                create_consumer = CreateSpaceKnowledgeDomainFilePageConsumer
-                await create_consumer.extract_text_from_page(
+                # warn: expected to work in an event-loop
+                await CreateSpaceKnowledgeDomainFilePageConsumer.extract_text_from_page(
                     space_knowledge_domain_file_page=space_knowledge_domain_file_page
                 )  # extract text from page
                 _, _, file_page_access_auth_details = AccessSpaceKnowledgeDomainFilePageConsumer.space_knowledge_domain_file_page_access_token(
