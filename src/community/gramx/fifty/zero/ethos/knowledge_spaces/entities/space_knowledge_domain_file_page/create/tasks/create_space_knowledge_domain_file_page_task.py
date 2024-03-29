@@ -64,19 +64,3 @@ def extract_file_pages(**kwargs):
     learnt_response = retriever_knowledge_service_stub.LearnDomainParaForRetriever(
         space_knowledge_domain_services_access_auth_details_entity)
     logging.info(f"{'indexing domain paras done!' if learnt_response.meta_done else 'something went wrong!'}")
-
-
-@app.task(queue="eapp_knowledge_queue")
-def extract_page_text(**kwargs):
-    TasksLoader.init_celery_worker_context()  # TODO(amit): Convert this as a decorator
-    space_knowledge_domain_file_page_entity = Parse(
-        text=kwargs.get('space_knowledge_domain_file_page'),
-        message=space_knowledge_domain_file_page_pb2.SpaceKnowledgeDomainFilePage()
-    )
-    # call the service to extract text from page
-    logging.info("Calling the service: ExtractTextFromPage")
-    stub = ApplicationContext.create_space_knowledge_domain_file_page_service_stub()
-    response = stub.ExtractTextFromPage(
-        space_knowledge_domain_file_page_entity
-    )
-    logging.info(f"meta_done: {response.meta_done}, meta_message: {response.meta_message}")
