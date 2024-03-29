@@ -32,16 +32,15 @@ from application_context import ApplicationContext
 
 def handle_space_knowledge_domain_file_page_services(server, aio: bool):
     if aio:
-        pass
+        add_CreateSpaceKnowledgeDomainFilePageServiceServicer_to_server(
+            ApplicationContext.get_create_space_knowledge_domain_file_page_service(), server
+        )
+        logging.info(f'\t\t [x] create')
     else:
         add_AccessSpaceKnowledgeDomainFilePageServiceServicer_to_server(
             ApplicationContext.get_access_space_knowledge_domain_file_page_service(), server
         )
         logging.info(f'\t\t [x] access')
-        add_CreateSpaceKnowledgeDomainFilePageServiceServicer_to_server(
-            ApplicationContext.get_create_space_knowledge_domain_file_page_service(), server
-        )
-        logging.info(f'\t\t [x] create')
         add_DiscoverSpaceKnowledgeDomainFilePageServiceServicer_to_server(
             ApplicationContext.get_discover_space_knowledge_domain_file_page_service(), server
         )
