@@ -29,11 +29,10 @@ from support.application.registry import Registry
 
 def register_space_knowledge_domain_file_page_services(aio: bool):
     if aio:
-        pass
-    else:
         create_space_knowledge_domain_file_page_service = CreateSpaceKnowledgeDomainFilePageService()
         Registry.register_service('create_space_knowledge_domain_file_page_service',
                                   create_space_knowledge_domain_file_page_service)
+    else:
         access_space_knowledge_domain_file_page_service = AccessSpaceKnowledgeDomainFilePageService()
         Registry.register_service('access_space_knowledge_domain_file_page_service',
                                   access_space_knowledge_domain_file_page_service)
