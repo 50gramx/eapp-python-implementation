@@ -25,6 +25,8 @@ from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.cre
     CreateSpaceKnowledgeDomainFilePageServiceServicer
 from google.protobuf.json_format import MessageToJson
 from pdf2image import convert_from_path
+
+from support.application.tracing import trace_rpc
 from support.image_processing.utils import get_page_image_text
 
 from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file.access.consumers.access_space_knowledge_domain_file_consumer import \
@@ -44,7 +46,8 @@ class CreateSpaceKnowledgeDomainFilePageService(CreateSpaceKnowledgeDomainFilePa
         self.session_scope = self.__class__.__name__
         super(CreateSpaceKnowledgeDomainFilePageService, self).__init__()
 
-    def ExtractPagesFromFile(self, request, context):
+    @trace_rpc()
+    async def ExtractPagesFromFile(self, request, context):
         logging.info("CreateSpaceKnowledgeDomainFilePageService:ExtractPagesFromFile invoked.")
         validation_done, validation_message = AccessSpaceKnowledgeDomainFileConsumer.validate_space_knowledge_domain_file_services(
             request)
@@ -93,7 +96,8 @@ class CreateSpaceKnowledgeDomainFilePageService(CreateSpaceKnowledgeDomainFilePa
                     meta_message="Extracting Pages." if page_count < total_pages_count else "Extraction done."
                 )
 
-    def ExtractTextFromPage(self, request, context):
+    @trace_rpc()
+    async def ExtractTextFromPage(self, request, context):
         logging.info("CreateSpaceKnowledgeDomainFilePageService:ExtractTextFromPage invoked.")
         page_text = get_page_image_text(request)
         # add the text from the page to domain models
