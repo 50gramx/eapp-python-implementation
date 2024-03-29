@@ -301,7 +301,7 @@ class Loader(object):
 
         # PAGE STUBS
         create_space_knowledge_domain_file_page_service_stub = CreateSpaceKnowledgeDomainFilePageServiceStub(
-            capabilities_common_channel)
+            asynchronous_capabilities_common_channel)
         Registry.register_service('create_space_knowledge_domain_file_page_service_stub',
                                   create_space_knowledge_domain_file_page_service_stub)
 
