@@ -70,6 +70,12 @@ def _get_space_knowledge_domain_file_page_key(space_knowledge_domain_file_page: 
            f"{space_knowledge_domain_file_page.space_knowledge_domain_file_page_id}"
 
 
+def _get_space_knowledge_domain_para_tfidf_key(space_knowledge_domain: SpaceKnowledgeDomain):
+    return f"{_get_space_knowledge_key(space_knowledge_domain.space_knowledge)}/" \
+           f"{space_knowledge_domain.space_knowledge_domain_id}/" \
+           f"{space_knowledge_domain.space_knowledge_domain_id}_para_tfidf"
+
+
 class DataStore:
 
     # ------------------------------------
@@ -106,6 +112,7 @@ class DataStore:
             else:
                 raise
         self.tmp_file_path = "/tmp"
+        self.tmp_domain_path = "/tmp"
 
     # ------------------------------------
     # Generic Client Functions
@@ -184,7 +191,7 @@ class DataStore:
     # ------------------------------------
     def create_space_knowledge_domain_file(self, space_knowledge_domain_file: SpaceKnowledgeDomainFile):
         self.put_object(
-            object_key=f"{_get_space_knowledge_domain_file_key(space_knowledge_domain_file=space_knowledge_domain_file)}")
+            object_key=f"{_get_space_knowledge_domain_file_key(space_knowledge_domain_file)}")
 
     def get_tmp_filepath(self, file: SpaceKnowledgeDomainFile):
         return f"{self.tmp_file_path}/{file.space_knowledge_domain_file_id}"
@@ -250,5 +257,33 @@ class DataStore:
         self.delete_file(
             source_file_key=_get_space_knowledge_domain_file_page_key(
                 space_knowledge_domain_file_page=space_knowledge_domain_file_page)
+        )
+        return
+
+    # ------------------------------------------------
+    # SpaceKnowledgeDomainFilePagePara Handlers
+    # ------------------------------------------------
+
+    def get_tmp_domain_para_tfidf_path(self, domain: SpaceKnowledgeDomain):
+        """
+        :param domain: space knowledge domain
+        :return: returns temporary tfidf path for the space knowledge domain in the disk
+        """
+        return f"{self.tmp_domain_path}/{domain.space_knowledge_domain_id}_para.npz"
+
+    def upload_tmp_domain_para_tfidf(self, domain: SpaceKnowledgeDomain):
+        self.upload_file(
+            source_file_path=self.get_tmp_domain_para_tfidf_path(domain=domain),
+            target_file_key=_get_space_knowledge_domain_para_tfidf_key(space_knowledge_domain=domain)
+        )
+        return
+
+    def delete_tmp_domain_para_tfidf(self, domain: SpaceKnowledgeDomain):
+        os.remove(self.get_tmp_domain_para_tfidf_path(domain=domain))
+
+    def download_space_knowledge_domain_para_tfidf(self, domain: SpaceKnowledgeDomain):
+        self.download_file(
+            source_file_key=_get_space_knowledge_domain_para_tfidf_key(space_knowledge_domain=domain),
+            target_file_path=self.get_tmp_domain_para_tfidf_path(domain=domain)
         )
         return
