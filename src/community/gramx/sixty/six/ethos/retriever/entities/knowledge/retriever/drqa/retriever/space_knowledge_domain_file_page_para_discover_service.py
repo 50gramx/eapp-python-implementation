@@ -28,11 +28,11 @@ import psycopg2
 
 from . import DEFAULTS
 
-db_user = os.environ['EA_KB_DB_USER']
-db_pass = os.environ['EA_KB_DB_PASS']
-db_host = os.environ['EA_KB_DB_HOST']
-db_port = os.environ['EA_KB_DB_PORT']
-db_name = os.environ['EA_KB_DB_NAME']
+db_user = os.environ['EA_ID_DB_USER']
+db_pass = os.environ['EA_ID_DB_PASS']
+db_host = os.environ['EA_ID_DB_HOST']
+db_port = os.environ['EA_ID_DB_PORT']
+db_name = os.environ['EA_ID_DB_NAME']
 
 
 class SpaceKnowledgeDomainFilePageParaDB(object):
