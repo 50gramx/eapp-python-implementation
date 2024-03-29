@@ -17,7 +17,6 @@
 #   * from Amit Kumar Khetan.
 #   */
 
-import asyncio
 import logging
 
 from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.create_space_knowledge_domain_file_page_pb2 import \
@@ -87,10 +86,8 @@ class CreateSpaceKnowledgeDomainFilePageService(CreateSpaceKnowledgeDomainFilePa
                 }, queue='eapp_knowledge_queue')  # extract text from page
                 # TODO: check this
                 create_consumer = CreateSpaceKnowledgeDomainFilePageConsumer
-                asyncio.run(
-                    create_consumer.extract_text_from_page(
-                        space_knowledge_domain_file_page=space_knowledge_domain_file_page
-                    )
+                await create_consumer.extract_text_from_page(
+                    space_knowledge_domain_file_page=space_knowledge_domain_file_page
                 )  # extract text from page
                 _, _, file_page_access_auth_details = AccessSpaceKnowledgeDomainFilePageConsumer.space_knowledge_domain_file_page_access_token(
                     access_auth_details=request,
