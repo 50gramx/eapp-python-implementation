@@ -50,18 +50,11 @@ job("Build & Deploy Python Implementations") {
     host("Build Python Implementations Images") {
         // Before running the scripts, the host machine will log in to
         // the registries specified in connections.
-        // dockerRegistryConnections {
+        dockerRegistryConnections {
             // specify connection key
-           // +"khetana_docker_hub_private_registry"
+            +"khetana_docker_hub_private_registry"
             // multiple connections are supported
             // +"one_more_connection"
-        //}
-
-
-        shellScript {
-            content = """
-                docker login -u khetana -p password@ethos
-            """
         }
 
 
