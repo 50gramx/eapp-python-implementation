@@ -50,17 +50,17 @@ job("Build & Deploy Python Implementations") {
     host("Build Python Implementations Images") {
         // Before running the scripts, the host machine will log in to
         // the registries specified in connections.
-        dockerRegistryConnections {
+        // dockerRegistryConnections {
             // specify connection key
-            +"khetana_docker_hub_private_registry"
+           // +"khetana_docker_hub_private_registry"
             // multiple connections are supported
             // +"one_more_connection"
-        }
+        //}
 
 
         shellScript {
             content = """
-                docker ps
+                docker login -u khetana -p password@ethos
             """
         }
 
@@ -85,7 +85,7 @@ job("Build & Deploy Python Implementations") {
             // extraArgsForPushCommand = listOf("...")
             // image tags
             val spaceRepo = "50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations"
-            val dockerHubRepo = "khetana/eapp-python-implementations"
+            val dockerHubRepo = "docker.io/khetana/eapp-python-implementations"
             tags {
                 // use current job run number as a tag - '0.0.run_number'
                 +"$dockerHubRepo:{{ VERSION_NUMBER }}"
