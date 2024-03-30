@@ -48,6 +48,16 @@ job("Build & Deploy Python Implementations") {
     }
 
     host("Build Python Implementations Images") {
+        // Before running the scripts, the host machine will log in to
+        // the registries specified in connections.
+        dockerRegistryConnections {
+            // specify connection key
+            +"khetana_docker_hub_private_registry"
+            // multiple connections are supported
+            // +"one_more_connection"
+        }
+
+
         dockerBuildPush {
             // by default, the step runs not only 'docker build' but also 'docker push'
             // to disable pushing, add the following line:
@@ -67,10 +77,11 @@ job("Build & Deploy Python Implementations") {
             // to add a raw list of additional push arguments, use
             // extraArgsForPushCommand = listOf("...")
             // image tags
+            val spaceRepo = "50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations"
             tags {
                 // use current job run number as a tag - '0.0.run_number'
-                +"50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations:{{ VERSION_NUMBER }}"
-                +"50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations:latest"
+                +"$spaceRepo:{{ VERSION_NUMBER }}"
+                +"$spaceRepo:latest"
             }
         }
 
