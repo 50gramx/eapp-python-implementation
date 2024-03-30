@@ -71,7 +71,7 @@ job("Build & Deploy Python Implementations") {
             // build-time variables
             // args["HTTP_PROXY"] = "http://10.20.30.2:1234"
             // image labels
-            labels["vendor"] = "mycompany"
+            // labels["vendor"] = "mycompany"
             // to add a raw list of additional build arguments, use
             // extraArgsForBuildCommand = listOf("...")
             // to add a raw list of additional push arguments, use
