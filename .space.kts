@@ -58,6 +58,13 @@ job("Build & Deploy Python Implementations") {
         }
 
 
+        shellScript {
+            content = """
+                docker ps
+            """
+        }
+
+
         dockerBuildPush {
             // by default, the step runs not only 'docker build' but also 'docker push'
             // to disable pushing, add the following line:
