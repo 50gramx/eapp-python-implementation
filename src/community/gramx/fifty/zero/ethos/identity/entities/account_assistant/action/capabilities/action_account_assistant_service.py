@@ -59,7 +59,8 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
         if validation_done is False:
             return ResponseMeta(meta_done=validation_done, meta_message=validation_message)
         else:
-            should_continue = False
+            should_continue = True
+            should_assist = False
             if request.space_knowledge_action == 0 and should_continue:
                 if request.act_on_particular_domain:
                     _, _, domains_ranked_answers = ask_question(access_auth_details=request.access_auth_details,
