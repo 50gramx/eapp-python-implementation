@@ -78,10 +78,11 @@ job("Build & Deploy Python Implementations") {
             // extraArgsForPushCommand = listOf("...")
             // image tags
             val spaceRepo = "50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations"
+            val dockerHubRepo = "khetana/eapp-python-implementations"
             tags {
                 // use current job run number as a tag - '0.0.run_number'
-                +"$spaceRepo:{{ VERSION_NUMBER }}"
-                +"$spaceRepo:latest"
+                +"$dockerHubRepo:{{ VERSION_NUMBER }}"
+                +"$dockerHubRepo:latest"
             }
         }
 

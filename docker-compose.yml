@@ -55,7 +55,7 @@ services:
 
   # Ethos Apps Python Asynchronous Capabilities
   async_py_caps:
-    image: 50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations:latest
+    image: khetana/eapp-python-implementations:latest
     ports:
       - "50502:80"
     restart: always
@@ -67,7 +67,7 @@ services:
 
   # Ethos Apps Python Synchronous Capabilities
   sync_py_caps:
-    image: 50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations:latest
+    image: khetana/eapp-python-implementations:latest
     ports:
       - "50501:80"
     restart: always
