@@ -264,6 +264,13 @@ class ApplicationContext(object):
     def retriever_knowledge_service_stub():
         return Registry.get_service('retriever_knowledge_service_stub')
 
+    # ----------------------------------------------------
+    # Knowledge Reader Service Stubs
+    # ----------------------------------------------------
+    @staticmethod
+    def reader_knowledge_service_stub():
+        return Registry.get_service('reader_knowledge_service_stub')
+
     # ----------  Services ---------
     @staticmethod
     def get_create_account_service():
