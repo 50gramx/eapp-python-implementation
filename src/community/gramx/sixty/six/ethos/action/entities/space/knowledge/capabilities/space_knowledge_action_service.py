@@ -22,8 +22,6 @@ import logging
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.services.product.action.space_knowledge_action_pb2 import AskQuestionResponse, DomainRankedAnswers
 from ethos.elint.services.product.action.space_knowledge_action_pb2_grpc import SpaceKnowledgeActionServiceServicer
-from support.session.access_manager import load_remembered_space_knowledge_auth, \
-    load_remembered_space_knowledge_domain_auth
 
 from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.access.consumers.access_account_assistant_consumer import \
     AccessAccountAssistantConsumer
@@ -31,6 +29,7 @@ from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge.
     DiscoverSpaceKnowledgeConsumer
 from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain.discover.consumers.discover_space_knowledge_domain_consumer import \
     DiscoverSpaceKnowledgeDomainConsumer
+from support.access_manager import load_remembered_space_knowledge_domain_auth, load_remembered_space_knowledge_auth
 
 
 class SpaceKnowledgeActionService(SpaceKnowledgeActionServiceServicer):
