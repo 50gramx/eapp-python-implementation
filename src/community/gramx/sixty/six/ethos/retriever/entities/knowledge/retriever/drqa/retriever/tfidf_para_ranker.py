@@ -119,7 +119,8 @@ class TfidfParaRanker(object):
         outdated_domain_index = self._get_domain_ranker_index(space_knowledge_domain_id)
         logging.info(f"TfidfParaRanker:_remove_domain_para_ranker: outdated_domain_index:{outdated_domain_index}")
         del TfidfParaRanker.__domain_instance_list[outdated_domain_index]
-        TfidfParaRanker.__domain_instance_list.pop(outdated_domain_index)
+        # TfidfParaRanker.__domain_instance_list.pop(outdated_domain_index)
+        # TODO: check whether the del is actually working also to remove the list item or not
         TfidfParaRanker.__domain_last_updated_seconds_list.pop(outdated_domain_index)
         TfidfParaRanker.__domain_list.pop(outdated_domain_index)
         TfidfParaRanker.__domain_last_used_list.pop(outdated_domain_index)
