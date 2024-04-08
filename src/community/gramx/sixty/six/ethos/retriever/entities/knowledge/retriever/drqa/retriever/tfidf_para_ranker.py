@@ -28,9 +28,9 @@ from multiprocessing.pool import ThreadPool
 
 import numpy as np
 import scipy.sparse as sp
+from ethos.elint.entities.space_knowledge_domain_pb2 import SpaceKnowledgeDomain
 from google.protobuf.timestamp_pb2 import Timestamp
 
-from ethos.elint.entities.space_knowledge_domain_pb2 import SpaceKnowledgeDomain
 from support.data_store import DataStore
 from support.helper_functions import get_current_timestamp
 from . import utils
@@ -114,7 +114,10 @@ class TfidfParaRanker(object):
 
     def _remove_domain_para_ranker(self, space_knowledge_domain_id: str):
         """ removes the TfidfParaRanker instance from memory"""
+        logging.info(
+            f"TfidfParaRanker:_remove_domain_para_ranker: __domain_instance_list:{TfidfParaRanker.__domain_instance_list}")
         outdated_domain_index = self._get_domain_ranker_index(space_knowledge_domain_id)
+        logging.info(f"TfidfParaRanker:_remove_domain_para_ranker: outdated_domain_index:{outdated_domain_index}")
         del TfidfParaRanker.__domain_instance_list[outdated_domain_index]
         TfidfParaRanker.__domain_instance_list.pop(outdated_domain_index)
         TfidfParaRanker.__domain_last_updated_seconds_list.pop(outdated_domain_index)
