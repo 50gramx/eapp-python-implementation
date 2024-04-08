@@ -20,7 +20,6 @@
 
 import logging
 
-from ethos.elint.entities import space_knowledge_domain_file_page_pb2
 from ethos.elint.services.product.knowledge.space_knowledge_domain.access_space_knowledge_domain_pb2 import \
     SpaceKnowledgeDomainServicesAccessAuthDetails
 from ethos.elint.services.product.knowledge.space_knowledge_domain_file.access_space_knowledge_domain_file_pb2 import \
@@ -28,7 +27,6 @@ from ethos.elint.services.product.knowledge.space_knowledge_domain_file.access_s
 from google.protobuf.json_format import Parse
 
 from application_context import ApplicationContext
-
 # get the celery worker
 from task_loader import TasksLoader
 

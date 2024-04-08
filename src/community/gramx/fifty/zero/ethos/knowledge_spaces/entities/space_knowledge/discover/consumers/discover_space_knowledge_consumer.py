@@ -34,3 +34,10 @@ class DiscoverSpaceKnowledgeConsumer:
         response = stub.GetSpaceKnowledgeDomainById(GetSpaceKnowledgeDomainByIdRequest(
             access_auth=access_auth_details, space_knowledge_domain_id=space_knowledge_domain_id))
         return response.response_meta.meta_done, response.response_meta.meta_message, response.space_knowledge_domain
+
+    @staticmethod
+    def get_space_knowledge_domains(
+            access_auth_details: SpaceKnowledgeServicesAccessAuthDetails) -> (bool, str, [SpaceKnowledgeDomain]):
+        stub = ApplicationContext.discover_space_knowledge_services_stub()
+        response = stub.GetSpaceKnowledgeDomains(access_auth_details)
+        return response.response_meta.meta_done, response.response_meta.meta_message, response.space_knowledge_domains

@@ -23,7 +23,7 @@ from ethos.elint.services.product.knowledge.space_knowledge.access_space_knowled
 from ethos.elint.services.product.knowledge.space_knowledge.access_space_knowledge_pb2_grpc import \
     AccessSpaceKnowledgeServiceServicer
 
-from community.gramx.fifty.zero.ethos.identity.entities.space.consumers.access_space_consumer import AccessSpaceConsumer
+from community.gramx.fifty.zero.ethos.identity.entities.space.access.consumers.access_space_consumer import AccessSpaceConsumer
 from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge.create. \
     consumers.create_space_knowledge_consumer import CreateAccountSpaceKnowledgeConsumer
 from support.db_service import get_space_knowledge
