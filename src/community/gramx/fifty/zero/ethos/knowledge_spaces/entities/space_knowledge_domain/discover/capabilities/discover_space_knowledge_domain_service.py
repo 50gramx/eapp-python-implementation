@@ -99,7 +99,7 @@ class DiscoverSpaceKnowledgeDomainService(DiscoverSpaceKnowledgeDomainServiceSer
                 retrieve_para_count=request.best_answers_count)
             logging.info(f"DiscoverSpaceKnowledgeDomainService:GetBestAnswers:ranked_paras:f{ranked_paras}")
             for ranked_para in ranked_paras:
-                _, _, para_answer = ReaderKnowledgeConsumer.read_page_question(
+                _, _, para_answer = ReaderKnowledgeConsumer.read_para_question(
                     access_auth_details=request.access_auth_details,
                     para=ranked_para.para, question=request.question)
                 if para_answer.answer != "":
