@@ -16,6 +16,7 @@
 #   * is strictly forbidden unless prior written permission is obtained
 #   * from Amit Kumar Khetan.
 #   */
+from ethos.elint.services.product.identity.space.access_space_pb2 import SpaceServicesAccessAuthDetails
 from ethos.elint.services.product.knowledge.space_knowledge.access_space_knowledge_pb2 import \
     SpaceKnowledgeServicesAccessAuthDetails
 
@@ -31,3 +32,13 @@ class AccessSpaceKnowledgeConsumer:
         response = stub.ValidateSpaceKnowledgeServices(access_auth_details)
         return (response.space_knowledge_services_access_validation_done,
                 response.space_knowledge_services_access_validation_message)
+
+    @staticmethod
+    def space_knowledge_access_token(access_auth_details: SpaceServicesAccessAuthDetails) -> (
+            bool, str, SpaceKnowledgeServicesAccessAuthDetails):
+        stub = ApplicationContext.access_space_knowledge_service_stub()
+        response = stub.SpaceKnowledgeAccessToken(access_auth_details)
+        return (
+            response.space_knowledge_services_access_done,
+            response.space_knowledge_services_access_message,
+            response.space_knowledge_services_access_auth_details)

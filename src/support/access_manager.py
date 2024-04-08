@@ -32,9 +32,10 @@ from google.protobuf.text_format import MessageToString, Parse
 from application_context import ApplicationContext
 from community.gramx.fifty.zero.ethos.identity.entities.space.access.consumers.access_space_consumer import \
     AccessSpaceConsumer
+from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge.access.consumers.access_space_knowledge_consumer import \
+    AccessSpaceKnowledgeConsumer
 from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain.access.consumers.access_space_knowledge_domain_consumer import \
     AccessSpaceKnowledgeDomainConsumer
-from services_caller.space_knowledge_services_caller import space_knowledge_access_token
 from support.session.redis_service import get_redis_connector
 
 redis_connector = get_redis_connector()
@@ -97,7 +98,8 @@ def load_remembered_space_knowledge_auth(
         if validate_space_knowledge_services_response.space_knowledge_services_access_validation_done:
             return remembered_space_knowledge_auth
     logging.info("space_knowledge_auth is None")
-    done, message, space_knowledge_services_access_auth_details = space_knowledge_access_token(
+    consumer = AccessSpaceKnowledgeConsumer()
+    done, message, space_knowledge_services_access_auth_details = consumer.space_knowledge_access_token(
         access_auth_details=load_remembered_space_auth(account_assistant_auth))
     if done is False:
         return SpaceKnowledgeServicesAccessAuthDetails()
