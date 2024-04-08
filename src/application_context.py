@@ -491,3 +491,10 @@ class ApplicationContext(object):
     @staticmethod
     def get_retriever_knowledge_service():
         return Registry.get_service('retriever_knowledge_service')
+
+    # ----------------------------------------------------
+    # Space Knowledge Action Services
+    # ----------------------------------------------------
+    @staticmethod
+    def get_space_knowledge_action_service():
+        return Registry.get_service('space_knowledge_action_service')

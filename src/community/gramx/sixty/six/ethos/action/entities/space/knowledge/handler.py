@@ -18,8 +18,6 @@
 #   */
 import logging
 
-from ethos.elint.services.cognitive.assist.knowledge.retriever_knowledge_pb2_grpc import \
-    add_RetrieverKnowledgeServiceServicer_to_server
 from ethos.elint.services.product.action.space_knowledge_action_pb2_grpc import \
     add_SpaceKnowledgeActionServiceServicer_to_server
 
@@ -31,9 +29,6 @@ def handle_space_knowledge_action_services(server, aio: bool):
         pass
     else:
         add_SpaceKnowledgeActionServiceServicer_to_server(
-
-        )
-        add_RetrieverKnowledgeServiceServicer_to_server(
-            ApplicationContext.get_retriever_knowledge_service(), server
+            ApplicationContext.get_space_knowledge_action_service(), server
         )
         logging.info(f'\t\t [x] space_knowledge')
