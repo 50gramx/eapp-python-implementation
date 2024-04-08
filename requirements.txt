@@ -99,7 +99,7 @@ threadloop==1.0.2
 thrift==0.16.0
 torch==2.2.2    # TODO: Evaluate the version
 tornado==6.4
-transformers==3.0.0     # TODO: Evaluate the version
+transformers==4.39.3     # TODO: Evaluate the version
 twilio==8.10.3
 typing_extensions==4.9.0
 tzdata==2023.3
