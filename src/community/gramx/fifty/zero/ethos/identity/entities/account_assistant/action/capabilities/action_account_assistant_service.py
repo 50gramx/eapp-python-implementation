@@ -33,8 +33,8 @@ from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.access
     AccessAccountAssistantConsumer
 from community.gramx.fifty.zero.ethos.identity.services_caller.account_assistant_message_service_caller import \
     send_message_to_account
-from community.gramx.fifty.zero.ethos.identity.services_caller.space_knowledge_action_services_caller import \
-    ask_question
+from community.gramx.sixty.six.ethos.action.entities.space.knowledge.consumers.space_knowledge_action_consumer import \
+    SpaceKnowledgeActionConsumer
 from support.application.tracing import trace_rpc, AtlasTracer
 
 EAPP_ACTION_GENERIC_LM_HOST = os.environ.get('EAPP_ACTION_GENERIC_LM_HOST', "generic_lm")
@@ -63,13 +63,15 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
             should_assist = False
             if request.space_knowledge_action == 0 and should_continue:
                 if request.act_on_particular_domain:
-                    _, _, domains_ranked_answers = ask_question(access_auth_details=request.access_auth_details,
-                                                                message=request.message, ask_particular_domain=True,
-                                                                space_knowledge_domain=request.space_knowledge_domain)
+                    _, _, domains_ranked_answers = SpaceKnowledgeActionConsumer().ask_question(
+                        access_auth_details=request.access_auth_details,
+                        message=request.message, ask_particular_domain=True,
+                        space_knowledge_domain=request.space_knowledge_domain)
                 else:
-                    _, _, domains_ranked_answers = ask_question(access_auth_details=request.access_auth_details,
-                                                                message=request.message, ask_particular_domain=False,
-                                                                space_knowledge_domain=SpaceKnowledgeDomain())
+                    _, _, domains_ranked_answers = SpaceKnowledgeActionConsumer().ask_question(
+                        access_auth_details=request.access_auth_details,
+                        message=request.message, ask_particular_domain=False,
+                        space_knowledge_domain=SpaceKnowledgeDomain())
                 for domain_ranked_answer in domains_ranked_answers:
                     print(
                         f"{'-' * 20}{domain_ranked_answer.space_knowledge_domain.space_knowledge_domain_name}{'-' * 20}")
