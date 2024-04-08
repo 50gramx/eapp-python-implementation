@@ -27,6 +27,10 @@ redis_port = os.environ['EA_ID_REDIS_PORT']
 redis_connector = redis.Redis(host=redis_host, port=redis_port)
 
 
+def get_redis_connector():
+    return redis_connector
+
+
 def set_kv(key, value):
     return redis_connector.mset({key: value})
 
