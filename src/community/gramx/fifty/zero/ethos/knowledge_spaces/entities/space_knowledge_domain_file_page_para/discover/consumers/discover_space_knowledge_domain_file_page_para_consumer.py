@@ -21,7 +21,7 @@ from ethos.elint.entities.space_knowledge_domain_file_page_para_pb2 import Space
 from ethos.elint.services.product.knowledge.space_knowledge_domain.access_space_knowledge_domain_pb2 import \
     SpaceKnowledgeDomainServicesAccessAuthDetails
 from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page_para.discover_space_knowledge_domain_file_page_para_pb2 import \
-    GetParaByIdRequest
+    GetParaByIdRequest, GetParaTextByIdReq
 
 from application_context import ApplicationContext
 
@@ -39,3 +39,13 @@ class DiscoverSpaceKnowledgeDomainFilePageParaConsumer:
         return (response.response_meta.meta_done,
                 response.response_meta.meta_message,
                 response.space_knowledge_domain_file_page_para)
+
+    @staticmethod
+    def get_para_text_by_id(access_auth_details: SpaceKnowledgeDomainServicesAccessAuthDetails,
+                            para_id: str) -> (
+            bool, str, str):
+        stub = ApplicationContext.discover_space_knowledge_domain_file_page_para_service_stub()
+        response = stub.GetParaTextById(
+            GetParaTextByIdReq(access_auth_details=access_auth_details,
+                               space_knowledge_domain_file_page_para_id=para_id))
+        return response.response_meta.meta_done, response.response_meta.meta_message, response.para_text
