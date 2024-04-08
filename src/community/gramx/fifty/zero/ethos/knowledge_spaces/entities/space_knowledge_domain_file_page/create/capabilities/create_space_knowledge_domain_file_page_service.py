@@ -32,6 +32,8 @@ from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_
     AccessSpaceKnowledgeDomainFilePageConsumer
 from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file_page.create.consumers.create_space_knowledge_domain_file_page_consumer import \
     CreateSpaceKnowledgeDomainFilePageConsumer
+from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file_page_para.create.consumers.create_space_knowledge_domain_file_page_para_consumer import \
+    CreateSpaceKnowledgeDomainFilePageParaConsumer
 from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file_page_para.create.tasks.create_space_knowledge_domain_file_page_para_task import \
     extract_page_paras
 from community.gramx.fifty.zero.ethos.knowledge_spaces.models.knowledge_space_models import DomainKnowledgeSpace
@@ -85,6 +87,12 @@ class CreateSpaceKnowledgeDomainFilePageService(CreateSpaceKnowledgeDomainFilePa
                 _, _, file_page_access_auth_details = AccessSpaceKnowledgeDomainFilePageConsumer.space_knowledge_domain_file_page_access_token(
                     access_auth_details=request,
                     space_knowledge_domain_file_page=space_knowledge_domain_file_page)
+                # TODO: verify this
+                para_consumer = CreateSpaceKnowledgeDomainFilePageParaConsumer
+                para_consumer.extract_paras_from_page(
+                    page_services_access_auth_details=file_page_access_auth_details
+                )
+                # TODO: fix this
                 extract_page_paras.apply_async(kwargs={
                     'space_knowledge_domain_file_page_services_access_auth_details': (
                         MessageToJson(file_page_access_auth_details))
