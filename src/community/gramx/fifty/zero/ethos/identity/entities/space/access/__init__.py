@@ -3,7 +3,7 @@
 #   * AMIT KUMAR KHETAN CONFIDENTIAL
 #   * __________________
 #   *
-#   *  [2017] - [2021] Amit Kumar Khetan
+#   *  [2017] - [2024] Amit Kumar Khetan
 #   *  All Rights Reserved.
 #   *
 #   * NOTICE:  All information contained herein is, and remains
@@ -16,20 +16,3 @@
 #   * is strictly forbidden unless prior written permission is obtained
 #   * from Amit Kumar Khetan.
 #   */
-
-from community.gramx.fifty.zero.ethos.identity.entities.space.access.capabilities.access_space_service import \
-    AccessSpaceService
-from community.gramx.fifty.zero.ethos.identity.entities.space.create.capabilities.create_space_service import \
-    CreateSpaceService
-from support.application.registry import Registry
-
-
-def register_space_services(aio: bool):
-    if aio:
-        pass
-    else:
-        access_space_service = AccessSpaceService()
-        Registry.register_service('access_space_service', access_space_service)
-        create_space_service = CreateSpaceService()
-        Registry.register_service('create_space_service', create_space_service)
-    return
