@@ -58,8 +58,8 @@ class QuestionAnswer:
             inputs = self.tokenizer.encode_plus(question.replace('?', ''), para_text[:500], return_tensors="pt")
             logging.info(f"type(inputs): {type(inputs)}")
 
-            answer_start_scores, answer_end_scores = self.model(**inputs)
             output = self.model(**inputs)
+            answer_start_scores, answer_end_scores = output.start_logits, output.end_logits
 
             logging.info(f"output: {output}, type: {type(output)}")
             logging.info(f"answer_start_scores: {answer_start_scores}, type: {type(answer_start_scores)}")
