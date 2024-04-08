@@ -91,11 +91,13 @@ class DiscoverSpaceKnowledgeDomainService(DiscoverSpaceKnowledgeDomainServiceSer
         if validation_done is False:
             return GetBestAnswersResponse(response_meta=meta)
         else:
+            logging.info("DiscoverSpaceKnowledgeDomainService:GetBestAnswers:validation done")
             ranked_answers = list()
             _, _, ranked_paras = RetrieverKnowledgeConsumer.retrieve_closest_paras(
                 access_auth_details=request.access_auth_details,
                 message=request.question,
                 retrieve_para_count=request.best_answers_count)
+            logging.info(f"DiscoverSpaceKnowledgeDomainService:GetBestAnswers:ranked_paras:f{ranked_paras}")
             for ranked_para in ranked_paras:
                 _, _, para_answer = ReaderKnowledgeConsumer.read_page_question(
                     access_auth_details=request.access_auth_details,
@@ -112,6 +114,7 @@ class DiscoverSpaceKnowledgeDomainService(DiscoverSpaceKnowledgeDomainServiceSer
                     ranked_answer = RankedAnswer(context_id=context_id, para_rank=ranked_para.para_rank,
                                                  answer=para_answer.answer)
                     ranked_answers.append(ranked_answer)
+            logging.info(f"DiscoverSpaceKnowledgeDomainService:GetBestAnswers:ranked_answers:f{ranked_answers}")
             return GetBestAnswersResponse(ranked_answers=ranked_answers, response_meta=meta)
 
     def GetFileCount(self, request, context):
