@@ -34,6 +34,8 @@ import db_session
 from community.gramx.fifty.zero.ethos.conversations.handler import handle_conversations_services
 from community.gramx.fifty.zero.ethos.identity.handler import handle_identity_services
 from community.gramx.fifty.zero.ethos.knowledge_spaces.handler import handle_knowledge_spaces_services
+from community.gramx.sixty.six.ethos.action.entities.space.knowledge.handler import \
+    handle_space_knowledge_action_services
 from community.gramx.sixty.six.ethos.retriever.entities.knowledge.handler import handle_knowledge_retriever_services
 from loader import Loader
 from support.application.tracing import AtlasTracer
@@ -87,6 +89,7 @@ def _init_services(server, aio: bool = False):
     handle_conversations_services(server=server, aio=aio)
     handle_knowledge_spaces_services(server=server, aio=aio)
     handle_knowledge_retriever_services(server=server, aio=aio)
+    handle_space_knowledge_action_services(server=server, aio=aio)
 
 
 async def run_aio_server(port, server_tracer):
