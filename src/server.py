@@ -82,6 +82,7 @@ def _init_context(aio: bool = False):
     Loader.init_multiverse_conversations_context(aio=aio)
     Loader.init_multiverse_knowledge_spaces_context(aio=aio)
     Loader.init_multiverse_knowledge_retriever_context(aio=aio)
+    Loader.init_multiverse_space_knowledge_action_context(aio=aio)
 
 
 def _init_services(server, aio: bool = False):
