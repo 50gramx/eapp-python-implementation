@@ -100,6 +100,7 @@ class CreateSpaceKnowledgeDomainFilePageService(CreateSpaceKnowledgeDomainFilePa
     async def ExtractTextFromPage(self, request, context):
         logging.info("CreateSpaceKnowledgeDomainFilePageService:ExtractTextFromPage invoked.")
         page_text = get_page_image_text(request)
+        logging.info(f"CreateSpaceKnowledgeDomainFilePageService:ExtractTextFromPage:page_text:{page_text}")
         # add the text from the page to domain models
         space_knowledge_id = request.space_knowledge_domain_file.space_knowledge_domain.space_knowledge.space_knowledge_id
         space_knowledge_domain_id = request.space_knowledge_domain_file.space_knowledge_domain.space_knowledge_domain_id
