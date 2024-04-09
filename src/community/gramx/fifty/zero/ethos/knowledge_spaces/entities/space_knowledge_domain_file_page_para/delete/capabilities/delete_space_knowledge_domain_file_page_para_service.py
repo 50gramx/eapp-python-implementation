@@ -47,10 +47,6 @@ class DeleteSpaceKnowledgeDomainFilePageParaService(DeleteSpaceKnowledgeDomainFi
             file = page.space_knowledge_domain_file
             domain = file.space_knowledge_domain
             knowledge = domain.space_knowledge
-            # download the page from data store
-            data_store_client = DataStore()
-            data_store_client.download_space_knowledge_domain_file_page(space_knowledge_domain_file_page=page)
-            tmp_page_filepath = data_store_client.get_tmp_page_filepath(page=page)
             domain_knowledge_space = DomainKnowledgeSpace(space_knowledge_id=knowledge.space_knowledge_id,
                                                           space_knowledge_domain_id=domain.space_knowledge_domain_id)
             # get all the paras
