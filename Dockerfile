@@ -1,7 +1,7 @@
 # Dockerfile
 FROM python:3.9
 EXPOSE 80
-RUN apt-get update && apt-get upgrade \
+RUN apt-get update && apt-get -y upgrade \
   && apt-get -y install tesseract-ocr \
   && apt-get -y install ffmpeg libsm6 libxext6 \
   && apt-get -y install poppler-utils # required for pytesseract, opencv, pdf2image
