@@ -71,10 +71,6 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
                                                                                 msg[
                                                                                     "content"],
                                                  human_input_mode="NEVER", )
-        self.assistant_agent.register_for_llm(name="ask_question",
-                                              description="A question answering system")(
-            self.get_answer)
-        self.user_proxy_agent.register_for_execution(name="ask_question")(self.get_answer)
 
     @staticmethod
     def get_tool_response_content(chat_result: ChatResult):
@@ -144,6 +140,10 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
             should_continue = True
             should_assist = False
             if request.space_knowledge_action == 0 and should_continue:
+                self.assistant_agent.register_for_llm(name="ask_question",
+                                                      description="A question answering system")(
+                    self.get_answer)
+                self.user_proxy_agent.register_for_execution(name="ask_question")(self.get_answer)
                 chat_result = self.user_proxy_agent.initiate_chat(self.assistant_agent, message="Who are you?",
                                                                   max_turns=2,
                                                                   summary_method='reflection_with_llm')
