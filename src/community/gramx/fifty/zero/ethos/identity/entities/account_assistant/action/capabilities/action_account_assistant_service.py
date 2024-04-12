@@ -58,19 +58,6 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
             }
         ]
         self.llm_config = {"config_list": self.config_list}
-        self.assistant_agent = ConversableAgent(
-            name="Ethos_Assistant",
-            system_message="You are a helpful assistant. "
-                           "You can delegate the message to function based on the context for action and never answer directly based on your understanding."
-                           "Return 'TERMINATE' when the task is done.",
-            llm_config=self.llm_config,
-        )
-        self.user_proxy_agent = ConversableAgent("User", llm_config=False,
-                                                 is_termination_msg=lambda msg: msg.get(
-                                                     "content") is not None and "TERMINATE" in
-                                                                                msg[
-                                                                                    "content"],
-                                                 human_input_mode="NEVER", )
 
     @staticmethod
     def get_tool_response_content(chat_result: ChatResult):
@@ -140,13 +127,26 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
             should_continue = True
             should_assist = False
             if request.space_knowledge_action == 0 and should_continue:
-                self.assistant_agent.register_for_llm(name="ask_question",
-                                                      description="A question answering system")(
-                    self.get_answer)
-                self.user_proxy_agent.register_for_execution(name="ask_question")(self.get_answer)
-                chat_result = self.user_proxy_agent.initiate_chat(self.assistant_agent, message="Who are you?",
-                                                                  max_turns=2,
-                                                                  summary_method='reflection_with_llm')
+                assistant_agent = ConversableAgent(
+                    name="Ethos_Assistant",
+                    system_message="You are a helpful assistant. "
+                                   "You can delegate the message to function based on the context for action and never answer directly based on your understanding."
+                                   "Return 'TERMINATE' when the task is done.",
+                    llm_config=self.llm_config,
+                )
+                user_proxy_agent = ConversableAgent("User", llm_config=False,
+                                                    is_termination_msg=lambda msg: msg.get(
+                                                        "content") is not None and "TERMINATE" in
+                                                                                   msg[
+                                                                                       "content"],
+                                                    human_input_mode="NEVER", )
+                get_answer_function = self.get_answer
+                assistant_agent.register_for_llm(name="ask_question", description="A question answering system")(
+                    get_answer_function)
+                user_proxy_agent.register_for_execution(name="ask_question")(get_answer_function)
+                chat_result = user_proxy_agent.initiate_chat(assistant_agent, message="Who are you?",
+                                                             max_turns=2,
+                                                             summary_method='reflection_with_llm')
                 msg, space_id, space_type_id, domain_id, context_id, message_sources = self.get_tool_response_content(
                     chat_result)
                 response = send_message_to_account(
