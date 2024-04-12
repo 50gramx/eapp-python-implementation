@@ -89,7 +89,8 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
         # 'tool_responses' not found in chat_history
         return None
 
-    def get_answer(self, request):
+    @staticmethod
+    def get_answer(request):
         if request.act_on_particular_domain:
             _, _, domains_ranked_answers = SpaceKnowledgeActionConsumer().ask_question(
                 access_auth_details=request.access_auth_details,
@@ -140,7 +141,7 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
                                                                                    msg[
                                                                                        "content"],
                                                     human_input_mode="NEVER", )
-                get_answer_function = self.get_answer
+                get_answer_function = ActionAccountAssistantService.get_answer
                 assistant_agent.register_for_llm(name="ask_question", description="A question answering system")(
                     get_answer_function)
                 user_proxy_agent.register_for_execution(name="ask_question")(get_answer_function)
