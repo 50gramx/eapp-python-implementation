@@ -21,6 +21,7 @@ import logging
 import os
 
 import requests
+from autogen import ConversableAgent, ChatResult
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.entities.space_knowledge_domain_pb2 import SpaceKnowledgeDomain
 from ethos.elint.entities.space_knowledge_pb2 import SpaceKnowledgeAction
@@ -42,12 +43,93 @@ EAPP_ACTION_GENERIC_LM_PORT = os.environ.get('EAPP_ACTION_GENERIC_LM_PORT', "80"
 EAPP_ACTION_GENERIC_LM_KEY = os.environ.get('EAPP_ACTION_GENERIC_LM_KEY', "sk-11111111111111111111111111111111")
 EAPP_ACTION_GENERIC_LM_TYPE = os.environ.get('EAPP_ACTION_GENERIC_LM_TYPE', "")
 EAPP_ACTION_GENERIC_LM_URI = f'{EAPP_ACTION_GENERIC_LM_HOST}:{EAPP_ACTION_GENERIC_LM_PORT}'
+EAPP_ACTION_GENERIC_LM_MODEL = 'gpt-3.5-turbo'
 
 
 class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
     def __init__(self):
         super(ActionAccountAssistantService, self).__init__()
         self.session_scope = self.__class__.__name__
+        self.config_list = [
+            {
+                "model": f"{EAPP_ACTION_GENERIC_LM_MODEL}",
+                "base_url": f"{EAPP_ACTION_GENERIC_LM_URI}/v1",
+                "api_key": f"{EAPP_ACTION_GENERIC_LM_KEY}",
+            }
+        ]
+        self.llm_config = {"config_list": self.config_list}
+        self.assistant_agent = ConversableAgent(
+            name="Ethos_Assistant",
+            system_message="You are a helpful assistant. "
+                           "You can delegate the message to function based on the context for action and never answer directly based on your understanding."
+                           "Return 'TERMINATE' when the task is done.",
+            llm_config=self.llm_config,
+        )
+        self.user_proxy_agent = ConversableAgent("User", llm_config=False,
+                                                 is_termination_msg=lambda msg: msg.get(
+                                                     "content") is not None and "TERMINATE" in
+                                                                                msg[
+                                                                                    "content"],
+                                                 human_input_mode="NEVER", )
+        self.assistant_agent.register_for_llm(name="ask_question",
+                                              description="A question answering system")(
+            self.get_answer)
+        self.user_proxy_agent.register_for_execution(name="ask_question")(self.get_answer)
+
+    @staticmethod
+    def get_tool_response_content(chat_result: ChatResult):
+        """
+        This function extracts the content value from the first 'tool_responses' item in a ChatResult object.
+
+        Args:
+            chat_result: A dictionary representing a ChatResult object.
+
+        Returns:
+            The value for the key 'content' within the first 'tool_responses' item,
+            or None if not found.
+        """
+        print("get_tool_response_content")
+        # Check if chat_history exists and has elements
+        if not chat_result.chat_history:
+            print("get_tool_response_content, chat history none")
+            return None
+
+        for item in chat_result.chat_history:
+            print(f"get_tool_response_content, item: {item}")
+            # Look for the item with 'tool_responses' key
+            if 'tool_responses' in item:
+                # Get the first 'tool_responses' item
+                tool_responses = item['tool_responses'][0]
+                # Return the value for the key 'content'
+                return tool_responses.get('content')
+
+        # 'tool_responses' not found in chat_history
+        return None
+
+    def get_answer(self, request):
+        if request.act_on_particular_domain:
+            _, _, domains_ranked_answers = SpaceKnowledgeActionConsumer().ask_question(
+                access_auth_details=request.access_auth_details,
+                message=request.message, ask_particular_domain=True,
+                space_knowledge_domain=request.space_knowledge_domain)
+        else:
+            _, _, domains_ranked_answers = SpaceKnowledgeActionConsumer().ask_question(
+                access_auth_details=request.access_auth_details,
+                message=request.message, ask_particular_domain=False,
+                space_knowledge_domain=SpaceKnowledgeDomain())
+        for domain_ranked_answer in domains_ranked_answers:
+            print(
+                f"{'-' * 20}{domain_ranked_answer.space_knowledge_domain.space_knowledge_domain_name}{'-' * 20}")
+            for ranked_answer in domain_ranked_answer.ranked_answers:
+                print(f"\t>{ranked_answer.para_rank}>>>{ranked_answer.answer}")
+        message_sources = []
+        msg, space_id, space_type_id, domain_id, context_id = self.resolve_best_answer(domains_ranked_answers)
+        for domain_ranked_answer in domains_ranked_answers:
+            message_source = Any()
+            message_source.Pack(domain_ranked_answer)
+            message_sources.append(message_source)
+        logging.info(f"type(message_sources):{type(message_sources)}")
+        return msg, space_id, space_type_id, domain_id, context_id, message_sources
 
     @trace_rpc()
     async def ActOnAccountMessage(self, request, context):
@@ -62,28 +144,11 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
             should_continue = True
             should_assist = False
             if request.space_knowledge_action == 0 and should_continue:
-                if request.act_on_particular_domain:
-                    _, _, domains_ranked_answers = SpaceKnowledgeActionConsumer().ask_question(
-                        access_auth_details=request.access_auth_details,
-                        message=request.message, ask_particular_domain=True,
-                        space_knowledge_domain=request.space_knowledge_domain)
-                else:
-                    _, _, domains_ranked_answers = SpaceKnowledgeActionConsumer().ask_question(
-                        access_auth_details=request.access_auth_details,
-                        message=request.message, ask_particular_domain=False,
-                        space_knowledge_domain=SpaceKnowledgeDomain())
-                for domain_ranked_answer in domains_ranked_answers:
-                    print(
-                        f"{'-' * 20}{domain_ranked_answer.space_knowledge_domain.space_knowledge_domain_name}{'-' * 20}")
-                    for ranked_answer in domain_ranked_answer.ranked_answers:
-                        print(f"\t>{ranked_answer.para_rank}>>>{ranked_answer.answer}")
-                message_sources = []
-                msg, space_id, space_type_id, domain_id, context_id = self.resolve_best_answer(domains_ranked_answers)
-                for domain_ranked_answer in domains_ranked_answers:
-                    message_source = Any()
-                    message_source.Pack(domain_ranked_answer)
-                    message_sources.append(message_source)
-                logging.info(f"type(message_sources):{type(message_sources)}")
+                chat_result = self.user_proxy_agent.initiate_chat(self.assistant_agent, message="Who are you?",
+                                                                  max_turns=2,
+                                                                  summary_method='reflection_with_llm')
+                msg, space_id, space_type_id, domain_id, context_id, message_sources = self.get_tool_response_content(
+                    chat_result)
                 response = send_message_to_account(
                     access_auth_details=request.access_auth_details,
                     connected_account=request.connected_account,
