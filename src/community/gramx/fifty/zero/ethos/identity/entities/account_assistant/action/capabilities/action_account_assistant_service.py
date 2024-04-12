@@ -19,6 +19,7 @@
 
 import logging
 import os
+from typing import Annotated
 
 import requests
 from autogen import ConversableAgent, ChatResult
@@ -26,6 +27,8 @@ from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.entities.space_knowledge_domain_pb2 import SpaceKnowledgeDomain
 from ethos.elint.entities.space_knowledge_pb2 import SpaceKnowledgeAction
 from ethos.elint.services.product.action.space_knowledge_action_pb2 import DomainRankedAnswers
+from ethos.elint.services.product.identity.account_assistant.action_account_assistant_pb2 import \
+    ActOnAccountMessageRequest
 from ethos.elint.services.product.identity.account_assistant.action_account_assistant_pb2_grpc import \
     ActionAccountAssistantServiceServicer
 from google.protobuf.any_pb2 import Any
@@ -44,6 +47,12 @@ EAPP_ACTION_GENERIC_LM_KEY = os.environ.get('EAPP_ACTION_GENERIC_LM_KEY', "sk-11
 EAPP_ACTION_GENERIC_LM_TYPE = os.environ.get('EAPP_ACTION_GENERIC_LM_TYPE', "")
 EAPP_ACTION_GENERIC_LM_URI = f'{EAPP_ACTION_GENERIC_LM_HOST}:{EAPP_ACTION_GENERIC_LM_PORT}'
 EAPP_ACTION_GENERIC_LM_MODEL = 'gpt-3.5-turbo'
+
+from pydantic import BaseModel, Field
+
+
+class GetAnswerInput(BaseModel):
+    request: Annotated[ActOnAccountMessageRequest, Field(description="The request as provided.")]
 
 
 class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
@@ -90,16 +99,16 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
         return None
 
     @staticmethod
-    def get_answer(request):
-        if request.act_on_particular_domain:
+    def get_answer(input: Annotated[GetAnswerInput, "Input to the ask_question."]):
+        if input.request.act_on_particular_domain:
             _, _, domains_ranked_answers = SpaceKnowledgeActionConsumer().ask_question(
-                access_auth_details=request.access_auth_details,
-                message=request.message, ask_particular_domain=True,
-                space_knowledge_domain=request.space_knowledge_domain)
+                access_auth_details=input.request.access_auth_details,
+                message=input.request.message, ask_particular_domain=True,
+                space_knowledge_domain=input.request.space_knowledge_domain)
         else:
             _, _, domains_ranked_answers = SpaceKnowledgeActionConsumer().ask_question(
-                access_auth_details=request.access_auth_details,
-                message=request.message, ask_particular_domain=False,
+                access_auth_details=input.request.access_auth_details,
+                message=input.request.message, ask_particular_domain=False,
                 space_knowledge_domain=SpaceKnowledgeDomain())
         for domain_ranked_answer in domains_ranked_answers:
             print(
@@ -107,7 +116,8 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
             for ranked_answer in domain_ranked_answer.ranked_answers:
                 print(f"\t>{ranked_answer.para_rank}>>>{ranked_answer.answer}")
         message_sources = []
-        msg, space_id, space_type_id, domain_id, context_id = self.resolve_best_answer(domains_ranked_answers)
+        msg, space_id, space_type_id, domain_id, context_id = ActionAccountAssistantService.resolve_best_answer(
+            domains_ranked_answers)
         for domain_ranked_answer in domains_ranked_answers:
             message_source = Any()
             message_source.Pack(domain_ranked_answer)
