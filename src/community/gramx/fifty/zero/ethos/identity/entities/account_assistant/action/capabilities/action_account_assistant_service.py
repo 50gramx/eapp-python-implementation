@@ -54,6 +54,9 @@ from pydantic import BaseModel, Field
 class GetAnswerInput(BaseModel):
     request: Annotated[ActOnAccountMessageRequest, Field(description="The request as provided.")]
 
+    class Config:
+        arbitrary_types_allowed = True
+
 
 class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
     def __init__(self):
