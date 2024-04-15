@@ -21,7 +21,7 @@ click-repl==0.3.0
 cryptography==41.0.7
 Deprecated==1.2.14
 elasticsearch==8.13.0   # TODO: Evaluate the version
-ethos>=24.3.104
+ethos>=24.4.105
 diskcache==5.6.3    # TODO: Evaluate the need
 firebase-admin==6.3.0
 FLAML==2.1.1    # TODO: Evaluate the need
@@ -75,7 +75,7 @@ psycopg2-binary==2.9.9
 py3dns==4.0.0
 pyasn1==0.5.1
 pyasn1-modules==0.3.0
-pyautogen==0.2.23
+pyautogen==0.2.23   # TODO: Evaluate the need
 pycparser==2.21
 pyfcm==1.5.4
 PyJWT==2.8.0
