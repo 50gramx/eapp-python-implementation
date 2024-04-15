@@ -127,6 +127,10 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
         logging.info(f"type(message_sources):{type(message_sources)}")
         return msg, space_id, space_type_id, domain_id, context_id, message_sources
 
+    @staticmethod
+    def get_answer_function(input: GetAnswerInput):
+        return ActionAccountAssistantService.get_answer(input)
+
     @trace_rpc()
     async def ActOnAccountMessage(self, request, context):
         logging.info("ActionAccountAssistantService:ActOnAccountMessage")
@@ -154,22 +158,9 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
                                                                                        "content"],
                                                     human_input_mode="NEVER", )
                 # Assuming `request` is an instance of ActOnAccountMessageRequest
-                get_answer_function = partial(
-                    ActionAccountAssistantService.get_answer,
-                    input=GetAnswerInput(
-                        request={
-                            "access_auth_details": request.access_auth_details,
-                            "connected_account": request.connected_account,
-                            "space_knowledge_action": request.space_knowledge_action,
-                            "message": request.message,
-                            "act_on_particular_domain": request.act_on_particular_domain,
-                            "space_knowledge_domain": request.space_knowledge_domain,
-                        }
-                    )
-                )
                 assistant_agent.register_for_llm(name="ask_question", description="A question answering system")(
-                    get_answer_function)
-                user_proxy_agent.register_for_execution(name="ask_question")(get_answer_function)
+                    ActionAccountAssistantService.get_answer_function)
+                user_proxy_agent.register_for_execution(name="ask_question")(ActionAccountAssistantService.get_answer_function)
                 chat_result = user_proxy_agent.initiate_chat(assistant_agent, message="Who are you?",
                                                              max_turns=2,
                                                              summary_method='reflection_with_llm')
