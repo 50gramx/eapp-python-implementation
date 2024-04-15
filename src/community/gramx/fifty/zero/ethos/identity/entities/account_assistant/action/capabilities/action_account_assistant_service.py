@@ -19,6 +19,7 @@
 
 import logging
 import os
+from functools import partial
 from typing import Annotated
 
 import requests
@@ -27,8 +28,6 @@ from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.entities.space_knowledge_domain_pb2 import SpaceKnowledgeDomain
 from ethos.elint.entities.space_knowledge_pb2 import SpaceKnowledgeAction
 from ethos.elint.services.product.action.space_knowledge_action_pb2 import DomainRankedAnswers
-from ethos.elint.services.product.identity.account_assistant.action_account_assistant_pb2 import \
-    ActOnAccountMessageRequest
 from ethos.elint.services.product.identity.account_assistant.action_account_assistant_pb2_grpc import \
     ActionAccountAssistantServiceServicer
 from google.protobuf.any_pb2 import Any
@@ -52,7 +51,7 @@ from pydantic import BaseModel, Field
 
 
 class GetAnswerInput(BaseModel):
-    request: Annotated[ActOnAccountMessageRequest, Field(description="The request as provided.")]
+    request: dict = Field(description="The request as provided.", schema={})
 
     class Config:
         arbitrary_types_allowed = True
@@ -103,15 +102,15 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
 
     @staticmethod
     def get_answer(input: Annotated[GetAnswerInput, "Input to the ask_question."]):
-        if input.request.act_on_particular_domain:
+        if input.act_on_particular_domain:
             _, _, domains_ranked_answers = SpaceKnowledgeActionConsumer().ask_question(
-                access_auth_details=input.request.access_auth_details,
-                message=input.request.message, ask_particular_domain=True,
-                space_knowledge_domain=input.request.space_knowledge_domain)
+                access_auth_details=input.access_auth_details,
+                message=input.message, ask_particular_domain=True,
+                space_knowledge_domain=input.space_knowledge_domain)
         else:
             _, _, domains_ranked_answers = SpaceKnowledgeActionConsumer().ask_question(
-                access_auth_details=input.request.access_auth_details,
-                message=input.request.message, ask_particular_domain=False,
+                access_auth_details=input.access_auth_details,
+                message=input.message, ask_particular_domain=False,
                 space_knowledge_domain=SpaceKnowledgeDomain())
         for domain_ranked_answer in domains_ranked_answers:
             print(
@@ -154,7 +153,20 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
                                                                                    msg[
                                                                                        "content"],
                                                     human_input_mode="NEVER", )
-                get_answer_function = ActionAccountAssistantService.get_answer
+                # Assuming `request` is an instance of ActOnAccountMessageRequest
+                get_answer_function = partial(
+                    ActionAccountAssistantService.get_answer,
+                    input=GetAnswerInput(
+                        request={
+                            "access_auth_details": request.access_auth_details,
+                            "connected_account": request.connected_account,
+                            "space_knowledge_action": request.space_knowledge_action,
+                            "message": request.message,
+                            "act_on_particular_domain": request.act_on_particular_domain,
+                            "space_knowledge_domain": request.space_knowledge_domain,
+                        }
+                    )
+                )
                 assistant_agent.register_for_llm(name="ask_question", description="A question answering system")(
                     get_answer_function)
                 user_proxy_agent.register_for_execution(name="ask_question")(get_answer_function)
