@@ -714,8 +714,18 @@ class PayInAccountService(PayInAccountServiceServicer):
                 customer_id = get_account_pay_in_id(account_id=account_id)
                 # check if free with tier limits
                 tier_closed_domain_launch_per_month = int(stripe.Customer.retrieve(
-                    customer_id).metadata.closed_domain_launch_per_month)
-                if tier_closed_domain_launch_per_month > 0:
+                    customer_id).metadata.closed_domain_launch_per_month)  # TODO: fix this for effective programming
+                collar_enum = request.space_knowledge_domain_collar_enum
+                if collar_enum == 15:
+                    # check available balance for domain licence
+                    # if not sufficient, return
+                    # else charge customer for domain licence and return
+                    # TODO: implement this steps
+                    not_available_msg = "Charging this domain collar Capability is not available now. Please try again later."
+                    return ResponseMeta(
+                        meta_done=False,
+                        meta_message=not_available_msg)
+                elif tier_closed_domain_launch_per_month > 0:
                     # reduce the tier limit for closed knowledge domain launch
                     _ = stripe.Customer.modify(
                         customer_id,
