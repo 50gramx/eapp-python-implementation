@@ -696,14 +696,15 @@ class PayInAccountService(PayInAccountServiceServicer):
     @trace_rpc()
     def ChargeForClosedDomainLaunch(self, request, context):
         logging.info("PayInAccountService:ChargeForClosedDomainLaunch")
+        sk_svc_auth = request.space_knowledge_services_access_auth_details
         validation_response = ApplicationContext.access_space_knowledge_service_stub().ValidateSpaceKnowledgeServices(
-            request)
+            sk_svc_auth)
         if validation_response.space_knowledge_services_access_validation_done is False:
             return ResponseMeta(meta_done=False,
                                 meta_message=validation_response.space_knowledge_services_access_validation_message)
         else:
             # Get the space from space knowledge services access auth details
-            space = request.space_knowledge.space
+            space = sk_svc_auth.space_knowledge.space
             if space.space_entity_type != 0:
                 return ResponseMeta(
                     meta_done=False,
