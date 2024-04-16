@@ -52,7 +52,6 @@ job("Build & Deploy Python Implementations") {
 
         requirements {
             workerTags("windows-pool")
-            workerTags("macos-pool")
         }
     }
 
@@ -127,7 +126,6 @@ job("Build & Deploy Python Implementations") {
 
         requirements {
             workerTags("windows-pool")
-            workerTags("macos-pool")
         }
     }
 
@@ -203,7 +201,6 @@ job("Build & Deploy Python Implementations") {
 
         requirements {
             workerTags("windows-pool")
-            workerTags("macos-pool")
         }
     }
 
