@@ -63,7 +63,7 @@ services:
       - postgres
       - redis
       - s3
-    entrypoint: ["sh", "launch_async.sh"]
+    entrypoint: [ "sh", "launch_async.sh" ]
 
   # Ethos Apps Python Synchronous Capabilities
   sync_py_caps:
@@ -114,3 +114,13 @@ services:
       - C:\Users\amitk\Documents\capability-data\s3\data:/data
     command: server /data
     restart: always
+
+  ngrok:
+    image: ngrok/ngrok:alpine
+    restart: always
+    volumes:
+      - C:\Users\amitk\AppData\Local\ngrok\ngrok.yml:/etc/ngrok.yaml:ro  # Mount ngrok.yml in read-only mode
+    ports:
+      - "4040:4040"  # Optional: Expose ngrok web interface (default port)
+    environment:
+      - NGROK_CONFIG=/etc/ngrok.yaml
