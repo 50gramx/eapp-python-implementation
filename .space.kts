@@ -46,7 +46,7 @@ job("Build & Deploy Python Implementations") {
             val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
             val version = api.parameters["VERSION_NUMBER"]
             val response = slack.methods(token).chatPostMessage { req ->
-                req.channel("#product-dev").text("⚠️ Scheduled Python v$version System Capability Deployment 🙏")
+                req.channel("#product-dev").text("⚠️ Scheduled 🐍 Python v$version System Capability Deployment 🙏")
             }
         }
 
@@ -120,7 +120,7 @@ job("Build & Deploy Python Implementations") {
             val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
             val version = api.parameters["VERSION_NUMBER"]
             val response = slack.methods(token).chatPostMessage { req ->
-                req.channel("#product-dev").text("🚨️ Started Python v$version System Capability Deployment 🙏")
+                req.channel("#product-dev").text("🚨️ Started 🐍 Python v$version System Capability Deployment 🙏")
             }
         }
 
@@ -194,7 +194,7 @@ job("Build & Deploy Python Implementations") {
             val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
             val version = api.parameters["VERSION_NUMBER"]
             val response = slack.methods(token).chatPostMessage { req ->
-                req.channel("#product-dev").text("👋 Deployed Python v$version System Capabilities 🙏")
+                req.channel("#product-dev").text("👋 Deployed 🐍 Python v$version System Capabilities 🙏")
             }
             // to fail the deployment, use ...deployments.fail()
         }
