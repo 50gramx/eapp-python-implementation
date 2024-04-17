@@ -24,10 +24,13 @@ from typing import Annotated
 
 import requests
 from autogen import ConversableAgent, ChatResult
+from ethos.elint.entities.account_assistant_pb2 import AccountAssistantConnectedAccount
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from ethos.elint.entities.space_knowledge_domain_pb2 import SpaceKnowledgeDomain
 from ethos.elint.entities.space_knowledge_pb2 import SpaceKnowledgeAction
 from ethos.elint.services.product.action.space_knowledge_action_pb2 import DomainRankedAnswers
+from ethos.elint.services.product.identity.account_assistant.access_account_assistant_pb2 import \
+    AccountAssistantServicesAccessAuthDetails
 from ethos.elint.services.product.identity.account_assistant.action_account_assistant_pb2_grpc import \
     ActionAccountAssistantServiceServicer
 from google.protobuf.any_pb2 import Any
@@ -47,14 +50,17 @@ EAPP_ACTION_GENERIC_LM_TYPE = os.environ.get('EAPP_ACTION_GENERIC_LM_TYPE', "")
 EAPP_ACTION_GENERIC_LM_URI = f'{EAPP_ACTION_GENERIC_LM_HOST}:{EAPP_ACTION_GENERIC_LM_PORT}'
 EAPP_ACTION_GENERIC_LM_MODEL = 'gpt-3.5-turbo'
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 
-class GetAnswerInput(BaseModel):
-    request: dict = Field(description="The request as provided.", schema={})
-
-    class Config:
-        arbitrary_types_allowed = True
+# Define Pydantic model for ActOnAccountMessageRequest
+class ActOnAccountMessageRequest(BaseModel):
+    access_auth_details: AccountAssistantServicesAccessAuthDetails
+    connected_account: AccountAssistantConnectedAccount
+    space_knowledge_action: SpaceKnowledgeAction
+    message: str
+    act_on_particular_domain: bool
+    space_knowledge_domain: SpaceKnowledgeDomain
 
 
 class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
@@ -101,7 +107,7 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
         return None
 
     @staticmethod
-    def get_answer(input: Annotated[GetAnswerInput, "Input to the ask_question."]):
+    def get_answer(input: Annotated[ActOnAccountMessageRequest, "Process an incoming request"]):
         logging.info(f"get_answer: input: {input}")
         if input.act_on_particular_domain:
             _, _, domains_ranked_answers = SpaceKnowledgeActionConsumer().ask_question(
@@ -129,7 +135,7 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
         return msg, space_id, space_type_id, domain_id, context_id, message_sources
 
     @staticmethod
-    def get_answer_function(input: GetAnswerInput):
+    def get_answer_function(input: ActOnAccountMessageRequest):
         logging.info(f"get_answer_function: input: {input}")
         return ActionAccountAssistantService.get_answer(input)
 
@@ -162,7 +168,8 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
                 # Assuming `request` is an instance of ActOnAccountMessageRequest
                 assistant_agent.register_for_llm(name="ask_question", description="A question answering system")(
                     ActionAccountAssistantService.get_answer_function)
-                user_proxy_agent.register_for_execution(name="ask_question")(ActionAccountAssistantService.get_answer_function)
+                user_proxy_agent.register_for_execution(name="ask_question")(
+                    ActionAccountAssistantService.get_answer_function)
                 chat_result = user_proxy_agent.initiate_chat(assistant_agent, message=request.message,
                                                              max_turns=2,
                                                              summary_method='reflection_with_llm')
