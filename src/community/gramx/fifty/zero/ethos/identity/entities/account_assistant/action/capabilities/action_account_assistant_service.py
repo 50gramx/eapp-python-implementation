@@ -141,7 +141,7 @@ class SpaceKnowledgeModel(BaseModel):
     created_at: datetime  # Adjust the type according to the type of created_at
 
 
-class SpaceKnowledgeDomainCollarEnum(str, Enum):
+class SpaceKnowledgeDomainCollarEnumModel(str, Enum):
     WHITE_COLLAR = "WHITE_COLLAR"
     BLUE_COLLAR = "BLUE_COLLAR"
     PINK_COLLAR = "PINK_COLLAR"
