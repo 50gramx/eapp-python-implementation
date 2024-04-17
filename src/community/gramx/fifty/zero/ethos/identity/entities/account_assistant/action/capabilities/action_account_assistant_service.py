@@ -19,18 +19,25 @@
 
 import logging
 import os
-from functools import partial
-from typing import Annotated
+from datetime import datetime
+from enum import Enum
+from typing import Annotated, Optional
 
 import requests
 from autogen import ConversableAgent, ChatResult
-from ethos.elint.entities.account_assistant_pb2 import AccountAssistantConnectedAccount
-from ethos.elint.entities.generic_pb2 import ResponseMeta
+from ethos.elint.entities.account_assistant_pb2 import AccountAssistantConnectedAccount, AccountAssistant
+from ethos.elint.entities.account_pb2 import Account
+from ethos.elint.entities.galaxy_pb2 import Galaxy
+from ethos.elint.entities.generic_pb2 import ResponseMeta, PersistentSessionTokenDetails
 from ethos.elint.entities.space_knowledge_domain_pb2 import SpaceKnowledgeDomain
-from ethos.elint.entities.space_knowledge_pb2 import SpaceKnowledgeAction
+from ethos.elint.entities.space_knowledge_pb2 import SpaceKnowledgeAction, SpaceKnowledge
+from ethos.elint.entities.space_pb2 import Space
+from ethos.elint.entities.universe_pb2 import Universe
 from ethos.elint.services.product.action.space_knowledge_action_pb2 import DomainRankedAnswers
 from ethos.elint.services.product.identity.account_assistant.access_account_assistant_pb2 import \
     AccountAssistantServicesAccessAuthDetails
+from ethos.elint.services.product.identity.account_assistant.action_account_assistant_pb2 import \
+    ActOnAccountMessageRequest
 from ethos.elint.services.product.identity.account_assistant.action_account_assistant_pb2_grpc import \
     ActionAccountAssistantServiceServicer
 from google.protobuf.any_pb2 import Any
@@ -53,14 +60,106 @@ EAPP_ACTION_GENERIC_LM_MODEL = 'gpt-3.5-turbo'
 from pydantic import BaseModel
 
 
+class AccountModel(BaseModel):
+    account_analytics_id: str
+    account_id: str
+    account_personal_email_id: str
+    account_work_email_id: str
+    account_country_code: str
+    account_mobile_number: str
+    account_first_name: str
+    account_last_name: str
+    account_galaxy_id: str
+    account_birth_at: Optional[datetime]
+    account_gender: str  # Assuming AccountGender is represented as a string
+    created_at: Optional[datetime]
+    account_billing_active: bool
+
+
+class AccountAssistantModel(BaseModel):
+    account_assistant_id: str
+    account_assistant_name_code: int
+    account_assistant_name: str
+    account: AccountModel
+    created_at: Optional[datetime]
+    last_assisted_at: Optional[datetime]
+
+
+class PersistentSessionTokenDetailsModel(BaseModel):
+    session_token: str
+    session_scope: str
+    generated_at: datetime
+    last_used_at: datetime
+    valid_till: datetime
+
+
+class AccountAssistantServicesAccessAuthDetailsModel(BaseModel):
+    account_assistant: AccountAssistantModel
+    account_assistant_services_access_session_token_details: PersistentSessionTokenDetailsModel
+    requested_at: Optional[datetime]
+
+
+class AccountAssistantConnectedAccountModel(BaseModel):
+    account_connection_id: str
+    account_id: str
+    connected_at: datetime
+
+
+class SpaceKnowledgeActionModel(str, Enum):
+    ASK_QUESTION = "ASK_QUESTION"
+
+
+class UniverseModel(BaseModel):
+    universe_id: str
+    big_bang_at: datetime
+    universe_name: str
+    universe_description: str
+
+
+class GalaxyModel(BaseModel):
+    galaxy_id: str
+    galaxy_name: str
+    universe: UniverseModel
+    galaxy_created_at: datetime
+
+
+class SpaceModel(BaseModel):
+    galaxy: GalaxyModel  # Adjust the type according to the type of Galaxy
+    space_id: str
+    space_accessibility_type: str  # Adjust the type according to the type of SpaceAccessibilityType
+    space_isolation_type: str  # Adjust the type according to the type of SpaceIsolationType
+    space_entity_type: str  # Adjust the type according to the type of SpaceEntityType
+    space_admin_id: str
+    space_created_at: Optional[str]  # Adjust the type according to the type of space_created_at
+
+
+class SpaceKnowledgeModel(BaseModel):
+    space_knowledge_name: str
+    space_knowledge_id: str
+    space_knowledge_admin_account_id: str
+    space: SpaceModel  # Adjust the type according to the type of space
+    created_at: datetime  # Adjust the type according to the type of created_at
+
+
+class SpaceKnowledgeDomainModel(BaseModel):
+    space_knowledge_domain_id: str
+    space_knowledge_domain_name: str
+    space_knowledge_domain_description: str
+    space_knowledge_domain_collar_enum: SpaceKnowledgeDomainCollarEnumModel
+    space_knowledge_domain_isolated: bool
+    space_knowledge: SpaceKnowledgeModel  # Adjust the type according to the type of space_knowledge
+    created_at: Optional[str]  # Adjust the type according to the type of created_at
+    last_updated_at: Optional[str]  # Adjust the type according to the type of last_updated_at
+
+
 # Define Pydantic model for ActOnAccountMessageRequest
-class ActOnAccountMessageRequest(BaseModel):
-    access_auth_details: AccountAssistantServicesAccessAuthDetails
-    connected_account: AccountAssistantConnectedAccount
-    space_knowledge_action: SpaceKnowledgeAction
+class ActOnAccountMessageRequestModel(BaseModel):
+    access_auth_details: AccountAssistantServicesAccessAuthDetailsModel
+    connected_account: AccountAssistantConnectedAccountModel
+    space_knowledge_action: SpaceKnowledgeActionModel
     message: str
     act_on_particular_domain: bool
-    space_knowledge_domain: SpaceKnowledgeDomain
+    space_knowledge_domain: SpaceKnowledgeDomainModel
 
 
 class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
@@ -107,16 +206,89 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
         return None
 
     @staticmethod
-    def get_answer(input: Annotated[ActOnAccountMessageRequest, "Process an incoming request"]):
+    def get_answer(input: Annotated[ActOnAccountMessageRequestModel, "Process an incoming request"]):
+        request = ActOnAccountMessageRequest(
+            access_auth_details=AccountAssistantServicesAccessAuthDetails(
+                account_assistant=AccountAssistant(
+                    account_assistant_id=input.access_auth_details.account_assistant.account_assistant_id,
+                    created_at=input.access_auth_details.account_assistant.created_at,
+                    account=Account(
+                        account_id=input.access_auth_details.account_assistant.account.account_id,
+                        created_at=input.access_auth_details.account_assistant.account.created_at,
+                        account_gender=input.access_auth_details.account_assistant.account.account_gender,
+                        account_birth_at=input.access_auth_details.account_assistant.account.account_birth_at,
+                        account_first_name=input.access_auth_details.account_assistant.account.account_first_name,
+                        account_last_name=input.access_auth_details.account_assistant.account.account_last_name,
+                        account_galaxy_id=input.access_auth_details.account_assistant.account.account_galaxy_id,
+                        account_country_code=input.access_auth_details.account_assistant.account.account_country_code,
+                        account_billing_active=input.access_auth_details.account_assistant.account.account_billing_active,
+                        account_mobile_number=input.access_auth_details.account_assistant.account.account_mobile_number,
+                        account_analytics_id=input.access_auth_details.account_assistant.account.account_analytics_id,
+                        account_work_email_id=input.access_auth_details.account_assistant.account.account_work_email_id,
+                        account_personal_email_id=input.access_auth_details.account_assistant.account.account_personal_email_id
+                    ),
+                    account_assistant_name=input.access_auth_details.account_assistant.account_assistant_name,
+                    account_assistant_name_code=input.access_auth_details.account_assistant.account_assistant_name_code,
+                    last_assisted_at=input.access_auth_details.account_assistant.last_assisted_at,
+                ),
+                account_assistant_services_access_session_token_details=PersistentSessionTokenDetails(
+                    session_token=input.access_auth_details.account_assistant_services_access_session_token_details.session_token,
+                    session_scope=input.access_auth_details.account_assistant_services_access_session_token_details.session_scope,
+                    valid_till=input.access_auth_details.account_assistant_services_access_session_token_details.valid_till,
+                    generated_at=input.access_auth_details.account_assistant_services_access_session_token_details.generated_at,
+                    last_used_at=input.access_auth_details.account_assistant_services_access_session_token_details.last_used_at,
+                ),
+                requested_at=input.access_auth_details.requested_at,
+            ),
+            message=input.message,
+            connected_account=AccountAssistantConnectedAccount(
+                account_connection_id=input.connected_account.account_connection_id,
+                account_id=input.connected_account.account_id,
+                connected_at=input.connected_account.connected_at,
+            ),
+            space_knowledge_action=input.space_knowledge_action,
+            space_knowledge_domain=SpaceKnowledgeDomain(
+                space_knowledge_domain_id=input.space_knowledge_domain.space_knowledge_domain_id,
+                space_knowledge_domain_description=input.space_knowledge_domain.space_knowledge_domain_description,
+                space_knowledge_domain_isolated=input.space_knowledge_domain.space_knowledge_domain_isolated,
+                space_knowledge_domain_name=input.space_knowledge_domain.space_knowledge_domain_name,
+                space_knowledge=SpaceKnowledge(
+                    space_knowledge_name=input.space_knowledge_domain.space_knowledge.space_knowledge_name,
+                    space_knowledge_id=input.space_knowledge_domain.space_knowledge.space_knowledge_id,
+                    space_knowledge_admin_account_id=input.space_knowledge_domain.space_knowledge.space_knowledge_admin_account_id,
+                    created_at=input.space_knowledge_domain.space_knowledge.created_at,
+                    space=Space(
+                        space_id=input.space_knowledge_domain.space_knowledge.space.space_id,
+                        space_created_at=input.space_knowledge_domain.space_knowledge.space.space_created_at,
+                        space_admin_id=input.space_knowledge_domain.space_knowledge.space.space_admin_id,
+                        space_entity_type=input.space_knowledge_domain.space_knowledge.space.space_entity_type,
+                        space_isolation_type=input.space_knowledge_domain.space_knowledge.space.space_isolation_type,
+                        space_accessibility_type=input.space_knowledge_domain.space_knowledge.space.space_accessibility_type,
+                        galaxy=Galaxy(
+                            galaxy_id=input.space_knowledge_domain.space_knowledge.space.galaxy.galaxy_id,
+                            galaxy_name=input.space_knowledge_domain.space_knowledge.space.galaxy.galaxy_name,
+                            galaxy_created_at=input.space_knowledge_domain.space_knowledge.space.galaxy.galaxy_created_at,
+                            universe=Universe(
+                                universe_id=input.space_knowledge_domain.space_knowledge.space.galaxy.universe.universe_id,
+                                universe_name=input.space_knowledge_domain.space_knowledge.space.galaxy.universe.universe_name,
+                                universe_description=input.space_knowledge_domain.space_knowledge.space.galaxy.universe.universe_description,
+                                big_bang_at=input.space_knowledge_domain.space_knowledge.space.galaxy.universe.big_bang_at
+                            )
+                        )
+                    )
+                )
+            ),
+            act_on_particular_domain=input.act_on_particular_domain,
+        )
         logging.info(f"get_answer: input: {input}")
         if input.act_on_particular_domain:
             _, _, domains_ranked_answers = SpaceKnowledgeActionConsumer().ask_question(
-                access_auth_details=input.access_auth_details,
+                access_auth_details=request.access_auth_details,
                 message=input.message, ask_particular_domain=True,
-                space_knowledge_domain=input.space_knowledge_domain)
+                space_knowledge_domain=request.space_knowledge_domain)
         else:
             _, _, domains_ranked_answers = SpaceKnowledgeActionConsumer().ask_question(
-                access_auth_details=input.access_auth_details,
+                access_auth_details=request.access_auth_details,
                 message=input.message, ask_particular_domain=False,
                 space_knowledge_domain=SpaceKnowledgeDomain())
         for domain_ranked_answer in domains_ranked_answers:
@@ -135,7 +307,7 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
         return msg, space_id, space_type_id, domain_id, context_id, message_sources
 
     @staticmethod
-    def get_answer_function(input: ActOnAccountMessageRequest):
+    def get_answer_function(input: ActOnAccountMessageRequestModel):
         logging.info(f"get_answer_function: input: {input}")
         return ActionAccountAssistantService.get_answer(input)
 
