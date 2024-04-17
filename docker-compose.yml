@@ -122,3 +122,6 @@ services:
       - C:\Users\amitk\AppData\Local\ngrok\ngrok.yml:/etc/ngrok.yaml:ro  # Mount ngrok.yml in read-only mode
     environment:
       - NGROK_CONFIG=/etc/ngrok.yaml
+
+networks:
+  default:
