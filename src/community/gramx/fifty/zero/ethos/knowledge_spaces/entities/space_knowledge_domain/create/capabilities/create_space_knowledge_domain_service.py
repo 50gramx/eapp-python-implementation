@@ -84,8 +84,8 @@ class CreateSpaceKnowledgeDomainService(CreateSpaceKnowledgeDomainServiceService
         if validation_done is False:
             return CreateSpaceKnowledgeDomainResponse(response_meta=meta)
         else:
-            charge_for_closed_domain_launch_response = ApplicationContext.pay_in_account_service_stub().ChargeForClosedDomainLaunch(
-                request.space_knowledge_services_access_auth_details)
+            pay_in_stub = ApplicationContext.pay_in_account_service_stub()
+            charge_for_closed_domain_launch_response = pay_in_stub.ChargeForClosedDomainLaunch(request)
             if charge_for_closed_domain_launch_response.meta_done is False:
                 return CreateSpaceKnowledgeDomainResponse(response_meta=ResponseMeta(
                     meta_done=False, meta_message=charge_for_closed_domain_launch_response.meta_message))
