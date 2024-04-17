@@ -361,7 +361,7 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
                     ActionAccountAssistantService.get_answer_function)
                 user_proxy_agent.register_for_execution(name="ask_question")(
                     ActionAccountAssistantService.get_answer_function)
-                chat_result = user_proxy_agent.initiate_chat(assistant_agent, message=request.message,
+                chat_result = user_proxy_agent.initiate_chat(assistant_agent, message=request,
                                                              max_turns=2,
                                                              summary_method='reflection_with_llm')
                 logging.info(f"chat_result: {chat_result}")
