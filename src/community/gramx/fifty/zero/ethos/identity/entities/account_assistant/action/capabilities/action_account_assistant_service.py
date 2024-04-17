@@ -161,7 +161,7 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
                 assistant_agent.register_for_llm(name="ask_question", description="A question answering system")(
                     ActionAccountAssistantService.get_answer_function)
                 user_proxy_agent.register_for_execution(name="ask_question")(ActionAccountAssistantService.get_answer_function)
-                chat_result = user_proxy_agent.initiate_chat(assistant_agent, message="Who are you?",
+                chat_result = user_proxy_agent.initiate_chat(assistant_agent, message=request.message,
                                                              max_turns=2,
                                                              summary_method='reflection_with_llm')
                 msg, space_id, space_type_id, domain_id, context_id, message_sources = self.get_tool_response_content(
