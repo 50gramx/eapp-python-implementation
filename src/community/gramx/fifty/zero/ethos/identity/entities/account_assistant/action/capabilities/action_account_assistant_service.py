@@ -164,6 +164,7 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
                 chat_result = user_proxy_agent.initiate_chat(assistant_agent, message=request.message,
                                                              max_turns=2,
                                                              summary_method='reflection_with_llm')
+                logging.info(f"chat_result: {chat_result}")
                 msg, space_id, space_type_id, domain_id, context_id, message_sources = self.get_tool_response_content(
                     chat_result)
                 response = send_message_to_account(
