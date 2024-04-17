@@ -120,7 +120,5 @@ services:
     restart: always
     volumes:
       - C:\Users\amitk\AppData\Local\ngrok\ngrok.yml:/etc/ngrok.yaml:ro  # Mount ngrok.yml in read-only mode
-    ports:
-      - "4040:4040"  # Optional: Expose ngrok web interface (default port)
     environment:
       - NGROK_CONFIG=/etc/ngrok.yaml
