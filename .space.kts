@@ -26,6 +26,18 @@ job("Build & Deploy Python Implementations") {
 
             // Set the VERSION_NUMBER parameter
             api.parameters["VERSION_NUMBER"] = "$currentYear.$currentMonth.$currentExecution"
+
+            // Fetch Commit Messages
+            val workingDir = File("/mnt/space/work/eapp-python-implementation") // Specify your source code directory
+
+            val process = ProcessBuilder("git", "-C", workingDir.absolutePath, "rev-parse", "HEAD")
+                .redirectOutput(ProcessBuilder.Redirect.PIPE)
+                .start()
+
+            val output = process.inputStream.bufferedReader().readLine() ?: ""
+            val commitHash = output.trim()
+
+            println("Current commit hash: $commitHash")
         }
 
         requirements {
