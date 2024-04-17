@@ -141,6 +141,25 @@ class SpaceKnowledgeModel(BaseModel):
     created_at: datetime  # Adjust the type according to the type of created_at
 
 
+class SpaceKnowledgeDomainCollarEnum(str, Enum):
+    WHITE_COLLAR = "WHITE_COLLAR"
+    BLUE_COLLAR = "BLUE_COLLAR"
+    PINK_COLLAR = "PINK_COLLAR"
+    GOLD_COLLAR = "GOLD_COLLAR"
+    RED_COLLAR = "RED_COLLAR"
+    PURPLE_COLLAR = "PURPLE_COLLAR"
+    NEW_COLLAR = "NEW_COLLAR"
+    NO_COLLAR = "NO_COLLAR"
+    ORANGE_COLLAR = "ORANGE_COLLAR"
+    GREEN_COLLAR = "GREEN_COLLAR"
+    SCARLET_COLLAR = "SCARLET_COLLAR"
+    BROWN_COLLAR = "BROWN_COLLAR"
+    STEEL_COLLAR = "STEEL_COLLAR"
+    BLACK_COLLAR = "BLACK_COLLAR"
+    GREY_COLLAR = "GREY_COLLAR"
+    SKD_I_AM_COLLAR = "SKD_I_AM_COLLAR"
+
+
 class SpaceKnowledgeDomainModel(BaseModel):
     space_knowledge_domain_id: str
     space_knowledge_domain_name: str
