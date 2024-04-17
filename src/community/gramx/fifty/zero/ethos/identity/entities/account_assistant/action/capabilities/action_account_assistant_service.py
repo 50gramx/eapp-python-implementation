@@ -102,6 +102,7 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
 
     @staticmethod
     def get_answer(input: Annotated[GetAnswerInput, "Input to the ask_question."]):
+        logging.info(f"get_answer: input: {input}")
         if input.act_on_particular_domain:
             _, _, domains_ranked_answers = SpaceKnowledgeActionConsumer().ask_question(
                 access_auth_details=input.access_auth_details,
@@ -129,6 +130,7 @@ class ActionAccountAssistantService(ActionAccountAssistantServiceServicer):
 
     @staticmethod
     def get_answer_function(input: GetAnswerInput):
+        logging.info(f"get_answer_function: input: {input}")
         return ActionAccountAssistantService.get_answer(input)
 
     @trace_rpc()
