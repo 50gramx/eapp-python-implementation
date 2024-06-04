@@ -70,3 +70,14 @@ ghz --insecure \
     -c 50 \
     -n 1 \
     1.tcp.in.ngrok.io:20240
+
+## Running the project locally
+
+1. Create a virual environment using tools such as venev, conda, etc.
+2. Activate the virtual environment.
+3. Make sure that the Python version in the venv is >=3.6 and <=3.10 (Recommended is 3.9 else the multi_dict deependency will fail to build)
+4. Since the requirements.txt contains private repository dependencies, please run the below pip command to install the requirements.txt
+```
+pip install -r requirements.txt --extra-index-url  https://85301fb9-f857-4cbd-b919-d030bf6423ce:50e72eeaf9363ba1d9ec14dcfa3b08814dd4b0935c91b50756efd839b2e64c66@pypi.pkg.jetbrains.space/50gramx/p/main/python-delivery/simple
+```
+5. In the terminal type "sh launch.sh" or "sh launch_async.sh" as as per the server requirement.
