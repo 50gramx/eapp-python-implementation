@@ -75,13 +75,15 @@ PayIn.metadata.create_all(engine)
 # universe_id = gen_uuid()
 # universe_name = "INDIA"
 # universe_description = "Universe for the People of INDIA"
-# universe_big_bang_at = format_timestamp_to_datetime(get_current_timestamp())
+# universe_created_at = format_timestamp_to_datetime(get_current_timestamp())
+# universe_updated_at = format_timestamp_to_datetime(get_current_timestamp())
 
 # new_universe = Universe(
 #     universe_id=universe_id,
 #     universe_name=universe_name,
 #     universe_description=universe_description,
-#     universe_big_bang_at=universe_big_bang_at
+#     universe_created_at=universe_created_at,
+#     universe_updated_at=universe_updated_at
 # )
 # session.add(new_universe)
 # session.commit()

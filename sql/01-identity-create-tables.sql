@@ -6,7 +6,8 @@ CREATE TABLE universe
     universe_id          VARCHAR(255) PRIMARY KEY,
     universe_name        VARCHAR(255) NOT NULL,
     universe_description VARCHAR(255) NOT NULL,
-    universe_big_bang_at TIMESTAMP    NOT NULL
+    universe_created_at TIMESTAMP    NOT NULL,
+    universe_updated_at TIMESTAMP   NOT NULL
 );
 -- Galaxy Table
 CREATE TABLE galaxy

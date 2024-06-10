@@ -23,5 +23,5 @@
 
 -- insert_universe.sql
 
-INSERT INTO universe (universe_id, universe_name, universe_description, universe_big_bang_at)
-VALUES ('92d6e05d-9f99-4b27-8980-d2227e88f7f5', 'INDIA', 'Universe for the People of INDIA', '2020-02-14 00:00:00');
+INSERT INTO universe (universe_id, universe_name, universe_description, universe_created_at, universe_updated_at)
+VALUES ('92d6e05d-9f99-4b27-8980-d2227e88f7f5', 'INDIA', 'Universe for the People of INDIA', '2020-02-14 00:00:00', '2024-06-10 00:00:00');

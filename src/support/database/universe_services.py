@@ -33,8 +33,9 @@ def get_universe(with_universe_id: str) -> universe_pb2.Universe:
         # create the universe obj here wrt proto contract
         universe_obj = universe_pb2.Universe(
             universe_id=universe.universe_id,
-            big_bang_at=format_datetime_to_timestamp(universe.universe_big_bang_at),
             universe_name=universe.universe_name,
-            universe_description=universe.universe_description
+            universe_created_at=format_datetime_to_timestamp(universe.universe_created_at),
+            universe_description=universe.universe_description,
+            universe_updated_at=format_datetime_to_timestamp(universe.universe_updated_at),
         )
     return universe_obj

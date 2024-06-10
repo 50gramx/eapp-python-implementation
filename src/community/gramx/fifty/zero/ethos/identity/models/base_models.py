@@ -79,7 +79,8 @@ class Universe(Base):
     universe_id = Column(String(255), primary_key=True, unique=True)
     universe_name = Column(String(255), nullable=False)
     universe_description = Column(String(255), nullable=False)
-    universe_big_bang_at = Column(DateTime(), nullable=False)
+    universe_created_at = Column(DateTime(), nullable=False)
+    universe_updated_at = Column(DateTime(), nullable=False)
 
 
 class Galaxy(Base):
