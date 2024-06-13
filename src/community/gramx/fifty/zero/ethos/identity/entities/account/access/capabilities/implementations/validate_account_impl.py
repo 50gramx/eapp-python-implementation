@@ -21,6 +21,7 @@ import logging
 import phonenumbers
 from phonenumbers import carrier
 from phonenumbers.phonenumberutil import number_type
+from ethos.elint.entities.universe_pb2 import Universe
 from ethos.elint.entities.generic_pb2 import TemporaryTokenDetails
 from ethos.elint.services.product.identity.account.access_account_pb2 import ValidateAccountRequest
 from ethos.elint.services.product.identity.account.access_account_pb2 import ValidateAccountResponse
