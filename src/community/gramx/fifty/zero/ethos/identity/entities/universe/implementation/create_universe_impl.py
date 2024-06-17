@@ -43,6 +43,7 @@ universe_name : str
 universe_description : str
 '''
 
+# TODO: Modify the below logic later to create universe name based on the template.
 def create_universe_impl(request: CreateUniverseRequest) -> CreateUniverseResponse:
     logging.info("Starting CreateUniverse RPC")
     

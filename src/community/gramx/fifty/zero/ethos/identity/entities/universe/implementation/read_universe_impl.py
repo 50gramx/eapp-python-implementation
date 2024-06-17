@@ -34,7 +34,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 Request params:
 ---------------
 
-universe_id : str
+universe_name : str
 '''
 
 def read_universe_impl(request: ReadUniverseRequest) -> ReadUniverseResponse:
@@ -42,11 +42,11 @@ def read_universe_impl(request: ReadUniverseRequest) -> ReadUniverseResponse:
     
     # get request params here
     logging.info(
-        f"Received universe_id: {request.universe_id}")
+        f"Received universe_name: {request.universe_name}")
     
     try:
         # Fetch the universe from the database
-        universe = get_universe_service(request.universe_id)
+        universe = get_universe_service(request)
         
         if not universe:
             context.abort(grpc.StatusCode.NOT_FOUND, "Universe not found")

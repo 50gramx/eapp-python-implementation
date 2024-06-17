@@ -36,6 +36,7 @@ Request params:
 universe_id : str
 '''
 
+# TODO: Modify the below logic later to archive the universe instead of deleting.
 def delete_universe_impl(request: DeleteUniverseRequest) -> DeleteUniverseResponse:
     logging.info("Starting DeleteUniverse RPC")
     

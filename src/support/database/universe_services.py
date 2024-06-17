@@ -26,12 +26,12 @@ from community.gramx.fifty.zero.ethos.identity.models.base_models import Univers
 from support.helper_functions import format_datetime_to_timestamp, gen_uuid
 
 
-def get_universe_service(with_universe_id: str) -> universe_pb2.Universe:
+def get_universe_service(request: universe_pb2.CreateUniverseRequest) -> universe_pb2.Universe:
     with DbSession.session_scope() as session:
         universe = session.query(Universe).filter(
-            Universe.universe_id == with_universe_id
+            Universe.universe_name == request.universe_name
         ).first()
-        # create the universe obj here wrt proto contract
+
         universe_obj = universe_pb2.Universe(
             universe_id=universe.universe_id,
             universe_name=universe.universe_name,
@@ -60,7 +60,6 @@ def create_universe_service(request: universe_pb2.CreateUniverseRequest) -> univ
         session.add(new_universe)
         session.commit()
         
-        # Create the universe object as per proto contract
         universe_obj = universe_pb2.Universe(
             universe_id=new_universe.universe_id,
             universe_name=new_universe.universe_name,
@@ -89,7 +88,6 @@ def update_universe_service(request: universe_pb2.UpdateUniverseRequest) -> univ
         # Commit the changes
         session.commit()
         
-        # Create the updated universe object as per proto contract
         universe_obj = universe_pb2.Universe(
             universe_id=universe.universe_id,
             universe_name=universe.universe_name,
