@@ -29,6 +29,14 @@ from support.database.universe_services import get_universe_service
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+
+'''
+Request params:
+---------------
+
+universe_id : str
+'''
+
 def read_universe_impl(request: ReadUniverseRequest) -> ReadUniverseResponse:
     logging.info("Starting ReadUniverse RPC")
     

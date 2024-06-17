@@ -29,6 +29,13 @@ from support.database.universe_services import update_universe_service
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+'''
+Request params:
+---------------
+
+universe_id : str
+'''
+
 def update_universe_impl(request: UpdateUniverseRequest) -> UpdateUniverseResponse:
     logging.info("Starting UpdateUniverse RPC")
     

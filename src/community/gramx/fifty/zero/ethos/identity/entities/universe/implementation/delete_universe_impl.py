@@ -28,12 +28,20 @@ from support.database.universe_services import delete_universe_service
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+
+'''
+Request params:
+---------------
+
+universe_id : str
+'''
+
 def delete_universe_impl(request: DeleteUniverseRequest) -> DeleteUniverseResponse:
     logging.info("Starting DeleteUniverse RPC")
     
      # get request params here
     logging.info(
-        f"Received universe_name: {request.universe_name}")
+        f"Received universe_id: {request.universe_id}")
     
     try:
         # Delete the universe using the database service

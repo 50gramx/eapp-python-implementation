@@ -34,6 +34,15 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 def generate_random_name(self):
         return ''.join(random.choices(string.ascii_letters, k=10))
 
+
+'''
+Request params:
+---------------
+
+universe_name : str
+universe_description : str
+'''
+
 def create_universe_impl(request: CreateUniverseRequest) -> CreateUniverseResponse:
     logging.info("Starting CreateUniverse RPC")
     
