@@ -30,7 +30,7 @@ from support.helper_functions import  gen_uuid, get_current_timestamp, get_futur
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def delete_universe_impl(request: DeleteUniverseResponse):
+def delete_universe_impl(request: DeleteUniverseResponse) -> DeleteUniverseResponse:
     logging.info("Starting DeleteUniverse RPC")
     
      # get request params here

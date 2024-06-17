@@ -27,7 +27,7 @@ from ethos.elint.services.product.identity.universe.delete_universe_pb2_grpc imp
 from application_context import ApplicationContext
 
 
-def handle_account_services(server, aio: bool):
+def handle_universe_services(server, aio: bool):
     if aio:
         pass
     else:

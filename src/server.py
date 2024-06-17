@@ -33,6 +33,7 @@ from opentelemetry.instrumentation.grpc._server import OpenTelemetryServerInterc
 import db_session
 from community.gramx.fifty.zero.ethos.conversations.handler import handle_conversations_services
 from community.gramx.fifty.zero.ethos.identity.handler import handle_identity_services
+from community.gramx.fifty.zero.ethos.identity.entities.universe.handler import handle_universe_services
 from community.gramx.fifty.zero.ethos.knowledge_spaces.handler import handle_knowledge_spaces_services
 from community.gramx.sixty.six.ethos.action.entities.space.knowledge.handler import \
     handle_space_knowledge_action_services
@@ -89,11 +90,13 @@ def _init_context(aio: bool = False):
 
 def _init_services(server, aio: bool = False):
     handle_identity_services(server=server, aio=aio)
+    handle_universe_services(server=server, aio=aio)
     handle_conversations_services(server=server, aio=aio)
     handle_knowledge_spaces_services(server=server, aio=aio)
     handle_knowledge_retriever_services(server=server, aio=aio)
     handle_knowledge_reader_services(server=server, aio=aio)
     handle_space_knowledge_action_services(server=server, aio=aio)
+    
 
 
 async def run_aio_server(port, server_tracer):

@@ -30,7 +30,7 @@ from support.helper_functions import  gen_uuid, get_current_timestamp, get_futur
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def update_universe_impl(request: UpdateUniverseRequest):
+def update_universe_impl(request: UpdateUniverseRequest) -> UpdateUniverseResponse:
     logging.info("Starting UpdateUniverse RPC")
     
      # get request params here

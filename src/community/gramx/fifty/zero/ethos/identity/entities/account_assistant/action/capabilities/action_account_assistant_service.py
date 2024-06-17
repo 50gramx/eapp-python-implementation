@@ -111,9 +111,10 @@ class SpaceKnowledgeActionModel(str, Enum):
 
 class UniverseModel(BaseModel):
     universe_id: str
-    big_bang_at: datetime
+    universe_created_at: datetime
     universe_name: str
     universe_description: str
+    universe_updated_at: datetime
 
 
 class GalaxyModel(BaseModel):
