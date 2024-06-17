@@ -20,33 +20,35 @@
 
 import logging
 from multiprocessing import context
-import datetime
 
 from ethos.elint.services.product.identity.universe.delete_universe_pb2 import DeleteUniverseRequest
 from ethos.elint.services.product.identity.universe.delete_universe_pb2 import DeleteUniverseResponse
-from google.protobuf.timestamp_pb2 import Timestamp
 import grpc
-from support.helper_functions import  gen_uuid, get_current_timestamp, get_future_timestamp
+from support.database.universe_services import delete_universe_service
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def delete_universe_impl(request: DeleteUniverseResponse) -> DeleteUniverseResponse:
+def delete_universe_impl(request: DeleteUniverseRequest) -> DeleteUniverseResponse:
     logging.info("Starting DeleteUniverse RPC")
     
      # get request params here
     logging.info(
         f"Received universe_name: {request.universe_name}")
     
-    universe = universe.pop(request.universe_name, None)
-    if not universe:
-        context.abort(grpc.StatusCode.NOT_FOUND, "Universe not found")
-
+    try:
+        # Delete the universe using the database service
+        universe_obj = delete_universe_service(request)
+        
         # Create the response
-    response = DeleteUniverseResponse(
-        universe_id=universe.universe_id,
-        universe_name=universe.universe_name,
-        universe_created_at=universe.universe_created_at,
-        universe_description=universe.universe_description,
-        universe_updated_at=universe.universe_updated_at
+        response = DeleteUniverseResponse(
+            universe_id=universe_obj.universe_id,
+            universe_name=universe_obj.universe_name,
+            universe_created_at=universe_obj.universe_created_at,
+            universe_description=universe_obj.universe_description,
+            universe_updated_at=universe_obj.universe_updated_at 
         )
-    return response
+        return response
+    
+    except Exception as e:
+        logging.error(f"Error deleting universe: {e}")
+        context.abort(grpc.StatusCode.INTERNAL, "Internal server error")

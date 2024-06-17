@@ -25,7 +25,7 @@ from ethos.elint.services.product.identity.universe.read_universe_pb2 import Rea
 from ethos.elint.services.product.identity.universe.read_universe_pb2 import ReadUniverseResponse
 from google.protobuf.timestamp_pb2 import Timestamp
 import grpc
-from support.helper_functions import  gen_uuid, get_current_timestamp, get_future_timestamp
+from support.database.universe_services import get_universe_service
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -34,20 +34,29 @@ def read_universe_impl(request: ReadUniverseRequest) -> ReadUniverseResponse:
     
     # get request params here
     logging.info(
-        f"Received universe_name: {request.universe_name}")
+        f"Received universe_id: {request.universe_id}")
     
-    universe = universe.get(request.universe_name)
-    
-    if not universe:
-        context.abort(grpc.StatusCode.NOT_FOUND, "Universe not found")
-
-
-    # Create the response
-    response = ReadUniverseResponse(
+    try:
+        # Fetch the universe from the database
+        universe = get_universe_service(request.universe_id)
+        
+        if not universe:
+            context.abort(grpc.StatusCode.NOT_FOUND, "Universe not found")
+        
+        # Create the response
+        response = ReadUniverseResponse(
             universe_id=universe.universe_id,
             universe_name=universe.universe_name,
-            universe_created_at=universe.created_at,
-            universe_description=request.universe.universe_description
+            universe_created_at=universe.universe_created_at,
+            universe_description=universe.universe_description,
+            universe_updated_at=universe.universe_updated_at
         )
-    return response
+        return response
+    
+    except Exception as e:
+        logging.error(f"Error reading universe: {e}")
+        context.abort(grpc.StatusCode.INTERNAL, "Internal server error")
+
+
+ 
 

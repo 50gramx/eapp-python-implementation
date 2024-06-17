@@ -19,15 +19,14 @@
 
 
 import logging
-import uuid
-import datetime
 import random
 import string
+from multiprocessing import context
+import grpc
 
 from ethos.elint.services.product.identity.universe.create_universe_pb2 import CreateUniverseRequest
 from ethos.elint.services.product.identity.universe.create_universe_pb2 import CreateUniverseResponse
-from google.protobuf.timestamp_pb2 import Timestamp
-from support.helper_functions import  gen_uuid, get_current_timestamp, get_future_timestamp
+from support.database.universe_services import create_universe_service
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -40,19 +39,26 @@ def create_universe_impl(request: CreateUniverseRequest) -> CreateUniverseRespon
     
     # get request params here
     logging.info(
+        f"Received universe_name: {request.universe_name}")
+    
+    logging.info(
         f"Received universe_description: {request.universe_description}")
     
-    universe_id = str(uuid.uuid4())
-    created_at = Timestamp()
-    created_at.FromDatetime(datetime.datetime.utcnow())
-    universe_name = generate_random_name()
+    try:
+        
+        # Call the database service to create the universe
+        universe_obj = create_universe_service(request)
 
-    # Create the response
-    response = CreateUniverseResponse(
-            universe_id=universe_id,
-            universe_name=universe_name,
-            universe_created_at=created_at,
-            universe_description=request.universe_description
+        # Create the response
+        response = CreateUniverseResponse(
+            universe_id=universe_obj.universe_id,
+            universe_name=universe_obj.universe_name,
+            universe_created_at=universe_obj.universe_created_at,
+            universe_description=universe_obj.universe_description
         )
-    return response
+        return response
+    
+    except Exception as e:
+        logging.error(f"Error creating universe: {e}")
+        context.abort(grpc.StatusCode.INTERNAL, "Internal server error")
 

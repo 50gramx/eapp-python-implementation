@@ -19,15 +19,14 @@
 
 
 from datetime import datetime
-import uuid
 from ethos.elint.entities import universe_pb2
 
 from db_session import DbSession
 from community.gramx.fifty.zero.ethos.identity.models.base_models import Universe
-from support.helper_functions import format_datetime_to_timestamp
+from support.helper_functions import format_datetime_to_timestamp, gen_uuid
 
 
-def get_universe(with_universe_id: str) -> universe_pb2.Universe:
+def get_universe_service(with_universe_id: str) -> universe_pb2.Universe:
     with DbSession.session_scope() as session:
         universe = session.query(Universe).filter(
             Universe.universe_id == with_universe_id
@@ -42,10 +41,10 @@ def get_universe(with_universe_id: str) -> universe_pb2.Universe:
         )
     return universe_obj
 
-def create_universe(request: universe_pb2.CreateUniverseRequest) -> universe_pb2.Universe:
+def create_universe_service(request: universe_pb2.CreateUniverseRequest) -> universe_pb2.Universe:
     with DbSession.session_scope() as session:
         # Generate a new universe ID and get the current datetime
-        universe_id = str(uuid.uuid4())
+        universe_id = gen_uuid()
         created_at = datetime.datetime.utcnow()
         
         # Create a new Universe record
@@ -72,7 +71,7 @@ def create_universe(request: universe_pb2.CreateUniverseRequest) -> universe_pb2
         
     return universe_obj
 
-def update_universe(request: universe_pb2.UpdateUniverseRequest) -> universe_pb2.Universe:
+def update_universe_service(request: universe_pb2.UpdateUniverseRequest) -> universe_pb2.Universe:
     with DbSession.session_scope() as session:
         # Retrieve the existing Universe record
         universe = session.query(Universe).filter(
@@ -101,7 +100,7 @@ def update_universe(request: universe_pb2.UpdateUniverseRequest) -> universe_pb2
         
     return universe_obj
 
-def delete_universe(request: universe_pb2.DeleteUniverseRequest) -> universe_pb2.Universe:
+def delete_universe_service(request: universe_pb2.DeleteUniverseRequest) -> universe_pb2.Universe:
     with DbSession.session_scope() as session:
         # Retrieve the existing Universe record
         universe = session.query(Universe).filter(
