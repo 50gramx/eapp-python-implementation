@@ -532,3 +532,22 @@ class ApplicationContext(object):
     @staticmethod
     def get_delete_universe_service():
         return Registry.get_service('delete_universe_service')
+
+    # ----------------------------------------------------
+    # Galaxy CRUD Services
+    # ----------------------------------------------------
+    @staticmethod
+    def get_create_galaxy_service():
+        return Registry.get_service('create_galaxy_service')
+    
+    @staticmethod
+    def get_read_galaxy_service():
+        return Registry.get_service('read_galaxy_service')
+    
+    @staticmethod
+    def get_update_galaxy_service():
+        return Registry.get_service('update_galaxy_service')
+    
+    @staticmethod
+    def get_delete_galaxy_service():
+        return Registry.get_service('delete_galaxy_service')
