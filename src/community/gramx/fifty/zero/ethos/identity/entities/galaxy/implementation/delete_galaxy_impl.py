@@ -1,13 +1,13 @@
 import logging
 import grpc
 
-from ethos.elint.services.product.identity.galaxy.create_galaxy_pb2 import CreateGalaxyRequest
-from ethos.elint.services.product.identity.galaxy.create_galaxy_pb2 import CreateGalaxyResponse
-from support.database.galaxy_services import create_galaxy_service
+from ethos.elint.services.product.identity.galaxy.delete_galaxy_pb2 import DeleteGalaxyRequest
+from ethos.elint.services.product.identity.galaxy.delete_galaxy_pb2 import DeleteGalaxyResponse
+from support.database.galaxy_services import delete_galaxy_service
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def create_galaxy_impl(request: CreateGalaxyRequest, context) -> CreateGalaxyResponse:
+def create_galaxy_impl(request: DeleteGalaxyRequest, context) -> DeleteGalaxyResponse:
     logging.info("Starting Create Galaxy RPC")
     
     # Log request parameters
@@ -16,10 +16,10 @@ def create_galaxy_impl(request: CreateGalaxyRequest, context) -> CreateGalaxyRes
     
     try:
         # Call the database service to create the galaxy
-        galaxy_obj = create_galaxy_service(request)
+        galaxy_obj = delete_galaxy_service(request)
 
         # Create the response
-        return CreateGalaxyResponse(galaxy=galaxy_obj)
+        return DeleteGalaxyResponse(galaxy=galaxy_obj)
     
     except Exception as e:
         logging.error(f"Error creating galaxy: {e}")

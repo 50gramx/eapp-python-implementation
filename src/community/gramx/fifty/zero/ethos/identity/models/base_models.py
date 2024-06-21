@@ -81,15 +81,18 @@ class Universe(Base):
     universe_description = Column(String(255), nullable=False)
     universe_created_at = Column(DateTime(), nullable=False)
     universe_updated_at = Column(DateTime())
+    domain = Column(String(255), unique=True, nullable=False)
 
 
 class Galaxy(Base):
     __tablename__ = "galaxy"
 
     galaxy_id = Column(String(255), primary_key=True, unique=True)
-    galaxy_name = Column(String(255), nullable=False)
+    galaxy_name = Column(String(255), nullable=False, unique=True)
     universe_id = Column(String(255), ForeignKey('universe.universe_id'), nullable=False)
     galaxy_created_at = Column(DateTime(), nullable=False)
+    galaxy_updated_at = Column(DateTime(), nullable=False)
+    galaxy_description = Column(String(255), nullable=False)
 
 
 class Space(Base):

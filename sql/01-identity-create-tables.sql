@@ -13,9 +13,12 @@ CREATE TABLE universe
 CREATE TABLE galaxy
 (
     galaxy_id         VARCHAR(255) PRIMARY KEY,
-    galaxy_name       VARCHAR(255)                                   NOT NULL,
+    galaxy_name       VARCHAR(255)                                   NOT NULL UNIQUE,
     universe_id       VARCHAR(255) REFERENCES universe (universe_id) NOT NULL,
-    galaxy_created_at TIMESTAMP                                      NOT NULL
+    galaxy_created_at TIMESTAMP                                      NOT NULL,
+    galaxy_updated_at TIMESTAMP                                      NOT NULL,
+    domain            VARCHAR(255) NOT NULL UNIQUE,
+    galaxy_description VARCHAR(255) NOT NULL
 );
 
 -- Account Table
