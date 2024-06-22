@@ -22,7 +22,7 @@ cryptography==41.0.7
 Deprecated==1.2.14
 elasticsearch==8.13.0   # TODO: Evaluate the version
 ethos>=24.6.136
-ethosdev>=24.6.7
+
 diskcache==5.6.3    # TODO: Evaluate the need
 firebase-admin==6.3.0
 FLAML==2.1.1    # TODO: Evaluate the need
