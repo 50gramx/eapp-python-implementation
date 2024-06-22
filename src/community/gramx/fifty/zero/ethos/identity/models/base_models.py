@@ -81,7 +81,6 @@ class Universe(Base):
     universe_description = Column(String(255), nullable=False)
     universe_created_at = Column(DateTime(), nullable=False)
     universe_updated_at = Column(DateTime())
-    domain = Column(String(255), unique=True, nullable=False)
 
 
 class Galaxy(Base):
@@ -93,6 +92,7 @@ class Galaxy(Base):
     galaxy_created_at = Column(DateTime(), nullable=False)
     galaxy_updated_at = Column(DateTime(), nullable=False)
     galaxy_description = Column(String(255), nullable=False)
+    domain = Column(String(255), unique=True, nullable=False)
 
 
 class Space(Base):
