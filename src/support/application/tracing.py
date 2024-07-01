@@ -99,14 +99,11 @@ ATLAS_TRACER = AtlasTracer.get()
 
 
 def trace_rpc(tracer=PYTHON_IMPLEMENTATION_TRACER):
-    logging.debug("...into trace_rpc...")
 
     def decorator(func):
-        logging.debug("...into decorator...")
 
         @wraps(func)
         def wrapper(self, request, context):
-            logging.debug("...into wrapper...")
             span_name = func.__name__
 
             # Extract trace context from incoming request metadata
