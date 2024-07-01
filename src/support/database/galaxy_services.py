@@ -20,8 +20,8 @@
 
 from ethos.elint.entities import galaxy_pb2
 
-from db_session import DbSession
 from community.gramx.fifty.zero.ethos.identity.models.base_models import Galaxy
+from db_session import DbSession
 from support.database.universe_services import get_universe
 from support.helper_functions import format_datetime_to_timestamp
 
@@ -36,7 +36,7 @@ def get_galaxy(with_galaxy_id: str) -> galaxy_pb2.Galaxy:
         galaxy_created_at = galaxy.galaxy_created_at
         universe_id = galaxy.universe_id
     # create the galaxy obj here wrt proto contract
-    universe = get_universe(with_universe_id=universe_id)
+    universe = get_universe(universe_id=universe_id)
     galaxy_obj = galaxy_pb2.Galaxy(
         galaxy_id=galaxy_id,
         galaxy_name=galaxy_name,
@@ -56,7 +56,7 @@ def get_our_galaxy() -> galaxy_pb2.Galaxy:
         galaxy_created_at = galaxy.galaxy_created_at
         universe_id = galaxy.universe_id
     # create the galaxy obj here wrt proto contract
-    universe = get_universe(with_universe_id=universe_id)
+    universe = get_universe(universe_id=universe_id)
     galaxy_obj = galaxy_pb2.Galaxy(
         galaxy_id=galaxy_id,
         galaxy_name=galaxy_name,

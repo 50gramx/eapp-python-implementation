@@ -28,10 +28,10 @@ from db_session import DbSession
 from support.helper_functions import format_datetime_to_timestamp, gen_uuid
 
 
-def get_universe_service(request: create_universe_pb2.CreateUniverseRequest) -> universe_pb2.Universe:
+def get_universe(universe_id: str) -> universe_pb2.Universe:
     with DbSession.session_scope() as session:
         universe = session.query(Universe).filter(
-            Universe.universe_name == request.universe_name
+            Universe.universe_id == universe_id
         ).first()
 
         universe_obj = universe_pb2.Universe(
@@ -87,7 +87,7 @@ def update_universe_service(request: update_universe_pb2.UpdateUniverseRequest) 
         # Update the universe fields
         universe.universe_name = request.universe_name
         universe.universe_description = request.universe_description
-        universe.universe_updated_at = datetime.datetime.utcnow()
+        universe.universe_updated_at = datetime.utcnow()
 
         # Commit the changes
         session.commit()
@@ -105,6 +105,7 @@ def update_universe_service(request: update_universe_pb2.UpdateUniverseRequest) 
 
 def delete_universe_service(request: delete_universe_pb2.DeleteUniverseRequest) -> universe_pb2.Universe:
     with DbSession.session_scope() as session:
+        # TODO (peivee@): universe_id is not available in the request
         # Retrieve the existing Universe record
         universe = session.query(Universe).filter(
             Universe.universe_id == request.universe_id

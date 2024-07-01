@@ -23,7 +23,7 @@ import logging
 from ethos.elint.entities import universe_pb2
 from grpc import StatusCode
 
-from support.database.universe_services import get_universe_service
+from support.database.universe_services import get_universe
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -31,7 +31,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 def by_id_impl(request: universe_pb2.Universe, context) -> universe_pb2.Universe:
     try:
         # Fetch the universe from the database
-        universe = get_universe_service(universe_id=request.universe_id)
+        universe = get_universe(universe_id=request.universe_id)
 
         if not universe:
             context.abort(StatusCode.NOT_FOUND, "Universe not found")
