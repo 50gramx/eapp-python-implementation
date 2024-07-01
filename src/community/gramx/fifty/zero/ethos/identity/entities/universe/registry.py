@@ -27,7 +27,7 @@ from community.gramx.fifty.zero.ethos.identity.entities.universe.service.update_
 from support.application.registry import Registry
 
 
-def register_account_services(aio: bool):
+def register_universe_services(aio: bool):
     if aio:
         pass
     else:
