@@ -21,7 +21,7 @@
 from datetime import datetime
 
 from ethos.elint.entities import universe_pb2
-from ethos.elint.services.product.identity.universe import create_universe_pb2, update_universe_pb2
+from ethos.elint.services.product.identity.universe import create_universe_pb2, update_universe_pb2, delete_universe_pb2
 
 from community.gramx.fifty.zero.ethos.identity.models.base_models import Universe
 from db_session import DbSession
@@ -103,7 +103,7 @@ def update_universe_service(request: update_universe_pb2.UpdateUniverseRequest) 
     return universe_obj
 
 
-def delete_universe_service(request: universe_pb2.DeleteUniverseRequest) -> universe_pb2.Universe:
+def delete_universe_service(request: delete_universe_pb2.DeleteUniverseRequest) -> universe_pb2.Universe:
     with DbSession.session_scope() as session:
         # Retrieve the existing Universe record
         universe = session.query(Universe).filter(

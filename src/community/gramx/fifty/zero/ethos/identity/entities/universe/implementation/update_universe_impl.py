@@ -21,10 +21,10 @@
 import logging
 from multiprocessing import context
 
+import grpc
 from ethos.elint.services.product.identity.universe.update_universe_pb2 import UpdateUniverseRequest
 from ethos.elint.services.product.identity.universe.update_universe_pb2 import UpdateUniverseResponse
-from google.protobuf.timestamp_pb2 import Timestamp
-import grpc
+
 from support.database.universe_services import update_universe_service
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -36,17 +36,17 @@ Request params:
 universe_id : str
 '''
 
+
 def update_universe_impl(request: UpdateUniverseRequest) -> UpdateUniverseResponse:
     logging.info("Starting UpdateUniverse RPC")
-    
-    
+
     # Get request parameters
     logging.info(f"Received universe_id: {request.universe_id}")
-    
+
     try:
         # Update the universe using the database service
         universe_obj = update_universe_service(request)
-        
+
         # Create the response
         response = UpdateUniverseResponse(
             universe_id=universe_obj.universe_id,
@@ -56,7 +56,7 @@ def update_universe_impl(request: UpdateUniverseRequest) -> UpdateUniverseRespon
             universe_updated_at=universe_obj.universe_updated_at  # Ensure to include the updated_at field
         )
         return response
-    
+
     except Exception as e:
         logging.error(f"Error updating universe: {e}")
         context.abort(grpc.StatusCode.INTERNAL, "Internal server error")
