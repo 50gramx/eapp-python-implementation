@@ -22,17 +22,18 @@ import logging
 import random
 import string
 from multiprocessing import context
-import grpc
 
+import grpc
 from ethos.elint.services.product.identity.universe.create_universe_pb2 import CreateUniverseRequest
 from ethos.elint.services.product.identity.universe.create_universe_pb2 import CreateUniverseResponse
+
 from support.database.universe_services import create_universe_service
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 def generate_random_name(self):
-        return ''.join(random.choices(string.ascii_letters, k=10))
+    return ''.join(random.choices(string.ascii_letters, k=10))
 
 
 '''
@@ -43,19 +44,20 @@ universe_name : str
 universe_description : str
 '''
 
+
 # TODO: Modify the below logic later to create universe name based on the template.
 def create_universe_impl(request: CreateUniverseRequest) -> CreateUniverseResponse:
     logging.info("Starting CreateUniverse RPC")
-    
+
     # get request params here
     logging.info(
         f"Received universe_name: {request.universe_name}")
-    
+
     logging.info(
         f"Received universe_description: {request.universe_description}")
-    
+
     try:
-        
+
         # Call the database service to create the universe
         universe_obj = create_universe_service(request)
 
@@ -67,8 +69,7 @@ def create_universe_impl(request: CreateUniverseRequest) -> CreateUniverseRespon
             universe_description=universe_obj.universe_description
         )
         return response
-    
+
     except Exception as e:
         logging.error(f"Error creating universe: {e}")
         context.abort(grpc.StatusCode.INTERNAL, "Internal server error")
-
