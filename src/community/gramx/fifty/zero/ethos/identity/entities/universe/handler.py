@@ -19,10 +19,14 @@
 
 import logging
 
-from ethos.elint.services.product.identity.universe.create_universe_pb2_grpc import add_CreateUniverseServiceServicer_to_server
-from ethos.elint.services.product.identity.universe.read_universe_pb2_grpc import add_ReadUniverseServiceServicer_to_server
-from ethos.elint.services.product.identity.universe.update_universe_pb2_grpc import add_UpdateUniverseServiceServicer_to_server
-from ethos.elint.services.product.identity.universe.delete_universe_pb2_grpc import add_DeleteUniverseServiceServicer_to_server
+from ethos.elint.services.product.identity.universe.create_universe_pb2_grpc import \
+    add_CreateUniverseServiceServicer_to_server
+from ethos.elint.services.product.identity.universe.delete_universe_pb2_grpc import \
+    add_DeleteUniverseServiceServicer_to_server
+from ethos.elint.services.product.identity.universe.discover_universe_pb2_grpc import \
+    add_DiscoverUniverseServiceServicer_to_server
+from ethos.elint.services.product.identity.universe.update_universe_pb2_grpc import \
+    add_UpdateUniverseServiceServicer_to_server
 
 from application_context import ApplicationContext
 
@@ -35,20 +39,20 @@ def handle_universe_services(server, aio: bool):
             ApplicationContext.get_create_universe_service, server
         )
         logging.info(f'\t\t [x] create universe')
-        
-        add_ReadUniverseServiceServicer_to_server(
-            ApplicationContext.get_read_universe_service(), server
+
+        add_DiscoverUniverseServiceServicer_to_server(
+            ApplicationContext.get_discover_universe_service(), server
         )
-        logging.info(f'\t\t [x] read universe')
-        
+        logging.info(f'\t\t [x] discover universe')
+
         add_UpdateUniverseServiceServicer_to_server(
             ApplicationContext.get_update_universe_service(), server
         )
         logging.info(f'\t\t [x] update universe')
-        
+
         add_DeleteUniverseServiceServicer_to_server(
             ApplicationContext.get_delete_universe_service(), server
         )
         logging.info(f'\t\t [x] delete universe')
-        
+
     return server

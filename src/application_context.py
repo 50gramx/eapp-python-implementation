@@ -512,7 +512,6 @@ class ApplicationContext(object):
     @staticmethod
     def get_space_knowledge_action_service():
         return Registry.get_service('space_knowledge_action_service')
-    
 
     # ----------------------------------------------------
     # Universe CRUD Services
@@ -520,15 +519,15 @@ class ApplicationContext(object):
     @staticmethod
     def get_create_universe_service():
         return Registry.get_service('create_universe_service')
-    
+
     @staticmethod
-    def get_read_universe_service():
-        return Registry.get_service('read_universe_service')
-    
+    def get_discover_universe_service():
+        return Registry.get_service('discover_universe_service')
+
     @staticmethod
     def get_update_universe_service():
         return Registry.get_service('update_universe_service')
-    
+
     @staticmethod
     def get_delete_universe_service():
         return Registry.get_service('delete_universe_service')
