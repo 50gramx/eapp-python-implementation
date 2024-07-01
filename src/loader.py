@@ -98,6 +98,7 @@ from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.regist
     register_account_assistant_services
 from community.gramx.fifty.zero.ethos.identity.entities.machine.discover_machine_service import DiscoverMachineService
 from community.gramx.fifty.zero.ethos.identity.entities.space.registry import register_space_services
+from community.gramx.fifty.zero.ethos.identity.entities.universe.registry import register_universe_services
 from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge.registry import \
     register_space_knowledge_services
 from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain.registry import \
@@ -137,6 +138,7 @@ class Loader(object):
     def init_multiverse_identity_context(aio: bool):
         logging.info(f'Identity context loading...')
         # Loader.__init_multiverse_identity_chain_stubs()
+        register_universe_services(aio=aio)
         register_account_services(aio=aio)
         register_account_assistant_services(aio=aio)
         register_space_services(aio=aio)
