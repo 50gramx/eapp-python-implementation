@@ -99,7 +99,6 @@ ATLAS_TRACER = AtlasTracer.get()
 
 
 def trace_rpc(tracer=PYTHON_IMPLEMENTATION_TRACER):
-
     def decorator(func):
 
         @wraps(func)
