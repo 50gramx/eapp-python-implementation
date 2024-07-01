@@ -26,7 +26,7 @@ from community.gramx.fifty.zero.ethos.identity.entities.universe.handler import 
 
 
 def handle_identity_services(server, aio: bool):
-    handle_universe_services(server=server, aio=aio)
+    handle_universe_services(server, aio)
     logging.info(f'\t [x] added universe services')
     handle_account_services(server, aio)
     logging.info(f'\t [x] added account services')

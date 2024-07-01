@@ -36,7 +36,7 @@ def handle_universe_services(server, aio: bool):
         pass
     else:
         add_CreateUniverseServiceServicer_to_server(
-            ApplicationContext.get_create_universe_service, server
+            ApplicationContext.get_create_universe_service(), server
         )
         logging.info(f'\t\t [x] create universe')
 
