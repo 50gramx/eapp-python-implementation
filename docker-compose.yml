@@ -114,3 +114,10 @@ services:
       - C:\Users\amitk\Documents\capability-data\s3\data:/data
     command: server /data
     restart: always
+
+  # Pods HTTP APIs
+  pods-api:
+    image: 50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-pods-api:latest
+    ports:
+      - "8000:8000"
+    restart: always
