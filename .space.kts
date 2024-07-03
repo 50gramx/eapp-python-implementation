@@ -87,28 +87,12 @@ job("Build & Deploy Python Implementations") {
 
 
         dockerBuildPush {
-            // by default, the step runs not only 'docker build' but also 'docker push'
-            // to disable pushing, add the following line:
-            // push = false
-
-            // path to Docker context (by default, context is working dir)
-            // context = "docker"
-            // path to Dockerfile relative to the project root
-            // if 'file' is not specified, Docker will look for it in 'context'/Dockerfile
             file = "Dockerfile"
-            // build-time variables
-            // args["HTTP_PROXY"] = "http://10.20.30.2:1234"
-            // image labels
-            // labels["vendor"] = "mycompany"
-            // to add a raw list of additional build arguments, use
 
             // Add a cache-busting argument to force `apt-get update`
             extraArgsForBuildCommand = listOf("--build-arg", "CACHEBUST=${System.currentTimeMillis()}")
 
-            // extraArgsForBuildCommand = listOf("...")
-            // to add a raw list of additional push arguments, use
-            // extraArgsForPushCommand = listOf("...")
-            // image tags
+           // image tags
             val spaceRepo = "50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations"
             val dockerHubRepo = "docker.io/khetana/eapp-python-implementations"
             tags {
@@ -222,6 +206,91 @@ job("Build & Deploy Python Implementations") {
         }
     }
 
+}
+
+
+job("Build Cache Invalidated Python Implementations Image") {
+
+    startOn {
+        gitPush {
+            enabled = false
+            anyBranchMatching {
+                +"release-*"
+                +"master"
+                +"main"
+            }
+        }
+    }
+
+   // To check a condition, basically, you need a kotlinScript step
+    host(displayName = "Setup Version") {
+        kotlinScript { api ->
+            // Get the current year and month
+            val currentYear = (LocalDate.now().year % 100).toString().padStart(2, '0')
+            val currentMonth = LocalDate.now().monthValue.toString()
+
+            // Get the execution number from environment variables
+            val currentExecution = System.getenv("JB_SPACE_EXECUTION_NUMBER")
+
+            // Set the VERSION_NUMBER parameter
+            api.parameters["VERSION_NUMBER"] = "$currentYear.$currentMonth.$currentExecution"
+
+            // Fetch Commit Messages
+            val workingDir = File("/mnt/space/work/eapp-python-implementation") // Specify your source code directory
+
+            val process = ProcessBuilder("git", "-C", workingDir.absolutePath, "rev-parse", "HEAD")
+                .redirectOutput(ProcessBuilder.Redirect.PIPE)
+                .start()
+
+            val output = process.inputStream.bufferedReader().readLine() ?: ""
+            val commitHash = output.trim()
+
+            println("Current commit hash: $commitHash")
+        }
+
+        requirements {
+            workerTags("windows-pool")
+        }
+    }
+
+    host("Build Python Implementations Images") {
+        // Before running the scripts, the host machine will log in to
+        // the registries specified in connections.
+        // dockerRegistryConnections {
+            // specify connection key
+            // +"khetana_docker_hub_private_registry"
+            // multiple connections are supported
+            // +"one_more_connection"
+        // }
+
+        shellScript {
+            content = """
+                docker login -u khetana -p dckr_pat_PUFXNtjg34r6TO8oR07uR6o1AG4
+            """
+        }
+
+
+        dockerBuildPush {
+            file = "Dockerfile"
+            // image tags
+            val spaceRepo = "50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations"
+            val dockerHubRepo = "docker.io/khetana/eapp-python-implementations"
+
+
+            // Add a cache-busting argument to force `apt-get update`
+            extraArgsForBuildCommand = listOf("--build-arg", "CACHEBUST=${System.currentTimeMillis()}")
+
+            tags {
+                // use current job run number as a tag - '0.0.run_number'
+                +"$dockerHubRepo:{{ VERSION_NUMBER }}"
+                +"$dockerHubRepo:latest"
+            }
+        }
+
+        requirements {
+            workerTags("windows-pool")
+        }
+    }
 }
 
 job("Build Capabilities Proxy Image") {
