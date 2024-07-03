@@ -341,11 +341,6 @@ job("Deploy Python Implementations") {
         env["SLACK_OAUTH_BOT_TOKEN"] = Secrets("SLACK_OAUTH_BOT_TOKEN")
 
         kotlinScript { api ->
-            api.space().projects.automation.deployments.schedule(
-                project = api.projectIdentifier(),
-                targetIdentifier = TargetIdentifier.Key("python-implementation-deployment"),
-                version = api.parameters["VERSION_NUMBER"],
-            )
             val slack = Slack.getInstance()
             val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
             val version = api.parameters["VERSION_NUMBER"]
@@ -363,13 +358,6 @@ job("Deploy Python Implementations") {
         env["SLACK_OAUTH_BOT_TOKEN"] = Secrets("SLACK_OAUTH_BOT_TOKEN")
 
         kotlinScript { api ->
-            api.space().projects.automation.deployments.start(
-                project = api.projectIdentifier(),
-                targetIdentifier = TargetIdentifier.Key("python-implementation-deployment"),
-                version = api.parameters["VERSION_NUMBER"],
-                // automatically update deployment status based on a status of a job
-                syncWithAutomationJob = true
-            )
             val slack = Slack.getInstance()
             val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
             val version = api.parameters["VERSION_NUMBER"]
@@ -439,11 +427,6 @@ job("Deploy Python Implementations") {
         env["SLACK_OAUTH_BOT_TOKEN"] = Secrets("SLACK_OAUTH_BOT_TOKEN")
 
         kotlinScript { api ->
-            api.space().projects.automation.deployments.finish(
-                project = api.projectIdentifier(),
-                targetIdentifier = TargetIdentifier.Key("python-implementation-deployment"),
-                version = api.parameters["VERSION_NUMBER"],
-            )
             val slack = Slack.getInstance()
             val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
             val version = api.parameters["VERSION_NUMBER"]
