@@ -101,6 +101,10 @@ job("Build & Deploy Python Implementations") {
             // image labels
             // labels["vendor"] = "mycompany"
             // to add a raw list of additional build arguments, use
+
+            // Add a cache-busting argument to force `apt-get update`
+            extraArgsForBuildCommand = listOf("--build-arg", "CACHEBUST=${System.currentTimeMillis()}")
+
             // extraArgsForBuildCommand = listOf("...")
             // to add a raw list of additional push arguments, use
             // extraArgsForPushCommand = listOf("...")
