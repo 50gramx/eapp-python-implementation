@@ -29,7 +29,7 @@ COPY nginx.conf /app/nginx/nginx.conf
 ENV SSL_CERT /app/certificates/server.crt
 ENV SSL_KEY /app/certificates/server.key
 
-# Copy SSL certificates and key into the container
+# Copy SSL certificates and key into the container image
 COPY certificates/server.crt /app/certificates/server.crt
 COPY certificates/server.key /app/certificates/server.key
 
