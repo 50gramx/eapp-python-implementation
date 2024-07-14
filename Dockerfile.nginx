@@ -14,6 +14,7 @@ COPY certificates/server.key /app/certificates/server.key
 # Expose ports
 EXPOSE 80
 EXPOSE 443
+EXPOSE 8000
 EXPOSE 8080
 
 # Command to start NGINX
