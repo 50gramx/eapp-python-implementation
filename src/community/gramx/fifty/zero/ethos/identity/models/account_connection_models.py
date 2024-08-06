@@ -18,15 +18,17 @@
 #   */
 
 import logging
-
 from sqlalchemy import Column, String, DateTime, Boolean, update
 from sqlalchemy.ext.declarative import declarative_base
-
 from db_session import DbSession
 from ethos.elint.entities import account_pb2
-from support.helper_functions import format_datetime_to_timestamp, format_timestamp_to_datetime, get_current_timestamp
+from support.helper_functions import (
+    format_datetime_to_timestamp, 
+    format_timestamp_to_datetime, 
+    get_current_timestamp
+)
 
-AccountConnectionModels = declarative_base()
+Base = declarative_base()
 
 
 class AccountConnections:
@@ -34,25 +36,18 @@ class AccountConnections:
         self.account_id = account_id
         self.account_assistant_connection_model_name = f"aac_{account_id}"
         self.account_connection_model_name = f"ac_{account_id}"
-        AccountConnectionModels.metadata.reflect(bind=DbSession.get_engine())
-        try:
-            self.account_assistant_connection_table = AccountConnectionModels.metadata.tables[
-                self.account_assistant_connection_model_name]
-            self.account_connection_table = AccountConnectionModels.metadata.tables[self.account_connection_model_name]
-        except KeyError:
-            self.account_assistant_connection_table = None
-            self.account_connection_table = None
+        Base.metadata.reflect(bind=DbSession.get_engine())
+        
+        self.account_assistant_connection_table = Base.metadata.tables.get(self.account_assistant_connection_model_name)
+        self.account_connection_table = Base.metadata.tables.get(self.account_connection_model_name)
 
-    # Setup Account Connection
     def setup_account_connections(self):
         self.get_account_assistant_connection_model().__table__.create(bind=DbSession.get_engine())
         self.get_account_connection_model().__table__.create(bind=DbSession.get_engine())
-        logging.info(f'account connections setup successfully for account id: {self.account_id}')
-        return
+        logging.info(f'Account connections setup successfully for account ID: {self.account_id}')
 
-    # Account Assistant Connection
     def get_account_assistant_connection_model(self):
-        class AccountAssistantConnection(AccountConnectionModels):
+        class AccountAssistantConnection(Base):
             __tablename__ = self.account_assistant_connection_model_name
 
             account_assistant_connection_id = Column(String(255), primary_key=True, unique=True)
@@ -61,24 +56,17 @@ class AccountConnections:
 
         return AccountAssistantConnection
 
-    def get_account_assistant_connection_model_name(self):
-        return self.account_assistant_connection_model_name
-
     def add_new_account_assistant_connection(self, account_assistant_connection_id: str, account_assistant_id: str):
-        statement = AccountConnectionModels.metadata.tables[
-            self.account_assistant_connection_model_name].insert().values(
+        statement = self.account_assistant_connection_table.insert().values(
             account_assistant_connection_id=account_assistant_connection_id,
             account_assistant_id=account_assistant_id,
             connected_at=format_timestamp_to_datetime(get_current_timestamp())
         )
         with DbSession.session_scope() as session:
             session.execute(statement)
-            session.flush()
             session.commit()
-        return
 
-    def get_connected_account_assistant(self,
-                                        account_assistant_id: str) -> account_pb2.AccountConnectedAccountAssistant:
+    def get_connected_account_assistant(self, account_assistant_id: str) -> account_pb2.AccountConnectedAccountAssistant:
         with DbSession.session_scope() as session:
             connected_account_assistant = session.query(self.account_assistant_connection_table).filter(
                 self.account_assistant_connection_table.c.account_assistant_id == account_assistant_id
@@ -89,35 +77,36 @@ class AccountConnections:
                 connected_at=format_datetime_to_timestamp(connected_account_assistant.connected_at)
             )
 
-    def get_connected_account_assistants(self) -> [account_pb2.AccountConnectedAccountAssistant]:
+    def get_connected_account_assistants(self) -> list[account_pb2.AccountConnectedAccountAssistant]:
         with DbSession.session_scope() as session:
             all_connected_account_assistant = session.query(self.account_assistant_connection_table).all()
-            return [account_pb2.AccountConnectedAccountAssistant(
-                account_assistant_connection_id=connected_account_assistant.account_assistant_connection_id,
-                account_assistant_id=connected_account_assistant.account_assistant_id,
-                connected_at=format_datetime_to_timestamp(connected_account_assistant.connected_at)
-            ) for connected_account_assistant in all_connected_account_assistant]
+            return [
+                account_pb2.AccountConnectedAccountAssistant(
+                    account_assistant_connection_id=connected_account_assistant.account_assistant_connection_id,
+                    account_assistant_id=connected_account_assistant.account_assistant_id,
+                    connected_at=format_datetime_to_timestamp(connected_account_assistant.connected_at)
+                ) for connected_account_assistant in all_connected_account_assistant
+            ]
 
     def is_account_assistant_connected(self, account_assistant_connection_id: str, account_assistant_id: str) -> bool:
         with DbSession.session_scope() as session:
-            statement = session.query(self.account_assistant_connection_table).filter(
-                self.account_assistant_connection_table.c.account_assistant_connection_id == account_assistant_connection_id,
-                self.account_assistant_connection_table.c.account_assistant_id == account_assistant_id
-            )
-            account_assistant_connected = session.query(statement.exists()).scalar()
-            return account_assistant_connected
+            return session.query(
+                session.query(self.account_assistant_connection_table).filter(
+                    self.account_assistant_connection_table.c.account_assistant_connection_id == account_assistant_connection_id,
+                    self.account_assistant_connection_table.c.account_assistant_id == account_assistant_id
+                ).exists()
+            ).scalar()
 
     def is_account_assistant_connection_exists(self, account_assistant_id: str) -> bool:
         with DbSession.session_scope() as session:
-            statement = session.query(self.account_connection_table).filter(
-                self.account_assistant_connection_table.c.account_assistant_id == account_assistant_id
-            )
-            account_assistant_connection_exists = session.query(statement.exists()).scalar()
-            return account_assistant_connection_exists
+            return session.query(
+                session.query(self.account_assistant_connection_table).filter(
+                    self.account_assistant_connection_table.c.account_assistant_id == account_assistant_id
+                ).exists()
+            ).scalar()
 
-    # Account Connection
     def get_account_connection_model(self):
-        class AccountConnection(AccountConnectionModels):
+        class AccountConnection(Base):
             __tablename__ = self.account_connection_model_name
 
             account_connection_id = Column(String(255), primary_key=True, unique=True)
@@ -128,21 +117,32 @@ class AccountConnections:
 
         return AccountConnection
 
-    def get_account_connection_model_name(self):
-        return self.account_connection_model_name
-
-    def get_connected_accounts(self) -> [account_pb2.AccountConnectedAccount]:
+    def add_new_account_connection(self, account_connection_id: str, account_id: str, self_connecting: bool):
+        statement = self.account_connection_table.insert().values(
+            account_connection_id=account_connection_id,
+            account_id=account_id,
+            account_interested_in_connection=self_connecting,
+            connected_account_interested_in_connection=not self_connecting,
+            connected_at=format_timestamp_to_datetime(get_current_timestamp())
+        )
         with DbSession.session_scope() as session:
-            all_connected_account = session.query(self.account_connection_table).all()
-            return [account_pb2.AccountConnectedAccount(
-                account_connection_id=connected_account.account_connection_id,
-                account_id=connected_account.account_id,
-                account_interested_in_connection=connected_account.account_interested_in_connection,
-                connected_account_interested_in_connection=connected_account.connected_account_interested_in_connection,
-                connected_at=format_datetime_to_timestamp(connected_account.connected_at)
-            ) for connected_account in all_connected_account]
+            session.execute(statement)
+            session.commit()
 
-    def get_connected_account(self, account_id) -> account_pb2.AccountConnectedAccount:
+    def get_connected_accounts(self) -> list[account_pb2.AccountConnectedAccount]:
+        with DbSession.session_scope() as session:
+            all_connected_accounts = session.query(self.account_connection_table).all()
+            return [
+                account_pb2.AccountConnectedAccount(
+                    account_connection_id=connected_account.account_connection_id,
+                    account_id=connected_account.account_id,
+                    account_interested_in_connection=connected_account.account_interested_in_connection,
+                    connected_account_interested_in_connection=connected_account.connected_account_interested_in_connection,
+                    connected_at=format_datetime_to_timestamp(connected_account.connected_at)
+                ) for connected_account in all_connected_accounts
+            ]
+
+    def get_connected_account(self, account_id: str) -> account_pb2.AccountConnectedAccount:
         with DbSession.session_scope() as session:
             connected_account = session.query(self.account_connection_table).filter(
                 self.account_connection_table.c.account_id == account_id
@@ -157,50 +157,33 @@ class AccountConnections:
 
     def is_account_connected(self, account_connection_id: str, account_id: str) -> bool:
         with DbSession.session_scope() as session:
-            statement = session.query(self.account_connection_table).filter(
-                self.account_connection_table.c.account_connection_id == account_connection_id,
-                self.account_connection_table.c.account_id == account_id
-            )
-            account_connected = session.query(statement.exists()).scalar()
-            return account_connected
+            return session.query(
+                session.query(self.account_connection_table).filter(
+                    self.account_connection_table.c.account_connection_id == account_connection_id,
+                    self.account_connection_table.c.account_id == account_id
+                ).exists()
+            ).scalar()
 
     def is_account_connection_exists(self, account_id: str) -> bool:
         with DbSession.session_scope() as session:
-            statement = session.query(self.account_connection_table).filter(
-                self.account_connection_table.c.account_id == account_id
-            )
-            account_connection_exists = session.query(statement.exists()).scalar()
-            return account_connection_exists
-
-    def add_new_account_connection(self, account_connection_id: str, account_id: str, self_connecting: bool):
-        statement = AccountConnectionModels.metadata.tables[
-            self.account_connection_model_name].insert().values(
-            account_connection_id=account_connection_id,
-            account_id=account_id,
-            account_interested_in_connection=self_connecting,
-            connected_account_interested_in_connection=not self_connecting,
-            connected_at=format_timestamp_to_datetime(get_current_timestamp())
-        )
-        with DbSession.session_scope() as session:
-            session.execute(statement)
-            session.flush()
-            session.commit()
-        return
+            return session.query(
+                session.query(self.account_connection_table).filter(
+                    self.account_connection_table.c.account_id == account_id
+                ).exists()
+            ).scalar()
 
     def update_account_interest_in_connection(self, account_id: str, is_interested: bool):
-        statement = (update(self.account_connection_table).where(
-            self.account_connection_table.c.account_id == account_id).values(
-            account_interested_in_connection=is_interested))
+        statement = update(self.account_connection_table).where(
+            self.account_connection_table.c.account_id == account_id
+        ).values(account_interested_in_connection=is_interested)
         with DbSession.session_scope() as session:
             session.execute(statement)
             session.commit()
-        return
 
     def update_connected_account_interest_in_connection(self, account_id: str, is_interested: bool):
-        statement = (update(self.account_connection_table).where(
-            self.account_connection_table.c.account_id == account_id).values(
-            connected_account_interested_in_connection=is_interested))
+        statement = update(self.account_connection_table).where(
+            self.account_connection_table.c.account_id == account_id
+        ).values(connected_account_interested_in_connection=is_interested)
         with DbSession.session_scope() as session:
             session.execute(statement)
             session.commit()
-        return
