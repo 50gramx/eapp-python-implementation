@@ -17,7 +17,7 @@
 #   * from Amit Kumar Khetan.
 #   */
 
-from sqlalchemy import Column, String, DateTime, ForeignKey, Boolean, Integer
+from sqlalchemy import Column, String, DateTime, ForeignKey, Boolean, Integer, Float 
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
@@ -96,7 +96,7 @@ class Space(Base):
     __tablename__ = "space"
 
     space_id = Column(String(255), primary_key=True, unique=True)
-    space_admin_id = Column(String(255), ForeignKey('account.account_id'))
+    space_admin_id = Column(String(255), ForeignKey('account.account_id'), nullable=False)
     galaxy_id = Column(String(255), ForeignKey('galaxy.galaxy_id'), nullable=False)
     space_accessibility_type = Column(String(), nullable=False)
     space_isolation_type = Column(String(), nullable=False)
@@ -133,9 +133,87 @@ class CoreCollaborator(Base):
 class SpaceThings(Base):
     __tablename__ = "space_things"
 
-    space_things_id         = Column(String, primary_key=True)  
-    space_things_name       = Column(String, nullable=False)
-    space_things_admin_id   = Column(String, ForeignKey('account.account_id'), nullable=False)
-    space_things_space_id   = Column(String, ForeignKey('space.space_id'), nullable=False)
+    space_things_id         = Column(String(255), primary_key=True)  
+    space_things_name       = Column(String(255), nullable=False)
+    space_things_admin_id   = Column(String(255), ForeignKey('account.account_id'), nullable=False)
+    space_things_space_id   = Column(String(255), ForeignKey('space.space_id'), nullable=False)
     space_things_created_at = Column(DateTime(), nullable=False)
 
+
+class MachineClass(Base):
+    __tablename__ = 'machine_class'
+    
+    machine_class_id                = Column(String(255), primary_key=True)
+    machine_class_main_class        = Column(String(255), nullable=False)
+    machine_class_sub_classes       = Column(String(255), nullable=False)
+    machine_class_vcpu              = Column(Integer(), nullable=False)
+    machine_class_ram_gib           = Column(Float(), nullable=False)
+    machine_class_machine_type      = Column(String(255), nullable=False)
+    machine_class_machine_category  = Column(String(255), nullable=False)
+
+class StorageClass(Base):
+    __tablename__ = 'storage_class'
+    
+    storage_class_id                = Column(String(255), primary_key=True)
+    storage_class_main_class        = Column(String(255), nullable=False)
+    storage_class_sub_classes       = Column(String(255), nullable=False)
+    storage_class_fast_storage      = Column(Float(), nullable=False)
+    storage_class_standard_storage  = Column(Float(), nullable=False)
+    storage_class_slow_storage      = Column(Float(), nullable=False)
+
+class BandwidthClass(Base):
+    __tablename__ = 'bandwidth_class'
+    
+    bandwidth_class_id                                      = Column(String(255), primary_key=True)
+    bandwidth_class_main_class                              = Column(String(255), nullable=False)
+    bandwidth_class_sub_classes                             = Column(String(255), nullable=False)
+    bandwidth_class_locale_network_bandwidth_class          = Column(Float(), nullable=False)
+    bandwidth_class_main_network_bandwidth_class            = Column(Float(), nullable=False)
+    bandwidth_class_main_network_bandwidth_static_address   = Column(Boolean(), nullable=False)
+
+class OperatorClass(Base):
+    __tablename__ = 'operator_class'
+    
+    operator_class_id                           = Column(String(255), primary_key=True)
+    operator_class_main_class                   = Column(String(255), nullable=False)
+    operator_class_sub_classes                  = Column(String(255), nullable=False)
+    operator_class_human_operator_class         = Column(Boolean(), nullable=False)
+    operator_class_collaborator_operator_class  = Column(Boolean(), nullable=False)
+    operator_class_certified_operator_class     = Column(Boolean(), nullable=False)
+
+class HashingClass(Base):
+    __tablename__ = 'hashing_class'
+    
+    hashing_class_id                            = Column(String(255), primary_key=True)
+    hashing_class_main_class                    = Column(String(255), nullable=False)
+    hashing_class_sub_classes                   = Column(String(255), nullable=False)
+    hashing_class_chain_hash_generation_class   = Column(Boolean(), nullable=False)
+
+class OrchestratorOS(Base):
+    __tablename__ = 'orchestrator_os'
+    
+    orchestrator_os_id      = Column(String(255), primary_key=True)
+    orchestrator_os_name    = Column(String(255), nullable=False)
+    orchestrator_os_version = Column(String(255), nullable=False)
+
+class NodeLiability(Base):
+    __tablename__ = 'node_liability'
+    
+    node_liability_id           = Column(String(255), primary_key=True)
+    node_liability_liability    = Column(String(255), nullable=False)
+    node_liability_license_id   = Column(String(255), nullable=False)
+
+class Things50DC500000000(Base):
+    __tablename__ = 'things_50dc500000000'
+    
+    things_50dc500000000_node_id            = Column(String(255), primary_key=True)
+    things_50dc500000000_name               = Column(String(255), nullable=False)
+    things_50dc500000000_machine_class_id   = Column(String(255), ForeignKey('machine_class.machine_class_id'), nullable=False)
+    things_50dc500000000_storage_class_id   = Column(String(255), ForeignKey('storage_class.storage_class_id'), nullable=False)
+    things_50dc500000000_bandwidth_class_id = Column(String(255), ForeignKey('bandwidth_class.bandwidth_class_id'), nullable=False)
+    things_50dc500000000_operator_class_id  = Column(String(255), ForeignKey('operator_class.operator_class_id'), nullable=False)
+    things_50dc500000000_hashing_class_id   = Column(String(255), ForeignKey('hashing_class.hashing_class_id'), nullable=False)
+    things_50dc500000000_base_os_id         = Column(String(255), ForeignKey('base_os.base_os_id'), nullable=False)
+    things_50dc500000000_orchestrator_os_id = Column(String(255), ForeignKey('orchestrator_os.orchestrator_os_id'), nullable=False)
+    things_50dc500000000_node_liability_id  = Column(String(255), ForeignKey('node_liability.node_liability_id'), nullable=False)
+    things_50dc500000000_created_at         = Column(DateTime(), nullable=False)
