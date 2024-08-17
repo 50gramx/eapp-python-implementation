@@ -129,3 +129,13 @@ class CoreCollaborator(Base):
     collaborator_first_name = Column(String(255), primary_key=True)
     collaborator_last_name = Column(String(255), primary_key=True)
     collaborator_community_code = Column(Integer(), primary_key=True)
+
+class SpaceThings(Base):
+    __tablename__ = "space_things"
+
+    space_things_id         = Column(String, primary_key=True)  
+    space_things_name       = Column(String, nullable=False)
+    space_things_admin_id   = Column(String, ForeignKey('account.account_id'), nullable=False)
+    space_things_space_id   = Column(String, ForeignKey('space.space_id'), nullable=False)
+    space_things_created_at = Column(DateTime(), nullable=False)
+
