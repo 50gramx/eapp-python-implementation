@@ -17,8 +17,11 @@
 #   * from Amit Kumar Khetan.
 #   */
 
-from sqlalchemy import Column, String, DateTime, ForeignKey, Boolean, Integer
+from sqlalchemy import Column, String, DateTime, ForeignKey, Boolean, Integer, Enum, Float
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
+from enum import Enum as PyEnum
+
 
 Base = declarative_base()
 
@@ -26,6 +29,27 @@ Base = declarative_base()
 50GRAMX Chains
 """
 
+# Enum for DeviceType
+class DeviceType(PyEnum):
+    UNKNOWN = 0
+    SENSOR = 1
+    ACTUATOR = 2
+    CAMERA = 3
+    ROBOT = 4
+    COMPUTER = 5
+
+# Enum for LogLevel
+class LogLevel(PyEnum):
+    INFO = 0
+    WARNING = 1
+    ERROR = 2
+    CRITICAL = 3
+
+# Enum for ActionType
+class ActionType(PyEnum):
+    RESTART = 0
+    SHUTDOWN = 1
+    UPDATE_FIRMWARE = 2
 
 class Account(Base):
     __tablename__ = 'account'
@@ -129,3 +153,132 @@ class CoreCollaborator(Base):
     collaborator_first_name = Column(String(255), primary_key=True)
     collaborator_last_name = Column(String(255), primary_key=True)
     collaborator_community_code = Column(Integer(), primary_key=True)
+
+
+class SpaceThingsDomain(Base):
+    __tablename__ = 'space_things_domain'
+    
+    id = Column(String, primary_key=True)
+    name = Column(String)
+    description = Column(String)
+    # Assuming collar is another model or JSON
+    collar = Column(String)  # This should be refined based on actual structure
+    is_isolated = Column(Boolean)
+    created_at = Column(DateTime, nullable=False)
+    last_updated_at = Column(DateTime)
+
+
+class SpaceThingsDomainDevice(Base):
+    __tablename__ = 'space_things_domain_device'
+    
+    id = Column(String, primary_key=True)
+    name = Column(String)
+    domain_id = Column(String, ForeignKey('space_things_domain.id'))
+    domain = relationship("SpaceThingsDomain", back_populates="devices")
+    created_at = Column(DateTime, nullable=False)
+    last_updated_at = Column(DateTime)
+    last_accessed_at = Column(DateTime)
+    type = Column(Enum(DeviceType))
+    specs_id = Column(String, ForeignKey('device_specs.id'))
+    specs = relationship("DeviceSpecs", back_populates="device")
+    status_id = Column(String, ForeignKey('device_status.id'))
+    status = relationship("DeviceStatus", back_populates="device")
+    config_id = Column(String, ForeignKey('device_configuration.id'))
+    config = relationship("DeviceConfiguration", back_populates="device")
+    tags = Column(String) 
+    logs = relationship("DeviceLog", back_populates="device")
+    metrics = relationship("DeviceMetric", back_populates="device")
+    actions = relationship("DeviceAction", back_populates="device")
+    action_logs = relationship("DeviceActionLog", back_populates="device")
+
+
+class DeviceSpecs(Base):
+    __tablename__ = 'device_specs'
+    
+    id = Column(String, primary_key=True)
+    manufacturer = Column(String)
+    model = Column(String)
+    firmware_version = Column(String)
+    memory_gb = Column(Integer)
+    storage_gb = Column(Integer)
+    cpu_ghz = Column(Float)
+    device_id = Column(String, ForeignKey('space_things_domain_device.id'))
+    device = relationship("SpaceThingsDomainDevice", back_populates="specs")
+    network_interfaces = relationship("NetworkInterface", back_populates="specs")
+
+
+class NetworkInterface(Base):
+    __tablename__ = 'network_interface'
+    
+    id = Column(String, primary_key=True)
+    mac_address = Column(String)
+    ip_address = Column(String)
+    interface_type = Column(String)
+    specs_id = Column(String, ForeignKey('device_specs.id'))
+    specs = relationship("DeviceSpecs", back_populates="network_interfaces")
+
+
+class DeviceStatus(Base):
+    __tablename__ = 'device_status'    
+    
+    id = Column(String, primary_key=True)
+    is_online = Column(Boolean)
+    last_checked = Column(DateTime)
+    alerts = Column(String)
+    device_id = Column(String, ForeignKey('space_things_domain_device.id'))
+    device = relationship("SpaceThingsDomainDevice", back_populates="status")
+
+
+class DeviceLog(Base):
+    __tablename__ = 'device_log'    
+    
+    id = Column(String, primary_key=True)
+    timestamp = Column(String)
+    message = Column(String)
+    level = Column(Enum(LogLevel))
+    device_id = Column(String, ForeignKey('space_things_domain_device.id'))
+    device = relationship("SpaceThingsDomainDevice", back_populates="logs")
+
+
+class DeviceConfiguration(Base):
+    __tablename__ = 'device_configuration'    
+    
+    id = Column(String, primary_key=True)
+    config_name = Column(String)
+    config_value = Column(String)
+    device_id = Column(String, ForeignKey('space_things_domain_device.id'))
+    device = relationship("SpaceThingsDomainDevice", back_populates="config")
+
+
+class DeviceMetric(Base):
+    __tablename__ = 'device_metric'
+    
+    id = Column(String, primary_key=True)
+    metric_name = Column(String)
+    value = Column(Float)
+    timestamp = Column(DateTime)
+    device_id = Column(String, ForeignKey('space_things_domain_device.id'))
+    device = relationship("SpaceThingsDomainDevice", back_populates="metrics")
+
+
+class DeviceAction(Base):
+    __tablename__ = 'device_action'
+    
+    id = Column(String, primary_key=True)
+    action_id = Column(String)
+    action_name = Column(String)
+    action_type = Column(Enum(ActionType))
+    parameters = Column(String)
+    device_id = Column(String, ForeignKey('space_things_domain_device.id'))
+    device = relationship("SpaceThingsDomainDevice", back_populates="actions")
+
+
+class DeviceActionLog(Base):
+    __tablename__ = 'device_action_log'
+    
+    id = Column(String, primary_key=True)
+    action_id = Column(String)
+    timestamp = Column(DateTime)
+    result = Column(String)
+    device_id = Column(String, ForeignKey('space_things_domain_device.id'))
+    device = relationship("SpaceThingsDomainDevice", back_populates="action_logs")
