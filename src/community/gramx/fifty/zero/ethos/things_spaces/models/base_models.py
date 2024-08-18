@@ -17,8 +17,10 @@
 #   * from Amit Kumar Khetan.
 #   */
 
-from sqlalchemy import Column, String, DateTime
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, String, DateTime, ForeignKey
+from sqlalchemy.orm import relationship, declarative_base
+from ethos.identity.models.base_models import Account, Space
+from support.helper_functions import format_timestamp_to_datetime
 
 BaseModels = declarative_base()
 
@@ -27,5 +29,14 @@ class SpaceThings(BaseModels):
     __tablename__ = 'space_things'
 
     id = Column(String(255), primary_key=True, unique=True)
-    # TODO(peivee@): rest of the fields
+    name = Column(String(255), nullable=False)
+    admin_id = Column(String(255), ForeignKey('account.id'), nullable=False)
+    space_id = Column(String(255), ForeignKey('space.id'), nullable=False)
+    created_at = Column(DateTime, nullable=False, default=format_timestamp_to_datetime)
+    admin = relationship('Account', cascade='save-update')
+    space = relationship('Space', cascade='save-update')
+
+    def __repr__(self):
+        return f"<SpaceThings(id='{self.id}', name='{self.name}', created_at='{self.created_at}')>"
+
     
