@@ -30,11 +30,11 @@ class SpaceThings(BaseModels):
 
     id = Column(String(255), primary_key=True, unique=True)
     name = Column(String(255), nullable=False)
-    admin_id = Column(String(255), ForeignKey('account.id'), nullable=False)
-    space_id = Column(String(255), ForeignKey('space.id'), nullable=False)
+    admin_id = Column(String(255), ForeignKey('account.account_id'), nullable=False)
+    space_id = Column(String(255), ForeignKey('space.space_id'), nullable=False)
     created_at = Column(DateTime, nullable=False, default=format_timestamp_to_datetime)
-    admin = relationship('Account', cascade='save-update')
-    space = relationship('Space', cascade='save-update')
+    admin = relationship('Account', cascade='save-update', backref='space_things')
+    space = relationship('Space', cascade='save-update', backref='space_things')
 
     def __repr__(self):
         return f"<SpaceThings(id='{self.id}', name='{self.name}', created_at='{self.created_at}')>"
