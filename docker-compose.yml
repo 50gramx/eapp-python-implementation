@@ -139,6 +139,24 @@ services:
       - s3
     restart: always
 
+  # Content Management System (Self-hosted)
+  strapi:
+    image: strapi/strapi
+    container_name: strapi
+    restart: unless-stopped
+    ports:
+      - '1337:1337'
+    volumes:
+      - ./app:/srv/app
+    environment:
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: mydatabase
+      DATABASE_USERNAME: user
+      DATABASE_PASSWORD: password
+    depends_on:
+      - postgres
 
 networks:
   default:
