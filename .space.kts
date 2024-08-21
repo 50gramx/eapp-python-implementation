@@ -1,5 +1,3 @@
-@file:DependsOn("com.slack.api:slack-api-client:1.1.1")
-import com.slack.api.Slack
 import java.time.LocalDate
 import java.io.File // For working with file paths
 import java.lang.ProcessBuilder // To execute commands
@@ -48,7 +46,6 @@ job("Build & Deploy Python Implementations") {
     }
 
     container("Schedule Deployment", image = "amazoncorretto:17-alpine") {
-        env["SLACK_OAUTH_BOT_TOKEN"] = Secrets("SLACK_OAUTH_BOT_TOKEN")
 
         kotlinScript { api ->
             api.space().projects.automation.deployments.schedule(
@@ -56,12 +53,6 @@ job("Build & Deploy Python Implementations") {
                 targetIdentifier = TargetIdentifier.Key("python-implementation-deployment"),
                 version = api.parameters["VERSION_NUMBER"],
             )
-            val slack = Slack.getInstance()
-            val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
-            val version = api.parameters["VERSION_NUMBER"]
-            val response = slack.methods(token).chatPostMessage { req ->
-                req.channel("#product-dev").text("⚠️ Scheduled 🐍 Python v$version System Capability Deployment 🙏")
-            }
         }
 
         requirements {
@@ -108,7 +99,6 @@ job("Build & Deploy Python Implementations") {
     }
 
     container("Start Deployment", image = "amazoncorretto:17-alpine") {
-        env["SLACK_OAUTH_BOT_TOKEN"] = Secrets("SLACK_OAUTH_BOT_TOKEN")
 
         kotlinScript { api ->
             api.space().projects.automation.deployments.start(
@@ -118,12 +108,6 @@ job("Build & Deploy Python Implementations") {
                 // automatically update deployment status based on a status of a job
                 syncWithAutomationJob = true
             )
-            val slack = Slack.getInstance()
-            val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
-            val version = api.parameters["VERSION_NUMBER"]
-            val response = slack.methods(token).chatPostMessage { req ->
-                req.channel("#product-dev").text("🚨️ Started 🐍 Python v$version System Capability Deployment 🙏")
-            }
         }
 
         requirements {
@@ -184,7 +168,6 @@ job("Build & Deploy Python Implementations") {
     }
 
     container("Finish Deployment", image = "amazoncorretto:17-alpine") {
-        env["SLACK_OAUTH_BOT_TOKEN"] = Secrets("SLACK_OAUTH_BOT_TOKEN")
 
         kotlinScript { api ->
             api.space().projects.automation.deployments.finish(
@@ -192,13 +175,6 @@ job("Build & Deploy Python Implementations") {
                 targetIdentifier = TargetIdentifier.Key("python-implementation-deployment"),
                 version = api.parameters["VERSION_NUMBER"],
             )
-            val slack = Slack.getInstance()
-            val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
-            val version = api.parameters["VERSION_NUMBER"]
-            val response = slack.methods(token).chatPostMessage { req ->
-                req.channel("#product-dev").text("👋 Deployed 🐍 Python v$version System Capabilities 🙏")
-            }
-            // to fail the deployment, use ...deployments.fail()
         }
 
         requirements {
@@ -337,40 +313,6 @@ job("Deploy Python Implementations") {
         }
     }
 
-    container("Schedule Deployment", image = "amazoncorretto:17-alpine") {
-        env["SLACK_OAUTH_BOT_TOKEN"] = Secrets("SLACK_OAUTH_BOT_TOKEN")
-
-        kotlinScript { api ->
-            val slack = Slack.getInstance()
-            val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
-            val version = api.parameters["VERSION_NUMBER"]
-            val response = slack.methods(token).chatPostMessage { req ->
-                req.channel("#product-dev").text("⚠️ Scheduled 🐍 Python v$version System Capability Deployment 🙏")
-            }
-        }
-
-        requirements {
-            workerTags("windows-pool")
-        }
-    }
-
-    container("Start Deployment", image = "amazoncorretto:17-alpine") {
-        env["SLACK_OAUTH_BOT_TOKEN"] = Secrets("SLACK_OAUTH_BOT_TOKEN")
-
-        kotlinScript { api ->
-            val slack = Slack.getInstance()
-            val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
-            val version = api.parameters["VERSION_NUMBER"]
-            val response = slack.methods(token).chatPostMessage { req ->
-                req.channel("#product-dev").text("🚨️ Started 🐍 Python v$version System Capability Deployment 🙏")
-            }
-        }
-
-        requirements {
-            workerTags("windows-pool")
-        }
-    }
-
     host("Trigger Python Implementations Backups") {
 
         shellScript {
@@ -420,24 +362,6 @@ job("Deploy Python Implementations") {
         requirements {
             workerTags("windows-pool")
             workerTags("amitkumarkhetan15-user")
-        }
-    }
-
-    container("Finish Deployment", image = "amazoncorretto:17-alpine") {
-        env["SLACK_OAUTH_BOT_TOKEN"] = Secrets("SLACK_OAUTH_BOT_TOKEN")
-
-        kotlinScript { api ->
-            val slack = Slack.getInstance()
-            val token = System.getenv("SLACK_OAUTH_BOT_TOKEN")
-            val version = api.parameters["VERSION_NUMBER"]
-            val response = slack.methods(token).chatPostMessage { req ->
-                req.channel("#product-dev").text("👋 Deployed 🐍 Python v$version System Capabilities 🙏")
-            }
-            // to fail the deployment, use ...deployments.fail()
-        }
-
-        requirements {
-            workerTags("windows-pool")
         }
     }
 }
