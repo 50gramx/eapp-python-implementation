@@ -428,6 +428,52 @@ job("Build Capabilities Proxy Image") {
     }
 }
 
+job("Build Nginx Upstream Image") {
+    startOn {
+        gitPush {
+            pathFilter {
+                +"Dockerfile.nginx"
+            }
+        }
+    }
+
+    // To check a condition, basically, you need a kotlinScript step
+    host(displayName = "Setup Version") {
+        kotlinScript { api ->
+            // Get the current year and month
+            val currentYear = (LocalDate.now().year % 100).toString().padStart(2, '0')
+            val currentMonth = LocalDate.now().monthValue.toString()
+
+            // Get the execution number from environment variables
+            val currentExecution = System.getenv("JB_SPACE_EXECUTION_NUMBER")
+
+            // Set the VERSION_NUMBER parameter
+            api.parameters["VERSION_NUMBER"] = "$currentYear.$currentMonth.$currentExecution"
+        }
+
+        requirements {
+            workerTags("windows-pool")
+        }
+    }
+
+    host("Build and push nginx upstream image") {
+        dockerBuildPush {
+            
+            file = "Dockerfile.nginx"
+
+            tags {
+                // use current job run number as a tag - '0.0.run_number'
+                +"50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-capabilities-upstream:{{ VERSION_NUMBER }}"
+                +"50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-capabilities-upstream:latest"
+            }
+        }
+
+        requirements {
+            workerTags("windows-pool")
+        }
+    }
+}
+
 
 job("Run EthosPods First Worker") {
     startOn {
