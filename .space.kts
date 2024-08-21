@@ -433,6 +433,7 @@ job("Build Nginx Upstream Image") {
         gitPush {
             pathFilter {
                 +"Dockerfile.nginx"
+                +"nginx.conf"
             }
         }
     }
