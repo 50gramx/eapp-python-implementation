@@ -124,9 +124,7 @@ services:
 
   # Nginx Proxy
   nginx:
-    build:
-      context: .
-      dockerfile: Dockerfile.nginx
+    image: 50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-capabilities-upstream:latest
     ports:
       - "80:80"
       - "443:443"
@@ -137,6 +135,7 @@ services:
       - sync_py_caps_proxy
       - jaeger
       - s3
+      - strapi
     restart: always
 
   # Content Management System (Self-hosted)
