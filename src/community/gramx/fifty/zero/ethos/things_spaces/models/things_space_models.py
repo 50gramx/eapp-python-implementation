@@ -23,8 +23,9 @@ from sqlalchemy import Column, String, Integer, Boolean, ForeignKey, DateTime, u
 from sqlalchemy.ext.declarative import declarative_base
 
 from db_session import DbSession
-from ethos.elint.entities import space_knowledge_pb2, space_knowledge_domain_pb2, space_knowledge_domain_file_pb2, \
-    space_knowledge_domain_file_page_pb2, space_knowledge_domain_file_page_para_pb2
+# from ethos.elint.entities import space_knowledge_pb2, space_knowledge_domain_pb2, space_knowledge_domain_file_pb2, \
+#     space_knowledge_domain_file_page_pb2, space_knowledge_domain_file_page_para_pb2
+from ethos.elint.entities import space_things_pb2, space_things_domain_pb2, space_things_domain_device_pb2
 from ethos.elint.entities.space_knowledge_domain_file_page_para_pb2 import PageContourDimensions
 from support.helper_functions import format_timestamp_to_datetime, get_current_timestamp, gen_uuid, \
     format_datetime_to_timestamp
@@ -118,9 +119,9 @@ class ThingsSpace:
             ) for space_things_domain in space_things_domains]    # TODO(@peivee): fix remaining
 
     # TODO(@peivee): fix this
-    def update_domain_last_updated_at(self, space_knowledge_domain_id: str):
+    def update_domain_last_updated_at(self, space_things_domain_id: str):
         statement = (update(self.domain_table).where(
-            self.domain_table.c.space_knowledge_domain_id == space_knowledge_domain_id).values(
+            self.domain_table.c.space_things_domain_id == space_things_domain_id).values(
             last_updated_at=format_timestamp_to_datetime(get_current_timestamp())))
         with DbSession.session_scope() as session:
             session.execute(statement)
