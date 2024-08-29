@@ -19,7 +19,7 @@
 
 import logging
 import unicodedata
-from sqlalchemy import Column, String, Integer, Boolean, ForeignKey, DateTime, update
+from sqlalchemy import Column, String, Integer, Boolean, ForeignKey, DateTime, update, Float
 from sqlalchemy.ext.declarative import declarative_base
 
 from db_session import DbSession
@@ -118,7 +118,7 @@ class ThingsSpace:
                 space_things_domain_id=space_things_domain.space_things_domain_id,
             ) for space_things_domain in space_things_domains]    # TODO(@peivee): fix remaining
 
-    # TODO(@peivee): fix this
+    # TODO(@peivee): fix this - DONE
     def update_domain_last_updated_at(self, space_things_domain_id: str):
         statement = (update(self.domain_table).where(
             self.domain_table.c.space_things_domain_id == space_things_domain_id).values(
@@ -137,528 +137,353 @@ class DomainKnowledgeSpace:
 
     # TODO (@peivee): please try to relate why there are different tables with same id
     # I hope you will be able to visualise the distributed database architecture with domains
-    def __init__(self, space_knowledge_id: str, space_knowledge_domain_id: str):
-        self.space_knowledge_domain_id = space_knowledge_domain_id
-        self.domain_model_name = KnowledgeSpace(space_knowledge_id=space_knowledge_id).get_domain_model_name()
-        self.inferring_account_model_name = f"ia_{space_knowledge_domain_id}"
-        self.file_model_name = f"skdf_{space_knowledge_domain_id}"
-        self.file_tags_model_name = f"skdft_{space_knowledge_domain_id}"
-        self.file_tags_relations_model_name = f"skdftr_{space_knowledge_domain_id}"
-        self.page_model_name = f"skdfp_{space_knowledge_domain_id}"
-        self.page_text_model_name = f"skdfpt_{space_knowledge_domain_id}"
-        self.para_model_name = f"skdfpp_{space_knowledge_domain_id}"
-        self.para_text_model_name = f"skdfppt_{space_knowledge_domain_id}"
-        self.domain_qa_context_model_name = f"qa_context_{space_knowledge_domain_id}"
-        KnowledgeSpaceModels.metadata.reflect(bind=DbSession.get_engine())
+    def __init__(self, space_things_id: str, things_domain_id: str):
+        self.space_things_domain_id = things_domain_id
+        self.things_model_name = f"things_{things_domain_id}"
+        self.domain_model_name = ThingsSpace(space_things_id=space_things_id).get_domain_model_name()
+        self.machine_class_model_name = f"machine_class_{things_domain_id}"
+        self.storage_class_model_name = f"storage_class_{things_domain_id}"
+        self.bandwidth_class_model_name = f"bandwidth_class_{things_domain_id}"
+        self.operator_class_model_name = f"operator_class_{things_domain_id}"
+        self.hashing_class_model_name = f"hashing_class_{things_domain_id}"
+        self.base_os_model_name = f"base_os_{things_domain_id}"
+        self.orchestrator_os_model_name = f"orchestrator_os_{things_domain_id}"
+        self.node_liability_model_name = f"node_liability_{things_domain_id}"
+        ThingsSpaceModels.metadata.reflect(bind=DbSession.get_engine())
         try:
-            self.file_table = KnowledgeSpaceModels.metadata.tables[self.file_model_name]
-            self.file_tags_table = KnowledgeSpaceModels.metadata.tables[self.file_tags_model_name]
-            self.file_tags_relations_table = KnowledgeSpaceModels.metadata.tables[self.file_tags_relations_model_name]
-            self.page_table = KnowledgeSpaceModels.metadata.tables[self.page_model_name]
-            self.page_text_table = KnowledgeSpaceModels.metadata.tables[self.page_text_model_name]
-            self.para_table = KnowledgeSpaceModels.metadata.tables[self.para_model_name]
-            self.para_text_table = KnowledgeSpaceModels.metadata.tables[self.para_text_model_name]
-            self.domain_qa_context_table = KnowledgeSpaceModels.metadata.tables[self.domain_qa_context_model_name]
+            self.things_table = ThingsSpaceModels.metadata.tables[self.things_model_name]
+            self.machine_class_table = ThingsSpaceModels.metadata.tables[self.machine_class_model_name]
+            self.storage_class_table = ThingsSpaceModels.metadata.tables[self.storage_class_model_name]
+            self.bandwidth_class_table = ThingsSpaceModels.metadata.tables[self.bandwidth_class_model_name]
+            self.operator_class_table = ThingsSpaceModels.metadata.tables[self.operator_class_model_name]
+            self.hashing_class_table = ThingsSpaceModels.metadata.tables[self.hashing_class_model_name]
+            self.base_os_table = ThingsSpaceModels.metadata.tables[self.base_os_model_name]
+            self.orchestrator_os_table = ThingsSpaceModels.metadata.tables[self.orchestrator_os_model_name]
+            self.node_liability_table = ThingsSpaceModels.metadata.tables[self.node_liability_model_name]
         except KeyError:
-            self.file_table = None
-            self.file_tags_table = None
-            self.file_tags_relations_table = None
-            self.page_table = None
-            self.page_text_table = None
-            self.para_table = None
-            self.para_text_table = None
-            self.domain_qa_context_table = None
+            self.things_table = None
+            self.machine_class_table = None
+            self.storage_class_table = None
+            self.bandwidth_class_table = None
+            self.operator_class_table = None
+            self.hashing_class_table = None
+            self.base_os_table = None
+            self.orchestrator_os_table = None
+            self.node_liability_table = None
 
     # TODO(@peivee): here, all the base tables are setup
     # Setup Domain Knowledge Space
-    def setup_domain_knowledge_space(self):
-        self.get_inferring_account_model().__table__.create(bind=DbSession.get_engine())
-        self.get_file_model().__table__.create(bind=DbSession.get_engine())
-        self.get_file_tags_model().__table__.create(bind=DbSession.get_engine())
-        self.get_file_tags_relations_model().__table__.create(bind=DbSession.get_engine())
-        self.get_page_model().__table__.create(bind=DbSession.get_engine())
-        self.get_page_text_model().__table__.create(bind=DbSession.get_engine())
-        self.get_para_model().__table__.create(bind=DbSession.get_engine())
-        self.get_para_text_model().__table__.create(bind=DbSession.get_engine())
-        self.get_domain_qa_context_model().__table__.create(bind=DbSession.get_engine())
+    def setup_domain_things_space(self):
+        self.get_things_model().__table__.create(bind=DbSession.get_engine())
+        self.get_machine_class_model().__table__.create(bind=DbSession.get_engine())
+        self.get_storage_class_model().__table__.create(bind=DbSession.get_engine())
+        self.get_bandwidth_class_model().__table__.create(bind=DbSession.get_engine())
+        self.get_operator_class_model().__table__.create(bind=DbSession.get_engine())
+        self.get_hashing_class_model().__table__.create(bind=DbSession.get_engine())
+        self.get_base_os_model().__table__.create(bind=DbSession.get_engine())
+        self.get_orchestrator_os_model().__table__.create(bind=DbSession.get_engine())
+        self.get_node_liability_model().__table__.create(bind=DbSession.get_engine())
         return
 
-    # Inferring Accounts
-    def get_inferring_account_model(self):
-        class SpaceKnowledgeDomainInferringAccount(KnowledgeSpaceModels):
-            __tablename__ = self.inferring_account_model_name
+    # Things Model
+    def get_things_model(self):
+        class ThingsModel(ThingsSpaceModels):
+            __tablename__ = self.things_model_name
 
-            inferring_account_id = Column(String(255), primary_key=True)
-            space_knowledge_id = Column(String(255), nullable=False)
-            account_id = Column(String(255), primary_key=True)
-            inferred_at = Column(DateTime, nullable=False)
+            node_id = Column(String(255), primary_key=True)
+            name = Column(String(255), nullable=False)
+            machine_class_id = Column(String(255), nullable=False)
+            storage_class_id = Column(String(255), nullable=False)
+            bandwidth_class_id = Column(String(255), nullable=False)
+            operator_class_id = Column(String(255), nullable=False)
+            hashing_class_id = Column(String(255), nullable=False)
+            base_os_id = Column(String(255), nullable=False)
+            orchestrator_os_id = Column(String(255), nullable=False)
+            node_liability_id = Column(String(255), nullable=False)
+            created_at = Column(DateTime, nullable=False)
 
-        return SpaceKnowledgeDomainInferringAccount
+        return ThingsModel
 
-    def get_inferring_account_model_name(self):
-        return self.inferring_account_model_name
 
-    def add_new_inferring_account(self, inferring_account_id: str, space_knowledge_id: str, account_id: str):
-        statement = KnowledgeSpaceModels.metadata.tables[self.inferring_account_model_name].insert().values(
-            inferring_account_id=inferring_account_id,
-            space_knowledge_id=space_knowledge_id,
-            account_id=account_id,
-            inferred_at=format_timestamp_to_datetime(get_current_timestamp())
+    def get_things_model_name(self):
+        return self.things_model_name
+
+    def add_new_thing(self, node_id: str, name: str, machine_class_id: str, storage_class_id: str,
+                  bandwidth_class_id: str, operator_class_id: str, hashing_class_id: str, 
+                  base_os_id: str, orchestrator_os_id: str, node_liability_id: str):
+        statement = ThingsSpaceModels.metadata.tables[self.things_model_name].insert().values(
+            node_id=node_id,
+            name=name,
+            machine_class_id=machine_class_id,
+            storage_class_id=storage_class_id,
+            bandwidth_class_id=bandwidth_class_id,
+            operator_class_id=operator_class_id,
+            hashing_class_id=hashing_class_id,
+            base_os_id=base_os_id,
+            orchestrator_os_id=orchestrator_os_id,
+            node_liability_id=node_liability_id,
+            created_at=format_timestamp_to_datetime(get_current_timestamp())
         )
         with DbSession.session_scope() as session:
             session.execute(statement)
             session.commit()
         return
 
-        # File
 
-    # File
-    def get_file_model(self):
-        class SpaceKnowledgeDomainFile(KnowledgeSpaceModels):
-            __tablename__ = self.file_model_name
+    # Machine Class Model
+    def get_machine_class_model(self):
+        class MachineClassModel(ThingsSpaceModels):
+            __tablename__ = self.machine_class_model_name
 
-            space_knowledge_domain_file_id = Column(String(255), primary_key=True, unique=True)
-            space_knowledge_domain_file_name = Column(String(255), nullable=False)
-            space_knowledge_domain_file_size = Column(Integer(), nullable=False)
-            space_knowledge_domain_file_extension_type = Column(Integer(), nullable=False)
-            space_knowledge_domain_id = Column(
-                String(255),
-                ForeignKey(f"{self.domain_model_name}.space_knowledge_domain_id"),
-                nullable=False)
-            created_at = Column(DateTime(), nullable=False)
-            last_updated_at = Column(DateTime(), nullable=False)
-            last_accessed_at = Column(DateTime(), nullable=False)
+            id = Column(String(255), primary_key=True, unique=True)
+            main_class = Column(String(255), nullable=False)
+            sub_classes = Column(String(255), nullable=True)
+            vcpu = Column(Integer, nullable=False)
+            ram_gib = Column(Float, nullable=False)
+            machine_type = Column(String(255), nullable=False)
+            machine_category = Column(String(255), nullable=False)
 
-        return SpaceKnowledgeDomainFile
+        return MachineClassModel
 
-    def get_file_model_name(self):
-        return self.file_model_name
 
-    def add_new_file(self, file_name: str, file_extension_type: str, file_size: int) -> str:
-        file_id = gen_uuid()
-        statement = KnowledgeSpaceModels.metadata.tables[self.file_model_name].insert().values(
-            space_knowledge_domain_file_id=file_id,
-            space_knowledge_domain_file_name=file_name,
-            space_knowledge_domain_file_extension_type=file_extension_type,
-            space_knowledge_domain_file_size=file_size,
-            space_knowledge_domain_id=self.space_knowledge_domain_id,
-            created_at=format_timestamp_to_datetime(get_current_timestamp()),
-            last_updated_at=format_timestamp_to_datetime(get_current_timestamp()),
-            last_accessed_at=format_timestamp_to_datetime(get_current_timestamp()),
+    def get_machine_class_model_name(self):
+        return self.machine_class_model_name
+
+
+    def add_new_machine_class(self, main_class: str, sub_classes: str, vcpu: int, ram_gib: float,
+                          machine_type: str, machine_category: str) -> str:
+        machine_class_id = gen_uuid()
+        statement = ThingsSpaceModels.metadata.tables[self.machine_class_model_name].insert().values(
+            id=machine_class_id,
+            main_class=main_class,
+            sub_classes=sub_classes,
+            vcpu=vcpu,
+            ram_gib=ram_gib,
+            machine_type=machine_type,
+            machine_category=machine_category
         )
         with DbSession.session_scope() as session:
             session.execute(statement)
             session.commit()
-        return file_id
+        return machine_class_id
 
-    def get_file_with_id(self, space_knowledge_domain: space_knowledge_domain_pb2.SpaceKnowledgeDomain,
-                         file_id: str) -> space_knowledge_domain_file_pb2.SpaceKnowledgeDomainFile:
-        with DbSession.session_scope() as session:
-            space_knowledge_domain_file = session.query(self.file_table).filter(
-                self.file_table.c.space_knowledge_domain_file_id == file_id
-            ).first()
-            space_knowledge_domain_file_tags = self.get_file_tags(
-                file_id=space_knowledge_domain_file.space_knowledge_domain_file_id)
-            return space_knowledge_domain_file_pb2.SpaceKnowledgeDomainFile(
-                space_knowledge_domain_file_id=space_knowledge_domain_file.space_knowledge_domain_file_id,
-                space_knowledge_domain_file_name=space_knowledge_domain_file.space_knowledge_domain_file_name,
-                space_knowledge_domain_file_size=space_knowledge_domain_file.space_knowledge_domain_file_size,
-                space_knowledge_domain_file_extension_type=space_knowledge_domain_file_pb2.ExtentionType.Name(
-                    int(space_knowledge_domain_file.space_knowledge_domain_file_extension_type)),
-                space_knowledge_domain=space_knowledge_domain,
-                space_knowledge_domain_file_tags=space_knowledge_domain_file_tags,
-                created_at=format_datetime_to_timestamp(space_knowledge_domain_file.created_at),
-                last_updated_at=format_datetime_to_timestamp(space_knowledge_domain_file.last_updated_at),
-                last_accessed_at=format_datetime_to_timestamp(space_knowledge_domain_file.last_accessed_at)
-            )
 
-    def get_file_all_existing(self, space_knowledge_domain: space_knowledge_domain_pb2.SpaceKnowledgeDomain
-                              ) -> [space_knowledge_domain_file_pb2.SpaceKnowledgeDomainFile]:
-        with DbSession.session_scope() as session:
-            space_knowledge_domain_files = session.query(self.file_table).all()
-            # create the space_knowledge_domain_file obj wrt proto contract
-            list_of_space_knowledge_domain_file = list()
-            for space_knowledge_domain_file in space_knowledge_domain_files:
-                space_knowledge_domain_file_tags = self.get_file_tags(
-                    file_id=space_knowledge_domain_file.space_knowledge_domain_file_id)
-                list_of_space_knowledge_domain_file.append(
-                    space_knowledge_domain_file_pb2.SpaceKnowledgeDomainFile(
-                        space_knowledge_domain_file_id=space_knowledge_domain_file.space_knowledge_domain_file_id,
-                        space_knowledge_domain_file_name=space_knowledge_domain_file.space_knowledge_domain_file_name,
-                        space_knowledge_domain_file_size=space_knowledge_domain_file.space_knowledge_domain_file_size,
-                        space_knowledge_domain_file_extension_type=space_knowledge_domain_file_pb2.ExtentionType.Name(
-                            int(space_knowledge_domain_file.space_knowledge_domain_file_extension_type)),
-                        space_knowledge_domain=space_knowledge_domain,
-                        space_knowledge_domain_file_tags=space_knowledge_domain_file_tags,
-                        created_at=format_datetime_to_timestamp(space_knowledge_domain_file.created_at),
-                        last_updated_at=format_datetime_to_timestamp(space_knowledge_domain_file.last_updated_at),
-                        last_accessed_at=format_datetime_to_timestamp(space_knowledge_domain_file.last_accessed_at)
-                    )
-                )
-            return list_of_space_knowledge_domain_file
 
-    def delete_file_by_id(self, file_id: str):
-        with DbSession.session_scope() as session:
-            file = session.query(self.file_table).filter(
-                self.file_table.c.space_knowledge_domain_file_id == file_id
-            ).delete(synchronize_session=False)
-            # session.delete(file)
-            session.commit()
+    # Storage Class Model
+    def get_storage_class_model(self):
+        class StorageClassModel(ThingsSpaceModels):
+            __tablename__ = self.storage_class_model_name
 
-    def get_file_count(self) -> int:
-        with DbSession.session_scope() as session:
-            file_count = session.query(self.file_table).count()
-            return file_count
+            id = Column(String(255), primary_key=True, unique=True)
+            main_class = Column(String(255), nullable=False)
+            sub_classes = Column(String(255), nullable=True)
+            fast_storage = Column(Float, nullable=False)
+            standard_storage = Column(Float, nullable=False)
+            slow_storage = Column(Float, nullable=False)
 
-    # File Tags
-    def get_file_tags_model(self):
-        class FileTags(KnowledgeSpaceModels):
-            __tablename__ = self.file_tags_model_name
+        return StorageClassModel
 
-            file_tag_id = Column(String(), primary_key=True)
-            file_tag_name = Column(String(), nullable=False)
 
-        return FileTags
+    def get_storage_class_model_name(self):
+        return self.storage_class_model_name
 
-    def get_file_tags_name(self):
-        return self.file_tags_model_name
 
-    # File Tags Relations
-    def get_file_tags_relations_model(self):
-        class FileTagsRelations(KnowledgeSpaceModels):
-            __tablename__ = self.file_tags_relations_model_name
-
-            file_tags_relations_id = Column(Integer(), autoincrement=True, primary_key=True)
-            space_knowledge_domain_file_id = Column(String(255),
-                                                    ForeignKey(f"{self.file_model_name}.space_knowledge_domain_file_id")
-                                                    )
-            space_knowledge_domain_file_tag_id = Column(String(),
-                                                        ForeignKey(f"{self.file_tags_model_name}.file_tag_id"))
-
-        return FileTagsRelations
-
-    def get_file_tags_relations_model_name(self):
-        return self.file_tags_relations_model_name
-
-    def get_file_tags(self, file_id: str
-                      ) -> [space_knowledge_domain_file_pb2.FileTag]:
-        with DbSession.session_scope() as session:
-            # get all the tag ids from FileTagsRelations
-            file_tag_ids = session.query(self.file_tags_relations_table.c.space_knowledge_domain_file_tag_id).filter(
-                self.file_tags_relations_table.c.space_knowledge_domain_file_id == file_id
-            ).all()
-            # get all tag names from FileTags for respective file_tag_id
-            file_tags = session.query(self.file_tags_table.c.file_tag_id, self.file_tags_table.c.file_tag_name).filter(
-                self.file_tags_table.c.file_tag_id.in_(file_tag_ids)
-            )
-            # create list of space_knowledge_domain_file_pb2.FileTag
-            list_of_file_tag = [
-                space_knowledge_domain_file_pb2.FileTag(
-                    file_tag_id=file_tag.file_tag_id,
-                    file_tag_name=file_tag.file_tag_name
-                ) for file_tag in file_tags
-            ]
-        return list_of_file_tag
-
-    # Page
-    def get_page_model(self):
-        class SpaceKnowledgeDomainFilePage(KnowledgeSpaceModels):
-            __tablename__ = self.page_model_name
-
-            space_knowledge_domain_file_page_id = Column(String(255), primary_key=True, unique=True)
-            space_knowledge_domain_file_page_count = Column(Integer, nullable=False)
-            space_knowledge_domain_file_id = Column(
-                String(255),
-                ForeignKey(f"{self.file_model_name}.space_knowledge_domain_file_id"), nullable=False)
-            created_at = Column(DateTime(), nullable=False)
-            last_updated_at = Column(DateTime(), nullable=False)
-            last_accessed_at = Column(DateTime(), nullable=False)
-
-        return SpaceKnowledgeDomainFilePage
-
-    def get_page_model_name(self):
-        return self.page_model_name
-
-    def add_new_page(self, page_count: int, file_id: str) -> str:
-        page_id = gen_uuid()
-        statement = KnowledgeSpaceModels.metadata.tables[self.page_model_name].insert().values(
-            space_knowledge_domain_file_page_id=page_id,
-            space_knowledge_domain_file_page_count=page_count,
-            space_knowledge_domain_file_id=file_id,
-            created_at=format_timestamp_to_datetime(get_current_timestamp()),
-            last_updated_at=format_timestamp_to_datetime(get_current_timestamp()),
-            last_accessed_at=format_timestamp_to_datetime(get_current_timestamp()),
+    def add_new_storage_class(self, main_class: str, sub_classes: str, fast_storage: float, standard_storage: float, slow_storage: float) -> str:
+        storage_class_id = gen_uuid()
+        statement = ThingsSpaceModels.metadata.tables[self.storage_class_model_name].insert().values(
+            id=storage_class_id,
+            main_class=main_class,
+            sub_classes=sub_classes,
+            fast_storage=fast_storage,
+            standard_storage=standard_storage,
+            slow_storage=slow_storage
         )
         with DbSession.session_scope() as session:
             session.execute(statement)
             session.commit()
-        return page_id
+        return storage_class_id
 
-    def get_page_with_id(self, space_knowledge_domain_file: space_knowledge_domain_file_pb2.SpaceKnowledgeDomainFile,
-                         page_id: str) -> space_knowledge_domain_file_page_pb2.SpaceKnowledgeDomainFilePage:
-        with DbSession.session_scope() as session:
-            space_knowledge_domain_file_page = session.query(self.page_table).filter(
-                self.page_table.c.space_knowledge_domain_file_page_id == page_id
-            ).first()
-            return space_knowledge_domain_file_page_pb2.SpaceKnowledgeDomainFilePage(
-                space_knowledge_domain_file_page_id=space_knowledge_domain_file_page.space_knowledge_domain_file_page_id,
-                space_knowledge_domain_file_page_count=space_knowledge_domain_file_page.space_knowledge_domain_file_page_count,
-                space_knowledge_domain_file=space_knowledge_domain_file,
-                created_at=format_datetime_to_timestamp(space_knowledge_domain_file_page.created_at),
-                last_updated_at=format_datetime_to_timestamp(space_knowledge_domain_file_page.last_updated_at),
-                last_accessed_at=format_datetime_to_timestamp(space_knowledge_domain_file_page.last_accessed_at)
-            )
+    # Bandwidth Class Model
+    def get_bandwidth_class_model(self):
+        class BandwidthClassModel(ThingsSpaceModels):
+            __tablename__ = self.bandwidth_class_model_name
 
-    def get_page_count(self) -> int:
-        with DbSession.session_scope() as session:
-            page_count = session.query(self.page_table).count()
-            return page_count
+            id = Column(String(255), primary_key=True, unique=True)
+            main_class = Column(String(255), nullable=False)
+            sub_classes = Column(String(255), nullable=True)
+            locale_network_bandwidth_class = Column(Float, nullable=False)
+            main_network_bandwidth_class = Column(Float, nullable=False)
+            main_network_bandwidth_static_address = Column(Boolean, nullable=False)
 
-    def get_file_id_with_page_id(self, page_id: str):
-        with DbSession.session_scope() as session:
-            space_knowledge_domain_file_page = session.query(self.page_table).filter(
-                self.page_table.c.space_knowledge_domain_file_page_id == page_id
-            ).first()
-            return space_knowledge_domain_file_page.space_knowledge_domain_file_id
+        return BandwidthClassModel
 
-    def get_all_page_id_with_file_id(self, file_id: str) -> [str]:
-        with DbSession.session_scope() as session:
-            space_knowledge_domain_file_pages = session.query(self.page_table).filter(
-                self.page_table.c.space_knowledge_domain_file_id == file_id
-            ).all()
-            list_of_page_ids = list()
-            for space_knowledge_domain_file_page in space_knowledge_domain_file_pages:
-                list_of_page_ids.append(space_knowledge_domain_file_page.space_knowledge_domain_file_page_id)
-            return list_of_page_ids
+    def get_bandwidth_class_model_name(self):
+        return self.bandwidth_class_model_name
 
-    def delete_page_by_id(self, page_id: str):
-        with DbSession.session_scope() as session:
-            page = session.query(self.page_table).filter(
-                self.page_table.c.space_knowledge_domain_file_page_id == page_id
-            ).delete(synchronize_session=False)
-            # session.delete(page)
-            session.commit()
 
-    # TODO: Add tags models
-
-    # Page Text
-    def get_page_text_model(self):
-        class SpaceKnowledgeDomainPageText(KnowledgeSpaceModels):
-            __tablename__ = self.page_text_model_name
-
-            page_id = Column(String,
-                             ForeignKey(f"{self.page_model_name}.space_knowledge_domain_file_page_id"),
-                             primary_key=True)
-            page_text = Column("page_text", String)
-
-        return SpaceKnowledgeDomainPageText
-
-    def get_page_text_model_name(self):
-        return self.page_text_model_name
-
-    def add_new_page_text(self, page_id: str, page_text: str):
-        KnowledgeSpaceModels.metadata.reflect(bind=DbSession.get_engine())
-        statement = KnowledgeSpaceModels.metadata.tables[self.page_text_model_name].insert().values(
-            page_id=page_id, page_text=page_text)
-        with DbSession.session_scope() as session:
-            session.execute(statement)
-            session.commit()
-
-    def get_page_text_all_id(self):
-        with DbSession.session_scope() as session:
-            page_text_ids = session.query(self.page_text_table.c.page_id).all()
-            list_of_page_text_ids = list()
-            for page_text_id in page_text_ids:
-                list_of_page_text_ids.append(page_text_id)
-            return list_of_page_text_ids
-
-    def get_page_text_by_id(self, page_id: str):
-        with DbSession.session_scope() as session:
-            page_text = session.query(self.page_text_table.c.page_text).filter(
-                self.page_text_table.c.page_id == page_id
-            ).first()
-            return unicodedata.normalize('NFD', str(page_text))
-
-    def delete_page_text_by_id(self, page_id: str):
-        with DbSession.session_scope() as session:
-            page_text = session.query(self.page_text_table).filter(
-                self.page_text_table.c.page_id == page_id
-            ).delete(synchronize_session=False)
-            # session.delete(page_text)
-            session.commit()
-        return
-
-    # Para
-    def get_para_model(self):
-        class SpaceKnowledgeDomainFilePagePara(KnowledgeSpaceModels):
-            __tablename__ = self.para_model_name
-
-            space_knowledge_domain_file_page_para_id = Column(String(255), primary_key=True, unique=True)
-            space_knowledge_domain_file_page_id = Column(
-                String(255),
-                ForeignKey(f"{self.page_model_name}.space_knowledge_domain_file_page_id"), nullable=False)
-            page_contour_dimensions = Column(String, nullable=False)
-            created_at = Column(DateTime(), nullable=False)
-            last_updated_at = Column(DateTime(), nullable=False)
-            last_accessed_at = Column(DateTime(), nullable=False)
-
-        return SpaceKnowledgeDomainFilePagePara
-
-    def get_para_model_name(self):
-        return self.para_model_name
-
-    def add_new_para(self, page_id: str, contour_dims: dict):
-        para_id = gen_uuid()
-        contour_dimensions = f"{contour_dims.get('x', 0)}:" \
-                             f"{contour_dims.get('y', 0)}:" \
-                             f"{contour_dims.get('w', 0)}:" \
-                             f"{contour_dims.get('h', 0)}"
-        statement = KnowledgeSpaceModels.metadata.tables[self.para_model_name].insert().values(
-            space_knowledge_domain_file_page_para_id=para_id,
-            space_knowledge_domain_file_page_id=page_id,
-            page_contour_dimensions=contour_dimensions,
-            created_at=format_timestamp_to_datetime(get_current_timestamp()),
-            last_updated_at=format_timestamp_to_datetime(get_current_timestamp()),
-            last_accessed_at=format_timestamp_to_datetime(get_current_timestamp()),
+    def add_new_bandwidth_class(self, main_class: str, sub_classes: str, locale_network_bandwidth_class: float, 
+                            main_network_bandwidth_class: float, main_network_bandwidth_static_address: bool) -> str:
+        bandwidth_class_id = gen_uuid()
+        statement = ThingsSpaceModels.metadata.tables[self.bandwidth_class_model_name].insert().values(
+            id=bandwidth_class_id,
+            main_class=main_class,
+            sub_classes=sub_classes,
+            locale_network_bandwidth_class=locale_network_bandwidth_class,
+            main_network_bandwidth_class=main_network_bandwidth_class,
+            main_network_bandwidth_static_address=main_network_bandwidth_static_address
         )
         with DbSession.session_scope() as session:
             session.execute(statement)
             session.commit()
-        return para_id
+        return bandwidth_class_id
 
-    def get_para_with_id(
-            self, para_id: str,
-            space_knowledge_domain_file_page: space_knowledge_domain_file_page_pb2.SpaceKnowledgeDomainFilePage):
-        with DbSession.session_scope() as session:
-            space_knowledge_domain_file_page_para = session.query(self.para_table).filter(
-                self.para_table.c.space_knowledge_domain_file_page_para_id == para_id
-            ).first()
-            dims_list = str(space_knowledge_domain_file_page_para.page_contour_dimensions).split(':')
-            logging.info(
-                f"object types:: x:{type(dims_list[0])}, y:{type(dims_list[1])}, w:{type(dims_list[2])}, h:{type(dims_list[3])}")
-            logging.info(
-                f"object values:: x:{dims_list[0]}, y:{dims_list[1]}, w:{dims_list[2]}, h:{dims_list[3]}")
-            page_contour_dims = PageContourDimensions(
-                x=int(float(dims_list[0])),
-                y=int(float(dims_list[1])),
-                w=int(float(dims_list[2])),
-                h=int(float(dims_list[3])),
-            )
-            return space_knowledge_domain_file_page_para_pb2.SpaceKnowledgeDomainFilePagePara(
-                space_knowledge_domain_file_page_para_id=space_knowledge_domain_file_page_para.space_knowledge_domain_file_page_para_id,
-                space_knowledge_domain_file_page=space_knowledge_domain_file_page,
-                page_contour_dimensions=page_contour_dims,
-                created_at=format_datetime_to_timestamp(space_knowledge_domain_file_page_para.created_at),
-                last_updated_at=format_datetime_to_timestamp(space_knowledge_domain_file_page_para.last_updated_at),
-                last_accessed_at=format_datetime_to_timestamp(space_knowledge_domain_file_page_para.last_accessed_at)
-            )
 
-    def get_page_id_with_para_id(self, para_id: str):
-        with DbSession.session_scope() as session:
-            space_knowledge_domain_file_page_para = session.query(self.para_table).filter(
-                self.para_table.c.space_knowledge_domain_file_page_para_id == para_id
-            ).first()
-            return space_knowledge_domain_file_page_para.space_knowledge_domain_file_page_id
 
-    def get_all_para_id_with_page_id(self, page_id: str) -> [str]:
-        with DbSession.session_scope() as session:
-            space_knowledge_domain_file_page_paras = session.query(self.para_table).filter(
-                self.para_table.c.space_knowledge_domain_file_page_id == page_id
-            ).all()
-            list_of_para_ids = list()
-            for space_knowledge_domain_file_page_para in space_knowledge_domain_file_page_paras:
-                list_of_para_ids.append(space_knowledge_domain_file_page_para.space_knowledge_domain_file_page_para_id)
-            return list_of_para_ids
+    # Operator Class Model
+    def get_operator_class_model(self):
+        class OperatorClassModel(ThingsSpaceModels):
+            __tablename__ = self.operator_class_model_name
 
-    def delete_para_by_id(self, para_id: str):
-        with DbSession.session_scope() as session:
-            para = session.query(self.para_table).filter(
-                self.para_table.c.space_knowledge_domain_file_page_para_id == para_id
-            ).delete(synchronize_session=False)
-            # session.delete(para)
-            session.commit()
+            id = Column(String(255), primary_key=True, unique=True)
+            main_class = Column(String(255), nullable=False)
+            sub_classes = Column(String(255), nullable=True)
+            human_operator_class = Column(Boolean, nullable=False)
+            collaborator_operator_class = Column(Boolean, nullable=False)
+            certified_operator_class = Column(Boolean, nullable=False)
 
-    # Para Text
-    def get_para_text_model(self):
-        class SpaceKnowledgeDomainPageParaText(KnowledgeSpaceModels):
-            __tablename__ = self.para_text_model_name
+        return OperatorClassModel
 
-            para_id = Column(String,
-                             ForeignKey(f"{self.para_model_name}.space_knowledge_domain_file_page_para_id"),
-                             primary_key=True)
-            para_text = Column(String)
 
-        return SpaceKnowledgeDomainPageParaText
+    def get_operator_class_model_name(self):
+        return self.operator_class_model_name
 
-    def get_para_text_model_name(self):
-        return self.para_text_model_name
 
-    def add_new_para_text(self, para_id: str, para_text: str):
-        KnowledgeSpaceModels.metadata.reflect(bind=DbSession.get_engine())
-        statement = KnowledgeSpaceModels.metadata.tables[self.para_text_model_name].insert().values(
-            para_id=para_id, para_text=para_text)
+    def add_new_operator_class(self, main_class: str, sub_classes: str, human_operator_class: bool, 
+                           collaborator_operator_class: bool, certified_operator_class: bool) -> str:
+        operator_class_id = gen_uuid()
+        statement = ThingsSpaceModels.metadata.tables[self.operator_class_model_name].insert().values(
+            id=operator_class_id,
+            main_class=main_class,
+            sub_classes=sub_classes,
+            human_operator_class=human_operator_class,
+            collaborator_operator_class=collaborator_operator_class,
+            certified_operator_class=certified_operator_class
+        )
         with DbSession.session_scope() as session:
             session.execute(statement)
             session.commit()
+        return operator_class_id
 
-    def get_para_text_all_id(self):
-        with DbSession.session_scope() as session:
-            para_text_ids = session.query(self.para_text_table.c.para_id).all()
-            list_of_para_text_ids = list()
-            for para_text_id in para_text_ids:
-                list_of_para_text_ids.append(para_text_id)
-            return list_of_para_text_ids
+    # Hashing Class Model
+    def get_hashing_class_model(self):
+        class HashingClassModel(ThingsSpaceModels):
+            __tablename__ = self.hashing_class_model_name
 
-    def get_para_text_by_id(self, para_id: str):
-        with DbSession.session_scope() as session:
-            para_text = session.query(self.para_text_table.c.para_text).filter(
-                self.para_text_table.c.para_id == para_id
-            ).first()
-            return unicodedata.normalize('NFD', str(para_text))
+            id = Column(String(255), primary_key=True, unique=True)
+            main_class = Column(String(255), nullable=False)
+            sub_classes = Column(String(255), nullable=True)
+            chain_hash_generation_class = Column(Boolean, nullable=False)
 
-    def delete_para_text_by_id(self, para_id: str):
-        with DbSession.session_scope() as session:
-            para_text = session.query(self.para_text_table).filter(
-                self.para_text_table.c.para_id == para_id
-            ).delete(synchronize_session=False)
-            session.commit()
-        return
+        return HashingClassModel
 
-    # Domain QA Context
-    def get_domain_qa_context_model(self):
-        class SpaceKnowledgeDomainQAContext(KnowledgeSpaceModels):
-            __tablename__ = self.domain_qa_context_model_name
 
-            context_id = Column(String(255), primary_key=True)
-            question = Column(String(255), nullable=False)
-            answer = Column(String, nullable=False)
-            answer_source_para_id = Column(
-                String,
-                ForeignKey(f"{self.para_model_name}.space_knowledge_domain_file_page_para_id"),
-                nullable=False)
-            answered_at = Column(DateTime(), nullable=False)
+    def get_hashing_class_model_name(self):
+        return self.hashing_class_model_name
 
-        return SpaceKnowledgeDomainQAContext
 
-    def get_domain_qa_context_model_name(self):
-        return self.domain_qa_context_model_name
-
-    def add_new_domain_qa_context(self, question: str, answer: str, answer_source_para_id: str) -> str:
-        KnowledgeSpaceModels.metadata.reflect(bind=DbSession.get_engine())
-        context_id = gen_uuid()
-        answered_at = format_timestamp_to_datetime(get_current_timestamp())
-        statement = KnowledgeSpaceModels.metadata.tables[self.domain_qa_context_model_name].insert().values(
-            context_id=context_id, question=question, answer=answer, answer_source_para_id=answer_source_para_id,
-            answered_at=answered_at)
+    def add_new_hashing_class(self, main_class: str, sub_classes: str, chain_hash_generation_class: bool) -> str:
+        hashing_class_id = gen_uuid()
+        statement = ThingsSpaceModels.metadata.tables[self.hashing_class_model_name].insert().values(
+            id=hashing_class_id,
+            main_class=main_class,
+            sub_classes=sub_classes,
+            chain_hash_generation_class=chain_hash_generation_class
+        )
         with DbSession.session_scope() as session:
             session.execute(statement)
             session.commit()
-        return context_id
+        return hashing_class_id
 
-    def delete_domain_qa_context_with_para_id(self, para_id):
-        KnowledgeSpaceModels.metadata.reflect(bind=DbSession.get_engine())
+
+    # Base OS Model
+    def get_base_os_model(self):
+        class BaseOSModel(ThingsSpaceModels):
+            __tablename__ = self.base_os_model_name
+
+            id = Column(String(255), primary_key=True, unique=True)
+            name = Column(String(255), nullable=False)
+            arch = Column(String(255), nullable=False)
+
+        return BaseOSModel
+
+
+    def get_base_os_model_name(self):
+        return self.base_os_model_name
+
+    def add_new_base_os(self, name: str, arch: str) -> str:
+        base_os_id = gen_uuid()
+        statement = ThingsSpaceModels.metadata.tables[self.base_os_model_name].insert().values(
+            id=base_os_id,
+            name=name,
+            arch=arch
+        )
         with DbSession.session_scope() as session:
-            domain_qa_context = session.query(self.domain_qa_context_table).filter(
-                self.domain_qa_context_table.c.answer_source_para_id == para_id
-            ).delete(synchronize_session=False)
+            session.execute(statement)
             session.commit()
+        return base_os_id
+
+    # Orchestrator OS Model
+    def get_orchestrator_os_model(self):
+        class OrchestratorOSModel(ThingsSpaceModels):
+            __tablename__ = self.orchestrator_os_model_name
+
+            id = Column(String(255), primary_key=True, unique=True)
+            name = Column(String(255), nullable=False)
+            version = Column(String(255), nullable=False)
+
+        return OrchestratorOSModel
+
+
+    def get_orchestrator_os_model_name(self):
+        return self.orchestrator_os_model_name
+
+
+    def add_new_orchestrator_os(self, name: str, version: str) -> str:
+        orchestrator_os_id = gen_uuid()
+        statement = ThingsSpaceModels.metadata.tables[self.orchestrator_os_model_name].insert().values(
+            id=orchestrator_os_id,
+            name=name,
+            version=version
+        )
+        with DbSession.session_scope() as session:
+            session.execute(statement)
+            session.commit()
+        return orchestrator_os_id
+
+
+    # Node Liability Model
+    def get_node_liability_model(self):
+        class NodeLiabilityModel(ThingsSpaceModels):
+            __tablename__ = self.node_liability_model_name
+
+            id = Column(String(255), primary_key=True, unique=True)
+            liability = Column(String(255), nullable=False)
+            license_id = Column(String(255), nullable=True)
+
+        return NodeLiabilityModel
+    
+    def get_node_liability_model_name(self):
+        return self.node_liability_model_name
+
+    def add_new_node_liability(self, liability: str, license_id: str) -> str:
+        node_liability_id = gen_uuid()
+        statement = ThingsSpaceModels.metadata.tables[self.node_liability_model_name].insert().values(
+            id=node_liability_id,
+            liability=liability,
+            license_id=license_id
+        )
+        with DbSession.session_scope() as session:
+            session.execute(statement)
+            session.commit()
+        return node_liability_id
+
