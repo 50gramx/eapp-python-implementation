@@ -228,6 +228,47 @@ class DomainKnowledgeSpace:
             session.execute(statement)
             session.commit()
         return
+    
+    def get_thing_by_id(self, node_id: str):
+        with DbSession.session_scope() as session:
+            thing = session.query(self.get_things_model()).filter_by(node_id=node_id).first()
+            if thing:
+                return {
+                    "node_id": thing.node_id,
+                    "name": thing.name,
+                    "machine_class_id": thing.machine_class_id,
+                    "storage_class_id": thing.storage_class_id,
+                    "bandwidth_class_id": thing.bandwidth_class_id,
+                    "operator_class_id": thing.operator_class_id,
+                    "hashing_class_id": thing.hashing_class_id,
+                    "base_os_id": thing.base_os_id,
+                    "orchestrator_os_id": thing.orchestrator_os_id,
+                    "node_liability_id": thing.node_liability_id,
+                    "created_at": format_datetime_to_timestamp(thing.created_at)
+                }
+            return None
+    
+    def list_all_things(self):
+        with DbSession.session_scope() as session:
+            things = session.query(self.get_things_model()).all()
+            things_list = []
+            for thing in things:
+                things_list.append({
+                    "node_id": thing.node_id,
+                    "name": thing.name,
+                    "machine_class_id": thing.machine_class_id,
+                    "storage_class_id": thing.storage_class_id,
+                    "bandwidth_class_id": thing.bandwidth_class_id,
+                    "operator_class_id": thing.operator_class_id,
+                    "hashing_class_id": thing.hashing_class_id,
+                    "base_os_id": thing.base_os_id,
+                    "orchestrator_os_id": thing.orchestrator_os_id,
+                    "node_liability_id": thing.node_liability_id,
+                    "created_at": format_datetime_to_timestamp(thing.created_at)
+                })
+            return things_list
+
+
 
 
     # Machine Class Model
@@ -267,6 +308,37 @@ class DomainKnowledgeSpace:
             session.commit()
         return machine_class_id
 
+    def get_machine_class_by_id(self, machine_class_id: str):
+        with DbSession.session_scope() as session:
+            machine_class = session.query(self.get_machine_class_model()).filter_by(id=machine_class_id).first()
+            if machine_class:
+                return {
+                    "id": machine_class.id,
+                    "main_class": machine_class.main_class,
+                    "sub_classes": machine_class.sub_classes,
+                    "vcpu": machine_class.vcpu,
+                    "ram_gib": machine_class.ram_gib,
+                    "machine_type": machine_class.machine_type,
+                    "machine_category": machine_class.machine_category
+                }
+            return None
+    
+    def list_all_machine_classes(self):
+        with DbSession.session_scope() as session:
+            machine_classes = session.query(self.get_machine_class_model()).all()
+            machine_classes_list = []
+            for machine_class in machine_classes:
+                machine_classes_list.append({
+                    "id": machine_class.id,
+                    "main_class": machine_class.main_class,
+                    "sub_classes": machine_class.sub_classes,
+                    "vcpu": machine_class.vcpu,
+                    "ram_gib": machine_class.ram_gib,
+                    "machine_type": machine_class.machine_type,
+                    "machine_category": machine_class.machine_category
+                })
+            return machine_classes_list
+
 
 
     # Storage Class Model
@@ -302,6 +374,36 @@ class DomainKnowledgeSpace:
             session.execute(statement)
             session.commit()
         return storage_class_id
+    
+    def get_storage_class_by_id(self, storage_class_id: str):
+        with DbSession.session_scope() as session:
+            storage_class = session.query(self.get_storage_class_model()).filter_by(id=storage_class_id).first()
+            if storage_class:
+                return {
+                    "id": storage_class.id,
+                    "main_class": storage_class.main_class,
+                    "sub_classes": storage_class.sub_classes,
+                    "fast_storage": storage_class.fast_storage,
+                    "standard_storage": storage_class.standard_storage,
+                    "slow_storage": storage_class.slow_storage
+                }
+            return None
+
+    def list_all_storage_classes(self):
+        with DbSession.session_scope() as session:
+            storage_classes = session.query(self.get_storage_class_model()).all()
+            storage_classes_list = []
+            for storage_class in storage_classes:
+                storage_classes_list.append({
+                    "id": storage_class.id,
+                    "main_class": storage_class.main_class,
+                    "sub_classes": storage_class.sub_classes,
+                    "fast_storage": storage_class.fast_storage,
+                    "standard_storage": storage_class.standard_storage,
+                    "slow_storage": storage_class.slow_storage
+                })
+            return storage_classes_list
+
 
     # Bandwidth Class Model
     def get_bandwidth_class_model(self):
@@ -336,6 +438,36 @@ class DomainKnowledgeSpace:
             session.execute(statement)
             session.commit()
         return bandwidth_class_id
+
+    def get_bandwidth_class_by_id(self, bandwidth_class_id: str):
+        with DbSession.session_scope() as session:
+            bandwidth_class = session.query(self.get_bandwidth_class_model()).filter_by(id=bandwidth_class_id).first()
+            if bandwidth_class:
+                return {
+                    "id": bandwidth_class.id,
+                    "main_class": bandwidth_class.main_class,
+                    "sub_classes": bandwidth_class.sub_classes,
+                    "locale_network_bandwidth_class": bandwidth_class.locale_network_bandwidth_class,
+                    "main_network_bandwidth_class": bandwidth_class.main_network_bandwidth_class,
+                    "main_network_bandwidth_static_address": bandwidth_class.main_network_bandwidth_static_address
+                }
+            return None
+    
+    def list_all_bandwidth_classes(self):
+        with DbSession.session_scope() as session:
+            bandwidth_classes = session.query(self.get_bandwidth_class_model()).all()
+            bandwidth_classes_list = []
+            for bandwidth_class in bandwidth_classes:
+                bandwidth_classes_list.append({
+                    "id": bandwidth_class.id,
+                    "main_class": bandwidth_class.main_class,
+                    "sub_classes": bandwidth_class.sub_classes,
+                    "locale_network_bandwidth_class": bandwidth_class.locale_network_bandwidth_class,
+                    "main_network_bandwidth_class": bandwidth_class.main_network_bandwidth_class,
+                    "main_network_bandwidth_static_address": bandwidth_class.main_network_bandwidth_static_address
+                })
+            return bandwidth_classes_list
+
 
 
 
@@ -373,6 +505,38 @@ class DomainKnowledgeSpace:
             session.execute(statement)
             session.commit()
         return operator_class_id
+    
+    def get_operator_class_by_id(self, operator_class_id: str):
+        with DbSession.session_scope() as session:
+            operator_class = session.query(self.get_operator_class_model()).filter_by(id=operator_class_id).first()
+            if operator_class:
+                return {
+                    "id": operator_class.id,
+                    "main_class": operator_class.main_class,
+                    "sub_classes": operator_class.sub_classes,
+                    "human_operator_class": operator_class.human_operator_class,
+                    "collaborator_operator_class": operator_class.collaborator_operator_class,
+                    "certified_operator_class": operator_class.certified_operator_class
+                }
+            return None
+    
+    def list_all_operator_classes(self):
+        with DbSession.session_scope() as session:
+            operator_classes = session.query(self.get_operator_class_model()).all()
+            operator_classes_list = []
+            for operator_class in operator_classes:
+                operator_classes_list.append({
+                    "id": operator_class.id,
+                    "main_class": operator_class.main_class,
+                    "sub_classes": operator_class.sub_classes,
+                    "human_operator_class": operator_class.human_operator_class,
+                    "collaborator_operator_class": operator_class.collaborator_operator_class,
+                    "certified_operator_class": operator_class.certified_operator_class
+                })
+            return operator_classes_list
+
+
+
 
     # Hashing Class Model
     def get_hashing_class_model(self):
@@ -403,6 +567,33 @@ class DomainKnowledgeSpace:
             session.execute(statement)
             session.commit()
         return hashing_class_id
+    
+    def get_hashing_class_by_id(self, hashing_class_id: str):
+        with DbSession.session_scope() as session:
+            hashing_class = session.query(self.get_hashing_class_model()).filter_by(id=hashing_class_id).first()
+            if hashing_class:
+                return {
+                    "id": hashing_class.id,
+                    "main_class": hashing_class.main_class,
+                    "sub_classes": hashing_class.sub_classes,
+                    "chain_hash_generation_class": hashing_class.chain_hash_generation_class
+                }
+            return None
+    
+    def list_all_hashing_classes(self):
+        with DbSession.session_scope() as session:
+            hashing_classes = session.query(self.get_hashing_class_model()).all()
+            hashing_classes_list = []
+            for hashing_class in hashing_classes:
+                hashing_classes_list.append({
+                    "id": hashing_class.id,
+                    "main_class": hashing_class.main_class,
+                    "sub_classes": hashing_class.sub_classes,
+                    "chain_hash_generation_class": hashing_class.chain_hash_generation_class
+                })
+            return hashing_classes_list
+
+
 
 
     # Base OS Model
@@ -431,6 +622,31 @@ class DomainKnowledgeSpace:
             session.execute(statement)
             session.commit()
         return base_os_id
+    
+    def get_base_os_by_id(self, base_os_id: str):
+        with DbSession.session_scope() as session:
+            base_os = session.query(self.get_base_os_model()).filter_by(id=base_os_id).first()
+            if base_os:
+                return {
+                    "id": base_os.id,
+                    "name": base_os.name,
+                    "arch": base_os.arch
+                }
+            return None
+    
+    def list_all_base_os(self):
+        with DbSession.session_scope() as session:
+            base_os_list = session.query(self.get_base_os_model()).all()
+            base_os_records = []
+            for base_os in base_os_list:
+                base_os_records.append({
+                    "id": base_os.id,
+                    "name": base_os.name,
+                    "arch": base_os.arch
+                })
+            return base_os_records
+
+
 
     # Orchestrator OS Model
     def get_orchestrator_os_model(self):
@@ -459,6 +675,31 @@ class DomainKnowledgeSpace:
             session.execute(statement)
             session.commit()
         return orchestrator_os_id
+    
+    def get_orchestrator_os_by_id(self, orchestrator_os_id: str):
+        with DbSession.session_scope() as session:
+            orchestrator_os = session.query(self.get_orchestrator_os_model()).filter_by(id=orchestrator_os_id).first()
+            if orchestrator_os:
+                return {
+                    "id": orchestrator_os.id,
+                    "name": orchestrator_os.name,
+                    "version": orchestrator_os.version
+                }
+            return None
+    
+    def list_all_orchestrator_os(self):
+        with DbSession.session_scope() as session:
+            orchestrator_os_list = session.query(self.get_orchestrator_os_model()).all()
+            orchestrator_os_records = []
+            for orchestrator_os in orchestrator_os_list:
+                orchestrator_os_records.append({
+                    "id": orchestrator_os.id,
+                    "name": orchestrator_os.name,
+                    "version": orchestrator_os.version
+                })
+            return orchestrator_os_records
+
+
 
 
     # Node Liability Model
@@ -486,4 +727,27 @@ class DomainKnowledgeSpace:
             session.execute(statement)
             session.commit()
         return node_liability_id
+
+    def get_node_liability_by_id(self, node_liability_id: str):
+        with DbSession.session_scope() as session:
+            node_liability = session.query(self.get_node_liability_model()).filter_by(id=node_liability_id).first()
+            if node_liability:
+                return {
+                    "id": node_liability.id,
+                    "liability": node_liability.liability,
+                    "license_id": node_liability.license_id
+                }
+            return None
+    
+    def list_all_node_liabilities(self):
+        with DbSession.session_scope() as session:
+            node_liability_list = session.query(self.get_node_liability_model()).all()
+            node_liability_records = []
+            for node_liability in node_liability_list:
+                node_liability_records.append({
+                    "id": node_liability.id,
+                    "liability": node_liability.liability,
+                    "license_id": node_liability.license_id
+                })
+            return node_liability_records
 
