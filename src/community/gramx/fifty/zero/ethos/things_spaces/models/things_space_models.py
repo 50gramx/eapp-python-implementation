@@ -133,7 +133,7 @@ class ThingsSpace:
 # TODO (@peivee): please try to understand this
 # Like in knowledge domain, have file, page and para defined..
 # Similarly, in things domain, has device defined..
-class DomainKnowledgeSpace:
+class DomainThingsSpace:
 
     # TODO (@peivee): please try to relate why there are different tables with same id
     # I hope you will be able to visualise the distributed database architecture with domains
@@ -149,6 +149,7 @@ class DomainKnowledgeSpace:
         self.base_os_model_name = f"base_os_{things_domain_id}"
         self.orchestrator_os_model_name = f"orchestrator_os_{things_domain_id}"
         self.node_liability_model_name = f"node_liability_{things_domain_id}"
+        self.ovpn_config_model_name = f"ovpn_config_{things_domain_id}"
         ThingsSpaceModels.metadata.reflect(bind=DbSession.get_engine())
         try:
             self.things_table = ThingsSpaceModels.metadata.tables[self.things_model_name]
@@ -160,6 +161,7 @@ class DomainKnowledgeSpace:
             self.base_os_table = ThingsSpaceModels.metadata.tables[self.base_os_model_name]
             self.orchestrator_os_table = ThingsSpaceModels.metadata.tables[self.orchestrator_os_model_name]
             self.node_liability_table = ThingsSpaceModels.metadata.tables[self.node_liability_model_name]
+            self.ovpn_config_table = ThingsSpaceModels.metadata.tables(self.ovpn_config_model_name)
         except KeyError:
             self.things_table = None
             self.machine_class_table = None
@@ -170,6 +172,7 @@ class DomainKnowledgeSpace:
             self.base_os_table = None
             self.orchestrator_os_table = None
             self.node_liability_table = None
+            self.ovpn_config_table = None
 
     # TODO(@peivee): here, all the base tables are setup
     # Setup Domain Knowledge Space
@@ -183,6 +186,7 @@ class DomainKnowledgeSpace:
         self.get_base_os_model().__table__.create(bind=DbSession.get_engine())
         self.get_orchestrator_os_model().__table__.create(bind=DbSession.get_engine())
         self.get_node_liability_model().__table__.create(bind=DbSession.get_engine())
+        self.get_ovpn_config_model().__table__.create(bind=DbSession.get_engine())
         return
 
     # Things Model
@@ -201,7 +205,6 @@ class DomainKnowledgeSpace:
             orchestrator_os_id = Column(String(255), nullable=False)
             node_liability_id = Column(String(255), nullable=False)
             created_at = Column(DateTime, nullable=False)
-
         return ThingsModel
 
 
@@ -751,3 +754,92 @@ class DomainKnowledgeSpace:
                 })
             return node_liability_records
 
+
+    # OVPNConfig Model
+    def get_ovpn_config_model(self):
+        class OVPNConfigModel(ThingsSpaceModels):
+            __tablename__ = self.ovpn_config_model_name
+
+            config_id = Column(String(255), primary_key=True, unique=True)
+            server_address = Column(String(255), nullable=False)
+            port = Column(String(10), nullable=False)
+            protocol = Column(String(10), nullable=False)
+            ca_cert = Column(Text, nullable=False)
+            cert = Column(Text, nullable=False)
+            key = Column(Text, nullable=False)
+            dh_param = Column(Text, nullable=False)
+            tls_auth_key = Column(Text, nullable=False)
+            allowed_ips = Column(ARRAY(String(255)), nullable=False)
+            created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+            updated_at = Column(DateTime, nullable=True)
+            description = Column(String(1024), nullable=True)
+
+        return OVPNConfigModel
+
+    def get_ovpn_config_model_name(self):
+        return self.ovpn_config_model_name
+
+    def add_new_ovpn_config(self, server_address: str, port: str, protocol: str, ca_cert: str, cert: str, key: str,
+                        dh_param: str, tls_auth_key: str, allowed_ips: list, description: str) -> str:
+        config_id = gen_uuid()
+        statement = ThingsSpaceModels.metadata.tables[self.ovpn_config_model_name].insert().values(
+            config_id=config_id,
+            server_address=server_address,
+            port=port,
+            protocol=protocol,
+            ca_cert=ca_cert,
+            cert=cert,
+            key=key,
+            dh_param=dh_param,
+            tls_auth_key=tls_auth_key,
+            allowed_ips=allowed_ips,
+            created_at=datetime.utcnow(),
+            description=description
+        )
+        with DbSession.session_scope() as session:
+            session.execute(statement)
+            session.commit()
+        return config_id
+
+    def get_ovpn_config_by_id(self, config_id: str):
+        with DbSession.session_scope() as session:
+            ovpn_config = session.query(self.get_ovpn_config_model()).filter_by(config_id=config_id).first()
+            if ovpn_config:
+                return {
+                    "config_id": ovpn_config.config_id,
+                    "server_address": ovpn_config.server_address,
+                    "port": ovpn_config.port,
+                    "protocol": ovpn_config.protocol,
+                    "ca_cert": ovpn_config.ca_cert,
+                    "cert": ovpn_config.cert,
+                    "key": ovpn_config.key,
+                    "dh_param": ovpn_config.dh_param,
+                    "tls_auth_key": ovpn_config.tls_auth_key,
+                    "allowed_ips": ovpn_config.allowed_ips,
+                    "created_at": ovpn_config.created_at,
+                    "updated_at": ovpn_config.updated_at,
+                    "description": ovpn_config.description
+                }
+            return None
+
+    def list_all_ovpn_configs(self):
+        with DbSession.session_scope() as session:
+            ovpn_config_list = session.query(self.get_ovpn_config_model()).all()
+            ovpn_config_records = []
+            for ovpn_config in ovpn_config_list:
+                ovpn_config_records.append({
+                    "config_id": ovpn_config.config_id,
+                    "server_address": ovpn_config.server_address,
+                    "port": ovpn_config.port,
+                    "protocol": ovpn_config.protocol,
+                    "ca_cert": ovpn_config.ca_cert,
+                    "cert": ovpn_config.cert,
+                    "key": ovpn_config.key,
+                    "dh_param": ovpn_config.dh_param,
+                    "tls_auth_key": ovpn_config.tls_auth_key,
+                    "allowed_ips": ovpn_config.allowed_ips,
+                    "created_at": ovpn_config.created_at,
+                    "updated_at": ovpn_config.updated_at,
+                    "description": ovpn_config.description
+                })
+            return ovpn_config_records
