@@ -60,7 +60,7 @@ class ThingsSpace:
             space_things_domain_id = Column(String(255), primary_key=True, unique=True)
             space_things_domain_name = Column(String(255), nullable=False)
             space_things_domain_description = Column(String(255), nullable=True)
-            space_things_domain_collar_id = Column(String(255) , nullable=False) ## Set this as ForeignKey when we create table for Things50DC500000000.proto
+            space_things_domain_collar_id = Column(String(255) , nullable=False)
             space_things_domain_isolated = Column(Boolean(), nullable=False)
             space_things_id = Column(String(255), nullable=False)
             created_at = Column(DateTime(), nullable=False)
@@ -101,19 +101,23 @@ class ThingsSpace:
         with DbSession.session_scope() as session:
             if domain_id != "":
                 space_things_domain = session.query(self.domain_table).filter(
+                    self.domain_table.c.space_things_id == space_things.id,
                     self.domain_table.c.space_things_domain_id == domain_id
                 ).first()
             else:
-                # When Things50DC500000000 gets created, we should create one function to return the default value of the collar id.
-                space_things_domain = session.query(self.domain_table).filter(
-                    self.domain_table.c.space_things_domain_collar_id == get_default_collar_id()
-                ).first()
+                raise ValueError("The argument 'domain_id' must be provided and cannot be empty.")
+                # # In the absence of a default collar, we make use of the space_things.id and the take the first value. 
+                # space_things_domain = session.query(self.domain_table).filter(
+                #     self.domain_table.c.space_things_id == space_things.id
+                # ).first()
                 # Done -> CM-I7
             if space_things_domain is None:
                 return space_things_domain_pb2.SpaceThingsDomain()
             else:
-                # A function to return collar based on collar_id must be created.  
-                # For now keeping it as just get_collar_with_id as a placeholder.
+                domain_things_space = DomainThingsSpace(
+                    space_things_id=space_things.id,
+                    things_domain_id=domain_id
+                    )
 
                 return space_things_domain_pb2.SpaceThingsDomain(
                     id=space_things_domain.space_things_domain_id,
@@ -123,7 +127,7 @@ class ThingsSpace:
                     space_things = space_things,
                     created_at = Timestamp(seconds=int(space_things_domain.created_at.timestamp())),
                     last_updated_at = Timestamp(seconds=int(space_things_domain.last_updated_at.timestamp())),
-                    things50dc500000000= get_collar_with_id(space_things_domain.space_things_domain_collar_id)
+                    things50dc500000000= domain_things_space.get_thing_by_id(space_things_domain.space_things_domain_collar_id)
                 )   # Done -> CM-I7
 
     def get_domain_all(self, space_things: space_things_pb2.SpaceThings) -> List[space_things_domain_pb2.SpaceThingsDomain]:
@@ -146,7 +150,9 @@ class ThingsSpace:
                 space_things = space_things,
                 created_at= space_things_domain.created_at,
                 last_updated_at= space_things_domain.last_updated_at,
-                things50dc500000000= get_collar_with_id(space_things_domain.space_things_domain_collar_id)  
+                things50dc500000000= DomainThingsSpace(space_things_id=space_things.id,
+                                                       things_domain_id=space_things_domain.space_things_domain_id
+                                                       ).get_thing_by_id(space_things_domain.space_things_domain_collar_id)  
             ) for space_things_domain in space_things_domains]    # Done -> CM-I7
 
     # Done -> CM-I7
@@ -168,7 +174,9 @@ class ThingsSpace:
 # TODO (@peivee): please try to understand this
 # Like in knowledge domain, have file, page and para defined..
 # Similarly, in things domain, has device defined..
-class DomainKnowledgeSpace:
+
+# The name of this class is changed from DomainKnowledgeSpace to DomainThingsSpacec
+class DomainThingsSpace:
 
     # TODO (@peivee): please try to relate why there are different tables with same id
     # I hope you will be able to visualise the distributed database architecture with domains
