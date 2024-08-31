@@ -153,8 +153,11 @@ class ThingsSpace:
     def update_domain_last_updated_at(self, space_things_domain_id: str):
         statement = (update(self.domain_table).where(
             self.domain_table.c.space_things_domain_id == space_things_domain_id).values(
-            self.domain_table.c.space_things_domain_id == space_things_domain_id).values(
-            last_updated_at=format_timestamp_to_datetime(get_current_timestamp())))
+                last_updated_at=format_timestamp_to_datetime(
+                    get_current_timestamp()
+                    )
+                )
+            )
         with DbSession.session_scope() as session:
             session.execute(statement)
             session.commit()
