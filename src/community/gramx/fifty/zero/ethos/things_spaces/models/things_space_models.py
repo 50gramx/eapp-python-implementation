@@ -17,18 +17,17 @@
 #   * from Amit Kumar Khetan.
 #   */
 
-import logging
-import unicodedata
-from sqlalchemy import Column, String, Integer, Boolean, ForeignKey, DateTime, update, Float
+from sqlalchemy import Column, String, Integer, Boolean, DateTime, update, Float
 from sqlalchemy.ext.declarative import declarative_base
 
 from db_session import DbSession
-# from ethos.elint.entities import space_knowledge_pb2, space_knowledge_domain_pb2, space_knowledge_domain_file_pb2, \
-#     space_knowledge_domain_file_page_pb2, space_knowledge_domain_file_page_para_pb2
 from ethos.elint.entities import space_things_pb2, space_things_domain_pb2, space_things_domain_device_pb2
 from ethos.elint.entities.space_knowledge_domain_file_page_para_pb2 import PageContourDimensions
 from support.helper_functions import format_timestamp_to_datetime, get_current_timestamp, gen_uuid, \
     format_datetime_to_timestamp
+from google.protobuf.timestamp_pb2 import Timestamp
+from typing import List
+
 
 ThingsSpaceModels = declarative_base()
 
@@ -56,31 +55,31 @@ class ThingsSpace:
             space_things_domain_id = Column(String(255), primary_key=True, unique=True)
             space_things_domain_name = Column(String(255), nullable=False)
             space_things_domain_description = Column(String(255), nullable=True)
-            space_things_domain_collar_enum = Column(Integer, nullable=False)
+            space_things_domain_collar_id = Column(String(255) , nullable=False)
             space_things_domain_isolated = Column(Boolean(), nullable=False)
             space_things_id = Column(String(255), nullable=False)
             created_at = Column(DateTime(), nullable=False)
             last_updated_at = Column(DateTime(), nullable=False)
-            # TODO(@peivee): fix params
+            # Done CM-I7
 
         return SpaceThingsDomain
 
     def get_domain_model_name(self):
         return self.domain_model_name
 
-    def add_new_domain(self, domain_name: str, domain_description: str, domain_collar_enum: int,
+    def add_new_domain(self, domain_name: str, domain_description: str, domain_collar_id: str,
                        domain_isolate: bool) -> str:
         domain_id = gen_uuid()
         statement = ThingsSpaceModels.metadata.tables[self.domain_model_name].insert().values(
-            id=domain_id,
-            name=domain_name,
-            description=domain_description,
-            collar_enum=domain_collar_enum,
-            is_isolated=domain_isolate,
+            space_things_domain_id=domain_id,
+            space_things_domain_name=domain_name,
+            space_things_domain_description= domain_description,
+			space_things_domain_collar_id= domain_collar_id,
+            space_things_domain_isolated=domain_isolate,
             space_things_id=self.space_things_id,
             created_at=format_timestamp_to_datetime(get_current_timestamp()),
             last_updated_at=format_timestamp_to_datetime(get_current_timestamp()),
-        )   # TODO(@peivee): fix params
+        )   # Done -> CM-I7
         with DbSession.session_scope() as session:
             session.execute(statement)
             session.commit()
@@ -97,46 +96,77 @@ class ThingsSpace:
         with DbSession.session_scope() as session:
             if domain_id != "":
                 space_things_domain = session.query(self.domain_table).filter(
+                    self.domain_table.c.space_things_id == space_things.id,
                     self.domain_table.c.space_things_domain_id == domain_id
                 ).first()
             else:
-                space_things_domain = session.query(self.domain_table).filter(
-                    self.domain_table.c.space_things_domain_collar_enum == 0
-                ).first()
-                # TODO(@peivee): fix this
+                raise ValueError("The argument 'domain_id' must be provided and cannot be empty.")
+                # # In the absence of a default collar, we make use of the space_things.id and the take the first value. 
+                # space_things_domain = session.query(self.domain_table).filter(
+                #     self.domain_table.c.space_things_id == space_things.id
+                # ).first()
+                # Done -> CM-I7
             if space_things_domain is None:
                 return space_things_domain_pb2.SpaceThingsDomain()
             else:
+                domain_things_space = DomainThingsSpace(
+                    space_things_id=space_things.id,
+                    things_domain_id=domain_id
+                    )
+
                 return space_things_domain_pb2.SpaceThingsDomain(
-                    id=space_things_domain.id,
-                )   # TODO(@peivee): remaining things
+                    id=space_things_domain.space_things_domain_id,
+                    name=space_things_domain.space_things_domain_name,
+                    description=space_things_domain.space_things_domain_description,
+                    is_isolated=space_things_domain.space_things_domain_isolated,
+                    space_things = space_things,
+                    created_at = Timestamp(seconds=int(space_things_domain.created_at.timestamp())),
+                    last_updated_at = Timestamp(seconds=int(space_things_domain.last_updated_at.timestamp())),
+                    things50dc500000000= domain_things_space.get_thing_by_id(space_things_domain.space_things_domain_collar_id)
+                )   # Done -> CM-I7
 
-    def get_domain_all(self, space_things: space_things_pb2.SpaceThings):
+    def get_domain_all(self, space_things: space_things_pb2.SpaceThings) -> List[space_things_domain_pb2.SpaceThingsDomain]:
         with DbSession.session_scope() as session:
-            space_things_domains = session.query(self.domain_table).all()
-            return [space_things_domain_pb2.SpaceThingsDomain(
-                space_things_domain_id=space_things_domain.space_things_domain_id,
-            ) for space_things_domain in space_things_domains]    # TODO(@peivee): fix remaining
 
-    # TODO(@peivee): fix this - DONE
+            # This should return the table rows for which the space_things.id 
+            # matches with the one passed in the argument.
+            space_things_domains = session.query(self.domain_table).filter(
+                self.domain_table.c.space_things_id == space_things.id
+            ).all()
+
+            # A function to return collar based on collar_id must be created.  
+            # For now keeping it as just get_collar_with_id as a placeholder.
+
+            return [space_things_domain_pb2.SpaceThingsDomain(
+                id= space_things_domain.space_things_domain_id,
+                name= space_things_domain.space_things_domain_name,
+                description= space_things_domain.space_things_domain_description,
+                is_isolated= space_things_domain.space_things_domain_isolated,
+                space_things = space_things,
+                created_at= space_things_domain.created_at,
+                last_updated_at= space_things_domain.last_updated_at,
+                things50dc500000000= DomainThingsSpace(space_things_id=space_things.id,
+                                                       things_domain_id=space_things_domain.space_things_domain_id
+                                                       ).get_thing_by_id(space_things_domain.space_things_domain_collar_id)  
+            ) for space_things_domain in space_things_domains]    # Done -> CM-I7
+
+    # Done -> CM-I7
     def update_domain_last_updated_at(self, space_things_domain_id: str):
         statement = (update(self.domain_table).where(
             self.domain_table.c.space_things_domain_id == space_things_domain_id).values(
-            last_updated_at=format_timestamp_to_datetime(get_current_timestamp())))
+                last_updated_at=format_timestamp_to_datetime(
+                    get_current_timestamp()
+                    )
+                )
+            )
         with DbSession.session_scope() as session:
             session.execute(statement)
             session.commit()
         return
 
 
-
-# TODO (@peivee): please try to understand this
-# Like in knowledge domain, have file, page and para defined..
-# Similarly, in things domain, has device defined..
 class DomainThingsSpace:
-
-    # TODO (@peivee): please try to relate why there are different tables with same id
-    # I hope you will be able to visualise the distributed database architecture with domains
+    
     def __init__(self, space_things_id: str, things_domain_id: str):
         self.space_things_domain_id = things_domain_id
         self.things_model_name = f"things_{things_domain_id}"
@@ -172,9 +202,7 @@ class DomainThingsSpace:
             self.base_os_table = None
             self.orchestrator_os_table = None
             self.node_liability_table = None
-            self.ovpn_config_table = None
-
-    # TODO(@peivee): here, all the base tables are setup
+            
     # Setup Domain Knowledge Space
     def setup_domain_things_space(self):
         self.get_things_model().__table__.create(bind=DbSession.get_engine())
