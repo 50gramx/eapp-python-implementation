@@ -17,21 +17,16 @@
 #   * from Amit Kumar Khetan.
 #   */
 
-import logging
-import unicodedata
-from sqlalchemy import Column, String, Integer, Boolean, ForeignKey, DateTime, update, Float
+from sqlalchemy import Column, String, Integer, Boolean, DateTime, update, Float
 from sqlalchemy.ext.declarative import declarative_base
 
 from db_session import DbSession
-# from ethos.elint.entities import space_knowledge_pb2, space_knowledge_domain_pb2, space_knowledge_domain_file_pb2, \
-#     space_knowledge_domain_file_page_pb2, space_knowledge_domain_file_page_para_pb2
 from ethos.elint.entities import space_things_pb2, space_things_domain_pb2, space_things_domain_device_pb2
 from ethos.elint.entities.space_knowledge_domain_file_page_para_pb2 import PageContourDimensions
 from support.helper_functions import format_timestamp_to_datetime, get_current_timestamp, gen_uuid, \
     format_datetime_to_timestamp
 from google.protobuf.timestamp_pb2 import Timestamp
 from typing import List
-# from ethos.things_spaces.models.base_models import SpaceThings
 
 
 ThingsSpaceModels = declarative_base()
@@ -170,16 +165,8 @@ class ThingsSpace:
         return
 
 
-
-# TODO (@peivee): please try to understand this
-# Like in knowledge domain, have file, page and para defined..
-# Similarly, in things domain, has device defined..
-
-# The name of this class is changed from DomainKnowledgeSpace to DomainThingsSpacec
 class DomainThingsSpace:
-
-    # TODO (@peivee): please try to relate why there are different tables with same id
-    # I hope you will be able to visualise the distributed database architecture with domains
+    
     def __init__(self, space_things_id: str, things_domain_id: str):
         self.space_things_domain_id = things_domain_id
         self.things_model_name = f"things_{things_domain_id}"
@@ -213,8 +200,7 @@ class DomainThingsSpace:
             self.base_os_table = None
             self.orchestrator_os_table = None
             self.node_liability_table = None
-
-    # TODO(@peivee): here, all the base tables are setup
+            
     # Setup Domain Knowledge Space
     def setup_domain_things_space(self):
         self.get_things_model().__table__.create(bind=DbSession.get_engine())
