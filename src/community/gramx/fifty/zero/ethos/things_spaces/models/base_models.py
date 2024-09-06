@@ -19,11 +19,11 @@
 
 from sqlalchemy import Column, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship, declarative_base
+from sqlalchemy.exc import IntegrityError
 from ethos.identity.models.base_models import Account, Space
-from support.helper_functions import format_timestamp_to_datetime
+from support.helper_functions import format_timestamp_to_datetime, gen_uuid, get_current_timestamp
 
 BaseModels = declarative_base()
-
 
 class SpaceThings(BaseModels):
     __tablename__ = 'space_things'
@@ -38,5 +38,37 @@ class SpaceThings(BaseModels):
 
     def __repr__(self):
         return f"<SpaceThings(id='{self.id}', name='{self.name}', created_at='{self.created_at}')>"
+
+    @classmethod
+    def add_new_space_things(cls, session, name, admin_id, space_id):
+        """Create a new SpaceThings instance and commit it to the database."""
+        try:
+            # Create a new SpaceThings instance
+            new_space_thing = cls(
+                id=gen_uuid(),  # Generate a unique UUID for the new space thing
+                name=name,
+                admin_id=admin_id,
+                space_id=space_id,
+                created_at=format_timestamp_to_datetime(get_current_timestamp())
+            )
+            
+            # Add the new instance to the session
+            session.add(new_space_thing)
+            
+            # Commit the session to save the instance to the database
+            session.commit()
+            
+            return new_space_thing.id
+
+        except IntegrityError as e:
+            # Rollback the session in case of an error
+            session.rollback()
+            raise e  # Reraise the exception to handle it at a higher level
+        except Exception as e:
+            # Handle other potential exceptions
+            session.rollback()
+            raise e
+
+
 
     

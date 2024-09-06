@@ -108,7 +108,7 @@ def delete_universe_service(request: delete_universe_pb2.DeleteUniverseRequest) 
         # TODO (peivee@): universe_id is not available in the request
         # Retrieve the existing Universe record
         universe = session.query(Universe).filter(
-            Universe.universe_id == request.universe_id
+            Universe.universe_name == request.universe_name
         ).first()
 
         if not universe:
