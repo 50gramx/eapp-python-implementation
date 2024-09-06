@@ -203,7 +203,7 @@ class DomainThingsSpace:
             self.orchestrator_os_table = None
             self.node_liability_table = None
             
-    # Setup Domain Knowledge Space
+    # Setup Domain Things Space
     def setup_domain_things_space(self):
         self.get_things_model().__table__.create(bind=DbSession.get_engine())
         self.get_machine_class_model().__table__.create(bind=DbSession.get_engine())
