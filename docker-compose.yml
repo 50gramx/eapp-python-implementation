@@ -90,10 +90,10 @@ services:
     image: ngrok/ngrok:latest
     environment:
       NGROK_AUTHTOKEN: "2SzmsAARz0p4r06QtTrKowySfae_7vWg8zGABmPNWCVgwST8P"
-    command: tunnel --region=us --label edge=edghts_2cAumeAQDfh8027UbvM81qdViqh http://localhost:50503
+    command: tunnel --region=us --label edge=edghts_2cAumeAQDfh8027UbvM81qdViqh http://nginx:8080
     network_mode: "host"
     depends_on:
-      - sync_py_caps_proxy
+      - nginx
     restart: always
 
   # Jaeger Service
