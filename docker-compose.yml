@@ -86,14 +86,25 @@ services:
       - sync_py_caps
 
   # ngrok Service for exposing sync_py_caps_proxy
-  ngrok:
+  upsteam_sync_py_caps_proxy:
     image: ngrok/ngrok:latest
     environment:
       NGROK_AUTHTOKEN: "2SzmsAARz0p4r06QtTrKowySfae_7vWg8zGABmPNWCVgwST8P"
-    command: http --domain=capabilities.atlas.starflare.bangalore.in.networks.50gramx.com --host-header=rewrite http://localhost:8080
+    command: tunnel --region=us --label edge=edghts_2cAumeAQDfh8027UbvM81qdViqh sync_py_caps_proxy:50503
     network_mode: "host"
     depends_on:
-      - nginx
+      - sync_py_caps_proxy
+    restart: always
+
+  # ngrok Service for exposing sync_py_caps_proxy
+  upsteam_pods_api_proxy:
+    image: ngrok/ngrok:latest
+    environment:
+      NGROK_AUTHTOKEN: "22xmC9Wy8cuAN2cuQKWRwwzY4ff_79fWKX1ytq3oPXrS1dQJz"
+    command: tunnel --region=us --label edge=edghts_2cbFUF1BBAqmjXiF0JUTQDOb9JE pods-api:8000
+    network_mode: "host"
+    depends_on:
+      - pods-api
     restart: always
 
   # Jaeger Service
