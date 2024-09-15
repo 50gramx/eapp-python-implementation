@@ -85,6 +85,17 @@ services:
     links:
       - sync_py_caps
 
+  # ngrok Service for exposing sync_py_caps_proxy
+  ngrok:
+    image: ngrok/ngrok:latest
+    environment:
+      NGROK_AUTHTOKEN: "2SzmsAARz0p4r06QtTrKowySfae_7vWg8zGABmPNWCVgwST8P"
+    command: http --domain=grand-nationally-mite.ngrok-free.app sync_py_caps_proxy:50503
+    network_mode: "host"
+    depends_on:
+      - sync_py_caps_proxy
+    restart: always
+
   # Jaeger Service
   jaeger:
     image: jaegertracing/all-in-one:latest
