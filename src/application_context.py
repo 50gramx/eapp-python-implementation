@@ -531,3 +531,19 @@ class ApplicationContext(object):
     @staticmethod
     def get_delete_universe_service():
         return Registry.get_service('delete_universe_service')
+
+
+    # -------------------------------------
+    # Space Things Domain Services
+    # -------------------------------------
+    @staticmethod
+    def get_create_space_things_domain_service():
+        return Registry.get_service('create_space_things_domain_service')
+
+    @staticmethod
+    def get_access_space_things_domain_service():
+        return Registry.get_service('access_space_things_domain_service')
+
+    @staticmethod
+    def get_discover_space_things_domain_service():
+        return Registry.get_service('discover_space_things_domain_service')
