@@ -1,4 +1,4 @@
-from ethos.elint.services.product.identity.space.create_space_things_pb2 import (
+from ethos.elint.services.product.identity.space_things.create_space_things_pb2 import (
     CreateThingsSpaceDomainRequest, CreateNodesCollarRequest
 )
 from ethos.elint.services.product.identity.space.access_space_pb2 import SpaceServicesAccessAuthDetails
@@ -13,7 +13,7 @@ class CreateSpaceThingsConsumer:
     @staticmethod
     def create_things_space_domain(access_auth: SpaceServicesAccessAuthDetails):
         # Stub to connect to the gRPC service
-        stub = ApplicationContext.create_space_things_service_stub()
+        stub = ApplicationContext.get_create_space_things_domain_service()
         
         # Define the request for creating a new SpaceThings domain
         request = CreateThingsSpaceDomainRequest(
