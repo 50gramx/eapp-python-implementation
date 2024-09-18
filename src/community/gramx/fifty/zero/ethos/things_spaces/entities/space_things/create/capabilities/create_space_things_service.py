@@ -1,15 +1,16 @@
 import logging
 
-from ethos.elint.services.product.identity.space.create_space_things_pb2 import (
+from ethos.elint.services.product.identity.space_things.create_space_things_pb2 import (
     CreateThingsSpaceDomainResponse, CreateNodesCollarResponse
 )
-from ethos.elint.services.product.identity.space.create_space_things_pb2_grpc import (
+
+from ethos.elint.services.product.identity.space_things.create_space_things_pb2_grpc import (
     CreateServiceServicer
 )
 
 from application_context import ApplicationContext
-from ethos.elint.entities.space_things_domain import SpaceThingsDomain
-from ethos.elint.collars.Things50DC500000000 import Things50DC500000000
+from ethos.things_spaces.models.base_models import SpaceThings
+from ethos.things_spaces.models.things_space_models import DomainThingsSpace
 from support.db_service import add_new_entity
 from support.helper_functions import gen_uuid
 
@@ -27,9 +28,9 @@ class CreateSpaceThingsService(CreateServiceServicer):
         description = request.description
         properties = request.properties
 
-        # Generate a new SpaceThingsDomain
+        # Generate a new SpaceThings
         space_things_domain_id = gen_uuid()
-        new_space_things_domain = SpaceThingsDomain(
+        new_space_things_domain = SpaceThings(
             space_things_domain_id=space_things_domain_id,
             name=name,
             description=description,
@@ -54,7 +55,7 @@ class CreateSpaceThingsService(CreateServiceServicer):
         
         # Validate collar details or perform additional logic (if needed)
         collar_id = gen_uuid()
-        new_collar = Things50DC500000000(
+        new_collar = DomainThingsSpace(
             node_id=collar_id,
             name=collar_request.name,
             machine_class=collar_request.machine_class,
