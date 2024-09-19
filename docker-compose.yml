@@ -148,9 +148,8 @@ services:
   nginx:
     image: 50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-capabilities-upstream:latest
     ports:
-      - "80:80"
-      - "443:443"
-      - "8080:8080"
+      - "80:80" # HTTP
+      - "15443:443" # HTTPS on custom port
     depends_on:
       - async_py_caps
       - sync_py_caps
