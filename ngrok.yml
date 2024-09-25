@@ -1,5 +1,6 @@
 authtoken: 2SzmsAARz0p4r06QtTrKowySfae_7vWg8zGABmPNWCVgwST8P
 region: in
+version: 2
 
 tunnels:
   http_tunnel:
