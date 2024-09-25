@@ -85,6 +85,18 @@ services:
     links:
       - sync_py_caps
 
+  # ngrok Service for exposing sync_py_caps_proxy
+  ngrok:
+    image: ngrok/ngrok:latest
+    volumes:
+      - ./ngrok.yml:/etc/ngrok/ngrok.yml # Mount the config file
+    command: start --config /etc/ngrok/ngrok.yml --all
+    network_mode: "host"
+    depends_on:
+      - sync_py_caps
+      - sync_py_caps_proxy
+    restart: always
+
   # Jaeger Service
   jaeger:
     image: jaegertracing/all-in-one:latest
@@ -126,9 +138,8 @@ services:
   nginx:
     image: 50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-capabilities-upstream:latest
     ports:
-      - "80:80"
-      - "443:443"
-      - "8080:8080"
+      - "80:80" # HTTP
+      - "15443:443" # HTTPS on custom port
     depends_on:
       - async_py_caps
       - sync_py_caps

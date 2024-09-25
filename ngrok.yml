@@ -1,0 +1,15 @@
+authtoken: 2SzmsAARz0p4r06QtTrKowySfae_7vWg8zGABmPNWCVgwST8P
+region: in
+version: 2
+
+tunnels:
+  http_tunnel:
+    addr: http://localhost:50503
+    proto: http
+    labels:
+      - edge=edghts_2cAumeAQDfh8027UbvM81qdViqh
+
+  tcp_tunnel:
+    addr: 50501
+    proto: tcp
+    remote_addr: 1.tcp.in.ngrok.io:20240
