@@ -86,25 +86,15 @@ services:
       - sync_py_caps
 
   # ngrok Service for exposing sync_py_caps_proxy
-  upsteam_sync_py_caps_proxy:
+  ngrok:
     image: ngrok/ngrok:latest
-    environment:
-      NGROK_AUTHTOKEN: "2SzmsAARz0p4r06QtTrKowySfae_7vWg8zGABmPNWCVgwST8P"
-    command: tunnel --region us --label edge=edghts_2cAumeAQDfh8027UbvM81qdViqh http://localhost:50503
-    network_mode: "host"
-    depends_on:
-      - sync_py_caps_proxy
-    restart: always
-
-  # ngrok Service for exposing sync_py_caps_proxy
-  upsteam_sync_py_caps:
-    image: ngrok/ngrok:latest
-    environment:
-      NGROK_AUTHTOKEN: "2SzmsAARz0p4r06QtTrKowySfae_7vWg8zGABmPNWCVgwST8P"
-    command: tcp 50501 --region=in --remote-addr=1.tcp.in.ngrok.io:20240
+    volumes:
+      - ./ngrok.yml:/etc/ngrok/ngrok.yml # Mount the config file
+    command: start --config /etc/ngrok/ngrok.yml --all
     network_mode: "host"
     depends_on:
       - sync_py_caps
+      - sync_py_caps_proxy
     restart: always
 
   # Jaeger Service
