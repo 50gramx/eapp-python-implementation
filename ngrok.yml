@@ -4,10 +4,9 @@ version: 2
 
 tunnels:
   http_tunnel:
-    addr: http://localhost:50503
-    proto: http
     labels:
       - edge=edghts_2cAumeAQDfh8027UbvM81qdViqh
+    addr: http://localhost:50503
 
   tcp_tunnel:
     addr: 50501
