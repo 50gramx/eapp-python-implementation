@@ -7,8 +7,9 @@ from ethos.elint.collars import Service50DC499999999_pb2
 from ethos.elint.services.product.identity.pods import create_pods_pb2, create_pods_pb2_grpc
 
 
-class CreatePodsImpl(create_pods_pb2_grpc.CreatePodsServiceServicer):
-    def CreatePod(self, request, context):
+class CreatePodsImpl:
+    
+    def CreatePod(self, request):
         # Simulating pod creation with dummy data
         pod = request.pod
         print(f"Creating pod: {pod.name}")

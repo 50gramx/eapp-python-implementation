@@ -26,6 +26,7 @@ def register_pod_services(aio: bool):
     if aio:
         pass
     else:
+        print("registering pod services")
         create_pod_service = CreatePodsService()
         Registry.register_service('create_pods_service', create_pod_service)
     return

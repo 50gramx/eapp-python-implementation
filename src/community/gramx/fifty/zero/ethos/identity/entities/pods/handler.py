@@ -30,8 +30,9 @@ def handle_pods_services(server, aio: bool):
     if aio:
         pass
     else:
+        print("handling pod services to server")
         add_CreatePodsServiceServicer_to_server(
-            ApplicationContext.get_create_pods_service
+            ApplicationContext.get_create_pods_service(), server
         )
         logging.info(f'\t\t [x] create pods')
     return server
