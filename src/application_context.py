@@ -531,3 +531,11 @@ class ApplicationContext(object):
     @staticmethod
     def get_delete_universe_service():
         return Registry.get_service('delete_universe_service')
+    
+    
+    # ----------------------------------------------------
+    # Pods CRUD Services
+    # ----------------------------------------------------
+    @staticmethod
+    def get_create_pods_service():
+        return Registry.get_service('create_pods_service')
