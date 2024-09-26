@@ -1,5 +1,5 @@
 from ethos.elint.services.product.identity.pods.create_pods_pb2_grpc import CreatePodsServiceServicer
-from community.gramx.fifty.zero.ethos.identity.entities.pods.implementation.create_pods_impl import CreatePodsImpl
+from community.gramx.fifty.zero.ethos.identity.entities.pods.capabilities.implementation.create_pods_impl import CreatePodsImpl
 
 from support.application.tracing import trace_rpc, PYTHON_IMPLEMENTATION_TRACER
 
