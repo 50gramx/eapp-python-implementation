@@ -22,7 +22,7 @@ from community.gramx.fifty.zero.ethos.identity.entities.pods.service.create_pods
 from support.application.registry import Registry
 
 
-def register_universe_services(aio: bool):
+def register_pod_services(aio: bool):
     if aio:
         pass
     else:
