@@ -86,6 +86,7 @@ from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page_par
     DeleteSpaceKnowledgeDomainFilePageParaServiceStub
 from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page_para.discover_space_knowledge_domain_file_page_para_pb2_grpc import \
     DiscoverSpaceKnowledgeDomainFilePageParaServiceStub
+from ethos.elint.services.product.identity.pods.create_pods_pb2_grpc import CreatePodsServiceStub
 
 from community.gramx.fifty.zero.ethos.conversations.entities.message.capabilities.account.registry import \
     register_account_message_services
@@ -383,6 +384,15 @@ class Loader(object):
 
         reader_knowledge_service_stub = ReaderKnowledgeServiceStub(capabilities_common_channel)
         Registry.register_service('reader_knowledge_service_stub', reader_knowledge_service_stub)
+        
+        # --------------------------------------------
+        # CREATE PODS STUBS
+        # --------------------------------------------
+
+        create_pod_service_stub = CreatePodsServiceStub(capabilities_common_channel)
+        Registry.register_service('create_pod_service_stub', create_pod_service_stub)
+        
+        print('Pod Stubs Created')
 
         # adding channels to registry
         Registry.register_service('grpc_channels', channels)
