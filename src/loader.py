@@ -145,6 +145,7 @@ class Loader(object):
         register_account_assistant_services(aio=aio)
         register_space_services(aio=aio)
         register_pod_services(aio=aio)
+        logging.info('pods service registered')
         # Loader.__register_multiverse_services()
         Loader.__register_machine_services()
         logging.info(f'Identity context loaded')
@@ -370,6 +371,7 @@ class Loader(object):
             capabilities_common_channel)
         Registry.register_service('delete_space_knowledge_domain_file_page_para_service_stub',
                                   delete_space_knowledge_domain_file_page_para_service_stub)
+    
 
         # --------------------------------------------
         # COGNITIVE ASSIST KNOWLEDGE RETRIEVER STUBS
@@ -392,8 +394,8 @@ class Loader(object):
         create_pod_service_stub = CreatePodsServiceStub(capabilities_common_channel)
         Registry.register_service('create_pod_service_stub', create_pod_service_stub)
         
-        print('Pod Stubs Created')
-
+        logging.info('Created pods service stub')
+        
         # adding channels to registry
         Registry.register_service('grpc_channels', channels)
         return

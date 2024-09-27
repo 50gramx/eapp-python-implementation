@@ -17,7 +17,7 @@
 #   * from Amit Kumar Khetan.
 #   */
 
-from community.gramx.fifty.zero.ethos.identity.entities.pods.service.create_pods_service import CreatePodsService
+from community.gramx.fifty.zero.ethos.identity.entities.pods.create.capabilities.implementation.create_pods_impl import CreatePodsService
 
 from support.application.registry import Registry
 
