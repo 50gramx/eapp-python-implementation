@@ -8,9 +8,9 @@ services:
       - "6379:6379"
     volumes:
       # Mounting host directory to store Redis data
-      - C:\Users\amitk\Documents\capability-data\redis\data:/data
+      # - C:\Users\amitk\Documents\capability-data\redis\data:/data
       # Mounting host directory to store Redis backups
-      - C:\Users\amitk\Documents\capability-data\redis\backups:/backups
+      # - C:\Users\amitk\Documents\capability-data\redis\backups:/backups
       # Mounting script for restoring and starting Redis
       - ./redis_restore_and_start.sh:/redis_restore_and_start.sh
       # Mounting backup script for terminating backups
@@ -32,7 +32,7 @@ services:
       # Mounting initialization SQL files from the host
       - ./sql:/docker-entrypoint-initdb.d
       # Mounting backup files for restoration
-      - C:\Users\amitk\Documents\capability-data\psql\backups:/backups
+      # - C:\Users\amitk\Documents\capability-data\psql\backups:/backups
       #      # Mounting archive files for point in time recovery
       #      - /c/Users/amitk/Documents/capability-data/psql/archive:/archive
       #      # Mounting PostgreSQL data directory to the host
@@ -55,7 +55,10 @@ services:
 
   # Ethos Apps Python Asynchronous Capabilities
   async_py_caps:
-    image: docker.io/khetana/eapp-python-implementations:latest
+    # image: docker.io/khetana/eapp-python-implementations:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "50502:80"
     restart: always
@@ -67,7 +70,10 @@ services:
 
   # Ethos Apps Python Synchronous Capabilities
   sync_py_caps:
-    image: docker.io/khetana/eapp-python-implementations:latest
+    # image: docker.io/khetana/eapp-python-implementations:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "50501:80"
     restart: always
@@ -79,23 +85,26 @@ services:
 
   # Ethos Apps Python Synchronous Capabilities Envoy
   sync_py_caps_proxy:
-    image: 50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-capabilities-proxy:latest
+    # image: 50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-capabilities-proxy:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.proxy
     ports:
       - "50503:8080"
     links:
       - sync_py_caps
 
   # ngrok Service for exposing sync_py_caps_proxy
-  ngrok:
-    image: ngrok/ngrok:latest
-    volumes:
-      - ./ngrok.yml:/etc/ngrok/ngrok.yml # Mount the config file
-    command: start --config /etc/ngrok/ngrok.yml --all
-    network_mode: "host"
-    depends_on:
-      - sync_py_caps
-      - sync_py_caps_proxy
-    restart: always
+  # ngrok:
+  #   image: ngrok/ngrok:latest
+  #   volumes:
+  #     - ./ngrok.yml:/etc/ngrok/ngrok.yml # Mount the config file
+  #   command: start --config /etc/ngrok/ngrok.yml --all
+  #   network_mode: "host"
+  #   depends_on:
+  #     - sync_py_caps
+  #     - sync_py_caps_proxy
+  #   restart: always
 
   # Jaeger Service
   jaeger:
@@ -122,8 +131,8 @@ services:
     environment:
       MINIO_ACCESS_KEY: AKIAZRD2XQCNZ753U6UH
       MINIO_SECRET_KEY: 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
-    volumes:
-      - C:\Users\amitk\Documents\capability-data\s3\data:/data
+      # volumes:
+      # - C:\Users\amitk\Documents\capability-data\s3\data:/data
     command: server /data
     restart: always
 
@@ -136,10 +145,11 @@ services:
 
   # Nginx Proxy
   nginx:
-    image: 50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-capabilities-upstream:latest
+    image: nginx:latest
+    platform: linux/amd64
     ports:
-      - "80:80" # HTTP
-      - "15443:443" # HTTPS on custom port
+      - "80:80"
+      - "15443:443"
     depends_on:
       - async_py_caps
       - sync_py_caps
