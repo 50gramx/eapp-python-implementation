@@ -187,9 +187,6 @@ from community.gramx.sixty.six.ethos.action.entities.space.knowledge.registry im
 from community.gramx.sixty.six.ethos.reader.entities.knowledge.reader.registry import (
     register_knowledge_reader_services,
 )
-from community.gramx.sixty.six.ethos.retriever.entities.knowledge.registry import (
-    register_knowledge_retriever_services,
-)
 from support.application.registry import Registry
 
 
