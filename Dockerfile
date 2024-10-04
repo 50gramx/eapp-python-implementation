@@ -37,7 +37,7 @@ COPY certificates/server.key /app/certificates/server.key
 ENV PIP_CONFIG_FILE=/app/pip.conf
 
 # Install the Python dependencies from the requirements file
-RUN pip install -r /app/requirements.txt
+RUN pip3 install -r /app/requirements.txt
 
 # Copy the application code into the container
 COPY . /app
