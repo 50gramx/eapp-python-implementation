@@ -72,7 +72,7 @@ job("Build & Deploy Python Implementations") {
 
         shellScript {
             content = """
-                docker login -u khetana -p dckr_pat_PUFXNtjg34r6TO8oR07uR6o1AG4
+                docker login -u ethosindia -p dckr_pat_4S0EcsM5lO5Z1gxDT-q5NUkKf4U
             """
         }
 
@@ -85,7 +85,7 @@ job("Build & Deploy Python Implementations") {
 
            // image tags
             val spaceRepo = "50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations"
-            val dockerHubRepo = "docker.io/khetana/eapp-python-implementations"
+            val dockerHubRepo = "docker.io/ethosindia/eapp-python-implementations"
             tags {
                 // use current job run number as a tag - '0.0.run_number'
                 +"$dockerHubRepo:{{ VERSION_NUMBER }}"
@@ -241,7 +241,7 @@ job("Build Cache Invalidated Python Implementations Image") {
 
         shellScript {
             content = """
-                docker login -u khetana -p dckr_pat_PUFXNtjg34r6TO8oR07uR6o1AG4
+                docker login -u ethosindia -p dckr_pat_4S0EcsM5lO5Z1gxDT-q5NUkKf4U
             """
         }
 
@@ -250,7 +250,7 @@ job("Build Cache Invalidated Python Implementations Image") {
             file = "Dockerfile"
             // image tags
             val spaceRepo = "50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-python-implementations"
-            val dockerHubRepo = "docker.io/khetana/eapp-python-implementations"
+            val dockerHubRepo = "docker.io/ethosindia/eapp-python-implementations"
 
 
             // Add a cache-busting argument to force `apt-get update`
@@ -396,6 +396,13 @@ job("Build Capabilities Proxy Image") {
     }
 
     host("Build and push capabilities proxy image") {
+        
+        shellScript {
+            content = """
+                docker login -u ethosindia -p dckr_pat_4S0EcsM5lO5Z1gxDT-q5NUkKf4U
+            """
+        }
+
         dockerBuildPush {
             // by default, the step runs not only 'docker build' but also 'docker push'
             // to disable pushing, add the following line:
@@ -415,10 +422,11 @@ job("Build Capabilities Proxy Image") {
             // to add a raw list of additional push arguments, use
             // extraArgsForPushCommand = listOf("...")
             // image tags
+            val dockerHubRepo = "docker.io/ethosindia/eapp-capabilities-proxy"
             tags {
                 // use current job run number as a tag - '0.0.run_number'
-                +"50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-capabilities-proxy:{{ VERSION_NUMBER }}"
-                +"50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-capabilities-proxy:latest"
+                +"$dockerHubRepo:{{ VERSION_NUMBER }}"
+                +"$dockerHubRepo:latest"
             }
         }
 
@@ -458,14 +466,22 @@ job("Build Nginx Upstream Image") {
     }
 
     host("Build and push nginx upstream image") {
+
+
+        shellScript {
+            content = """
+                docker login -u ethosindia -p dckr_pat_4S0EcsM5lO5Z1gxDT-q5NUkKf4U
+            """
+        }
+
+        
         dockerBuildPush {
             
             file = "Dockerfile.nginx"
-
+            val dockerHubRepo = "docker.io/ethosindia/eapp-capabilities-upstream"
             tags {
-                // use current job run number as a tag - '0.0.run_number'
-                +"50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-capabilities-upstream:{{ VERSION_NUMBER }}"
-                +"50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-capabilities-upstream:latest"
+                +"$dockerHubRepo:{{ VERSION_NUMBER }}"
+                +"$dockerHubRepo:latest"
             }
         }
 

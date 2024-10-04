@@ -21,172 +21,119 @@ import logging
 import os
 
 import grpc
-from ethos.elint.services.cognitive.assist.knowledge.reader_knowledge_pb2_grpc import (
-    ReaderKnowledgeServiceStub,
-)
-from ethos.elint.services.cognitive.assist.knowledge.retriever_knowledge_pb2_grpc import (
-    RetrieverKnowledgeServiceStub,
-)
-from ethos.elint.services.product.action.space_knowledge_action_pb2_grpc import (
-    SpaceKnowledgeActionServiceStub,
-)
-from ethos.elint.services.product.conversation.message.account.receive_account_message_pb2_grpc import (
-    ReceiveAccountMessageServiceStub,
-)
-from ethos.elint.services.product.conversation.message.account.send_account_message_pb2_grpc import (
-    SendAccountMessageServiceStub,
-)
-from ethos.elint.services.product.conversation.message.account_assistant.receive_account_assistant_message_pb2_grpc import (
-    ReceiveAccountAssistantMessageServiceStub,
-)
-from ethos.elint.services.product.conversation.message.account_assistant.send_account_assistant_message_pb2_grpc import (
-    SendAccountAssistantMessageServiceStub,
-)
-from ethos.elint.services.product.conversation.message.message_conversation_pb2_grpc import (
-    MessageConversationServiceStub,
-)
-from ethos.elint.services.product.identity.account.access_account_pb2_grpc import (
-    AccessAccountServiceStub,
-)
-from ethos.elint.services.product.identity.account.connect_account_pb2_grpc import (
-    ConnectAccountServiceStub,
-)
-from ethos.elint.services.product.identity.account.create_account_pb2_grpc import (
-    CreateAccountServiceStub,
-)
-from ethos.elint.services.product.identity.account.discover_account_pb2_grpc import (
-    DiscoverAccountServiceStub,
-)
-from ethos.elint.services.product.identity.account.notify_account_pb2_grpc import (
-    NotifyAccountServiceStub,
-)
-from ethos.elint.services.product.identity.account.pay_in_account_pb2_grpc import (
-    PayInAccountServiceStub,
-)
-from ethos.elint.services.product.identity.account_assistant.access_account_assistant_pb2_grpc import (
-    AccessAccountAssistantServiceStub,
-)
-from ethos.elint.services.product.identity.account_assistant.action_account_assistant_pb2_grpc import (
-    ActionAccountAssistantServiceStub,
-)
-from ethos.elint.services.product.identity.account_assistant.connect_account_assistant_pb2_grpc import (
-    ConnectAccountAssistantServiceStub,
-)
-from ethos.elint.services.product.identity.account_assistant.create_account_assistant_pb2_grpc import (
-    CreateAccountAssistantServiceStub,
-)
-from ethos.elint.services.product.identity.account_assistant.discover_account_assistant_pb2_grpc import (
-    DiscoverAccountAssistantServiceStub,
-)
-from ethos.elint.services.product.identity.pods.create_pods_pb2_grpc import (
-    CreatePodsServiceStub,
-)
-from ethos.elint.services.product.identity.space.access_space_pb2_grpc import (
-    AccessSpaceServiceStub,
-)
-from ethos.elint.services.product.identity.space.create_space_pb2_grpc import (
-    CreateSpaceServiceStub,
-)
-from ethos.elint.services.product.knowledge.space_knowledge.access_space_knowledge_pb2_grpc import (
-    AccessSpaceKnowledgeServiceStub,
-)
-from ethos.elint.services.product.knowledge.space_knowledge.create_space_knowledge_pb2_grpc import (
-    CreateSpaceKnowledgeServiceStub,
-)
-from ethos.elint.services.product.knowledge.space_knowledge.discover_space_knowledge_pb2_grpc import (
-    DiscoverSpaceKnowledgeServiceStub,
-)
-from ethos.elint.services.product.knowledge.space_knowledge_domain.access_space_knowledge_domain_pb2_grpc import (
-    AccessSpaceKnowledgeDomainServiceStub,
-)
-from ethos.elint.services.product.knowledge.space_knowledge_domain.create_space_knowledge_domain_pb2_grpc import (
-    CreateSpaceKnowledgeDomainServiceStub,
-)
-from ethos.elint.services.product.knowledge.space_knowledge_domain.discover_space_knowledge_domain_pb2_grpc import (
-    DiscoverSpaceKnowledgeDomainServiceStub,
-)
-from ethos.elint.services.product.knowledge.space_knowledge_domain_file.access_space_knowledge_domain_file_pb2_grpc import (
-    AccessSpaceKnowledgeDomainFileServiceStub,
-)
-from ethos.elint.services.product.knowledge.space_knowledge_domain_file.create_space_knowledge_domain_file_pb2_grpc import (
-    CreateSpaceKnowledgeDomainFileServiceStub,
-)
-from ethos.elint.services.product.knowledge.space_knowledge_domain_file.delete_space_knowledge_domain_file_pb2_grpc import (
-    DeleteSpaceKnowledgeDomainFileServiceStub,
-)
-from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.access_space_knowledge_domain_file_page_pb2_grpc import (
-    AccessSpaceKnowledgeDomainFilePageServiceStub,
-)
-from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.create_space_knowledge_domain_file_page_pb2_grpc import (
-    CreateSpaceKnowledgeDomainFilePageServiceStub,
-)
-from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.delete_space_knowledge_domain_file_page_pb2_grpc import (
-    DeleteSpaceKnowledgeDomainFilePageServiceStub,
-)
-from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.discover_space_knowledge_domain_file_page_pb2_grpc import (
-    DiscoverSpaceKnowledgeDomainFilePageServiceStub,
-)
-from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page_para.access_space_knowledge_domain_file_page_para_pb2_grpc import (
-    AccessSpaceKnowledgeDomainFilePageParaServiceStub,
-)
-from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page_para.create_space_knowledge_domain_file_page_para_pb2_grpc import (
-    CreateSpaceKnowledgeDomainFilePageParaServiceStub,
-)
-from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page_para.delete_space_knowledge_domain_file_page_para_pb2_grpc import (
-    DeleteSpaceKnowledgeDomainFilePageParaServiceStub,
-)
-from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page_para.discover_space_knowledge_domain_file_page_para_pb2_grpc import (
-    DiscoverSpaceKnowledgeDomainFilePageParaServiceStub,
-)
+from ethos.elint.services.cognitive.assist.knowledge.reader_knowledge_pb2_grpc import \
+    ReaderKnowledgeServiceStub
+from ethos.elint.services.cognitive.assist.knowledge.retriever_knowledge_pb2_grpc import \
+    RetrieverKnowledgeServiceStub
+from ethos.elint.services.product.action.space_knowledge_action_pb2_grpc import \
+    SpaceKnowledgeActionServiceStub
+from ethos.elint.services.product.conversation.message.account.receive_account_message_pb2_grpc import \
+    ReceiveAccountMessageServiceStub
+from ethos.elint.services.product.conversation.message.account.send_account_message_pb2_grpc import \
+    SendAccountMessageServiceStub
+from ethos.elint.services.product.conversation.message.account_assistant.receive_account_assistant_message_pb2_grpc import \
+    ReceiveAccountAssistantMessageServiceStub
+from ethos.elint.services.product.conversation.message.account_assistant.send_account_assistant_message_pb2_grpc import \
+    SendAccountAssistantMessageServiceStub
+from ethos.elint.services.product.conversation.message.message_conversation_pb2_grpc import \
+    MessageConversationServiceStub
+from ethos.elint.services.product.identity.account.access_account_pb2_grpc import \
+    AccessAccountServiceStub
+from ethos.elint.services.product.identity.account.connect_account_pb2_grpc import \
+    ConnectAccountServiceStub
+from ethos.elint.services.product.identity.account.create_account_pb2_grpc import \
+    CreateAccountServiceStub
+from ethos.elint.services.product.identity.account.discover_account_pb2_grpc import \
+    DiscoverAccountServiceStub
+from ethos.elint.services.product.identity.account.notify_account_pb2_grpc import \
+    NotifyAccountServiceStub
+from ethos.elint.services.product.identity.account.pay_in_account_pb2_grpc import \
+    PayInAccountServiceStub
+from ethos.elint.services.product.identity.account_assistant.access_account_assistant_pb2_grpc import \
+    AccessAccountAssistantServiceStub
+from ethos.elint.services.product.identity.account_assistant.action_account_assistant_pb2_grpc import \
+    ActionAccountAssistantServiceStub
+from ethos.elint.services.product.identity.account_assistant.connect_account_assistant_pb2_grpc import \
+    ConnectAccountAssistantServiceStub
+from ethos.elint.services.product.identity.account_assistant.create_account_assistant_pb2_grpc import \
+    CreateAccountAssistantServiceStub
+from ethos.elint.services.product.identity.account_assistant.discover_account_assistant_pb2_grpc import \
+    DiscoverAccountAssistantServiceStub
+from ethos.elint.services.product.identity.pods.create_pods_pb2_grpc import \
+    CreatePodsServiceStub
+from ethos.elint.services.product.identity.space.access_space_pb2_grpc import \
+    AccessSpaceServiceStub
+from ethos.elint.services.product.identity.space.create_space_pb2_grpc import \
+    CreateSpaceServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge.access_space_knowledge_pb2_grpc import \
+    AccessSpaceKnowledgeServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge.create_space_knowledge_pb2_grpc import \
+    CreateSpaceKnowledgeServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge.discover_space_knowledge_pb2_grpc import \
+    DiscoverSpaceKnowledgeServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain.access_space_knowledge_domain_pb2_grpc import \
+    AccessSpaceKnowledgeDomainServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain.create_space_knowledge_domain_pb2_grpc import \
+    CreateSpaceKnowledgeDomainServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain.discover_space_knowledge_domain_pb2_grpc import \
+    DiscoverSpaceKnowledgeDomainServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file.access_space_knowledge_domain_file_pb2_grpc import \
+    AccessSpaceKnowledgeDomainFileServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file.create_space_knowledge_domain_file_pb2_grpc import \
+    CreateSpaceKnowledgeDomainFileServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file.delete_space_knowledge_domain_file_pb2_grpc import \
+    DeleteSpaceKnowledgeDomainFileServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.access_space_knowledge_domain_file_page_pb2_grpc import \
+    AccessSpaceKnowledgeDomainFilePageServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.create_space_knowledge_domain_file_page_pb2_grpc import \
+    CreateSpaceKnowledgeDomainFilePageServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.delete_space_knowledge_domain_file_page_pb2_grpc import \
+    DeleteSpaceKnowledgeDomainFilePageServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.discover_space_knowledge_domain_file_page_pb2_grpc import \
+    DiscoverSpaceKnowledgeDomainFilePageServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page_para.access_space_knowledge_domain_file_page_para_pb2_grpc import \
+    AccessSpaceKnowledgeDomainFilePageParaServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page_para.create_space_knowledge_domain_file_page_para_pb2_grpc import \
+    CreateSpaceKnowledgeDomainFilePageParaServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page_para.delete_space_knowledge_domain_file_page_para_pb2_grpc import \
+    DeleteSpaceKnowledgeDomainFilePageParaServiceStub
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page_para.discover_space_knowledge_domain_file_page_para_pb2_grpc import \
+    DiscoverSpaceKnowledgeDomainFilePageParaServiceStub
 
-from community.gramx.fifty.zero.ethos.conversations.entities.message.capabilities.account.registry import (
-    register_account_message_services,
-)
-from community.gramx.fifty.zero.ethos.conversations.entities.message.capabilities.account_assistant.registry import (
-    register_account_assistant_message_services,
-)
-from community.gramx.fifty.zero.ethos.conversations.entities.message.registry import (
-    register_message_conversation_services,
-)
-from community.gramx.fifty.zero.ethos.identity.entities.account.registry import (
-    register_account_services,
-)
-from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.registry import (
-    register_account_assistant_services,
-)
-from community.gramx.fifty.zero.ethos.identity.entities.machine.discover_machine_service import (
-    DiscoverMachineService,
-)
-from community.gramx.fifty.zero.ethos.identity.entities.pods.registry import (
-    register_pod_services,
-)
-from community.gramx.fifty.zero.ethos.identity.entities.space.registry import (
-    register_space_services,
-)
-from community.gramx.fifty.zero.ethos.identity.entities.universe.registry import (
-    register_universe_services,
-)
-from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge.registry import (
-    register_space_knowledge_services,
-)
-from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain.registry import (
-    register_space_knowledge_domain_services,
-)
-from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file.registry import (
-    register_space_knowledge_domain_file_services,
-)
-from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file_page.registry import (
-    register_space_knowledge_domain_file_page_services,
-)
-from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file_page_para.registry import (
-    register_space_knowledge_domain_file_page_para_services,
-)
-from community.gramx.sixty.six.ethos.action.entities.space.knowledge.registry import (
-    register_space_knowledge_action_services,
-)
-from community.gramx.sixty.six.ethos.reader.entities.knowledge.reader.registry import (
-    register_knowledge_reader_services,
-)
+from community.gramx.fifty.zero.ethos.conversations.entities.message.capabilities.account.registry import \
+    register_account_message_services
+from community.gramx.fifty.zero.ethos.conversations.entities.message.capabilities.account_assistant.registry import \
+    register_account_assistant_message_services
+from community.gramx.fifty.zero.ethos.conversations.entities.message.registry import \
+    register_message_conversation_services
+from community.gramx.fifty.zero.ethos.identity.entities.account.registry import \
+    register_account_services
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.registry import \
+    register_account_assistant_services
+from community.gramx.fifty.zero.ethos.identity.entities.machine.discover_machine_service import \
+    DiscoverMachineService
+from community.gramx.fifty.zero.ethos.identity.entities.pods.registry import \
+    register_pod_services
+from community.gramx.fifty.zero.ethos.identity.entities.space.registry import \
+    register_space_services
+from community.gramx.fifty.zero.ethos.identity.entities.universe.registry import \
+    register_universe_services
+from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge.registry import \
+    register_space_knowledge_services
+from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain.registry import \
+    register_space_knowledge_domain_services
+from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file.registry import \
+    register_space_knowledge_domain_file_services
+from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file_page.registry import \
+    register_space_knowledge_domain_file_page_services
+from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file_page_para.registry import \
+    register_space_knowledge_domain_file_page_para_services
+from community.gramx.sixty.six.ethos.action.entities.space.knowledge.registry import \
+    register_space_knowledge_action_services
+from community.gramx.sixty.six.ethos.reader.entities.knowledge.reader.registry import \
+    register_knowledge_reader_services
+from community.gramx.sixty.six.ethos.retriever.entities.knowledge.registry import \
+    register_knowledge_retriever_services
 from support.application.registry import Registry
 
 
@@ -246,7 +193,7 @@ class Loader(object):
     @staticmethod
     def init_multiverse_knowledge_retriever_context(aio: bool):
         logging.info(f"Knowledge Retriever context loading...")
-        # register_knowledge_retriever_services(aio=aio)
+        register_knowledge_retriever_services(aio=aio)
         logging.info(f"Knowledge Retriever context loaded")
         pass
 

@@ -55,7 +55,7 @@ services:
 
   # Ethos Apps Python Asynchronous Capabilities
   async_py_caps:
-    image: docker.io/khetana/eapp-python-implementations:latest
+    image: docker.io/ethosindia/eapp-python-implementations:latest
     ports:
       - "50502:80"
     restart: always
@@ -67,7 +67,7 @@ services:
 
   # Ethos Apps Python Synchronous Capabilities
   sync_py_caps:
-    image: docker.io/khetana/eapp-python-implementations:latest
+    image: docker.io/ethosindia/eapp-python-implementations:latest
     ports:
       - "50501:80"
     restart: always
@@ -79,7 +79,7 @@ services:
 
   # Ethos Apps Python Synchronous Capabilities Envoy
   sync_py_caps_proxy:
-    image: 50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-capabilities-proxy:latest
+    image: docker.io/ethosindia/eapp-capabilities-proxy:latest
     ports:
       - "50503:8080"
     links:
@@ -136,7 +136,7 @@ services:
 
   # Nginx Proxy
   nginx:
-    image: 50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-capabilities-upstream:latest
+    image: docker.io/ethosindia/eapp-capabilities-upstream:latest
     ports:
       - "80:80" # HTTP
       - "15443:443" # HTTPS on custom port
