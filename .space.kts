@@ -10,6 +10,7 @@ job("Build & Deploy Python Implementations") {
                 +"release-*"
                 +"master"
                 +"main"
+                +"features/I24"
             }
         }
     }
