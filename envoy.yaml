@@ -45,7 +45,7 @@ static_resources:
                     typed_config:
                       "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
   clusters:
-    - name: gramx-develop-sync #sync_py_caps
+    - name: sync_py_caps #gramx-develop-sync
       connect_timeout: 0.25s
       type: logical_dns
       http2_protocol_options: { }
@@ -57,5 +57,5 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: gramx-develop-sync #sync_py_caps
+                      address: gramx-develop-sync.develop.svc.cluster.local #sync_py_caps
                       port_value: 80
