@@ -57,5 +57,5 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: sync_py_caps
+                      address: gramx-develop-sync.develop.svc.cluster.local #sync_py_caps
                       port_value: 80
