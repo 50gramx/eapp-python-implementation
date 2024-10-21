@@ -373,6 +373,11 @@ job("Build Capabilities Proxy Image") {
                 +"Dockerfile.proxy"
                 +"envoy.yaml"
             }
+            anyBranchMatching {
+                +"release-*"
+                +"master"
+                +"main"
+            }
         }
     }
 
@@ -442,6 +447,11 @@ job("Build Nginx Upstream Image") {
             pathFilter {
                 +"Dockerfile.nginx"
                 +"nginx.conf"
+            }
+            anyBranchMatching {
+                +"release-*"
+                +"master"
+                +"main"
             }
         }
     }
