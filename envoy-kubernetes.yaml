@@ -21,7 +21,7 @@ static_resources:
                     - name: local_service
                       domains: [ "*" ]
                       routes:
-                        - match: { prefix: "/envoy" }
+                        - match: { prefix: "/" }
                           route:
                             cluster: sync_backend
                             timeout: 0s
