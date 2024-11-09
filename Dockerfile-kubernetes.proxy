@@ -2,6 +2,8 @@
 FROM envoyproxy/envoy:v1.22.0
 
 COPY ./envoy-kubernetes.yaml /etc/envoy/envoy.yaml
+# Expose both HTTP and HTTPS ports as needed
+EXPOSE 8080 443 80
 
 ENTRYPOINT [ "/usr/local/bin/envoy" ]
 CMD [ "-c /etc/envoy/envoy.yaml", "-l trace", "--log-path /tmp/envoy_info.log" ]
