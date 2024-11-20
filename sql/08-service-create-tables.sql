@@ -1,0 +1,32 @@
+/*
+ *  /*************************************************************************
+ *  *
+ *  * AMIT KUMAR KHETAN CONFIDENTIAL
+ *  * __________________
+ *  *
+ *  *  [2017] - [2021] Amit Kumar Khetan
+ *  *  All Rights Reserved.
+ *  *
+ *  * NOTICE:  All information contained herein is, and remains
+ *  * the property of Amit Kumar Khetan and its suppliers,
+ *  * if any.  The intellectual and technical concepts contained
+ *  * herein are proprietary to Amit Kumar Khetan
+ *  * and its suppliers and may be covered by U.S. and Foreign Patents,
+ *  * patents in process, and are protected by trade secret or copyright law.
+ *  * Dissemination of this information or reproduction of this material
+ *  * is strictly forbidden unless prior written permission is obtained
+ *  * from Amit Kumar Khetan.
+ *
+ */
+*/
+
+
+-- Create the space_knowledge table
+CREATE TABLE space_service
+(
+    space_service_id               VARCHAR(255) PRIMARY KEY,
+    space_service_name             VARCHAR(255) NOT NULL,
+    space_service_admin_account_id VARCHAR(255) NOT NULL,
+    space_id                         VARCHAR      NOT NULL,
+    created_at                       TIMESTAMP    NOT NULL
+);
