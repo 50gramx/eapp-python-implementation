@@ -25,8 +25,6 @@ from grpc import StatusCode
 
 from support.database.universe_services import get_universe
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
 
 def by_id_impl(request: universe_pb2.Universe, context) -> universe_pb2.Universe:
     try:

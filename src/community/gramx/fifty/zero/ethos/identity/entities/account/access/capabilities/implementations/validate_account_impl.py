@@ -19,19 +19,25 @@
 import logging
 
 import phonenumbers
+from ethos.elint.entities.generic_pb2 import TemporaryTokenDetails
+from ethos.elint.entities.universe_pb2 import Universe
+from ethos.elint.services.product.identity.account.access_account_pb2 import (
+    ValidateAccountRequest,
+    ValidateAccountResponse,
+)
 from phonenumbers import carrier
 from phonenumbers.phonenumberutil import number_type
-from ethos.elint.entities.universe_pb2 import Universe
-from ethos.elint.entities.generic_pb2 import TemporaryTokenDetails
-from ethos.elint.services.product.identity.account.access_account_pb2 import ValidateAccountRequest
-from ethos.elint.services.product.identity.account.access_account_pb2 import ValidateAccountResponse
 
 from access.account.authentication import AccessAccountAuthentication
 from support.database.account_services import is_existing_account_mobile
-from support.helper_functions import get_random_string, gen_uuid, get_current_timestamp, send_otp, get_future_timestamp
+from support.helper_functions import (
+    gen_uuid,
+    get_current_timestamp,
+    get_future_timestamp,
+    get_random_string,
+    send_otp,
+)
 from support.session.redis_service import set_kv
-
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 def validate_account_impl(request: ValidateAccountRequest, session_scope: str):
@@ -39,35 +45,42 @@ def validate_account_impl(request: ValidateAccountRequest, session_scope: str):
 
     # get request params here
     logging.info(
-        f"Received account_mobile_number: {request.account_mobile_number} at {request.requested_at}")
+        f"Received account_mobile_number: {request.account_mobile_number} at {request.requested_at}"
+    )
 
     # validate the account number
     try:
         is_valid_mobile_number = carrier._is_mobile(
-            number_type(phonenumbers.parse(request.account_mobile_number, "IN")))
+            number_type(phonenumbers.parse(request.account_mobile_number, "IN"))
+        )
         if not is_valid_mobile_number:
             validate_account_response = ValidateAccountResponse(
                 account_exists=False,
                 validate_account_done=False,
-                validate_account_message=f"Invalid mobile number. Please provide a valid mobile number."
+                validate_account_message=f"Invalid mobile number. Please provide a valid mobile number.",
             )
             return validate_account_response
     except Exception:
         validate_account_response = ValidateAccountResponse(
             account_exists=False,
             validate_account_done=False,
-            validate_account_message=f"Invalid mobile number. Please provide a valid mobile number."
+            validate_account_message=f"Invalid mobile number. Please provide a valid mobile number.",
         )
         return validate_account_response
 
     # check account existence
-    account_country_code = request.account_mobile_country_code if request.account_mobile_country_code \
-        else "+" + str(phonenumbers.parse(request.account_mobile_number, "IN").country_code)
+    account_country_code = (
+        request.account_mobile_country_code
+        if request.account_mobile_country_code
+        else "+"
+        + str(phonenumbers.parse(request.account_mobile_number, "IN").country_code)
+    )
 
     logging.info(f"Using account_mobile_country_code: {account_country_code}")
 
-    account_exists_with_mobile = is_existing_account_mobile(account_country_code,
-                                                            request.account_mobile_number)
+    account_exists_with_mobile = is_existing_account_mobile(
+        account_country_code, request.account_mobile_number
+    )
 
     # take action
     if account_exists_with_mobile:
@@ -77,14 +90,16 @@ def validate_account_impl(request: ValidateAccountRequest, session_scope: str):
         code_token = gen_uuid()
         code_generated_at = get_current_timestamp()
         # send the code to mobile
-        code_sent_at = send_otp(account_country_code, request.account_mobile_number, verification_code)
+        code_sent_at = send_otp(
+            account_country_code, request.account_mobile_number, verification_code
+        )
         # store the token details
         set_kv(code_token, verification_code)
         # create the code token details here
         verification_code_token_details = TemporaryTokenDetails(
             token=code_token,
             generated_at=code_generated_at,
-            valid_till=get_future_timestamp(after_seconds=180)
+            valid_till=get_future_timestamp(after_seconds=180),
         )
 
         # create response
@@ -92,13 +107,13 @@ def validate_account_impl(request: ValidateAccountRequest, session_scope: str):
             account_access_auth_details=AccessAccountAuthentication(
                 session_scope=session_scope,
                 account_mobile_country_code=request.account_mobile_country_code,
-                account_mobile_number=request.account_mobile_number
+                account_mobile_number=request.account_mobile_number,
             ).create_authentication_details(),
             account_exists=True,
             verification_code_token_details=verification_code_token_details,
             code_sent_at=code_sent_at,
             validate_account_done=True,
-            validate_account_message="OTP Sent to the Mobile Number"
+            validate_account_message="OTP Sent to the Mobile Number",
         )
         logging.info("OTP sent successfully.")
     else:
@@ -106,7 +121,7 @@ def validate_account_impl(request: ValidateAccountRequest, session_scope: str):
         validate_account_response = ValidateAccountResponse(
             account_exists=account_exists_with_mobile,
             validate_account_done=False,
-            validate_account_message="Account doesn't exists. Please Create your Account."
+            validate_account_message="Account doesn't exists. Please Create your Account.",
         )
 
     logging.info("Finishing ValidateAccount RPC")

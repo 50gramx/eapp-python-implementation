@@ -17,8 +17,9 @@
 #   * from Amit Kumar Khetan.
 #   */
 
-from community.gramx.fifty.zero.ethos.identity.entities.pods.create.capabilities.implementation.create_pods_impl import CreatePodsService
-
+from community.gramx.fifty.zero.ethos.identity.entities.pods.create.capabilities.implementation.create_pods_impl import (
+    CreatePodsService,
+)
 from support.application.registry import Registry
 
 
@@ -28,5 +29,5 @@ def register_pod_services(aio: bool):
     else:
         print("registering pod services")
         create_pod_service = CreatePodsService()
-        Registry.register_service('create_pods_service', create_pod_service)
+        Registry.register_service("create_pods_service", create_pod_service)
     return

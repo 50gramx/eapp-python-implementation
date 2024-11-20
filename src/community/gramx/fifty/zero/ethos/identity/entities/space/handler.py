@@ -18,8 +18,12 @@
 #   */
 import logging
 
-from ethos.elint.services.product.identity.space.access_space_pb2_grpc import add_AccessSpaceServiceServicer_to_server
-from ethos.elint.services.product.identity.space.create_space_pb2_grpc import add_CreateSpaceServiceServicer_to_server
+from ethos.elint.services.product.identity.space.access_space_pb2_grpc import (
+    add_AccessSpaceServiceServicer_to_server,
+)
+from ethos.elint.services.product.identity.space.create_space_pb2_grpc import (
+    add_CreateSpaceServiceServicer_to_server,
+)
 
 from application_context import ApplicationContext
 
@@ -31,9 +35,9 @@ def handle_space_services(server, aio: bool):
         add_CreateSpaceServiceServicer_to_server(
             ApplicationContext.get_create_space_service(), server
         )
-        logging.info(f'\t\t [x] create')
+        logging.info(f"\t\t [x] create")
         add_AccessSpaceServiceServicer_to_server(
             ApplicationContext.get_access_space_service(), server
         )
-        logging.info(f'\t\t [x] access')
+        logging.info(f"\t\t [x] access")
     return

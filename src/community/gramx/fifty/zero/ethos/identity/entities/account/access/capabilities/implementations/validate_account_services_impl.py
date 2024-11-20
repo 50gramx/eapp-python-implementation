@@ -20,21 +20,23 @@
 
 import logging
 
-from ethos.elint.services.product.identity.account.access_account_pb2 import ValidateAccountServicesResponse, \
-    AccountServicesAccessAuthDetails
+from ethos.elint.services.product.identity.account.access_account_pb2 import (
+    AccountServicesAccessAuthDetails,
+    ValidateAccountServicesResponse,
+)
 
 from support.database.account_services import get_account
 from support.session_manager import is_persistent_session_valid
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-
-def validate_account_services_impl(request: AccountServicesAccessAuthDetails, session_scope: str):
-    if request.account.account_id is "":
+def validate_account_services_impl(
+    request: AccountServicesAccessAuthDetails, session_scope: str
+):
+    if request.account.account_id == "":
         logging.info("account id is null, returning")
         return ValidateAccountServicesResponse(
             account_service_access_validation_done=False,
-            account_service_access_validation_message="Invalid Request. This action will be reported."
+            account_service_access_validation_message="Invalid Request. This action will be reported.",
         )
     account_id = request.account.account_id
     # validate the account
@@ -43,7 +45,7 @@ def validate_account_services_impl(request: AccountServicesAccessAuthDetails, se
     except:
         return ValidateAccountServicesResponse(
             account_service_access_validation_done=False,
-            account_service_access_validation_message="Requesting account is not legit. This action will be reported."
+            account_service_access_validation_message="Requesting account is not legit. This action will be reported.",
         )
 
     if account_mismatch:
@@ -51,16 +53,16 @@ def validate_account_services_impl(request: AccountServicesAccessAuthDetails, se
         logging.info("account id mis-match, will return")
         return ValidateAccountServicesResponse(
             account_service_access_validation_done=False,
-            account_service_access_validation_message="Requesting account is not legit. This action will be reported."
+            account_service_access_validation_message="Requesting account is not legit. This action will be reported.",
         )
     else:
         # validate the session
         session_valid, session_valid_message = is_persistent_session_valid(
             request.account_services_access_session_token_details.session_token,
             account_id,
-            session_scope
+            session_scope,
         )
         return ValidateAccountServicesResponse(
             account_service_access_validation_done=session_valid,
-            account_service_access_validation_message=session_valid_message
+            account_service_access_validation_message=session_valid_message,
         )
