@@ -25,13 +25,13 @@ from grpc import StatusCode
 from jaeger_client import Config
 from opentelemetry import trace
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
-from opentelemetry.sdk.resources import Resource, SERVICE_NAME
+from opentelemetry.sdk.resources import SERVICE_NAME, Resource
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentracing import tags
 from opentracing.propagation import Format
 
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(format="%(asctime)s - %(levelname)s - %(message)s")
 
 
 class AtlasTracer:
@@ -51,9 +51,7 @@ class AtlasTracer:
     @staticmethod
     def _register_span_processor():
         # create a JaegerExporter
-        jaeger_exporter = OTLPSpanExporter(
-            'jaeger:4317', insecure=True
-        )
+        jaeger_exporter = OTLPSpanExporter("jaeger:4317", insecure=True)
 
         # Create a BatchSpanProcessor and add the exporter to it
         return BatchSpanProcessor(jaeger_exporter)
@@ -84,16 +82,16 @@ def init_jaeger_tracer(service_name):
     logging.debug("init_tracer")
     config = Config(
         config={
-            'sampler': {'type': 'const', 'param': 1},
-            'local_agent': {'reporting_host': 'jaeger', 'reporting_port': '6831'},
-            'logging': True,
+            "sampler": {"type": "const", "param": 1},
+            "local_agent": {"reporting_host": "jaeger", "reporting_port": "6831"},
+            "logging": True,
         },
         service_name=service_name,
     )
     return config.initialize_tracer()
 
 
-PYTHON_IMPLEMENTATION_TRACER = init_jaeger_tracer('eapp-python-implementation')
+PYTHON_IMPLEMENTATION_TRACER = init_jaeger_tracer("eapp-python-implementation")
 logging.info("PYTHON_IMPLEMENTATION_TRACER")
 ATLAS_TRACER = AtlasTracer.get()
 
@@ -120,7 +118,7 @@ def trace_rpc(tracer=PYTHON_IMPLEMENTATION_TRACER):
                 span.set_tag("session_scope", self.session_scope)
                 # Set gRPC tags
                 span.set_tag(tags.SPAN_KIND, tags.SPAN_KIND_RPC_SERVER)
-                span.set_tag(tags.PEER_SERVICE, 'unknown-service')
+                span.set_tag(tags.PEER_SERVICE, "unknown-service")
 
                 try:
                     logging.info(f"{self.session_scope}:{span_name}")
