@@ -49,6 +49,7 @@ static_resources:
       connect_timeout: 0.25s
       type: strict_dns
       lb_policy: round_robin
+      http2_protocol_options: {}
       load_assignment:
         cluster_name: sync_backend
         endpoints:
@@ -63,6 +64,7 @@ static_resources:
       connect_timeout: 0.25s
       type: logical_dns
       lb_policy: round_robin
+      http2_protocol_options: {}
       load_assignment:
         cluster_name: external_sync_backend
         endpoints:
