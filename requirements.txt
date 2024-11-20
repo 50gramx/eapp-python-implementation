@@ -21,7 +21,7 @@ click-repl==0.3.0
 cryptography==41.0.7
 Deprecated==1.2.14
 elasticsearch==8.13.0   # TODO: Evaluate the version
-ethos>=24.9.174
+ethos>=24.11.214
 diskcache==5.6.3    # TODO: Evaluate the need
 firebase-admin==6.3.0
 FLAML==2.1.1    # TODO: Evaluate the need
@@ -86,6 +86,7 @@ pytesseract==0.3.10
 python-dateutil==2.8.2
 python-dotenv==1.0.0    # TODO: Evaluate the need
 python-http-client==3.3.7
+kubernetes==31.0.0
 redis==5.0.1
 requests==2.31.0
 rsa==4.9
