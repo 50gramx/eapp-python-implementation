@@ -1,0 +1,143 @@
+version: '3'
+
+services:
+  # Redis Service
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      # Mounting script for restoring and starting Redis
+      - ./redis_restore_and_start.sh:/redis_restore_and_start.sh
+      # Mounting backup script for terminating backups
+      - ./redis_backup.sh:/redis_backup.sh
+    command: [ "bash", "/redis_restore_and_start.sh" ]
+    restart: always
+
+  # PostgreSQL Service
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      # Mounting initialization SQL files from the host
+      - ./sql:/docker-entrypoint-initdb.d
+      # Mounting backup files for restoration
+      # - C:\Users\amitk\Documents\capability-data\psql\backups:/backups
+      #      # Mounting archive files for point in time recovery
+      #      - /c/Users/amitk/Documents/capability-data/psql/archive:/archive
+      #      # Mounting PostgreSQL data directory to the host
+      #      - /c/Users/amitk/Documents/capability-data/psql/data:/var/lib/postgresql/data
+      # Mounting backup script for terminating backups
+      - ./psql_backup.sh:/psql_backup.sh
+    stop_signal: SIGINT
+    restart: always
+
+  # maintenance Service
+  maintenance:
+    image: alpine:latest
+    volumes:
+      # Mounting cron file for scheduling
+      - ./crontab:/etc/crontabs/root
+    command: /bin/sh -c "crond -f -L /dev/stdout"
+    depends_on:
+      - postgres
+      - redis
+
+  # Ethos Apps Python Asynchronous Capabilities
+  async_py_caps:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "50502:80"
+    restart: always
+    depends_on:
+      - postgres
+      - redis
+      - s3
+    entrypoint: [ "sh", "launch_async.sh" ]
+
+  # Ethos Apps Python Synchronous Capabilities
+  sync_py_caps:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "50501:80"
+    restart: always
+    depends_on:
+      - postgres
+      - redis
+      - s3
+      - async_py_caps
+
+  # Ethos Apps Python Synchronous Capabilities Envoy
+  sync_py_caps_proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile.proxy.local
+    ports:
+      - "50503:8080"
+    links:
+      - sync_py_caps
+
+  # Jaeger Service
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "5775:5775/udp"
+      - "6831:6831/udp"
+      - "6832:6832/udp"
+      - "5778:5778"
+      - "16686:16686"
+      - "14268:14268"
+      - "9411:9411"
+      - "4317:4317"
+      - "4318:4318"
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+    restart: always
+
+  # Object Storage
+  s3:
+    image: minio/minio:latest
+    ports:
+      - "9000:9000"
+    environment:
+      MINIO_ACCESS_KEY: AKIAZRD2XQCNZ753U6UH
+      MINIO_SECRET_KEY: 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
+      # volumes:
+      # - C:\Users\amitk\Documents\capability-data\s3\data:/data
+    command: server /data
+    restart: always
+
+  # Pods HTTP APIs
+  pods-api:
+    image: 50gramx.registry.jetbrains.space/p/main/ethosindiacontainers/eapp-pods-api:latest
+    ports:
+      - "8000:8000"
+    restart: always
+
+  # Nginx Proxy
+  nginx:
+    image: docker.io/ethosindia/eapp-capabilities-upstream:latest
+    ports:
+      - "80:80" # HTTP
+      - "15443:443" # HTTPS on custom port
+    depends_on:
+      - async_py_caps
+      - sync_py_caps
+      - sync_py_caps_proxy
+      - jaeger
+      - s3
+    restart: always
+
+networks:
+  default:
+    driver: bridge
