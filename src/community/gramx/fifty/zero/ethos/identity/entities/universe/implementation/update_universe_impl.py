@@ -22,19 +22,19 @@ import logging
 from multiprocessing import context
 
 import grpc
-from ethos.elint.services.product.identity.universe.update_universe_pb2 import UpdateUniverseRequest
-from ethos.elint.services.product.identity.universe.update_universe_pb2 import UpdateUniverseResponse
+from ethos.elint.services.product.identity.universe.update_universe_pb2 import (
+    UpdateUniverseRequest,
+    UpdateUniverseResponse,
+)
 
 from support.database.universe_services import update_universe_service
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
-'''
+"""
 Request params:
 ---------------
 
 universe_id : str
-'''
+"""
 
 
 def update_universe_impl(request: UpdateUniverseRequest) -> UpdateUniverseResponse:
@@ -53,7 +53,7 @@ def update_universe_impl(request: UpdateUniverseRequest) -> UpdateUniverseRespon
             universe_name=universe_obj.universe_name,
             universe_created_at=universe_obj.universe_created_at,
             universe_description=universe_obj.universe_description,
-            universe_updated_at=universe_obj.universe_updated_at  # Ensure to include the updated_at field
+            universe_updated_at=universe_obj.universe_updated_at,  # Ensure to include the updated_at field
         )
         return response
 
