@@ -20,16 +20,27 @@
 import logging
 
 from ethos.elint.entities.generic_pb2 import ResponseMeta
-from ethos.elint.services.product.action.space_knowledge_action_pb2 import AskQuestionResponse, DomainRankedAnswers
-from ethos.elint.services.product.action.space_knowledge_action_pb2_grpc import SpaceKnowledgeActionServiceServicer
+from ethos.elint.services.product.action.space_knowledge_action_pb2 import (
+    AskQuestionResponse,
+    DomainRankedAnswers,
+)
+from ethos.elint.services.product.action.space_knowledge_action_pb2_grpc import (
+    SpaceKnowledgeActionServiceServicer,
+)
 
-from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.access.consumers.access_account_assistant_consumer import \
-    AccessAccountAssistantConsumer
-from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge.discover.consumers.discover_space_knowledge_consumer import \
-    DiscoverSpaceKnowledgeConsumer
-from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain.discover.consumers.discover_space_knowledge_domain_consumer import \
-    DiscoverSpaceKnowledgeDomainConsumer
-from support.access_manager import load_remembered_space_knowledge_domain_auth, load_remembered_space_knowledge_auth
+from community.gramx.fifty.zero.ethos.identity.entities.account_assistant.access.consumers.access_account_assistant_consumer import (
+    AccessAccountAssistantConsumer,
+)
+from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge.discover.consumers.discover_space_knowledge_consumer import (
+    DiscoverSpaceKnowledgeConsumer,
+)
+from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain.discover.consumers.discover_space_knowledge_domain_consumer import (
+    DiscoverSpaceKnowledgeDomainConsumer,
+)
+from support.access_manager import (
+    load_remembered_space_knowledge_auth,
+    load_remembered_space_knowledge_domain_auth,
+)
 
 
 class SpaceKnowledgeActionService(SpaceKnowledgeActionServiceServicer):
@@ -40,8 +51,10 @@ class SpaceKnowledgeActionService(SpaceKnowledgeActionServiceServicer):
     def AskQuestion(self, request, context):
         logging.info("SpaceKnowledgeActionService:AskQuestion")
         # validate account assistant access auth
-        validation_done, validation_message = AccessAccountAssistantConsumer.validate_account_assistant_services(
-            access_auth_details=request.access_auth_details
+        validation_done, validation_message = (
+            AccessAccountAssistantConsumer.validate_account_assistant_services(
+                access_auth_details=request.access_auth_details
+            )
         )
         meta = ResponseMeta(meta_done=validation_done, meta_message=validation_message)
         if validation_done is False:
@@ -49,39 +62,72 @@ class SpaceKnowledgeActionService(SpaceKnowledgeActionServiceServicer):
         else:
             logging.info("SpaceKnowledgeActionService:AskQuestion:validation_done")
             if request.ask_particular_domain:
-                logging.info("SpaceKnowledgeActionService:AskQuestion:ask_particular_domain")
+                logging.info(
+                    "SpaceKnowledgeActionService:AskQuestion:ask_particular_domain"
+                )
                 # Closed Inference (Particular Domain)
-                space_knowledge_domain_access = load_remembered_space_knowledge_domain_auth(
-                    account_assistant_auth=request.access_auth_details,
-                    space_knowledge_domain=request.space_knowledge_domain)
-                _, _, ranked_answers = DiscoverSpaceKnowledgeDomainConsumer.get_best_answers(
-                    access_auth_details=space_knowledge_domain_access,
-                    best_answers_count=20, question=request.message
+                space_knowledge_domain_access = (
+                    load_remembered_space_knowledge_domain_auth(
+                        account_assistant_auth=request.access_auth_details,
+                        space_knowledge_domain=request.space_knowledge_domain,
+                    )
+                )
+                _, _, ranked_answers = (
+                    DiscoverSpaceKnowledgeDomainConsumer.get_best_answers(
+                        access_auth_details=space_knowledge_domain_access,
+                        best_answers_count=20,
+                        question=request.message,
+                    )
                 )
                 ranked_answers.sort(key=lambda x: x.para_rank, reverse=True)
-                return AskQuestionResponse(domains_ranked_answers=[
-                    DomainRankedAnswers(space_knowledge_domain=request.space_knowledge_domain,
-                                        ranked_answers=ranked_answers)
-                ], response_meta=meta)
+                return AskQuestionResponse(
+                    domains_ranked_answers=[
+                        DomainRankedAnswers(
+                            space_knowledge_domain=request.space_knowledge_domain,
+                            ranked_answers=ranked_answers,
+                        )
+                    ],
+                    response_meta=meta,
+                )
             else:
                 logging.info("SpaceKnowledgeActionService:AskQuestion:Beam Inference")
                 # Beam Inference (All Closed Domains)
-                _, _, space_knowledge_domains = DiscoverSpaceKnowledgeConsumer.get_space_knowledge_domains(
-                    access_auth_details=load_remembered_space_knowledge_auth(request.access_auth_details)
+                _, _, space_knowledge_domains = (
+                    DiscoverSpaceKnowledgeConsumer.get_space_knowledge_domains(
+                        access_auth_details=load_remembered_space_knowledge_auth(
+                            request.access_auth_details
+                        )
+                    )
                 )
-                logging.info("SpaceKnowledgeActionService:AskQuestion:loaded space knowledge domains")
+                logging.info(
+                    "SpaceKnowledgeActionService:AskQuestion:loaded space knowledge domains"
+                )
                 domains_ranked_answers = list()
                 for space_knowledge_domain in space_knowledge_domains:
                     logging.info(
-                        f"SpaceKnowledgeActionService:AskQuestion:{space_knowledge_domain.space_knowledge_domain_name}")
-                    space_knowledge_domain_access = load_remembered_space_knowledge_domain_auth(
-                        account_assistant_auth=request.access_auth_details,
-                        space_knowledge_domain=space_knowledge_domain)
-                    _, _, ranked_answers = DiscoverSpaceKnowledgeDomainConsumer.get_best_answers(
-                        access_auth_details=space_knowledge_domain_access,
-                        best_answers_count=20, question=request.message)
+                        f"SpaceKnowledgeActionService:AskQuestion:{space_knowledge_domain.space_knowledge_domain_name}"
+                    )
+                    space_knowledge_domain_access = (
+                        load_remembered_space_knowledge_domain_auth(
+                            account_assistant_auth=request.access_auth_details,
+                            space_knowledge_domain=space_knowledge_domain,
+                        )
+                    )
+                    _, _, ranked_answers = (
+                        DiscoverSpaceKnowledgeDomainConsumer.get_best_answers(
+                            access_auth_details=space_knowledge_domain_access,
+                            best_answers_count=20,
+                            question=request.message,
+                        )
+                    )
                     print(f"Ranked Answers: {ranked_answers}")
                     ranked_answers.sort(key=lambda x: x.para_rank, reverse=True)
-                    domains_ranked_answers.append(DomainRankedAnswers(space_knowledge_domain=space_knowledge_domain,
-                                                                      ranked_answers=ranked_answers))
-                return AskQuestionResponse(domains_ranked_answers=domains_ranked_answers, response_meta=meta)
+                    domains_ranked_answers.append(
+                        DomainRankedAnswers(
+                            space_knowledge_domain=space_knowledge_domain,
+                            ranked_answers=ranked_answers,
+                        )
+                    )
+                return AskQuestionResponse(
+                    domains_ranked_answers=domains_ranked_answers, response_meta=meta
+                )
