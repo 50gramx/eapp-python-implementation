@@ -26,7 +26,12 @@ from ethos.elint.collars.DC499999999_caps_pb2 import (
 from ethos.elint.collars.DC499999999_caps_pb2_grpc import (
     DC499999999EPME5000CapabilitiesServicer,
 )
-from ethos.elint.collars.DC499999999_pb2 import DC499999999, Deployment
+from ethos.elint.collars.DC499999999_pb2 import (
+    DC499999999,
+    Condition,
+    Deployment,
+    DeploymentStatus,
+)
 from ethos.elint.entities.generic_pb2 import ResponseMeta
 from kubernetes import client, config
 from kubernetes.client import (
@@ -354,8 +359,83 @@ class DC499999999EPME5000Capabilities(DC499999999EPME5000CapabilitiesServicer):
             logging.info(f"Deployment List. selectors='{selectors}'")
             apps_v1 = client.AppsV1Api()
             deployments = apps_v1.list_namespaced_deployment(
-                namespace="default",
-                label_selector=label_selector,
+                namespace="default", label_selector=label_selector, timeout_seconds=56
             )
             logging.info(f"Deployment List. Details='{deployments}'")
+            core_v1 = client.CoreV1Api()
+            services = core_v1.list_namespaced_service(
+                namespace="default", label_selector=label_selector, timeout_seconds=56
+            )
+            logging.info(f"Service List. Details='{services}'")
+
+            node_ports = []
+            for service in services.items:
+                # Access the ports from the service's spec
+                ports = getattr(service.spec, "ports", [])
+                for port in ports:
+                    node_port = getattr(port, "node_port", None)
+                    target_port = getattr(port, "target_port", None)
+                    if node_port is not None and target_port is not None:
+                        node_ports.append(
+                            {"node_port": node_port, "target_port": target_port}
+                        )
+
+            logging.info(f"Service List. NodePorts='{node_ports}'")
+
+            matched_port = None
+            for container in c.deployment.pod_template.containers:
+                for port in container.ports:
+                    # Match container_port with target_port in node_ports
+                    matching_node_port = next(
+                        (
+                            np["node_port"]
+                            for np in node_ports
+                            if np["target_port"] == port.container_port
+                        ),
+                        None,
+                    )
+                    # If a match is found, set the node_port
+                    if matching_node_port is not None:
+                        matched_port = matching_node_port
+                        port.node_port = matched_port
+            logging.info(f"Service List. NodePort='{matched_port}'")
+
+            for deployment in deployments.items:
+                deployment_status = deployment.status
+                # Create DeploymentStatus protobuf instance
+                status_proto = DeploymentStatus(
+                    id=deployment.metadata.uid,
+                    deployment_id=deployment.metadata.name,
+                    replicas=deployment_status.replicas or 0,
+                    updated_replicas=deployment_status.updated_replicas or 0,
+                    available_replicas=deployment_status.available_replicas or 0,
+                    unavailable_replicas=deployment_status.unavailable_replicas or 0,
+                )
+
+                # Process conditions
+                for cond in deployment_status.conditions or []:
+                    logging.info(
+                        f"last_update_time={cond.last_update_time}, type={type(cond.last_update_time)}"
+                    )
+                    logging.info(
+                        f"last_update_time={cond.last_transition_time}, type={type(cond.last_transition_time)}"
+                    )
+                    condition_proto = Condition(
+                        type=cond.type,
+                        status=cond.status,
+                        reason=cond.reason,
+                        message=cond.message,
+                        last_update_time=format_datetime_to_timestamp(
+                            cond.last_update_time
+                        ),
+                        last_transition_time=format_datetime_to_timestamp(
+                            cond.last_transition_time
+                        ),
+                    )
+                    status_proto.conditions.append(condition_proto)
+
+                # Log or process the populated DeploymentStatus
+                logging.info(f"Deployment Status Proto: {status_proto}")
+                c.deployment.status.CopyFrom(status_proto)
+
             return c.deployment
