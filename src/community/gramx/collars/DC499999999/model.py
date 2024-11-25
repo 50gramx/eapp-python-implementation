@@ -1090,7 +1090,7 @@ class DC499999999Model:
             for arg in ct.args:
                 arg_statement = (
                     ServiceSpaceModelBase.metadata.tables[
-                        self.template_annotations_model_name
+                        self.container_args_model_name
                     ]
                     .insert()
                     .values(
