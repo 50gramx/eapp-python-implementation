@@ -205,7 +205,6 @@ def parsev1_svc_from_deployment_proto(deployment_proto: Deployment) -> V1Service
                     port=container_port.container_port,  # Service port
                     target_port=container_port.container_port,  # Target port in the container
                     protocol=container_port.protocol or "TCP",  # Protocol
-                    node_port=30000,
                 )
             )
 
@@ -222,44 +221,44 @@ def parsev1_svc_from_deployment_proto(deployment_proto: Deployment) -> V1Service
             labels=labels,
         ),
         spec=V1ServiceSpec(
-            selector=dict(
-                deployment_proto.selector.match_labels or {}
-            ),  # Use match_labels as the selector
+            selector=dict(deployment_proto.selector.match_labels or {}),
             ports=ports,
-            type="NodePort",  # Use ClusterIP since Ingress will route the traffic
+            type="NodePort",
         ),
     )
     return service
 
 
 def create_ingress_for_https(deployment_proto: Deployment) -> V1Ingress:
-    # Extract metadata
     deployment_name = deployment_proto.metadata.name
     namespace = deployment_proto.metadata.namespace or "default"
 
-    # Ingress Rule to route traffic to the pod
+    # Add annotations for certificate provisioning (e.g., Cert-Manager)
+    annotations = {
+        "kubernetes.io/ingress.class": "nginx",  # Adjust according to your Ingress Controller
+        "cert-manager.io/cluster-issuer": "letsencrypt-prod",  # ClusterIssuer for Cert-Manager
+    }
+
+    # Define Ingress rule
     ingress_rule = V1IngressRule(
-        host=f"{deployment_name}.50gramx.com",  # Use pod name as the subdomain
+        host="",  # Remove {pod_name}.50gramx.com
         http=V1HTTPIngressPath(
             path="/",
             path_type="Prefix",
             backend=V1IngressBackend(
                 service=V1ServiceBackendPort(
-                    name=f"{deployment_name}-service",  # Correct service name reference
-                    port=80,  # Port for the service
+                    name=f"{deployment_name}-service",  # Service reference
+                    port=V1ServiceBackendPort(port=443),  # Map to HTTPS port
                 )
             ),
         ),
     )
 
-    # Define Ingress TLS for HTTPS with Cert-Manager to issue a certificate dynamically
+    # Define Ingress TLS
     ingress_tls = V1IngressTLS(
-        hosts=[f"{deployment_name}.50gramx.com"],  # TLS for the specific domain
-        secret_name=f"{deployment_name}-tls-secret",  # Secret for TLS certificate
+        hosts=[],  # No hostname required
+        secret_name=f"{deployment_name}-tls-secret",
     )
-
-    # Define Ingress spec with rules and TLS
-    ingress_spec = V1IngressSpec(rules=[ingress_rule], tls=[ingress_tls])
 
     # Create the Ingress object
     ingress = V1Ingress(
@@ -268,11 +267,11 @@ def create_ingress_for_https(deployment_proto: Deployment) -> V1Ingress:
         metadata=V1ObjectMeta(
             name=f"{deployment_name}-ingress",
             namespace=namespace,
+            annotations=annotations,
         ),
-        spec=ingress_spec,
+        spec=V1IngressSpec(rules=[ingress_rule], tls=[ingress_tls]),
     )
 
-    # Return the Ingress object
     return ingress
 
 
