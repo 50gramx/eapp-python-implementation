@@ -47,6 +47,12 @@ from kubernetes.client import (
     V1Service,
     V1ServicePort,
     V1ServiceSpec,
+    V1Ingress, 
+    V1IngressRule, 
+    V1HTTPIngressPath, 
+    V1IngressSpec, 
+    V1IngressBackend, 
+    V1IngressTLS,
 )
 
 from src.community.gramx.collars.DC499999999.model import DC499999999Model
@@ -219,10 +225,56 @@ def parsev1_svc_from_deployment_proto(deployment_proto: Deployment) -> V1Service
                 deployment_proto.selector.match_labels or {}
             ),  # Use match_labels as the selector
             ports=ports,
-            type="NodePort",  # Default type, can be customized
+            type="ClusterIP",  # Use ClusterIP since Ingress will route the traffic
         ),
     )
     return service
+
+from kubernetes.client import V1Ingress, V1IngressRule, V1HTTPIngressPath, V1IngressSpec, V1IngressBackend, V1IngressTLS, V1ObjectMeta, V1ServicePort
+
+def create_ingress_for_https(deployment_proto: Deployment) -> V1Ingress:
+    # Extract metadata
+    deployment_name = deployment_proto.metadata.name
+    namespace = deployment_proto.metadata.namespace or "default"
+
+    # Ingress Rule to route traffic to the pod
+    ingress_rule = V1IngressRule(
+        host=f"{deployment_name}.50gramx.com",  # Use pod name as the subdomain
+        http=V1HTTPIngressPath(
+            path="/",
+            path_type="Prefix",
+            backend=V1IngressBackend(
+                service_name=f"{deployment_name}-service",  # Correct service name reference
+                service_port=80  # Port for the service
+            )
+        )
+    )
+
+    # Define Ingress TLS for HTTPS with Cert-Manager to issue a certificate dynamically
+    ingress_tls = V1IngressTLS(
+        hosts=[f"{deployment_name}.50gramx.com"],  # TLS for the specific domain
+        secret_name=f"{deployment_name}-tls-secret",  # Secret for TLS certificate
+    )
+
+    # Define Ingress spec with rules and TLS
+    ingress_spec = V1IngressSpec(
+        rules=[ingress_rule],
+        tls=[ingress_tls]
+    )
+
+    # Create the Ingress object
+    ingress = V1Ingress(
+        api_version="networking.k8s.io/v1",
+        kind="Ingress",
+        metadata=V1ObjectMeta(
+            name=f"{deployment_name}-ingress",
+            namespace=namespace,
+        ),
+        spec=ingress_spec,
+    )
+
+    # Return the Ingress object
+    return ingress
 
 
 class DC499999999EPME5000Capabilities(DC499999999EPME5000CapabilitiesServicer):
@@ -294,7 +346,7 @@ class DC499999999EPME5000Capabilities(DC499999999EPME5000CapabilitiesServicer):
         # Define a service to expose the SSH port on a NodePort
         service = parsev1_svc_from_deployment_proto(saved_c.deployment)
 
-        # Create the service
+        # Create the service (ClusterIP)
         core_v1 = client.CoreV1Api()
         service_response = core_v1.create_namespaced_service(
             namespace="default", body=service
@@ -303,6 +355,18 @@ class DC499999999EPME5000Capabilities(DC499999999EPME5000CapabilitiesServicer):
         logging.info(
             f"Service created. Name='{service_response.metadata.name}', NodePort={service_response.spec.ports[0].node_port}"
         )
+
+        # Create the Ingress for HTTPS
+        ingress = create_ingress_for_https(saved_c.deployment)
+
+        # Create the ingress resource
+        networking_v1 = client.NetworkingV1Api()
+        ingress_response = networking_v1.create_namespaced_ingress(
+            namespace="default", body=ingress
+        )
+
+        logging.info(f"Ingress created. Name='{ingress_response.metadata.name}'")
+
         return AuthWithDeployment()
 
     @trace_rpc()
