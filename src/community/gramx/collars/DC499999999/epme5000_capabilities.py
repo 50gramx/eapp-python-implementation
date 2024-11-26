@@ -47,13 +47,14 @@ from kubernetes.client import (
     V1Service,
     V1ServicePort,
     V1ServiceSpec,
-    V1Ingress, 
-    V1IngressRule, 
-    V1HTTPIngressPath, 
-    V1IngressSpec, 
-    V1IngressBackend, 
+    V1Ingress,
+    V1IngressRule,
+    V1HTTPIngressPath,
+    V1IngressSpec,
+    V1IngressBackend,
     V1IngressTLS,
 )
+from kubernetes.client.models.v1_service_backend_port import V1ServiceBackendPort
 
 from src.community.gramx.collars.DC499999999.model import DC499999999Model
 from src.community.gramx.fifty.zero.ethos.service_spaces.entities.space_service_domain.access.consumers.access_space_service_domain_consumer import (
@@ -65,7 +66,6 @@ from support.application.tracing import trace_rpc
 
 
 def parsev1_deployment_proto(deployment_proto: Deployment) -> V1Deployment:
-
     # Validate essential fields
     if not deployment_proto.metadata:
         raise ValueError("Deployment metadata is missing.")
@@ -205,6 +205,7 @@ def parsev1_svc_from_deployment_proto(deployment_proto: Deployment) -> V1Service
                     port=container_port.container_port,  # Service port
                     target_port=container_port.container_port,  # Target port in the container
                     protocol=container_port.protocol or "TCP",  # Protocol
+                    node_port=30000,
                 )
             )
 
@@ -225,12 +226,11 @@ def parsev1_svc_from_deployment_proto(deployment_proto: Deployment) -> V1Service
                 deployment_proto.selector.match_labels or {}
             ),  # Use match_labels as the selector
             ports=ports,
-            type="ClusterIP",  # Use ClusterIP since Ingress will route the traffic
+            type="NodePort",  # Use ClusterIP since Ingress will route the traffic
         ),
     )
     return service
 
-from kubernetes.client import V1Ingress, V1IngressRule, V1HTTPIngressPath, V1IngressSpec, V1IngressBackend, V1IngressTLS, V1ObjectMeta, V1ServicePort
 
 def create_ingress_for_https(deployment_proto: Deployment) -> V1Ingress:
     # Extract metadata
@@ -244,10 +244,12 @@ def create_ingress_for_https(deployment_proto: Deployment) -> V1Ingress:
             path="/",
             path_type="Prefix",
             backend=V1IngressBackend(
-                service_name=f"{deployment_name}-service",  # Correct service name reference
-                service_port=80  # Port for the service
-            )
-        )
+                service=V1ServiceBackendPort(
+                    name=f"{deployment_name}-service",  # Correct service name reference
+                    port=80,  # Port for the service
+                )
+            ),
+        ),
     )
 
     # Define Ingress TLS for HTTPS with Cert-Manager to issue a certificate dynamically
@@ -257,10 +259,7 @@ def create_ingress_for_https(deployment_proto: Deployment) -> V1Ingress:
     )
 
     # Define Ingress spec with rules and TLS
-    ingress_spec = V1IngressSpec(
-        rules=[ingress_rule],
-        tls=[ingress_tls]
-    )
+    ingress_spec = V1IngressSpec(rules=[ingress_rule], tls=[ingress_tls])
 
     # Create the Ingress object
     ingress = V1Ingress(
@@ -332,7 +331,8 @@ class DC499999999EPME5000Capabilities(DC499999999EPME5000CapabilitiesServicer):
 
         apps_v1 = client.AppsV1Api()
         deployment_response = apps_v1.create_namespaced_deployment(
-            body=deployment, namespace="default"  # Use the appropriate namespace
+            body=deployment,
+            namespace="default",  # Use the appropriate namespace
         )
         logging.info(
             f"Deployment created. Status='{deployment_response.metadata.name}'"
