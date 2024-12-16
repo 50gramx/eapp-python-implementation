@@ -22,6 +22,8 @@ from ethos.elint.entities import (
     space_knowledge_domain_file_pb2,
     space_knowledge_domain_pb2,
     space_knowledge_pb2,
+    space_product_domain_pb2,
+    space_product_pb2,
     space_service_domain_pb2,
     space_service_pb2,
 )
@@ -37,6 +39,12 @@ from ethos.elint.services.product.knowledge.space_knowledge_domain_file.access_s
 )
 from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.access_space_knowledge_domain_file_page_pb2 import (
     SpaceKnowledgeDomainFilePageServicesAccessAuthDetails,
+)
+from ethos.elint.services.product.product.space_product.access_space_product_pb2 import (
+    SpaceProductServicesAccessAuthDetails,
+)
+from ethos.elint.services.product.product.space_product_domain.access_space_product_domain_pb2 import (
+    SpaceProductDomainServicesAccessAuthDetails,
 )
 from ethos.elint.services.product.service.space_service.access_space_service_pb2 import (
     SpaceServiceServicesAccessAuthDetails,
@@ -239,6 +247,48 @@ def create_space_service_domain_services_access_auth_details(
     return SpaceServiceDomainServicesAccessAuthDetails(
         space_service_domain=space_service_domain,
         space_service_domain_services_access_session_token_details=PersistentSessionTokenDetails(
+            session_token=session_token,
+            session_scope=session_scope,
+            generated_at=requested_at,
+            valid_till=valid_till,
+        ),
+        requested_at=requested_at,
+    )
+
+
+# --------------------------------
+# Product Session Management
+# --------------------------------
+
+
+def create_space_product_services_access_auth_details(
+    session_scope: str, space_product: space_product_pb2.SpaceProduct
+) -> SpaceProductServicesAccessAuthDetails:
+    session_token, requested_at, valid_till = get_new_service_session(
+        session_scope, space_product.space_product_id
+    )
+    return SpaceProductServicesAccessAuthDetails(
+        space_product=space_product,
+        space_product_services_access_session_token_details=PersistentSessionTokenDetails(
+            session_token=session_token,
+            session_scope=session_scope,
+            generated_at=requested_at,
+            valid_till=valid_till,
+        ),
+        requested_at=requested_at,
+    )
+
+
+def create_space_product_domain_services_access_auth_details(
+    session_scope: str,
+    space_product_domain: space_product_domain_pb2.SpaceProductDomain,
+) -> SpaceProductDomainServicesAccessAuthDetails:
+    session_token, requested_at, valid_till = get_new_service_session(
+        session_scope, space_product_domain.id
+    )
+    return SpaceProductDomainServicesAccessAuthDetails(
+        space_product_domain=space_product_domain,
+        space_product_domain_services_access_session_token_details=PersistentSessionTokenDetails(
             session_token=session_token,
             session_scope=session_scope,
             generated_at=requested_at,
