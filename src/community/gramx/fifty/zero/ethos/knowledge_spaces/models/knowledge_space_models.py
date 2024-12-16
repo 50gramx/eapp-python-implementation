@@ -463,33 +463,39 @@ class DomainKnowledgeSpace:
             space_knowledge_domain_files = session.query(self.file_table).all()
             # create the space_knowledge_domain_file obj wrt proto contract
             list_of_space_knowledge_domain_file = list()
-            for space_knowledge_domain_file in space_knowledge_domain_files:
-                space_knowledge_domain_file_tags = self.get_file_tags(
-                    file_id=space_knowledge_domain_file.space_knowledge_domain_file_id
-                )
-                list_of_space_knowledge_domain_file.append(
-                    space_knowledge_domain_file_pb2.SpaceKnowledgeDomainFile(
-                        space_knowledge_domain_file_id=space_knowledge_domain_file.space_knowledge_domain_file_id,
-                        space_knowledge_domain_file_name=space_knowledge_domain_file.space_knowledge_domain_file_name,
-                        space_knowledge_domain_file_size=space_knowledge_domain_file.space_knowledge_domain_file_size,
-                        space_knowledge_domain_file_extension_type=space_knowledge_domain_file_pb2.ExtentionType.Name(
-                            int(
-                                space_knowledge_domain_file.space_knowledge_domain_file_extension_type
-                            )
-                        ),
-                        space_knowledge_domain=space_knowledge_domain,
-                        space_knowledge_domain_file_tags=space_knowledge_domain_file_tags,
-                        created_at=format_datetime_to_timestamp(
-                            space_knowledge_domain_file.created_at
-                        ),
-                        last_updated_at=format_datetime_to_timestamp(
-                            space_knowledge_domain_file.last_updated_at
-                        ),
-                        last_accessed_at=format_datetime_to_timestamp(
-                            space_knowledge_domain_file.last_accessed_at
-                        ),
+            logging.info(
+                f"DomainKnowledgeSpace, get_file_all_existing, space_knowledge_domain_files: {space_knowledge_domain_files}"
+            )
+            try:
+                for space_knowledge_domain_file in space_knowledge_domain_files:
+                    space_knowledge_domain_file_tags = self.get_file_tags(
+                        file_id=space_knowledge_domain_file.space_knowledge_domain_file_id
                     )
-                )
+                    list_of_space_knowledge_domain_file.append(
+                        space_knowledge_domain_file_pb2.SpaceKnowledgeDomainFile(
+                            space_knowledge_domain_file_id=space_knowledge_domain_file.space_knowledge_domain_file_id,
+                            space_knowledge_domain_file_name=space_knowledge_domain_file.space_knowledge_domain_file_name,
+                            space_knowledge_domain_file_size=space_knowledge_domain_file.space_knowledge_domain_file_size,
+                            space_knowledge_domain_file_extension_type=space_knowledge_domain_file_pb2.ExtentionType.Name(
+                                int(
+                                    space_knowledge_domain_file.space_knowledge_domain_file_extension_type
+                                )
+                            ),
+                            space_knowledge_domain=space_knowledge_domain,
+                            space_knowledge_domain_file_tags=space_knowledge_domain_file_tags,
+                            created_at=format_datetime_to_timestamp(
+                                space_knowledge_domain_file.created_at
+                            ),
+                            last_updated_at=format_datetime_to_timestamp(
+                                space_knowledge_domain_file.last_updated_at
+                            ),
+                            last_accessed_at=format_datetime_to_timestamp(
+                                space_knowledge_domain_file.last_accessed_at
+                            ),
+                        )
+                    )
+            except Exception as e:
+                logging.exception(f"DomainKnowledgeSpace:get_file_all_existing, {e}")
             return list_of_space_knowledge_domain_file
 
     def delete_file_by_id(self, file_id: str):
