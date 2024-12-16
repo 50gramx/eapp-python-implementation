@@ -18,6 +18,7 @@
 #   */
 
 import logging
+import os
 
 from ethos.elint.collars.DC499999999_caps_pb2 import (
     AuthWithDeployment,
@@ -282,7 +283,7 @@ class DC499999999EPME5000Capabilities(DC499999999EPME5000CapabilitiesServicer):
         self.ccode = "DC499999999"
         #  Load the Kubernetes configuration
         config.load_kube_config(
-            config_file="/app/src/community/gramx/collars/DC499999999/microk8s-config"
+            config_file=os.environ["EPOD_K8S_CONFIG"]
         )  # This assumes you have a kubeconfig file set up
 
     @trace_rpc()
