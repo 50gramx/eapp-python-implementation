@@ -148,7 +148,12 @@ class ServiceSpace:
                     ),
                 )
                 if space_service_domain.collar_code == "DC499999999":
-                    domain.dc499999999.CopyFrom(DC499999999_pb2.DC499999999())
+                    domain_service_collar_model = DC499999999Model(
+                        space_service_domain_id=domain_id,
+                        space_service_domain_collar_code=space_service_domain.collar_code,
+                    )
+                    c_proto = domain_service_collar_model.get_collar_proto_latest()
+                    domain.dc499999999.CopyFrom(c_proto)
                 logging.debug(
                     f"ServiceSpace:get_domain_with_id: {space_service_domain.collar_code}"
                 )
@@ -156,7 +161,7 @@ class ServiceSpace:
 
     def get_domains_with_collar_code(
         self, space_service: space_service_pb2.SpaceService, collar_code: str
-    ):
+    ) -> list:
         with DbSession.session_scope() as session:
             space_service_domains = (
                 session.query(self.domain_table)
