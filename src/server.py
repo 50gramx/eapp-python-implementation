@@ -48,8 +48,12 @@ from community.gramx.sixty.six.ethos.retriever.entities.knowledge.handler import
     handle_knowledge_retriever_services,
 )
 from loader import Loader
+from src.community.gramx.collars.DC499999994.handler import handle_DC499999994_services
 from src.community.gramx.collars.DC499999998.handler import handle_DC499999998_services
 from src.community.gramx.collars.DC499999999.handler import handle_DC499999999_services
+from src.community.gramx.fifty.zero.ethos.product_spaces.handler import (
+    handle_product_spaces_services,
+)
 from src.community.gramx.fifty.zero.ethos.service_spaces.handler import (
     handle_service_spaces_services,
 )
@@ -95,6 +99,7 @@ def _init_context(aio: bool = False):
     Loader.init_multiverse_context()
     Loader.init_multiverse_identity_context(aio=aio)
     Loader.init_multiverse_conversations_context(aio=aio)
+    Loader.init_multiverse_product_spaces_context(aio=aio)
     Loader.init_multiverse_service_spaces_context(aio=aio)
     Loader.init_multiverse_knowledge_spaces_context(aio=aio)
     Loader.init_multiverse_knowledge_retriever_context(aio=aio)
@@ -102,6 +107,7 @@ def _init_context(aio: bool = False):
     Loader.init_multiverse_space_knowledge_action_context(aio=aio)
     # loading collars
     Loader.init_multiverse_service_spaces_collars_context(aio=aio)
+    Loader.init_multiverse_product_spaces_collars_context(aio=aio)
 
 
 def _init_services(server, aio: bool = False):
@@ -109,12 +115,14 @@ def _init_services(server, aio: bool = False):
     handle_conversations_services(server=server, aio=aio)
     handle_knowledge_spaces_services(server=server, aio=aio)
     handle_service_spaces_services(server=server, aio=aio)
+    handle_product_spaces_services(server=server, aio=aio)
     handle_knowledge_retriever_services(server=server, aio=aio)
     handle_knowledge_reader_services(server=server, aio=aio)
     handle_space_knowledge_action_services(server=server, aio=aio)
     # handle collars
     handle_DC499999998_services(server=server, aio=aio)
     handle_DC499999999_services(server=server, aio=aio)
+    handle_DC499999994_services(server=server, aio=aio)
 
 
 async def run_aio_server(port, server_tracer):

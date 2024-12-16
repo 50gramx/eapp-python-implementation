@@ -111,6 +111,9 @@ from ethos.elint.services.product.knowledge.space_knowledge_domain_file.create_s
 from ethos.elint.services.product.knowledge.space_knowledge_domain_file.delete_space_knowledge_domain_file_pb2_grpc import (
     DeleteSpaceKnowledgeDomainFileServiceStub,
 )
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file.discover_space_knowledge_domain_file_pb2_grpc import (
+    DiscoverKnowledgeDomainFileServiceStub,
+)
 from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page.access_space_knowledge_domain_file_page_pb2_grpc import (
     AccessSpaceKnowledgeDomainFilePageServiceStub,
 )
@@ -134,6 +137,24 @@ from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page_par
 )
 from ethos.elint.services.product.knowledge.space_knowledge_domain_file_page_para.discover_space_knowledge_domain_file_page_para_pb2_grpc import (
     DiscoverSpaceKnowledgeDomainFilePageParaServiceStub,
+)
+from ethos.elint.services.product.product.space_product.access_space_product_pb2_grpc import (
+    AccessSpaceProductServiceStub,
+)
+from ethos.elint.services.product.product.space_product.create_space_product_pb2_grpc import (
+    CreateSpaceProductServiceStub,
+)
+from ethos.elint.services.product.product.space_product.discover_space_product_pb2_grpc import (
+    DiscoverSpaceProductServiceStub,
+)
+from ethos.elint.services.product.product.space_product_domain.access_space_product_domain_pb2_grpc import (
+    AccessSpaceProductDomainServiceStub,
+)
+from ethos.elint.services.product.product.space_product_domain.create_space_product_domain_pb2_grpc import (
+    CreateSpaceProductDomainServiceStub,
+)
+from ethos.elint.services.product.product.space_product_domain.discover_space_product_domain_pb2_grpc import (
+    DiscoverSpaceProductDomainServiceStub,
 )
 from ethos.elint.services.product.service.space_service.access_space_service_pb2_grpc import (
     AccessSpaceServiceServiceStub,
@@ -202,6 +223,10 @@ from community.gramx.sixty.six.ethos.reader.entities.knowledge.reader.registry i
 from community.gramx.sixty.six.ethos.retriever.entities.knowledge.registry import (
     register_knowledge_retriever_services,
 )
+from src.community.gramx.collars.DC499999994.registry import (
+    register_DC499999994_services,
+)
+from src.community.gramx.collars.DC499999994.stub import load_DC499999994_stubs
 from src.community.gramx.collars.DC499999998.registry import (
     register_DC499999998_services,
 )
@@ -210,6 +235,12 @@ from src.community.gramx.collars.DC499999999.registry import (
     register_DC499999999_services,
 )
 from src.community.gramx.collars.DC499999999.stub import load_DC499999999_stubs
+from src.community.gramx.fifty.zero.ethos.product_spaces.entities.space_product.registry import (
+    register_space_product_services,
+)
+from src.community.gramx.fifty.zero.ethos.product_spaces.entities.space_product_domain.registry import (
+    register_space_product_domain_services,
+)
 from src.community.gramx.fifty.zero.ethos.service_spaces.entities.space_service.registry import (
     register_space_service_services,
 )
@@ -276,6 +307,21 @@ class Loader(object):
         register_space_service_services(aio=aio)
         register_space_service_domain_services(aio=aio)
         logging.info(f"Service Spaces context loaded")
+        pass
+
+    @staticmethod
+    def init_multiverse_product_spaces_context(aio: bool):
+        logging.info(f"Product Spaces context loading...")
+        register_space_product_services(aio=aio)
+        register_space_product_domain_services(aio=aio)
+        logging.info(f"Service Spaces context loaded")
+        pass
+
+    @staticmethod
+    def init_multiverse_product_spaces_collars_context(aio: bool):
+        logging.info(f"Service Product Collars context loading...")
+        register_DC499999994_services(aio=aio)
+        logging.info(f"Service Spaces Collars context loaded")
         pass
 
     @staticmethod
@@ -536,6 +582,33 @@ class Loader(object):
         )
 
         # ------------------------------------
+        # PRODUCT STUBS
+        # ------------------------------------
+
+        # SPACE PRODUCT STUBS
+        access_space_product_service_stub = AccessSpaceProductServiceStub(
+            capabilities_common_channel
+        )
+        Registry.register_service(
+            "access_space_product_service_stub", access_space_product_service_stub
+        )
+
+        discover_space_product_services_stub = DiscoverSpaceProductServiceStub(
+            capabilities_common_channel
+        )
+        Registry.register_service(
+            "discover_space_product_services_stub",
+            discover_space_product_services_stub,
+        )
+
+        create_space_product_service_stub = CreateSpaceProductServiceStub(
+            capabilities_common_channel
+        )
+        Registry.register_service(
+            "create_space_product_service_stub", create_space_product_service_stub
+        )
+
+        # ------------------------------------
         # KNOWLEDGE DOMAIN STUBS
         # ------------------------------------
 
@@ -591,6 +664,34 @@ class Loader(object):
             discover_space_service_domain_service_stub,
         )
 
+        # ------------------------------------
+        # PRODUCT DOMAIN STUBS
+        # ------------------------------------
+
+        create_space_product_domain_service_stub = CreateSpaceProductDomainServiceStub(
+            capabilities_common_channel
+        )
+        Registry.register_service(
+            "create_space_product_domain_service_stub",
+            create_space_product_domain_service_stub,
+        )
+
+        access_space_product_domain_service_stub = AccessSpaceProductDomainServiceStub(
+            capabilities_common_channel
+        )
+        Registry.register_service(
+            "access_space_product_domain_service_stub",
+            access_space_product_domain_service_stub,
+        )
+
+        discover_space_product_domain_service_stub = (
+            DiscoverSpaceProductDomainServiceStub(capabilities_common_channel)
+        )
+        Registry.register_service(
+            "discover_space_product_domain_service_stub",
+            discover_space_service_domain_service_stub,
+        )
+
         # --------------------------------------
         # KNOWLEDGE DOMAIN STUBS --- FILE STUBS
         # --------------------------------------
@@ -617,6 +718,14 @@ class Loader(object):
         Registry.register_service(
             "delete_space_knowledge_domain_file_service_stub",
             delete_space_knowledge_domain_file_service_stub,
+        )
+
+        discover_space_knowledge_domain_file_service_stub = (
+            DiscoverKnowledgeDomainFileServiceStub(capabilities_common_channel)
+        )
+        Registry.register_service(
+            "discover_space_knowledge_domain_file_service_stub",
+            discover_space_knowledge_domain_file_service_stub,
         )
 
         # PAGE STUBS
@@ -701,6 +810,12 @@ class Loader(object):
 
         load_DC499999998_stubs(capabilities_common_channel)
         load_DC499999999_stubs(capabilities_common_channel)
+
+        # ----------------------------------------------
+        # PRODUCT DOMAIN COllAR STUBS
+        # ----------------------------------------------
+
+        load_DC499999994_stubs(capabilities_common_channel)
 
         # --------------------------------------------
         # COGNITIVE ASSIST KNOWLEDGE RETRIEVER STUBS

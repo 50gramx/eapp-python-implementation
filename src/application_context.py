@@ -187,6 +187,21 @@ class ApplicationContext(object):
         return Registry.get_service("discover_space_service_services_stub")
 
     # -----------------------------------------
+    # Space Product Service Stubs
+    # -----------------------------------------
+    @staticmethod
+    def create_space_product_service_stub():
+        return Registry.get_service("create_space_product_service_stub")
+
+    @staticmethod
+    def access_space_product_service_stub():
+        return Registry.get_service("access_space_product_service_stub")
+
+    @staticmethod
+    def discover_space_product_services_stub():
+        return Registry.get_service("discover_space_product_services_stub")
+
+    # -----------------------------------------
     # Space Knowledge Domain Service Stubs
     # -----------------------------------------
     @staticmethod
@@ -234,6 +249,21 @@ class ApplicationContext(object):
         """
         return Registry.get_service("discover_space_service_domain_service_stub")
 
+    # -----------------------------------------
+    # Space Product Domain Service Stubs
+    # -----------------------------------------
+    @staticmethod
+    def create_space_product_domain_service_stub():
+        return Registry.get_service("create_space_product_domain_service_stub")
+
+    @staticmethod
+    def access_space_product_domain_service_stub():
+        return Registry.get_service("access_space_product_domain_service_stub")
+
+    @staticmethod
+    def discover_space_product_domain_service_stub():
+        return Registry.get_service("discover_space_product_domain_service_stub")
+
     # --------------------------------------------------
     # Space Knowledge Domain File Service Stubs
     # --------------------------------------------------
@@ -257,6 +287,11 @@ class ApplicationContext(object):
         :rtype: proto.ethos.elint.services.product.knowledge.space_knowledge_domain_file.delete_space_knowledge_domain_file_pb2_grpc
         """
         return Registry.get_service("delete_space_knowledge_domain_file_service_stub")
+    
+
+    @staticmethod
+    def discover_space_knowledge_domain_file_service_stub():
+        return Registry.get_service("discover_space_knowledge_domain_file_service_stub")
 
     # --------------------------------------------------
     # Space Knowledge Domain File Page Service Stubs
@@ -342,6 +377,13 @@ class ApplicationContext(object):
     @staticmethod
     def dc499999999_epme5000_capabilities_stub():
         return Registry.get_service("dc499999999_epme5000_capabilities_stub")
+
+    # --------------------------------------------------
+    # Space Product Domain - Collars Stub
+    # --------------------------------------------------
+    @staticmethod
+    def dc499999994_epme5000_capabilities_stub():
+        return Registry.get_service("dc499999994_epme5000_capabilities_stub")
 
     # ----------  Services ---------
     @staticmethod
@@ -496,6 +538,21 @@ class ApplicationContext(object):
         """
         return Registry.get_service("discover_space_service_service")
 
+    # ------------------------------
+    # Space Product Services
+    # ------------------------------
+    @staticmethod
+    def get_create_space_product_service():
+        return Registry.get_service("create_space_product_service")
+
+    @staticmethod
+    def get_access_space_product_service():
+        return Registry.get_service("access_space_product_service")
+
+    @staticmethod
+    def get_discover_space_product_service():
+        return Registry.get_service("discover_space_product_service")
+
     # -------------------------------------
     # Space Knowledge Domain Services
     # -------------------------------------
@@ -544,6 +601,21 @@ class ApplicationContext(object):
         """
         return Registry.get_service("discover_space_service_domain_service")
 
+    # -------------------------------------
+    # Space Product Domain Services
+    # -------------------------------------
+    @staticmethod
+    def get_create_space_product_domain_service():
+        return Registry.get_service("create_space_product_domain_service")
+
+    @staticmethod
+    def get_access_space_product_domain_service():
+        return Registry.get_service("access_space_product_domain_service")
+
+    @staticmethod
+    def get_discover_space_product_domain_service():
+        return Registry.get_service("discover_space_product_domain_service")
+
     # --------------------------------------------
     # Space Knowledge Domain File Services
     # --------------------------------------------
@@ -567,6 +639,13 @@ class ApplicationContext(object):
         :rtype: src.service.space_knowledge_domain_file.DeleteSpaceKnowledgeDomainFileService
         """
         return Registry.get_service("delete_space_knowledge_domain_file_service")
+
+    @staticmethod
+    def get_discover_space_knowledge_domain_file_service():
+        """
+        :rtype: src.service.space_knowledge_domain_file.DiscoverSpaceKnowledgeDomainFileService
+        """
+        return Registry.get_service("discover_space_knowledge_domain_file_service")
 
     # --------------------------------------------
     # Space Knowledge Domain File Page Services
@@ -671,3 +750,7 @@ class ApplicationContext(object):
     @staticmethod
     def get_dc499999999_epme5000_capabilities():
         return Registry.get_service("dc499999999_epme5000_capabilities")
+
+    @staticmethod
+    def get_dc499999994_epme5000_capabilities():
+        return Registry.get_service("dc499999994_epme5000_capabilities")
