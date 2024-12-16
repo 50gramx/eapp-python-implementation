@@ -168,6 +168,15 @@ services:
     depends_on:
       - postgres
 
+  # Website (cloud.50gramx.com) (Self-hosted)
+  cloud-site:
+    image: docker.io/ethosindia/eapp-nextjs-implementations:latest
+    restart: always
+    ports:
+      - '8099:3000'
+    depends_on:
+      - strapi
+
 networks:
   default:
     driver: bridge
