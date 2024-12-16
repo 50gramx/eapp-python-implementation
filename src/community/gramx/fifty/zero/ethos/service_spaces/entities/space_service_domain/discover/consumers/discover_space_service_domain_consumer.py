@@ -18,5 +18,5 @@
 #   */
 
 
-class DiscoverSpaceKnowledgeDomainConsumer:
+class DiscoverSpaceServiceDomainConsumer:
     pass
