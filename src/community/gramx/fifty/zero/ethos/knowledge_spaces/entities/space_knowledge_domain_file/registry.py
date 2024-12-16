@@ -16,12 +16,18 @@
 #   * is strictly forbidden unless prior written permission is obtained
 #   * from Amit Kumar Khetan.
 #   */
-from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file.access.capabilities.access_space_knowledge_domain_file_service import \
-    AccessSpaceKnowledgeDomainFileService
-from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file.create.capabilities.create_space_knowledge_domain_file_service import \
-    CreateSpaceKnowledgeDomainFileService
-from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file.delete.capabilities.delete_space_knowledge_domain_file_service import \
-    DeleteSpaceKnowledgeDomainFileService
+from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file.access.capabilities.access_space_knowledge_domain_file_service import (
+    AccessSpaceKnowledgeDomainFileService,
+)
+from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file.create.capabilities.create_space_knowledge_domain_file_service import (
+    CreateSpaceKnowledgeDomainFileService,
+)
+from community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file.delete.capabilities.delete_space_knowledge_domain_file_service import (
+    DeleteSpaceKnowledgeDomainFileService,
+)
+from src.community.gramx.fifty.zero.ethos.knowledge_spaces.entities.space_knowledge_domain_file.discover.capabilities.discover_space_knowledge_domain_file_service import (
+    DiscoverSpaceKnowledgeDomainFileService,
+)
 from support.application.registry import Registry
 
 
@@ -29,12 +35,31 @@ def register_space_knowledge_domain_file_services(aio: bool):
     if aio:
         pass
     else:
-        create_space_knowledge_domain_file_service = CreateSpaceKnowledgeDomainFileService()
-        Registry.register_service('create_space_knowledge_domain_file_service',
-                                  create_space_knowledge_domain_file_service)
-        access_space_knowledge_domain_file_service = AccessSpaceKnowledgeDomainFileService()
-        Registry.register_service('access_space_knowledge_domain_file_service',
-                                  access_space_knowledge_domain_file_service)
-        delete_space_knowledge_domain_file_service = DeleteSpaceKnowledgeDomainFileService()
-        Registry.register_service('delete_space_knowledge_domain_file_service',
-                                  delete_space_knowledge_domain_file_service)
+        create_space_knowledge_domain_file_service = (
+            CreateSpaceKnowledgeDomainFileService()
+        )
+        Registry.register_service(
+            "create_space_knowledge_domain_file_service",
+            create_space_knowledge_domain_file_service,
+        )
+        access_space_knowledge_domain_file_service = (
+            AccessSpaceKnowledgeDomainFileService()
+        )
+        Registry.register_service(
+            "access_space_knowledge_domain_file_service",
+            access_space_knowledge_domain_file_service,
+        )
+        delete_space_knowledge_domain_file_service = (
+            DeleteSpaceKnowledgeDomainFileService()
+        )
+        Registry.register_service(
+            "delete_space_knowledge_domain_file_service",
+            delete_space_knowledge_domain_file_service,
+        )
+        discover_space_knowledge_domain_file_service = (
+            DiscoverSpaceKnowledgeDomainFileService()
+        )
+        Registry.register_service(
+            "discover_space_knowledge_domain_file_service",
+            discover_space_knowledge_domain_file_service,
+        )

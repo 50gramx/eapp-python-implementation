@@ -18,12 +18,18 @@
 #   */
 import logging
 
-from ethos.elint.services.product.knowledge.space_knowledge_domain_file.access_space_knowledge_domain_file_pb2_grpc import \
-    add_AccessSpaceKnowledgeDomainFileServiceServicer_to_server
-from ethos.elint.services.product.knowledge.space_knowledge_domain_file.create_space_knowledge_domain_file_pb2_grpc import \
-    add_CreateSpaceKnowledgeDomainFileServiceServicer_to_server
-from ethos.elint.services.product.knowledge.space_knowledge_domain_file.delete_space_knowledge_domain_file_pb2_grpc import \
-    add_DeleteSpaceKnowledgeDomainFileServiceServicer_to_server
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file.access_space_knowledge_domain_file_pb2_grpc import (
+    add_AccessSpaceKnowledgeDomainFileServiceServicer_to_server,
+)
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file.create_space_knowledge_domain_file_pb2_grpc import (
+    add_CreateSpaceKnowledgeDomainFileServiceServicer_to_server,
+)
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file.delete_space_knowledge_domain_file_pb2_grpc import (
+    add_DeleteSpaceKnowledgeDomainFileServiceServicer_to_server,
+)
+from ethos.elint.services.product.knowledge.space_knowledge_domain_file.discover_space_knowledge_domain_file_pb2_grpc import (
+    add_DiscoverKnowledgeDomainFileServiceServicer_to_server,
+)
 
 from application_context import ApplicationContext
 
@@ -35,12 +41,17 @@ def handle_space_knowledge_domain_file_services(server, aio: bool):
         add_AccessSpaceKnowledgeDomainFileServiceServicer_to_server(
             ApplicationContext.get_access_space_knowledge_domain_file_service(), server
         )
-        logging.info(f'\t\t [x] access')
+        logging.info(f"\t\t [x] access")
         add_CreateSpaceKnowledgeDomainFileServiceServicer_to_server(
             ApplicationContext.get_create_space_knowledge_domain_file_service(), server
         )
-        logging.info(f'\t\t [x] create')
+        logging.info(f"\t\t [x] create")
         add_DeleteSpaceKnowledgeDomainFileServiceServicer_to_server(
             ApplicationContext.get_delete_space_knowledge_domain_file_service(), server
         )
-        logging.info(f'\t\t [x] delete')
+        logging.info(f"\t\t [x] delete")
+        add_DiscoverKnowledgeDomainFileServiceServicer_to_server(
+            ApplicationContext.get_discover_space_knowledge_domain_file_service(),
+            server,
+        )
+        logging.info(f"\t\t [x] discover")
