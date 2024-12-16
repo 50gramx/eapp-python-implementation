@@ -21,7 +21,7 @@ click-repl==0.3.0
 cryptography==41.0.7
 Deprecated==1.2.14
 elasticsearch==8.13.0   # TODO: Evaluate the version
-ethos>=24.11.219
+ethos>=24.11.238
 diskcache==5.6.3    # TODO: Evaluate the need
 firebase-admin==6.3.0
 FLAML==2.1.1    # TODO: Evaluate the need
@@ -50,7 +50,7 @@ kombu==5.3.4
 msgpack==1.0.7
 multidict==6.0.4
 numpy==1.26.2
-openai==1.6.0   # TODO: Evaluate the need
+openai==1.55.3   # TODO: Evaluate the need
 opencv-python==4.8.1.78
 opentelemetry-api==1.21.0
 opentelemetry-exporter-otlp==1.21.0
@@ -75,7 +75,7 @@ psycopg2-binary==2.9.9
 py3dns==4.0.0
 pyasn1==0.5.1
 pyasn1-modules==0.3.0
-pyautogen==0.2.23   # TODO: Evaluate the need
+pyautogen==0.4   # TODO: Evaluate the need
 pycparser==2.21
 pydantic==2.5.2
 pydantic_core==2.14.5
@@ -106,6 +106,7 @@ tornado==6.4
 transformers==4.39.3     # TODO: Evaluate the version
 twilio==8.10.3
 typing_extensions==4.9.0
+typing-extensions==4.12.2   # TODO: Evaluate the version
 tzdata==2023.3
 uritemplate==4.1.1
 urllib3==1.26.18
