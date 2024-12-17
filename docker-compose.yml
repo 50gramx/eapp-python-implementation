@@ -173,7 +173,7 @@ services:
     image: docker.io/ethosindia/eapp-nextjs-implementations:latest
     restart: always
     ports:
-      - '50901:3000'
+      - '50505:3000'
     depends_on:
       - strapi
 
